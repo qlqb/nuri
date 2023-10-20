@@ -51,6 +51,13 @@ public class AdminUserController {
 		return "redirect:/admin/user/userInfoList";
 	}
 
+
+	@GetMapping(value={"/userManualRegist"})
+	public String officerManualRegist(Model model) {
+
+		return "admin/user/userManualRegist";
+	}
+
 	/**
 	 * 사용자 정보 수정
 	 * @param userId 정보 수정 시에 수정할 회원의 아이디

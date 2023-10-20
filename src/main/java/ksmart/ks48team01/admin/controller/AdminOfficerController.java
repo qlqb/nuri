@@ -29,15 +29,8 @@ public class AdminOfficerController {
 
 		return "admin/officer/officerInfoSpecific";
 	}
-	
-	//사용자 정보 수정
-	@GetMapping(value={"/officerInfoRegist"})
-	public String officerInfoRegist(Model model) {
 
-		return "admin/officer/officerInfoRegist";
-	}
-	
-	//사용자 정보 삭제
+	//사용자 정보 삭
 	@GetMapping(value={"/officerInfoUpdate"})
 	public String officerInfoUpdate(Model model) {
 
