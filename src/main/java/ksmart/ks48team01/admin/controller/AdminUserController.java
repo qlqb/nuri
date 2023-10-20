@@ -53,7 +53,7 @@ public class AdminUserController {
 
 
 	@GetMapping(value={"/userManualRegist"})
-	public String officerManualRegist(Model model) {
+	public String userManualRegist(Model model) {
 
 		return "admin/user/userManualRegist";
 	}
