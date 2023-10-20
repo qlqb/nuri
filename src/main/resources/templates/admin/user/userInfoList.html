@@ -47,42 +47,42 @@
               <form class="form-horizontal form-label-left">
 
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">Date Mask</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">이름</label>
                   <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">Phone mask</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">권한</label>
                   <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" data-inputmask="'mask' : '(999) 999-9999'">
                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">Custom Mask</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">지역</label>
                   <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" data-inputmask="'mask': '99-999999'">
                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">Serial Number</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">나이</label>
                   <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" data-inputmask="'mask' : '****-****-****-****-****-***'">
                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">TaxID Mask</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">이메일</label>
                   <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" data-inputmask="'mask' : '99-99999999'">
                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">Credit Card Mask</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">휴대전화번호</label>
                   <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" data-inputmask="'mask' : '9999-9999-9999-9999'">
                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -128,6 +128,20 @@
             <div class="x_content">
               <form class="form-horizontal form-label-left">
 
+                <div class="col-md-5 col-sm-6" style="border: 1px solid black; border-radius: 1px;
+                 margin: 5px">
+                  이름 : 김길동
+                </div>
+                <div class="col-md-5 col-sm-6" style="border: 1px solid black; border-radius: 1px;
+                 margin: 5px">
+                  나이 : 25
+                </div>
+                <div class="col-md-5 col-sm-6" style="border: 1px solid black; border-radius: 1px;
+                 margin: 5px">
+                  지역 : 전주
+                </div>
+
+
 
                 <div class="ln_solid"></div>
 
@@ -151,7 +165,7 @@
           <div class="x_panel">
             <div class="x_content">
               <p class="text-muted font-13 m-b-30">
-                데이터 테이블 조회하기</p>
+                검색결과</p>
 
               <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                 <thead>
@@ -159,12 +173,12 @@
                   <th>
                     <input type="checkbox" id="홍길동" class="flat">
                   </th>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
+                  <th>이름</th>
+                  <th>권한</th>
+                  <th>지역</th>
+                  <th>나이</th>
+                  <th>이메일</th>
+                  <th>휴대전화번호</th>
                 </tr>
                 </thead>
 
@@ -173,16 +187,48 @@
                   <td>
                     <input type="checkbox" id="김길동" class="flat">
                   </td>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>$320,800</td>
+                  <td>김길동</td>
+                  <td>판매자</td>
+                  <td>전라북도 전주시</td>
+                  <td>25</td>
+                  <td>admin1234@email.com</td>
+                  <td>010-0111-0421</td>
                 </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" id="김길동" class="flat">
+                  </td>
+                  <td>김길동</td>
+                  <td>판매자</td>
+                  <td>전라북도 전주시</td>
+                  <td>25</td>
+                  <td>admin1234@email.com</td>
+                  <td>010-0111-0421</td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" id="김길동" class="flat">
+                  </td>
+                  <td>김길동</td>
+                  <td>판매자</td>
+                  <td>전라북도 전주시</td>
+                  <td>25</td>
+                  <td>admin1234@email.com</td>
+                  <td>010-0111-0421</td>
+                </tr>
+
+
 
                 </tbody>
               </table>
+
+            </div>
+            <form action=""></form>
+            <div class="form-group row">
+              <div class="col-md-9 offset-md-3">
+                <button type="submit" class="btn btn-primary">체크 초기화</button>
+                <button type="submit" class="btn btn-success">체크된 회원 정보 수정</button>
+              </div>
             </div>
           </div>
         </div>

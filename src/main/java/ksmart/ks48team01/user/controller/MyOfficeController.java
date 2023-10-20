@@ -12,12 +12,12 @@ public class MyOfficeController {
     @GetMapping("/officerBudget")
     public String officerMyPageBudget(Model model) {
 
-        return "/user/myoffice/officerBudget";
+        return "user/myoffice/officerBudget";
     }
 
     @GetMapping("/officerRegion")
     public String officerMyPageRegion(Model model) {
 
-        return "/user/myoffice/officerRegion";
+        return "user/myoffice/officerRegion";
     }
 }
