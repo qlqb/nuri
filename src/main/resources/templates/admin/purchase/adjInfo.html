@@ -30,16 +30,16 @@
 	                        <div class="col-md-6 col-sm-6 col-xs-12">
 	                          <div id="" class="btn-group" data-toggle="buttons">
 	                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	                              <input type="radio" name="" value=""> &nbsp; 지역별 &nbsp;
+	                              <input type="radio" name="region" value="region"> &nbsp; 지역별 &nbsp;
 	                            </label>
 	                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	                              <input type="radio" name="" value=""> &nbsp; 업종별 &nbsp;
+	                              <input type="radio" name="cate" value="cate"> &nbsp; 업종별 &nbsp;
 	                            </label>
 	                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	                              <input type="radio" name="" value=""> &nbsp; 지역&업종별 &nbsp;
+	                              <input type="radio" name="regioncate" value="regioncate"> &nbsp; 지역&업종별 &nbsp;
 	                            </label>
 	                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	                              <input type="radio" name="" value=""> &nbsp; 가맹점별 &nbsp;
+	                              <input type="radio" name="store" value="store"> &nbsp; 가맹점별 &nbsp;
 	                            </label>
 	                          </div>
 	                        </div>
@@ -48,15 +48,15 @@
 	                      <div class="form-group">
 	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 입력 </label>
 	                        <div class="col-md-6 col-sm-6 col-xs-12">
-	                          <select class="form-control" >
+	                          <select class="form-control" disabled="disabled">
 	                          	<option> === 지역을 선택해주세요 ===</option>
 	                          </select>
 	                        </div>
 	                      </div>
 	                      <div class="form-group">
 	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 업종 입력 </label>
-	                        <div class="col-md-6 col-sm-6 col-xs-12">
-	                          <select class="form-control" >
+	                        <div class="col-md-6 col-sm-6 col-xs-12" disabled="disabled">
+	                          <select class="form-control" disabled="disabled">
 	                          	<option> === 업종을 선택해주세요 ===</option>
 	                          </select>
 	                        </div>
@@ -64,8 +64,8 @@
 	                      <div class="form-group">
 	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 가맹점 코드</label>
 	                        <div class="col-md-6 col-sm-6 col-xs-12">
-	                          <input type="text" id="" name="" class="form-control col-md-7 col-xs-12"
-	                          placeholder="가맹점 코드를 입력해주세요">
+	                          <input type="text" id="" name="" class="form-control col-md-7 col-xs-12" 
+	                          placeholder="가맹점 코드를 입력해주세요" disabled="disabled">
 	                        </div>
 	                      </div>
 	                      
@@ -81,8 +81,8 @@
 	                      <div class="ln_solid"></div>
 	                      <div class="form-group">
 	                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-	                          <button type="button" class="btn btn-primary">초기화</button>
-	                          <button type="submit" class="btn btn-success">검색</button>
+	                          <button type="button" class="btn btn-primary" id="resetBtn">초기화</button>
+	                          <button type="submit" class="btn btn-success" id="searchBtn">검색</button>
 	                        </div>
 	                      </div>
                     	</form>
@@ -116,33 +116,23 @@
 		               		   <tbody>
 				                 <tr>
 				                   <td><input type="checkbox" id="check-all" class="flat"></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
+				                   <td>가맹점A</td>
+				                   <td>2023-10-18</td>
+				                   <td>전라북도 전주시</td>
+				                   <td>도서</td>
+				                   <td>도서A</td>
+				                   <td>30000</td>
+				                   <td>adjd20231018</td>
 				                 </tr>
 				                 <tr>
 				                   <td><input type="checkbox" id="check-all" class="flat"></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                 </tr>
-				                 <tr>
-				                   <td><input type="checkbox" id="check-all" class="flat"></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
+				                   <td>가맹점B</td>
+				                   <td>2023-07-18</td>
+				                   <td>서울특별시 종로구</td>
+				                   <td>공연</td>
+				                   <td>연극</td>
+				                   <td>43000</td>
+				                   <td>adjd20230718</td>
 				                 </tr>
 		                 		</tbody>
 		             		</table>
