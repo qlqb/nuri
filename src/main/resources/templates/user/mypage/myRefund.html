@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/news.css}"/>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!-- Template의 원본에서 Core StyleSheets 가져와야 합니다.
+    레퍼런스 CSS 파일이 되는 것 - contact.css & shop.css <link rel="stylesheet" href="css/contact.css"> -->
+
+    <section id="contact-p1" class="contact-p1">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="p-5 text-center">
+                        <h3 th:text="${head}"></h3>
+                        <p th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="shop-p1" class="shop-p1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="shop-p1-title">
+                            <h3 th:text="${head}"></h3>
+                            <div class="heading-border-light"></div>
+                        </div>
+
+                        <!-- 권한 별로 접근할 수 있는 aside 제어필요 -->
+                        <div class="list-group">
+                            <a th:href="@{/user/mypage/myInfo}" class="list-group-item">나의 정보</a>
+                            <a th:href="@{/user/mypage/myOrder}" class="list-group-item">나의 주문/예약 조회</a>
+                            <a th:href="@{/user/mypage/myRefund}" class="list-group-item">주문 취소/환불 조회</a>
+                            <a th:href="@{/user/mypage/myBoard}" class="list-group-item">작성한 게시글</a>
+                            <a th:href="@{/user/mypage/myContents}" class="list-group-item">작성한 컨텐츠</a>
+                            <a th:href="@{/user/mypage/myStore}" class="list-group-item">가맹점 정보</a>
+                            <a th:href="@{/user/myoffice/myOffice}" class="list-group-item">행정기관 정보</a>
+                            <a th:href="@{/user/myoffice/officerBudget}" class="list-group-item">행정업무</a>
+                        </div>
+
+                        <div class="col-lg-9">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+
+
+
+
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+<head>
+    <style>
+    	
+    </style>
+</head>
+	<!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+		<section id="news-p1" class="news-p1">
+      <div class="container">
+        <div class="row">
+          <div class="card-columns">
+            <div class="card">
+              <div class="desc-comp-offer-cont">
+              <div class="thumbnail-blogs">
+                  <div class="caption">
+                    <i class="fa fa-chain"></i>
+                  </div>
+                  <img src="img/contents/news-6.jpg" class="img-fluid" alt="...">
+              </div>
+              <h3>오펜하이머</h3>
+              <p class="desc">test1 </p>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="desc-comp-offer-cont">
+              <div class="thumbnail-blogs">
+                  <div class="caption">
+                    <i class="fa fa-chain"></i>
+                  </div>
+                  <img src="img/news/news-8.jpg" class="img-fluid" alt="...">
+              </div>
+              </div>  
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+    </th:block>
+    
+    <!-- 사용자별 스크립트 작성 -->
+    <th:block layout:fragment="customJsCode">
+
+    </th:block>
+
+    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<th:block layout:fragment="customContents">
+		
+	</th:block>
+
+</html>

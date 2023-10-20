@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+    <div id="main" style="width: 600px; height:400px;"></div>
+    <script type="text/javascript">
+        let myChart = echarts.init(document.getElementById('main'))
+
+        let option={
+            title:{
+                text: 'ECharts 기본예제:HTML',
+            },
+            legend:{
+                data:['개수'],
+                top:20,
+            },
+            xAxis: {
+                data:['제품A','제품B','제품C'],
+            },
+            yAxis:{},
+            series:[
+                {
+                    name:'개수',
+                    type:'bar',
+                    data:[5,3,4],
+                },
+            ],
+        }
+        myChart.setOption(option)
+    </script>
+
+</body>
+</html>
