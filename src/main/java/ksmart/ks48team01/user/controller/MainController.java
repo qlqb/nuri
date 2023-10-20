@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class MainController {
 
+
+
 	@GetMapping(value = {"", "/"})
 	public String userMainPage(Model model) {
 		

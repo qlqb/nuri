@@ -19,6 +19,8 @@
 	<link rel="stylesheet" th:href="@{/user/css/animate/animate.min.css}">
 	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.carousel.min.css}">
 	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.theme.default.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+	<link rel="stylesheet" th:href="@{/user/css/news.css}"/>
 	<link rel="stylesheet" th:href="@{/user/css/style.css}">
 </head>
 
@@ -32,7 +34,8 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<th:block layout:fragment="customContents">
+			<th:block layout:fragment="customContents" th:fragment="~{user/fragments/aside}">
+
 
 			</th:block>
 			<!-- /page content -->
