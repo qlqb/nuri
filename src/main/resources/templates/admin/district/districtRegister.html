@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/admin/layout/default}">
+
+	<th:block layout:fragment="customJs">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+
+  <body id="page-top">
+
+	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+	<th:block layout:fragment="customContents">
+					<div class="x_panel">
+						<div th:include="~{/admin/fragments/tabs :: userTabs}"></div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 ">
+									<div class="x_panel">
+										<div class="x_title">
+											<h2>회원등록하기</h2>
+											<div class="clearfix"></div>
+										</div>
+										<div class="x_content">
+											<br />
+											<form id="demo-form2" th:action="@{/admin/user/userInfoRegister}" method="post" class="form-horizontal form-label-left" novalidate>
+
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">아이디<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input type="text" id="first-name" required="required" class="form-control ">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">비밀번호<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input type="text" id="last-name" name="last-name" required="required" class="form-control">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">권한등급</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">지역</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">행정구역</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">상세주소</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">이름</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">주민번호</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+												<div class="item form-group">
+													<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">연락처</label>
+													<div class="col-md-6 col-sm-6 ">
+														<input id="middle-name" class="form-control" type="text" name="middle-name">
+													</div>
+												</div>
+
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align">성별</label>
+													<div class="col-md-6 col-sm-6 ">
+														<div id="gender" class="btn-group" data-toggle="buttons">
+															<label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+																<input type="radio" name="gender" value="male" class="join-btn"> &nbsp; 남 &nbsp;
+															</label>
+															<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+																<input type="radio" name="gender" value="female" class="join-btn"> 여
+															</label>
+														</div>
+													</div>
+												</div>
+												<div class="ln_solid"></div>
+												<div class="item form-group">
+													<div class="col-md-6 col-sm-6 offset-md-3">
+														<button class="btn btn-danger" type="button">입력취소</button>
+														<button class="btn btn-primary" type="reset">미리보기</button>
+														<button type="submit" class="btn btn-success">회원등록</button>
+													</div>
+												</div>
+
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 회원 등록 정보 미리보기 -->
+
+							<!-- 회원 등록 정보 미리보기 -->
+
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="x_panel">
+										<div class="x_content">
+											<p class="text-muted font-13 m-b-30">
+												아래와 같은 정보가 등록됩니다</p>
+
+											<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+												<thead>
+												<tr>
+													<th>아이디</th>
+													<th>권한</th>
+													<th>이름</th>
+													<th>이메일</th>
+													<th>연락처</th>
+													<th>지역</th>
+													<th>행정구역</th>
+													<th>상세주소</th>
+												</tr>
+												</thead>
+
+												<tbody>
+												<tr>
+													<td>id001</td>
+													<td>공무원</td>
+													<td>김길동</td>
+													<td>emailexample14@email.com</td>
+													<td>010-0000-0003</td>
+													<td>경상남도</td>
+													<td>창원시</td>
+													<td>경상남도 창원시 마산회원구 345-67 706호</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 회원 등록 정보 미리보기 -->
+						</div>
+	</th:block>
+
+  </body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- region 페이지 상단 Tabs-->
+<div th:fragment="userTabs">
+  <div class="x_content">
+    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+      <li class="nav-item" data-id="">
+        <a class="nav-link" th:href="@{/admin/user/userInfoList}" aria-controls="home" aria-selected="true">회원목록</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/user/userInfoRegister}" aria-controls="profile" aria-selected="false">회원등록</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div th:fragment="regionTabs">
+  <div class="x_content">
+    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+      <li class="nav-item" data-id="">
+        <a class="nav-link" th:href="@{/admin/region/regionList}" aria-controls="home" aria-selected="true">지역목록</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/region/regionRegister}" aria-controls="profile" aria-selected="false">지역등록</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div th:fragment="districtTabs">
+  <div class="x_content">
+    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+      <li class="nav-item" data-id="">
+        <a class="nav-link" th:href="@{/admin/district/districtList}" aria-controls="home" aria-selected="true">행정구역검색</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/district/districtRegister}" aria-controls="profile" aria-selected="false">행정구역등록</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div th:fragment="departmentTabs">
+    </div>
+    <div class="x_content">
+      <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+        <li class="nav-item" data-id="">
+          <a class="nav-link" th:href="@{/admin/department/depList}" aria-controls="home" aria-selected="true">행정기관검색</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/admin/department/depRegister}" aria-controls="profile" aria-selected="false">행정기관등록</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</html>
