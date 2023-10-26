@@ -50,6 +50,13 @@
 							<li><a th:href="@{/admin/officer/publicInfoList}">지역/행정기관 목록</a></li>
 						</ul>
 					</li>
+					<li><a><i class="fa fa-edit"></i>예산 관리 <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a th:href="@{/admin/budget/budgetRegist}">예산 등록</a></li>
+							<li><a th:href="@{/admin/budget/budgetInfo}">예산 조회(전국 단위 예산, 1인당 지원 금액)</a></li>
+							<li><a th:href="@{/admin/budget/budgetInfoRegion}">예산 조회(지역 단위 예산, 지역별 발급대상인원)</a></li>
+						</ul>
+					</li>
 					<li><a><i class="fa fa-desktop"></i> 가맹점 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/store/storeInfoList}">가맹점 목록</a></li>
@@ -72,7 +79,10 @@
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/purchase/reservationInfo}">예약내역 조회</a></li>
 							<li><a th:href="@{/admin/purchase/purchaseInfo}">결제내역 조회</a></li>
-							<li><a th:href="@{/admin/purchase/adjInfo}">정산내역 조회</a></li>
+							<li><a th:href="@{/admin/purchase/adjInfoRegion}">정산내역 조회(지역별)</a></li>
+							<li><a th:href="@{/admin/purchase/adjInfoCate}">정산내역 조회(업종별)</a></li>
+							<li><a th:href="@{/admin/purchase/adjInfoRegionCate}">정산내역 조회(지역+업종별)</a></li>
+							<li><a th:href="@{/admin/purchase/adjInfoStore}">정산내역 조회(가맹점)</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-clone"></i> 통계 관리 <span class="fa fa-chevron-down"></span></a>

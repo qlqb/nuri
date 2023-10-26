@@ -21,22 +21,13 @@
     <section id="shop-p1" class="shop-p1">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="shop-p1-title">
-                        <h3>마이페이지</h3>
-                        <div class="heading-border-light"></div>
-                    </div>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">내 정보</a>
-                        <a href="#" class="list-group-item">알림</a>
-                        <a href="#" class="list-group-item">주문/예약조회</a>
-                        <a href="#" class="list-group-item">취소/환불내역</a>
-                        <a href="#" class="list-group-item">공무원 계정정보</a>
-                        <a href="#" class="list-group-item">가맹점 계정정보</a>
-                        <a href="#" class="list-group-item">작성한 컨텐츠</a>
-                        <a href="#" class="list-group-item">작성한 게시글</a>
-                    </div>
-                </div>
+               
+                <div th:replace="~{user/fragments/aside :: mypageAsideOfficer}"></div>
+		        <div class="col-lg-9">
+		        	마이페이지 - 공무원
+		        	공무원 상세정보 조회/수정
+		        	
+		        </div>
             </div>
         </div>
     </section>

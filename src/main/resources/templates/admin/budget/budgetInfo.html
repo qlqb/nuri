@@ -26,45 +26,32 @@
 						<br />
 						
                     	<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                    	<div class="form-group">
 	                        <div class="form-group">
 	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
 	                         	 <input type="number" id="" name="" class="form-control col-md-7 col-xs-12">
 	                        	</div>
 	                      	</div>
-						  <div class="form-group">
-	                        <label class="control-label col-md-3 col-sm-3 col-xs-12">지역</label>
-	                        <div class="col-md-6 col-sm-6 col-xs-12">
-	                          <div id="" class="btn-group" data-toggle="buttons">
-	                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	                              <input type="radio" name="" value=""> &nbsp; 전국 &nbsp;
-	                            </label>
-	                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	                              <input type="radio" name="" value=""> &nbsp; 지역별 &nbsp;
-	                            </label>
-	                          </div>
-	                        </div>
-	                      </div>
-							
-	                      <div class="form-group">
-	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 입력 </label>
-	                        <div class="col-md-6 col-sm-6 col-xs-12">
-	                          <select class="form-control">
-	                          	<option> === 지역을 선택해주세요 ===</option>
-	                          	<option> 전국 </option>
-	                          	<option> 전라북도 </option>
-	                          </select>
-	                        </div>
-	                      </div>
-	                      
-	                      <div class="ln_solid"></div>
-	                      <div class="form-group">
-	                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-	                          <button type="button" class="btn btn-primary">초기화</button>
-	                          <button type="submit" class="btn btn-success">검색</button>
-	                        </div>
-	                      </div>
+						  
+		                      <div class="form-group">
+		                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 입력 </label>
+		                        <div class="col-md-6 col-sm-6 col-xs-12">
+		                          <select id="inputRegion" class="form-control">
+				                  	<option value="">=====지역을 선택하세요=====</option>
+				                  	<option value="11">서울특별시</option>
+				                  	<option value="21">부산광역시</option>
+				                  	<option value="24">광주광역시</option>
+				                  </select>  
+		                        </div>
+		                      </div>
+		                      
+		                      <div class="ln_solid"></div>
+		                      <div class="form-group">
+		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
+		                          <button type="button" class="btn btn-primary">초기화</button>
+		                          <button type="submit" class="btn btn-success">검색</button>
+		                        </div>
+		                      </div>
                     	</form>
 			        </div>
 			     </div>
@@ -85,40 +72,40 @@
 					             <tr>
 					               <th><input type="checkbox" id="check-all" class="flat"></th>
 				                   <th>연도</th>
-				                   <th>지역</th>
-				                   <th>배정된 예산 금액</th>
-				                   <th>발급 대상 인구 수</th>
+				                   <th>예산</th>
+				                   <th>1인당 지원 금액</th>
 					             </tr>
 					           </thead>
 		
 		               		   <tbody>
 				                 <tr>
 				                   <td><input type="checkbox" id="check-all" class="flat"></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
+				                   <td>2023</td>
+				                   <th>210,000,000,000</th>
+				                   <td>110000</td>
 
 				                 </tr>
 				                 <tr>
 				                   <td><input type="checkbox" id="check-all" class="flat"></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
-				                   <td></td>
+				                   <td>2022</td>
+				                   <th>240,000,000,000</th>
+				                   <td>100000</td>
 				                 </tr>
 
 		                 		</tbody>
 		             		</table>
-		             		<div class="pull-right">
-		             			<button type="button"> 수정</button>
-		             			<button type="button"> 삭제</button>
-		             		</div>
+							<div class="ln_solid"></div>
+	                      	<div class="form-group">
+		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
+		                          <button type="button" class="btn btn-primary">수정</button>
+		                          <button type="submit" class="btn btn-success">삭제</button>
+		                        </div>
+	                      	</div>
 		           		</div>
 	       			</div>
 				</div>
 			</div>
-			</div>	
+		</div>
 	</th:block>
   </body>
 </html>
