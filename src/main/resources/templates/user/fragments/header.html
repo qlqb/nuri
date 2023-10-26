@@ -4,7 +4,6 @@
                          HEADER
 ======================================================-->
 
-
 <header th:fragment="headerFragment">
 
 	<!-- Top Navbar  -->
@@ -36,11 +35,10 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle smooth-scroll" th:href="@{../about/serviceGuide}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">소개</a>
+						<a class="nav-link dropdown-toggle smooth-scroll" th:href="@{/user/about/nuriService}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">소개</a>
 						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" th:href="@{/user/about/nuriService}">누리컬쳐 서비스</a>
 							<a class="dropdown-item" th:href="@{/user/about/nuriStore}">누리컬쳐 가맹점</a>
-							<a class="dropdown-item" th:href="@{/user/about/nuriData}">누리컬쳐 데이터</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">

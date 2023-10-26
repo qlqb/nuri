@@ -11,6 +11,15 @@ public class MyPageController {
 
 	public String mypage = "마이페이지";
 
+	@GetMapping("/mypage")
+	public String myPage(Model model) {
+
+		model.addAttribute("title", "나의 정보");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/mypage";
+	}	
+	
 	@GetMapping("/myInfo")
 	public String myInfo(Model model) {
 
@@ -55,48 +64,5 @@ public class MyPageController {
 
 		return "user/mypage/myRefund";
 	}
-
-	@GetMapping("/myBoard")
-	public String myBoard(Model model) {
-
-		model.addAttribute("title", "나의 작성한 게시글");
-		model.addAttribute("head", mypage);
-
-
-		return "user/mypage/myBoard";
-	}
-
-	@GetMapping("/myContents")
-	public String myContents(Model model) {
-
-		model.addAttribute("title", "나의 컨텐츠 조회");
-		model.addAttribute("head", mypage);
-
-
-		return "user/mypage/myContents";
-	}
-
-	@GetMapping("/myStore")
-	public String myStore(Model model) {
-
-		model.addAttribute("title", "나의 가맹점 정보");
-		model.addAttribute("head", mypage);
-
-
-		return "user/mypage/myStore";
-	}
-
-	@GetMapping("/myStoreModify")
-	public String myStoreModify(Model model) {
-
-		model.addAttribute("title", "나의 가맹점 수정");
-		model.addAttribute("head", mypage);
-
-
-		return "user/mypage/myStoreModify";
-	}
-
-
-
 
 }

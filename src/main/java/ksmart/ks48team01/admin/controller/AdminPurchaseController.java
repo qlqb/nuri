@@ -16,17 +16,33 @@ public class AdminPurchaseController {
 		return "admin/purchase/reservationInfo";
 	}
 	
-
 	@GetMapping(value={"purchaseInfo"})
 	public String purchaseInfo(Model model) {
 
 		return "admin/purchase/purchaseInfo";
 	}
 
-	@GetMapping(value={"adjInfo"})
-	public String adjInfo(Model model) {
+	@GetMapping(value={"adjInfoRegion"})
+	public String adjInfoRegion(Model model) {
 
-		return "admin/purchase/adjInfo";
+		return "admin/purchase/adjInfoRegion";
+	}
+	
+	@GetMapping(value={"adjInfoCate"})
+	public String adjInfoCate(Model model) {
+
+		return "admin/purchase/adjInfoCate";
+	}
+	@GetMapping(value={"adjInfoRegionCate"})
+	public String adjInfoRegionCate(Model model) {
+
+		return "admin/purchase/adjInfoRegionCate";
+	}
+	
+	@GetMapping(value={"adjInfoStore"})
+	public String adjInfoStore(Model model) {
+
+		return "admin/purchase/adjInfoStore";
 	}
 
 }

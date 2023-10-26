@@ -30,17 +30,11 @@ public class AdminOfficerController {
 		return "admin/officer/officerInfoSpecific";
 	}
 
-	//사용자 정보 삭
+	//사용자 정보 수정
 	@GetMapping(value={"/officerInfoUpdate"})
 	public String officerInfoUpdate(Model model) {
 
 		return "admin/officer/officerInfoUpdate";
-	}
-	//사용자 정보 삭제
-	@GetMapping(value={"/officerInfoDelete"})
-	public String officerInfoDelete(Model model) {
-
-		return "admin/officer/officerInfoDelete";
 	}
 
 }

@@ -14,7 +14,7 @@ public class MunhwaInfoController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value = { "/aboutMunhwa"})
+	@GetMapping(value = "/aboutMunhwa")
 	public String aboutMunhwa(Model model) {
 
 		return "user/munhwa/aboutMunhwa";
@@ -25,7 +25,7 @@ public class MunhwaInfoController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value = { "/munhwaRegist"})
+	@GetMapping(value ="/munhwaRegist")
 	public String munhwaRegist(Model model) {
 
 		return "user/munhwa/munhwaRegist";
@@ -36,7 +36,7 @@ public class MunhwaInfoController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value = { "/munhwaCharge"})
+	@GetMapping(value = "/munhwaCharge")
 	public String munhwaCharge(Model model) {
 
 		return "user/munhwa/munhwaCharge";

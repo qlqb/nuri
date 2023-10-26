@@ -22,6 +22,13 @@ public class AdminBudgetController {
 		return "admin/budget/budgetInfo";
 	}
 	
+	
+	@GetMapping(value={"budgetInfoRegion"})
+	public String budgetInfoRegion(Model model) {
+
+		return "admin/budget/budgetInfoRegion";
+	}
+	
 
 	@GetMapping(value={"budgetUpdate"})
 	public String budgetUpdate(Model model) {
@@ -29,12 +36,5 @@ public class AdminBudgetController {
 		return "admin/budget/budgetUpdate";
 	}
 	
-
-	@GetMapping(value={"budgetDelete"})
-	public String budgetDelete(Model model) {
-
-		return "admin/budget/budgetDelete";
-	}
-
 
 }
