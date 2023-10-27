@@ -40,6 +40,31 @@
           </h3>
         </div>
 
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>예산 대비 사용률</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div id="echart_gauge" style="height:370px;"></div>
+          </div>
+        </div>
+
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
@@ -92,59 +117,109 @@
                   </div>
                 </div>
               </form>
-              </div>
-            </div>
-           </div>
-
-
-          <div class="col-md-12 col-sm-6 col-xs-12" style="margin-top: 2%">
-            <ul class="stats-overview">
-              <li>
-                <span class="name"> 총 예산 </span>
-                <span class="value text-success"> 200,300,000,000 </span>
-              </li>
-              <li>
-                <span class="name"> 사용량 </span>
-                <span class="value text-success"> 200,000,000,000 </span>
-              </li>
-              <li class="hidden-phone">
-                <span class="name"> 차액 </span>
-                <span class="value text-success"> 300,000,000 </span>
-              </li>
-            </ul>
-            <br />
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>예산 대비 사용률</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <div id="echart_gauge" style="height:370px;"></div>
-                </div>
-              </div>
             </div>
           </div>
-      </div>
-
-
         </div>
+
+
+        <div class="col-md-12 col-sm-6 col-xs-12" style="margin-top: 2%">
+          <ul class="stats-overview">
+            <li>
+              <span class="name"> 총 예산 </span>
+              <span class="value text-success"> 200,300,000,000 </span>
+            </li>
+            <li>
+              <span class="name"> 사용량 </span>
+              <span class="value text-success"> 200,000,000,000 </span>
+            </li>
+            <li class="hidden-phone">
+              <span class="name"> 차액 </span>
+              <span class="value text-success"> 300,000,000 </span>
+            </li>
+          </ul>
+          <br />
+        </div>
+
+        <div class="x_content">
+          <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+            <thead>
+            <tr>
+              <th><input type="checkbox" id="check-all" class="flat"></th>
+              <th>지역명</th>
+              <th>1월</th>
+              <th>2월</th>
+              <th>3월</th>
+              <th>4월</th>
+              <th>5월</th>
+              <th>6월</th>
+              <th>7월</th>
+              <th>8월</th>
+              <th>9월</th>
+              <th>10월</th>
+              <th>11월</th>
+              <th>12월</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+              <td><input type="checkbox" id="check-all" class="flat"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" id="check-all" class="flat"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" id="check-all" class="flat"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="pull-right">
+            <h5>총 매출액 : ${}원</h5>
+          </div>
+        </div>
+
       </div>
     </div>
+  </div>
 </th:block>
 
 </body>

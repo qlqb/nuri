@@ -15,4 +15,10 @@ public class AdminStatisticController {
 
 		return "admin/statistic/sttInfo";
 	}
+
+	@GetMapping("budgetUseageInfo")
+	public String budgetUseageInfo(Model model) {
+
+		return "admin/statistic/budgetUseageInfo";
+	}
 }
