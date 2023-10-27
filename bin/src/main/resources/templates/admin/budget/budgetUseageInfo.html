@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/admin/layout/default}">
+
+
+
+
+	<th:block layout:fragment="customJs">
+      <script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+
+    <!-- 사용자별 css file 추가 부분 -->
+    <head>
+      <link th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+      <style>
+
+      </style>
+
+    </head>
+
+    <!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+      <script th:src="@{/admin/vendors/Chart.js/dist/Chart.js}"></script>
+    </th:block>
+	
+  <body id="page-top">
+
+	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+	<th:block layout:fragment="customContents">
+      <div class="right_col" role="main">
+        <div class="">
+          <div class="page-title">
+            <div class="title_left">
+              <h3>
+                <h3>통계 <small>가맹점별</small></h3>
+              </h3>
+            </div>
+            <div class="title_right">
+              <div class="col-md-8 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default">
+                      <a href="javascript:;" id="가맹점별" title="가맹점별">가맹점별</a>
+                    </label>
+                    <label class="btn btn-default">
+                      <a href="javascript:;" id="업종별" title="업종별">업종별</a>
+                    </label>
+                    <label class="btn btn-default">
+                      <a href="javascript:;" id="도별" title="도별">도별</a>
+                    </label>
+                    <label class="btn btn-default">
+                      <a href="javascript:;" id="시군별" title="시군별">시군별</a>
+                    </label>
+                    <label class="btn btn-default">
+                      <a href="javascript:;" id="도별/업종별" title="도별/업종별">도별/업종별</a>
+                    </label>
+                </div>
+              </div>
+            </div>
+
+
+
+
+          <div class="clearfix"></div>
+
+
+          <div class="row">
+              <div class="justify-content-center" style="margin-top: 2%">
+                <div class="item form-group col-lg-12" >
+                  <label class="control-label" for="name">가맹점 식별번호 <span class="required"></span>
+                  </label>
+                  <div class="col-md-auto" >
+                    <input id="name" class="form-control col-md-7 col-xs-12" style="width:150px" data-validate-length-range="6" data-validate-words="2" name="name" required="required" type="text">
+                    <div class="btn-group col-md-6">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> 해당년도 <span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">2021</a>
+                        </li>
+                        <li><a href="#">2022</a>
+                        </li>
+                        <li><a href="#">2023</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+                <div class="col-md-12 col-sm-6 col-xs-12" style="margin-top: 2%">
+                  <ul class="stats-overview">
+                    <li>
+                      <span class="name"> Estimated budget </span>
+                      <span class="value text-success"> 2300 </span>
+                    </li>
+                    <li>
+                      <span class="name"> Total amount spent </span>
+                      <span class="value text-success"> 2000 </span>
+                    </li>
+                    <li class="hidden-phone">
+                      <span class="name"> Estimated project duration </span>
+                      <span class="value text-success"> 20 </span>
+                    </li>
+                  </ul>
+                  <br />
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>***가맹점 <small>Sessions</small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <canvas id="mybarChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </th:block>
+
+  </body>
+
+</html>

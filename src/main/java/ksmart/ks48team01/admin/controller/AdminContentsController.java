@@ -8,40 +8,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("AdminContentsController")
 @RequestMapping("/admin/contents")
 public class AdminContentsController {
-
-	//사용자 정보 목록 조회
-	@GetMapping("contentsInfoList")
-	public String contentsInfoList(Model model) {
-
-		return "admin/contents/contentsInfoList";
-	}
 	
-	//사용자 상세 정보 조회
-	@GetMapping(value={"contentsInfoSpecific"})
-	public String contentsInfoSpecific(Model model) {
-
-		return "admin/contents/contentsInfoSpecific";
-	}
-	
-	//사용자 가입
-	@GetMapping(value={"contentsInfoRegist"})
-	public String contentsInfoRegist(Model model) {
-
-		return "admin/contents/contentsInfoRegist";
-	}
-	
-	//사용자 정보 수정
-	@GetMapping(value={"contentsInfoUpdate"})
-	public String contentsInfoUpdate(Model model) {
-
+	@GetMapping(value={"/contentsInfoUpdate"})
+	public String contentsUpdatePage(Model model) {
+		model.addAttribute("title", "컨텐츠 수정");
 		return "admin/contents/contentsInfoUpdate";
 	}
 	
-	//사용자 정보 삭제
-	@GetMapping(value={"contentsInfoDelete"})
-	public String contentsInfoDelete(Model model) {
-
+	@GetMapping(value={"/contentsInfoRegist"})
+	public String contentsRegistPage(Model model) {
+		model.addAttribute("title", "컨텐츠 등록");
+		return "admin/contents/contentsInfoRegist";
+	}
+	
+	
+	@GetMapping(value={"/contentsInfoDelete"})
+	public String contentsDeletePage(Model model) {
+		model.addAttribute("title", "컨텐츠 삭제");
 		return "admin/contents/contentsInfoDelete";
 	}
-
+	
+	
+	@GetMapping(value={"/contentsInfoSpecific"})
+	public String contentsSpecificPage(Model model) {
+		model.addAttribute("title", "컨텐츠 검색");
+		return "admin/contents/contentsInfoSpecific";
+	}
+	
+	
+	@GetMapping(value={"/contentsInfoList"})
+	public String storeListPage(Model model) {
+		model.addAttribute("title", "컨텐츠 목록");
+		return "admin/contents/contentsInfoList";
+	}
 }

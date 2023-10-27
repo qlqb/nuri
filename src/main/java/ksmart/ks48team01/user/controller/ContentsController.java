@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContentsController {
 	
 	//컨텐츠 수정
-	@GetMapping(value = {"/modifyContents"})
+	@GetMapping(value = {"/contentsInfoUpdate"})
 	public String modifyContentsPage(Model model) {
 		
-		return "user/contents/modifyContents";
+		return "user/contents/contentsInfoUpdate";
 	}
 	
 	//컨텐츠 등록
-	@GetMapping(value = {"/contentsReg"})
+	@GetMapping(value = {"/contentsInfoRegist"})
 	public String contentsRegPage(Model model) {
 		
-		return "user/contents/contentsReg";
+		return "user/contents/contentsInfoRegist";
 	}
 	
 	//컨텐츠 상세설명 -> view에서 클릭하면 들어가는 경로로
@@ -33,9 +33,9 @@ public class ContentsController {
 	}
 	
 	//컨텐츠 전체 목록 조회
-	@GetMapping(value = {"/view"})
-	public String contentsViewPage(Model model) {
-		
-		return "user/contents/view";
-	}
+		@GetMapping(value = {"/contentsInfoList"})
+		public String contentsListPage(Model model) {
+			model.addAttribute("title", "컨텐츠 조회");
+			return "user/contents/contentsInfoList";
+		}
 }
