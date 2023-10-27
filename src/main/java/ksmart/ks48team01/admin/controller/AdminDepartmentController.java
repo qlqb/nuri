@@ -16,6 +16,7 @@ public class AdminDepartmentController {
 	 * @param model
 	 * @return
 	 */
+
 	@GetMapping("/depList")
 	public String depList(@RequestParam(name = "depKey", required = false) String depKey,
 							   @RequestParam(name = "depValue",  required = false) String depValue,
