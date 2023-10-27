@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  	  layout:decorate="~{user/layout/default}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+    </th:block>
+    
+    <!-- 사용자별 스크립트 작성 -->
+    <th:block layout:fragment="customJsCode">
+
+    </th:block>
+
+    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<th:block layout:fragment="customContents">
+	<section id="faq-p1" class="team-p1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="faq-p1-cont">
+              <div class="service-h-tab"> 
+                <nav class="nav nav-tabs" id="myTab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-expanded="true">계정</a>
+                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile">문화누리카드</a> 
+                  <a class="nav-item nav-link" id="my-profile-tab" data-toggle="tab" href="#my-profile" role="tab" aria-controls="my-profile">continue</a> 
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">      
+                    
+                    <div class="toggle">
+                      <div class="toggle-title  ">
+                          <h3>
+                          <i></i>
+                          <span class="title-name">1. 계정은 어떻게 만드나요?</span>
+                          </h3>
+                      </div>
+                      <div class="toggle-inner">
+                          <p>오른쪽 상단의 회원가입을 통해 사용자, 가맹점 회원을 선택하여 다음 절차를 진행해주세요.</p>
+                      </div>
+                    </div> 
+                    <div class="toggle">
+                      <div class="toggle-title  ">
+                          <h3>
+                          <i></i>
+                          <span class="title-name">2. 이게 맞나...요?</span>
+                          </h3>
+                      </div>
+                      <div class="toggle-inner">
+                          <p>으아아아아아아아아아아아</p>
+                      </div>
+                    </div> 
+                  </div>
+                  
+                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="toggle">
+                      <div class="toggle-title ">
+                        <h3>
+                        <i></i>
+                        <span class="title-name"> 1. 문화누리카드는 무엇인가요?</span>
+                        </h3>
+                      </div>
+                      <div class="toggle-inner">
+                        <p>우리들의 친구 구글에 구글링 해보세요. 그럼 나와요</p>
+                      </div>
+                    </div> 
+                    <div class="toggle">
+                      <div class="toggle-title  ">
+                        <h3>
+                        <i></i>
+                        <span class="title-name">2. 왜 FAQ가 불친절한가요.?</span>
+                        </h3>
+                      </div>
+                      
+                      <div class="toggle-inner">
+                        <p>그냥 그러려니 해주세요</p>
+                      </div>
+                    </div> 
+                   </div>
+                  <div class="tab-pane fade" id="my-profile" role="tabpanel" aria-labelledby="my-profile-tab">
+                    <div class="toggle">
+                        <div class="toggle-title ">
+                          <h3>
+                          <i></i>
+                          <span class="title-name">1. 없어요</span>
+                          </h3>
+                        </div>
+                        <div class="toggle-inner">
+                          <p>잡상인 안받아요</p>
+                        </div>
+                    </div> 
+                    <div class="toggle">
+                      <div class="toggle-title  ">
+                        <h3>
+                        <i></i>
+                        <span class="title-name"> What should I do if my order hasn't been delivered yet?</span>
+                        </h3>
+                      </div>
+                      
+                      <div class="toggle-inner">
+                        <p>Perhaps not. Astronomers have been scouring the universe for places where water worlds might have given rise to life, from Europa and Mars in our solar system to planets many light years away. Radio telescopes have been eavesdropping on the heavens and in 1977 a signal bearing the potential hallmarks of an alien message was heard. Astronomers are now able to scan the atmospheres of alien worlds for oxygen and water. The next few decades will be an exciting time to be an alien hunter with up to 60bn potentially habitable planets in our Milky Way alone.</p>
+                      </div>
+                   </div>
+                  
+                   
+                    </div> 
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </section>  
+    </th:block>
+</html>
