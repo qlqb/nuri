@@ -6,12 +6,86 @@
 	<th:block layout:fragment="customJs">
 		<script th:src="@{/js/jquery-3.7.1.js}"></script>
 	</th:block>
-	
+<th:block layout:fragment="customJs">
+	<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	<script>
+		$(function(){
+			function validationCheck(input){
+				let isValid=true;
+				if(typeof input == 'object'){
+					$.each(input, function(){
+						let checkValue = $(this).val();
+  							if(checkValue == null || checkValue == '' || typeof checkValue == 'undefined'){
+  		  						isValid = false;
+  		  						let eleId = $(this).attr('id');
+  		  						let cate = $(`label[for="${eleId}"]`).text();
+  		  						$(this).focus();
+  		  						return isValid;
+  							}
+					});
+				}else{
+					if(input == null || input == '' || typeof input == 'undefined') {
+						isValid=false;
+					}
+				}
+				return isValid;
+			}
+			//option 값에 입력을 안했다면 option에도 입력 안했다는 메세지를 출력하게 해야 함.
+		});
+	</script>
+</th:block>
   <body id="page-top">
 
 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 	<th:block layout:fragment="customContents">
-		<h1>officerInfoRegist.html</h1>
+		<div class="clearfix"></div>
+                  <div class="x_content">
+
+                    <!-- start form for validation -->
+                    <form id="demo-form" data-parsley-validate required="required">
+                      <label for="fullname">컨텐츠명</label>
+                      <input type="text" id="fullname" class="form-control" name="fullname"  /><br>
+					   <label for="contentsCate">카테고리</label>
+					   <select id="categoryList" class="form-control" >
+                            <option value="contentsSelect" >선택하시오</option>
+                            <option value="book">도서</option>
+                            <option value="perform">전시</option>
+                            <option value="movie">영화</option>
+                            <option value="tour">관광</option>
+                            <option value="sports">체육</option>
+                            <option value="OTT">디지털 컨텐츠</option>
+                          </select><br>
+                      <label for="contentsPlace">컨텐츠 장소</label>
+                      <input type="text" id="contentsPlace" class="form-control" name="cPlace" data-parsley-trigger="change" required /><br>
+                       <div class="form-group">
+	                        <label class="control-label" >컨텐츠 기간</label>
+	                        	&nbsp;&nbsp;
+	                          	<input type="date" required="required">
+	                          	&nbsp;&nbsp;
+	                          	<input type="date" required="required">
+	                   <div><br>
+                      <label for="contentsPlace">컨텐츠 가격</label>
+                      <input type="text" id="contentsPrice" class="form-control" name="cPrice" data-parsley-trigger="change" required></input><br>
+                      <label for="contentsPlace">파일 업로드</label>
+                      <div class="btn-group">
+                      <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"></a><br>
+                      <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+                      <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+					</div>                  
+               
+                    <br><br>
+                      <label for="contentsPlace">컨텐츠 등록일</label>
+                      <input type="Date" id="contentsRegDate" class="form-control" name="cDate" data-parsley-trigger="change" required="required" ></input><br>
+                          <label for="content">컨텐츠 내용 (20 chars min, 100 max) :</label>
+                          <textarea id="cContent" required="required" class="form-control" name="cContent" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                            data-parsley-validation-threshold="10"></textarea><br>
+
+                          <button type="submit" id="addContentsBtn" a th:href="@{/admin/contents/contentsInfoList}" class="btn btn-primary">컨텐츠 등록</button>
+
+                    </form>
+                    <!-- end form for validations -->
+
+                  </div>
 	</th:block>
 
   </body>

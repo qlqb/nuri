@@ -15,11 +15,6 @@ public class AboutController {
         return "user/about/nuriService";
     }
 
-    @GetMapping(value = "/nuriData")
-    public String aboutNuriData(Model model) {
-
-        return "user/about/nuriData";
-    }
 
     @GetMapping(value = "/nuriStore")
     public String aboutNuriStore(Model model) {

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  	  layout:decorate="~{user/layout/default}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+    </th:block>
+    
+    <!-- 사용자별 스크립트 작성 -->
+    <th:block layout:fragment="customJsCode">
+
+    </th:block>
+
+    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<th:block layout:fragment="customContents">
+		<div class="overlay-contact-h"></div>
+    <section id="contact-h" class="bg-parallax contact-h-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-h-cont">
+                      <h3 class="cl-white">컨텐츠 수정</h3><br>
+                      <form>
+                        <div class="form-group cl-white">
+                          <label for="name">컨텐츠명</label>
+                          <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="컨텐츠명을 입력하시오" readonly="readonly"> 
+                        </div>
+                        <div class="form-group cl-white">
+                          <label for="duration">컨텐츠 기간</label>
+                          <input type="text" class="form-control" id="duration" aria-describedby="durationHelp" placeholder="컨텐츠 기간을 입력하시오" readonly="readonly"> 
+                        </div>  
+                        <div class="form-group cl-white">
+                          <label for="director">감독</label>
+                          <input type="text" class="form-control" id="director" aria-describedby="directorMemberHelp" placeholder="감독 이름을 입력하시오"> 
+                        </div>
+                        <div class="form-group cl-white">
+                          <label for="castMember">출연진</label>
+                          <input type="text" class="form-control" id="castMember" aria-describedby="castMemberHelp" placeholder="출연진을 입력하시오"> 
+                        </div>
+                        <div class="form-group cl-white">
+                          <label for="synopsis">줄거리</label>
+                          <textarea class="form-control" id="synopsis" aria-describedby="synopsisHelp" rows="3" placeholder="줄거리를 입력하시오"></textarea>
+                        </div>
+                     
+                        <button class="btn btn-general btn-white" id="button" onclick="location.href='view'"><i fa fa-right-arrow></i>수정</button>
+                        <script>
+                        let button = document.getElementById("button");
+                        button.addEventListener("click", function(){
+                        	alert("수정이 완료되었습니다.");
+                        });
+                        </script>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	</th:block>
+</html>
