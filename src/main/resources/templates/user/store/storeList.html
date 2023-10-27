@@ -86,7 +86,7 @@
 		                  	</thead>
 		                  	<tbody>
 		                  		<tr th:if="${storeList == null}">
-									<td colspan="12">도서 가맹점 목록이 없습니다.</td>
+									<td colspan="14">도서 가맹점 목록이 없습니다.</td>
 		                  		</tr>
 	                    		<tr th:unless="${storeList==null}" th:each="l : ${storeList}">
 	                    			<td th:text="${l.storeId}"></td>
