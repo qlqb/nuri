@@ -1,64 +1,160 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{/admin/layout/default}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/default}">
+<head>
+</head>
+<!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+		
+    </th:block>
+    
+    <!-- 사용자별 스크립트 작성 -->
+    <th:block layout:fragment="customJsCode">
 
-	<th:block layout:fragment="customJs">
-		<script th:src="@{/js/jquery-3.7.1.js}"></script>
-	</th:block>
-	
-  <body id="page-top">
+    </th:block>
 
-	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<!-- 위 banner -->
 	<th:block layout:fragment="customContents">
-				<div class="clearfix"></div>
+	<!-- 가맹점 검색 기능 추가 -->
+	
+	
+	<!-- 컨텐츠 목록 테이블 -->
+	<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>컨텐츠 목록 조회 <small>Total Contents List</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
 
-            
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>조회하기</h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <p class="text-muted font-13 m-b-30">
-                데이터 테이블 조회하기</p>
+                  <div class="x_content">
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th>
+                              <input type="checkbox" id="check-all" class="flat">
+                            </th>
+                            <th class="column-title">컨텐츠코드</th>
+                            <th class="column-title">컨텐츠명 </th>
+                            <th class="column-title">카테고리</th>
+                            <th class="column-title">컨텐츠 기간</th>
+                            <th class="column-title">가맹점명</th>
+                            <th class="column-title">컨텐츠 시간</th>
+                            <th class="column-title">연령제한</th>
+                            <th class="column-title">컨텐츠 가격</th>
+                            <th class="column-title"><span class="nobr">수정</span>
+                            <th class="column-title last"><span class="nobr">삭제</span>
+                            </th>
+                            <th class="bulk-actions" colspan="10">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
 
-              <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                <thead>
-                  <tr>
-                    <th>
-                      <input type="checkbox" id="check-all" class="flat">
-                    </th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr>
-                    <td>
-                      <input type="checkbox" id="check-all" class="flat">
-                    </td>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                        <tbody>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">CT202310191</td>
+                            <td class=" ">늑대아이</td>
+                            <td class=" ">OTT</td>
+                            <td class=" ">2023.10.20 ~ 2023.10.30</td>
+                            <td class=" ">-</td>
+                            <td class=" ">-</td>
+                            <td class="a-right a-right ">만7세이상</td>
+                            <td class=" last"><a href="#">5000원</a></td>
+                         	<td><a th:href="@{/admin/contents/contentsInfoUpdate}"><button class="btn btn-info" type="button">수정</button></a></td>
+                          	<td><a th:href="@{/admin/contents/contentsInfoList}"><button class="btn btn-info" type="Button" id="deleteButton">삭제</button></a></td>
+                          </tr>
+                          
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">CT202310201</td>
+                            <td class=" ">엘리멘탈</td>
+                            <td class=" ">영화</td>
+                            <td class=" ">2023.10.15 ~ 2023.10.30</td>
+                            <td class=" ">천안 CGV 펜타포트점</td>
+                            <td class=" ">10:00</td>
+                            <td class="a-right a-right ">만 10세이상</td>
+                            <td class=" last"><a href="#">13,000원</a>
+                            <td><a th:href="@{/admin/contents/contentsInfoUpdate}"><button class="btn btn-info" type="button">수정</button></a></td>
+                          	<td><a th:href="@{/admin/contents/contentsInfoList}"><button class="btn btn-info" type="Button" id="deleteButton">삭제</button></a></td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">CT202310202</td>
+                            <td class=" ">한옥대여</td>
+                            <td class=" ">관광</td>
+                            <td class=" ">2023.01.01 ~ 2023.12.31</td>
+                            <td class=" ">한옥마을 한복 대여점</td>
+                            <td class=" ">09:00~21:00</td>
+                            <td class="a-right a-right ">만 7세이상</td>
+                            <td class=" last"><a href="#">10,000원</a>
+                            <td><a th:href="@{/admin/contents/contentsInfoUpdate}"><button class="btn btn-info" type="button">수정</button></a></td>
+                          	<td><a th:href="@{/admin/contents/contentsInfoList}"><button class="btn btn-info" type="Button" id="deleteButton">삭제</button></a></td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">CT202310211</td>
+                            <td class=" ">누가 내 치즈를 훔쳐갔나?</td>
+                            <td class=" ">도서</td>
+                            <td class=" ">2023.01.01 ~ 2023.12.15</td>
+                            <td class=" ">전주도서관</td>
+                            <td class=" ">09:00~18:00</td>
+                            <td class="a-right a-right ">만 10세이상</td>
+                            <td class=" last"><a href="#">회원무료</a>
+                            <td><a th:href="@{/admin/contents/contentsInfoUpdate}"><button class="btn btn-info" type="button">수정</button></a></td>
+                          	<td><a th:href="@{/admin/contents/contentsInfoList}"><button class="btn btn-info" type="Button" id="deleteButton">삭제</button></a></td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">CT202310212</td>
+                            <td class=" ">미성년자에겐 술 안팔아요</td>
+                            <td class=" ">숙박</td>
+                            <td class=" ">2023.01.01~2023.12.31</td>
+                            <td class=" ">영업정지</td>
+                            <td class=" ">09:00~20:00</td>
+                            <td class="a-right a-right ">만 20세이상</td>
+                            <td class=" last"><a href="#">150,000원</a>
+                            <td><a th:href="@{/admin/contents/contentsInfoUpdate}"><button class="btn btn-info" type="button">수정</button></a></td>
+                          	<td><a th:href="@{/admin/contents/contentsInfoList}"><button class="btn btn-info" type="Button" id="deleteButton">삭제</button></a></td>
+                          </tr>
+                         
+                        </tbody>
+                        
+                      </table>
+                      <script>
+                       let button = document.getElementById("deleteButton");
+                       button.addEventListener("click", function(){
+                       alert("삭제 완료되었습니다.");
+                       //삭제표시와 함께 누른 row 삭제까지
+                       });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
 	</th:block>
-
-  </body>
-
 </html>

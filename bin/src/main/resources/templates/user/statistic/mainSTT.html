@@ -1,0 +1,81 @@
+
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/default}">
+
+	<!-- 사용자별 css file 추가 부분 -->
+	<head>
+		<link rel="stylesheet" th:href="@{/user/css/shop.css}">
+	</head>
+
+
+	<!-- 사용자 페이지별 javascript file 추가-->
+	<th:block layout:fragment="customJsFile">
+		<script src="http://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+	</th:block>
+
+	<!-- 사용자별 스크립트 작성 -->
+	<th:block layout:fragment="customJsCode">
+		<script type="text/javascript">
+			let myChart = echarts.init(document.getElementById('main'))
+
+			let option={
+				title:{
+					text: 'ECharts 기본예제:HTML',
+				},
+				legend:{
+					data:['개수'],
+					top:20,
+				},
+				xAxis: {
+					data:['제품A','제품B','제품C'],
+				},
+				yAxis:{},
+				series:[
+					{
+						name:'개수',
+						type:'bar',
+						data:[5,3,4],
+					},
+				],
+			}
+			myChart.setOption(option)
+		</script>
+	</th:block>
+
+	<body>
+	<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<th:block layout:fragment="customContents">
+		<section id="sttAside-p1" class="shop-p1">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2">
+						<div class="shop-p1-title">
+							<h4>문화누리 사용지표</h4>
+							<div class="heading-border-light"></div>
+						</div>
+						<div class="list-group">
+							<a href="#" class="list-group-item">가맹점별</a>
+							<a href="#" class="list-group-item">업종별</a>
+							<a href="#" class="list-group-item">도별</a>
+							<a href="#" class="list-group-item">시군별</a>
+							<a href="#" class="list-group-item">도별&업종별</a>
+							<a href="#" class="list-group-item">년도별 예산 대비 사용률</a>
+						</div>
+					</div>
+
+						<div id="main" style="width: 600px; height:400px;"></div>
+					</div>
+				</div>
+		</section>
+	</th:block>
+	</body>
+</html>

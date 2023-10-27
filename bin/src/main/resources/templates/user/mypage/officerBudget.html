@@ -1,0 +1,198 @@
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/default}">
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Business Bootstrap Responsive Template</title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Global Stylesheets -->
+	<link th:href="@{https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i}" rel="stylesheet">
+	<link th:href="@{/user/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/user/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/animate/animate.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.carousel.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.theme.default.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/style.css}">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" th:href="@{css/shop.css}"> 
+    
+    <style>
+    	#carouselExampleIndicators{
+    		height:300px;
+    		text-align:center;
+    	}
+    	
+    	#budgetInfo h1{
+    		margin: 10px;
+    	}
+    	
+    	#inputBudgetInfo { 
+    		width:100%;
+    		margin: 8px;
+    	}
+    	
+    	#inputBudgetInfo td > input{
+    		width:100%;
+    	}
+    	
+    	#inputBudgetInfo label {
+    		margin: 8px 8px 8px 0px;
+    	}
+    	
+    	#inputBudgetInfo input { 
+    		width:100%;
+    		margin: 8px 0 8px 0px;
+    	}
+    	
+    	#inputBudgetInfoBtn {
+    		width:50%;
+    		text-align: "center";
+    	}
+    	
+    </style>
+  </head>
+	<th:block layout:fragment="customJs">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	
+  <body id="page-top">
+
+     
+ 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+	<th:block layout:fragment="customContents">
+	<!--====================================================
+	                         HOME
+	======================================================-->
+	    <section id="home-shop">
+	      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	        <h1>마이페이지 - 공무원</h1>
+	      </div>
+	    </section> 
+	
+	<!--====================================================
+	                        aside
+	======================================================--> 
+	    <section id="officerAside" class="shop-p1">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-lg-3">
+	            <div class="title">  
+	              <h5>홍공무님의 마이페이지</h5>
+	              <div class="heading-border-light"></div> 
+	            </div>
+	            <div class="list-group">
+	              <a href="#" class="list-group-item">회원 정보 수정</a>
+	            </div>
+	            <div class="list-group">
+	              <a href="#" class="list-group-item">예산 등록</a>
+	            </div>
+	            <div class="list-group">
+	              <a href="#" class="list-group-item">문화누리카드 사용자 관리</a>
+	            </div>
+	          </div> 
+
+	          <div id="budgetInfo" class="col-lg-9">
+	            <h1>문화누리카드 예산 등록</h1>
+	            <div class="">
+	            	정확한 값을 입력해주세요!
+	            </div>
+	            
+	            <div class="inputlist">
+	            	<form id="inputBudgetInfo" th:action="@{#}" method="">
+						<table>
+							<tbody>
+								<tr>
+									<td><label for="bugetYear">적용되는 연도</label></td>
+									<td colspan="2"><input type="number" id="bugetYear" name="bugetYear" placeholder="2023"></td>
+								</tr>
+								<tr>
+									<td><label for="budgetRegion">적용되는 지역</label></td>
+									<td>
+										<select id="budgetRegion" name="budgetRegion">
+											<option value="">전국</option>
+											<option value="">지역</option>
+										</select>
+									</td>
+									<td>
+										<select id="budgetRegion" name="budgetRegion">
+											<option value="">서울특별시</option>
+											<option value="">부산광역시</option>
+											<option value="">대구광역시</option>
+											<option value="">인천광역시</option>
+											<option value="">광주광역시</option>
+											<option value="">대전광역시</option>
+											<option value="">울산광역시</option>
+											<option value="">세종특별자치시</option>
+											<option value="">경기도</option>
+											<option value="">강원도</option>
+											<option value="">충청북도</option>
+											<option value="">충청남도</option>
+											<option value="">전라북도</option>
+											<option value="">전라남도</option>
+											<option value="">경상북도</option>
+											<option value="">경상남도</option>
+											<option value="">제주특별자치도</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td><label for="budgetAmount">적용되는 예산(단위 : 원)</label></td>
+									<td colspan="2"><input type="text" id="budgetAmount" name="budgetAmount" placeholder="배정된 예산을 입력해주세요"></td>
+								</tr>
+								<tr>
+									<td><label for="budgetByPerson">1인당 지원 금액(단위 : 원)</label></td>
+									<td colspan="2"><input type="text" id="budgetByPerson" name="budgetByPerson" placeholder="1인당 지원 금액을 입력해주세요"></td>
+								</tr>
+								<tr>
+									<td><label for="budgetNOP">해당 지역의 발급 대상 인원</label></td>
+									<td colspan="2"><input type="text" id="budgetNOP" name="budgetNOP" 
+									placeholder="발급 대상 인원 수를 입력해주세요" disabled="disabled"></td>
+								</tr>
+			
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3">
+										<button type="button" id="inputBudgetInfoBtn">등록</button>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</form>
+	            </div>
+	          </div> 
+	        </div> 
+	      </div>
+	   </section>
+	</th:block>
+
+    <!--Global JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="js/custom.js"></script> 
+  </body>
+
+</html>

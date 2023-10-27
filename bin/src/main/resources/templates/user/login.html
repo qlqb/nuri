@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+    <!-- 사용자별 css file 추가 부분 -->
+      <head>
+
+      </head>
+
+    <!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+
+    </th:block>
+
+    <!-- 사용자별 스크립트 작성 -->
+    <th:block layout:fragment="customJsCode">
+
+    </th:block>
+
+    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+    <th:block layout:fragment="customContents">
+        <section id="login">
+            <div>
+                            <form id="login-form">
+                                <h3 class="text-center">로그인</h3>
+                                <div class="body">
+                                    <label for="username">회원아이디</label>
+                                    <input id="login_username" class="form-control" type="text" placeholder="회원아이디를 입력하세요 " required>
+                                    <label for="userpw">회원비밀번호</label>
+                                    <input id="login_password" class="form-control" type="password" placeholder="회원비밀번호를 입력하세요" required>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> 기억하실?
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="footer text-center">
+                                    <div>
+                                        <button type="submit" class="btn btn-general btn-white">로그인</button>
+                                    </div>
+                                </div>
+                            </form>
+            </div>
+
+        </section>
+    </th:block>
+
+
+
+
+
+</html>

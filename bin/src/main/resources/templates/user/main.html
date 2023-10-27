@@ -1,0 +1,57 @@
+
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/default}">
+
+	<!-- 사용자별 css file 추가 부분 -->
+	<head>
+
+	</head>
+
+	<!-- 사용자 페이지별 javascript file 추가-->
+	<th:block layout:fragment="customJsFile">
+
+	</th:block>
+
+	<!-- 사용자별 스크립트 작성 -->
+	<th:block layout:fragment="customJsCode">
+
+	</th:block>
+
+	<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<th:block layout:fragment="customContents">
+		<section id="home">
+			<div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+				<!-- Carousel items -->
+				<div class="carousel-inner">
+					<div class="carousel-item active slides">
+						<div class="overlay"></div>
+						<div class="slide-1"></div>
+						<div class="hero ">
+							<hgroup class="wow fadeInUp">
+								<h1>We Help <span ><a th:href="@{/user}" class="typewrite" data-period="2000" data-type='[ " Business", " Startup"]'>
+                        <span class="wrap"></span></a></span> </h1>
+								<h3>The next big idea is waiting for its next big changer</h3>
+							</hgroup>
+							<button class="btn btn-general btn-green wow fadeInUp" role="button">Contact Now</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</th:block>
+
+
+
+
+
+</html>

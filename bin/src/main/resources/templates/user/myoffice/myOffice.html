@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <section id="shop-p1" class="shop-p1">
+        <div class="container">
+            <div class="row">
+               
+                <div th:replace="~{user/fragments/aside :: mypageAsideOfficer}"></div>
+		        <div class="col-lg-9">
+		        	마이페이지 - 공무원
+		        	공무원 상세정보 조회/수정
+		        	
+		        </div>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+</html>

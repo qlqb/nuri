@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/news.css}"/>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!-- Template의 원본에서 Core StyleSheets 가져와야 합니다.
+    레퍼런스 CSS 파일이 되는 것 - contact.css & shop.css <link rel="stylesheet" href="css/contact.css"> -->
+
+    <section id="contact-p1" class="contact-p1">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="p-5 text-center">
+                        <h3>회원가입</h3>
+                        <p>누리컬쳐 사용자 가입</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="shop-p1" class="shop-p1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="shop-p1-title">
+                            <h3>계정</h3>
+                            <div class="heading-border-light"></div>
+                        </div>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">로그인</a>
+                            <a href="#" class="list-group-item">아이디 찾기</a>
+                            <a href="#" class="list-group-item">비밀번호 찾기</a>
+                            <a href="#" class="list-group-item">회원가입</a>
+                        </div>
+                    </div>
+
+                    <div class="w- col-lg-9">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">아이디</label>
+                                    <input type="email" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">비밀번호</label>
+                                    <input type="password" class="form-control" id="inputPassword4">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">이름</label>
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">주민등록번호</label>
+                                    <input type="text" class="form-control" id="resident" placeholder="7자리">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">생년월일</label>
+                                    <input type="date" class="form-control" id="birth">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputState">성별</label>
+                                    <select id="gender" class="form-control">
+                                        <option selected>남</option>
+                                        <option>여</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">도</label>
+                                    <input type="text" class="form-control" id="inputCity">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">시</label>
+                                    <select id="inputState" class="form-control">
+                                        <option selected>시를 선택해주세요</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">우편번호</label>
+                                    <input type="text" class="form-control" id="inputZip">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress">상세주소</label>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="시">
+                            </div>
+                            <button type="submit" class="btn btn-primary float-lg-right" style="margin-top: 30px">Sign in</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+
+
+
+
+
+</html>
