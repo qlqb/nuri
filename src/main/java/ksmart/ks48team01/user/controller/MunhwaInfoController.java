@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("MunhwaInfoController")
+@Controller("userInformController")
 @RequestMapping("/user/munhwa")
 public class MunhwaInfoController {
 
@@ -14,10 +14,10 @@ public class MunhwaInfoController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("aboutMunhwa")
+	@GetMapping(value = "/aboutMunhwa")
 	public String aboutMunhwa(Model model) {
 
-		return "/user/munhwa/aboutMunhwa";
+		return "user/munhwa/aboutMunhwa";
 	}
 
 	/**
@@ -25,10 +25,10 @@ public class MunhwaInfoController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("munhwaRegist")
+	@GetMapping(value ="/munhwaRegist")
 	public String munhwaRegist(Model model) {
 
-		return "/user/munhwa/munhwaRegist";
+		return "user/munhwa/munhwaRegist";
 	}
 
 	/**
@@ -36,10 +36,10 @@ public class MunhwaInfoController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("munhwaCharge")
+	@GetMapping(value = "/munhwaCharge")
 	public String munhwaCharge(Model model) {
 
-		return "/user/munhwa/munhwaCharge";
+		return "user/munhwa/munhwaCharge";
 	}
 
 }
