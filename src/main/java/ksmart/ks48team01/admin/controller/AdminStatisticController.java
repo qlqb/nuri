@@ -10,15 +10,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminStatisticController {
 
 
-	@GetMapping("sttInfo")
-	public String sttInfo(Model model) {
+	@GetMapping("storeStt")
+	public String storeStt(Model model) {
 
-		return "admin/statistic/sttInfo";
+		return "/admin/statistic/storeStt";
+	}
+	@GetMapping("cateStt")
+	public String cateStt(Model model) {
+
+		return "/admin/statistic/cateStt";
+	}
+	@GetMapping("regionStt")
+	public String regionStt(Model model) {
+
+		return "/admin/statistic/regionStt";
+	}
+	@GetMapping("districtStt")
+	public String districtStt(Model model) {
+
+		return "/admin/statistic/districtStt";
+	}
+	@GetMapping("regionCateStt")
+	public String regionCateStt(Model model) {
+
+		return "/admin/statistic/regionCateStt";
 	}
 
-	@GetMapping("budgetUseageInfo")
-	public String budgetUseageInfo(Model model) {
+	@GetMapping("budgetUseage")
+	public String budgetUseage(Model model) {
 
-		return "admin/statistic/budgetUseageInfo";
+		return "/admin/statistic/budgetUseage";
 	}
 }
