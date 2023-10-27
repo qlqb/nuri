@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminPurchaseController {
 
 
+
 	@GetMapping("reservationInfo")
 	public String reservationInfo(Model model) {
 
