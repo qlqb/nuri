@@ -14,7 +14,6 @@ public class StoreController {
 	@GetMapping("/storeModify")
 	public String storeModify(Model model) {
 		//storeInfo 해야함.
-		model.addAttribute("title", "가맹점 수정");
 		return "user/store/storeModify";
 	}
 	

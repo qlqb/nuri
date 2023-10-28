@@ -10,32 +10,19 @@
 
     <!-- regist aside start -->
     <div th:fragment="aboutAside">
+        <div class="col-lg-3">
             <div class="shop-p1-title">
                 <h3>소개</h3>
                 <div class="heading-border-light"></div>
             </div>
             <div class="list-group">
                 <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 서비스</a>
-                <a th:href="@{/user/about/nuriStore}" class="list-group-item">누리컬쳐 가맹점</a>
-            </div>
-    </div>
-    <!-- regist aside end -->
-    
-    <!-- munhwa aside start -->
-    <div th:fragment="munhwaAside">
-        <div>
-            <div class="shop-p1-title">
-                <h3>문화누리카드</h3>
-                <div class="heading-border-light"></div>
-            </div>
-            <div class="list-group">
-                <a th:href="@{/user/munhwa/aboutMunhwa}" class="list-group-item">문화누리카드 안내</a>
-                <a th:href="@{/user/munhwa/munhwaRegist}" class="list-group-item">문화누리카드 등록</a>
-                <a th:href="@{/user/munhwa/munhwaCharge}" class="list-group-item">문화누리카드 충전</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 가맹점</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
             </div>
         </div>
     </div>
-    <!-- munhwa aside end -->
+    <!-- regist aside end -->
 
     <!-- contentsAside start -->
     <div th:fragment="contentsAside">
@@ -72,48 +59,23 @@
     <!-- boardAside end -->
 
     <!-- mypageAside start -->
-    <div th:fragment="mypageAsideUser">
+    <div th:fragment="mypageAside">
+        <div class="col-lg-3">
             <div class="shop-p1-title">
                 <h3>마이페이지</h3>
                 <div class="heading-border-light"></div>
             </div>
-      	<!-- 권한 별로 접근할 수 있는 aside 제어필요 -->
-      	<div class="list-group">
-          <a th:href="@{/user/mypage/myInfo}" class="list-group-item">나의 정보</a>
-          <a th:href="@{/user/mypage/myOrder}" class="list-group-item">나의 주문/예약 조회</a>
-          <a th:href="@{/user/mypage/myRefund}" class="list-group-item">주문 취소/환불 조회</a>
-      	</div>
-       </div>
-    <!-- mypageAside end -->
-    
-    <!-- mypageAside start -->
-    <div th:fragment="mypageAsideStore">
-            <div class="shop-p1-title">
-                <h3>마이페이지</h3>
-                <div class="heading-border-light"></div>
-            </div>
-            
-            <!-- 권한 별로 접근할 수 있는 aside 제어필요 -->
             <div class="list-group">
-                <a th:href="@{/user/mystore/myStore}" class="list-group-item">가맹점 정보</a>
-                <a th:href="@{/user/mystore/myContents}" class="list-group-item">나의 컨텐츠</a>
-                <a th:href="@{/user/mystore/myStoreAdj}" class="list-group-item">나의 정산</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
+                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
             </div>
-    </div>
-    <!-- mypageAside end -->
-    
-    <!-- mypageAside start -->
-    <div th:fragment="mypageAsideOfficer">
-            <div class="shop-p1-title">
-                <h3>마이페이지</h3>
-                <div class="heading-border-light"></div>
-            </div>
-                        <!-- 권한 별로 접근할 수 있는 aside 제어필요 -->
-            <div class="list-group">
-            	<a th:href="@{/user/myoffice/myOffice}" class="list-group-item">나의 정보</a>
-                <a th:href="@{/user/myoffice/officerBudget}" class="list-group-item">행정업무</a>
-                <a th:href="@{/user/myoffice/myBoard}" class="list-group-item">내가 작성한 글</a>
-            </div>
+        </div>
     </div>
     <!-- mypageAside end -->
 

@@ -1,3 +1,4 @@
+//<<<<<<< HEAD
 package ksmart.ks48team01.index;
 
 import org.springframework.stereotype.Controller;

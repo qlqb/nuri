@@ -16,9 +16,6 @@
 
 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 	<th:block layout:fragment="customContents">
-				<div class="clearfix"></div>
-				
-				
 		<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -48,16 +45,14 @@
                     	<div class="row">
                     	<!--  -->
                     		<div class="col-sm-12">
-                    			<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action dataTable no-footer"
-                    			role="grid" aria-describedby="datatable-checkbox_info">
+                    			<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action dataTable no-footer" role="grid" aria-describedby="datatable-checkbox_info">
 			                      <thead>
 			                        <tr role="row">
 			                        	<th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
 										 " style="width: 11.2px;">
 										 </th>
 										 <th class="sorting_asc" tabindex="0" aria-controls="datatable-checkbox"
-										  rowspan="1" colspan="1" aria-sort="ascending" 
-										  aria-label=": activate to sort column descending" style="width: 46.2px;">
+										  rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 46.2px;">
 											  <div class="icheckbox_flat-green" style="position: relative;">
 											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
 											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; 
@@ -65,69 +60,43 @@
 											  	border: 0px; opacity: 0;"></ins>
 											  </div>
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" 
-										  style="width: 168.2px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 168.2px;">
 										  	결제일
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" 
-										  style="width: 277.2px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 277.2px;">
 										  	취소일
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" 
-										  style="width: 126.2px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 126.2px;">
 										  	거래 상태
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" 
-										  style="width: 65.2px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 65.2px;">
 										  	주문번호
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" 
-										  style="width: 124.2px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 124.2px;">
 										  	구매자
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										  style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	배송비
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	컨텐츠 가격
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	컨텐츠 수량
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	결제금액
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	취소금액
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										  style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	승인번호
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	상품명
 										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending"
-										    style="width: 96px;">
+										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 96px;">
 										  	정산마감여부
 										  </th>
 									</tr>

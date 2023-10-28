@@ -36,9 +36,9 @@ public class AdminStoreController {
 	}
 	
 	
-	@GetMapping(value={"/storeInfoList"})
+	@GetMapping(value={"/aStoreList"})
 	public String storeListPage(Model model) {
 		model.addAttribute("title", "가맹점 목록");
-		return "admin/store/storeInfoList";
+		return "admin/store/aStoreList";
 	}
 }

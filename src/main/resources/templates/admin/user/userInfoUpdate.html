@@ -88,12 +88,13 @@
 							<div class="ln_solid"></div>
 							<div class="form-group">
 								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-									<button class="btn btn-danger" type="button">회원삭제</button>
-									<button class="btn btn-primary" type="reset">취소</button>
+									<button class="btn btn-primary" type="button">취소</button>
 									<button class="btn btn-primary" type="reset">초기화</button>
-									<button type="submit" class="btn btn-success">수정</button>
+									<button class="btn btn-primary" type="reset">미리보기</button>
+									<button type="submit" class="btn btn-success">가입</button>
 								</div>
 							</div>
+
 						</form>
 					</div>
 				</div>
@@ -122,6 +123,7 @@
 								<th>이메일</th>
 								<th>연락처</th>
 								<th>주소</th>
+								<th>수정</th>
 							</tr>
 							</thead>
 
@@ -133,6 +135,9 @@
 								<td>emailexample14@email.com</td>
 								<td>010-0000-0003</td>
 								<td>경상남도 창원시 마산회원구 345-67 706호</td>
+								<td>
+									<a th:href="@{/admin/user/userInfoUpdate?userId=id001}">수정</a>
+								</td>
 							</tr>
 
 							</tbody>

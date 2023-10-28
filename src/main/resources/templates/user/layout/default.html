@@ -22,48 +22,48 @@
 	<link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
 	<link rel="stylesheet" th:href="@{/user/css/news.css}"/>
 	<link rel="stylesheet" th:href="@{/user/css/style.css}">
+	<link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+	<link rel="stylesheet" th:href="@{/user/css/about.css}">
 </head>
 
 <body class="nav-md">
-<div class="container body">
-	<div class="main_container">
+	<div class="container body">
+		<div class="main_container">
 
 
-		<!-- top navigation -->
-		<div th:replace="~{user/fragments/header :: headerFragment}"></div>
-		<!-- /top navigation -->
+			<!-- top navigation -->
+			<div th:replace="~{user/fragments/header :: headerFragment}"></div>
+			<!-- /top navigation -->
 
-		<!-- page content -->
-		<th:block layout:fragment="customContents" th:fragment="~{user/fragments/aside}">
-
-
-		</th:block>
-		<!-- /page content -->
-
-		<!-- footer content -->
-		<div th:replace="~{user/fragments/footer :: footerFragment}"></div>
-		<!-- /footer content -->
+			<!-- page content -->
+			<th:block layout:fragment="customContents" th:fragment="~{user/fragments/aside}">
 
 
+			</th:block>
+			<!-- /page content -->
 
-		<!--Global JavaScript -->
-		<script th:src="@{/user/js/jquery/jquery.min.js}"></script>
-		<script th:src="@{/user/js/popper/popper.min.js}"></script>
-		<script th:src="@{/user/js/bootstrap/bootstrap.min.js}"></script>
-		<script th:src="@{/user/js/wow/wow.min.js}"></script>
-		<script th:src="@{/user/js/owl-carousel/owl.carousel.min.js}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-		<!-- Plugin JavaScript -->
-		<script th:src="@{/user/js/jquery-easing/jquery.easing.min.js}"></script>
-		<script th:src="@{/user/js/custom.js}"></script>
+			<!-- footer content -->
+			<div th:replace="~{user/fragments/footer :: footerFragment}"></div>
+			<!-- /footer content -->
 
 
-		<!-- 사용자별 스크립트 작성 -->
-		<th:block layout:fragment="customJsCode"></th:block>
 
+			<!--Global JavaScript -->
+			<script th:src="@{/user/js/jquery/jquery.min.js}"></script>
+			<script th:src="@{/user/js/popper/popper.min.js}"></script>
+			<script th:src="@{/user/js/bootstrap/bootstrap.min.js}"></script>
+			<script th:src="@{/user/js/wow/wow.min.js}"></script>
+			<script th:src="@{/user/js/owl-carousel/owl.carousel.min.js}"></script>
+			<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 
-</body>
+			<!-- Plugin JavaScript -->
+			<script th:src="@{/user/js/jquery-easing/jquery.easing.min.js}"></script>
+			<script th:src="@{/user/js/custom.js}"></script>
+
+			</div>
+		</div>
+	</body>
 
 </html>
 
