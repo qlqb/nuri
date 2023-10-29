@@ -23,6 +23,12 @@ public class AdminPurchaseController {
 		return "admin/purchase/purchaseInfo";
 	}
 
+	@GetMapping(value={"purchaseInfoModify"})
+	public String purchaseInfoModify(Model model) {
+
+		return "admin/purchase/purchaseInfoModify";
+	}
+	
 	@GetMapping(value={"adjInfoRegion"})
 	public String adjInfoRegion(Model model) {
 
