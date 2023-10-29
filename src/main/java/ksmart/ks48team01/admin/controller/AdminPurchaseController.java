@@ -22,6 +22,12 @@ public class AdminPurchaseController {
 
 		return "admin/purchase/purchaseInfo";
 	}
+	
+	@GetMapping(value={"purchaseModify"})
+	public String purchaseModify(Model model) {
+
+		return "admin/purchase/purchaseModify";
+	}
 
 	@GetMapping(value={"purchaseInfoModify"})
 	public String purchaseInfoModify(Model model) {
