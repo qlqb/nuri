@@ -58,4 +58,10 @@ public class AdminPurchaseController {
 		return "admin/purchase/adjInfoStore";
 	}
 
+	@GetMapping("/reservationInfoModify")
+	public String reservationInfoModify(Model model) {
+
+		return "admin/purchase/reservationInfoModify";
+	}
+
 }
