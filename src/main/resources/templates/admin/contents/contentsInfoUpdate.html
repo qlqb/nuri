@@ -1,88 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{/admin/layout/default}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/default}">
 
-	<th:block layout:fragment="customJs">
-		<script th:src="@{/js/jquery-3.7.1.js}"></script>
-	</th:block>
-	<th:block layout:fragment="customJs">
-	<script th:src="@{/js/jquery-3.7.1.js}"></script>
-	<script>
-		$(function(){
-			function validationCheck(input){
-				let isValid=true;
-				if(typeof input == 'object'){
-					$.each(input, function(){
-						let checkValue = $(this).val();
-  							if(checkValue == null || checkValue == '' || typeof checkValue == 'undefined'){
-  		  						isValid = false;
-  		  						let eleId = $(this).attr('id');
-  		  						let cate = $(`label[for="${eleId}"]`).text();
-  		  						$(this).focus();
-  		  						return isValid;
-  							}
-					});
-				}else{
-					if(input == null || input == '' || typeof input == 'undefined') {
-						isValid=false;
-					}
-				}
-				return isValid;
-			}
-			//option 값에 입력을 안했다면 option에도 입력 안했다는 메세지를 출력하게 해야 함.
-		});
-	</script>
+<th:block layout:fragment="customJs">
+    <script th:src="@{/js/jquery-3.7.1.js}"></script>
 </th:block>
-	
-  <body id="page-top">
 
-	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
-	<th:block layout:fragment="customContents">
-		<div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
+<body id="page-top">
 
-                    <!-- start form for validation -->
-                    <form id="demo-form" data-parsley-validate>
-                      <label for="fullname">컨텐츠명</label>
-                      <input type="text" id="fullname" class="form-control" name="fullname" required="required" readonly="readonly"/><br>
-					   <label for="contentsCate">카테고리</label>
-					   <select id="heard" class="form-control" required="required" readonly="readonly">
-                            <option value="contentsSelect">선택하시오</option>
-                            <option value="book">도서</option>
-                            <option value="perform">전시</option>
-                            <option value="movie">영화</option>
-                            <option value="tour">관광</option>
-                            <option value="sports">체육</option>
-                            <option value="OTT">디지털 컨텐츠</option>
-                          </select><br>
-                      <label for="contentsPlace">컨텐츠 장소</label>
-                      <input type="text" id="contentsPlace" class="form-control" name="cPlace" data-parsley-trigger="change" required="required" readonly="readonly"/><br>
-                       <div class="form-group">
-	                        <label class="control-label">컨텐츠 기간</label>
-	                        	&nbsp;&nbsp;
-	                          	<input type="date" required="required">
-	                          	&nbsp;&nbsp;
-	                          	<input type="date" required="required">
-	                  </div><br>
-                      <label for="contentsPlace">컨텐츠 가격</label>
-                      <input type="text" id="contentsPrice" class="form-control" name="cPrice" data-parsley-trigger="change" required="required"></input><br>
-                      <label for="contentsPlace">컨텐츠 수정일</label>
-                      <input type="Date" id="contentsRegDate" class="form-control" name="cDate" data-parsley-trigger="change" required="required" readonly="readonly"></input><br>
-                          <label for="content">컨텐츠 내용 (20 chars min, 100 max) :</label>
-                          <textarea id="cContent" required="required" class="form-control" name="cContent" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
-                            data-parsley-validation-threshold="10"></textarea>
+<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+<th:block layout:fragment="customContents">
 
-                          <br/>
-                          <button type="submit" id="updateContentsBtn" a th:href="@{/admin/contents/contentsInfoList}" class="btn btn-primary">컨텐츠 수정</button>
+    <div class="page-title">
+        <div class="title_left">
+            <h3>컨텐츠 수정</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠명</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="heard" class="form-control">
+                                    <option>===선택하세요===</option>
+                                    <option>도서</option>
+                                    <option>전시</option>
+                                    <option>영화</option>
+                                    <option>관광</option>
+                                    <option>체육</option>
+                                    <option>디지털 컨텐츠</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 장소</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 기간</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="date" name="middle-name">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="date" name="middle-name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 가격</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="number" name="middle-name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 수정일</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="date" name="middle-name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 내용</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label>
+                                    <textarea rows="10" cols="300" class="form-control col-md-7 col-xs-12"></textarea>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button class="btn btn-primary" type="button" style="margin-left: 392px;">취소</button>
+                                <button class="btn btn-primary" type="reset">초기화</button>
+                                <button type="submit" class="btn btn-success">수정</button>
+                            </div>
+                        </div>
                     </form>
-                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-                  </div>
-	</th:block>
+    <!-- List 형태의 경우, button을 사용해서 보여질 List를 표시할 수 있다. -->
+    <!-- UserList의 검색창을 통해서 회원의 지역, 생년월일, 아이디, 전화번호를 알 수 있다.-->
+    <!-- Ajax 통신을 통해 오른쪽에 검색할 조건을 선택할 수 있는 지역 select 옵션으로 지정
+    특정할 수 있는 정보인 이름, 전화번호, 가입일을 검색할 수 있게한다.-->
 
-  </body>
+
+
+</th:block>
+
+</body>
 
 </html>

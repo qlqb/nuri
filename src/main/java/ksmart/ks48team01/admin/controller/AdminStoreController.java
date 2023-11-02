@@ -13,7 +13,7 @@ public class AdminStoreController {
 	@GetMapping(value={"/storeInfoUpdate"})
 	public String storeUpdatePage(Model model) {
 		model.addAttribute("title", "가맹점 수정");
-		return "admin/store/storeInfoUpdate";
+		return "admin/store/storeInfoUpdate2";
 	}
 	
 	@GetMapping(value={"/storeInfoRegist"})
