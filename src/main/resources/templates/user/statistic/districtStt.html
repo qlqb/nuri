@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <link rel="stylesheet" th:href="@{/user/css/shop.css}">
+
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+    <script>
+
+    </script>
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <section id="budgetStt-p1" class="budgetStt-p1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="budgetStt-p1-title">
+                        <h3>통계 조회</h3>
+                        <div class="heading-border-light"></div>
+                    </div>
+                    <div class="list-group">
+                        <a th:href="@{/user/statistic/sttInfo}" class="list-group-item">전체 통계 조회</a>
+                        <a class="list-group-item" th:href="@{/user/statistic/storeStt}">가맹점별</a>
+                        <a class="list-group-item" th:href="@{/user/statistic/cateStt}">업종별</a>
+                        <a class="list-group-item" th:href="@{/user/statistic/regionStt}">도별</a>
+                        <a class="list-group-item" th:href="@{/user/statistic/districtStt}">지역별</a>
+                        <a class="list-group-item" th:href="@{/user/statistic/regionCateStt}">도별/업종별</a>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-9">
+                    <div>
+                        <nav class="nav nav-tabs" id="myTab" role="tablist">
+                            <a class="nav-item nav-link active" id="1" data-toggle="tab" th:href="@{/user/statistic/sttInfo}" role="tab" aria-controls="nav-home" aria-expanded="true">전체</a>
+                            <a class="nav-item nav-link" id="2" data-toggle="tab" th:href="@{/user/statistic/storeStt}" role="tab" aria-controls="nav-profile">가맹점별</a>
+                            <a class="nav-item nav-link" id="3" data-toggle="tab" th:href="@{/user/statistic/cateStt}" role="tab" aria-controls="nav-profile">업종별</a>
+                            <a class="nav-item nav-link" id="4" data-toggle="tab" th:href="@{/user/statistic/regionStt}" role="tab" aria-controls="my-profile">도별</a>
+                            <a class="nav-item nav-link" id="5" data-toggle="tab" th:href="@{/user/statistic/districtStt}" role="tab" aria-controls="my-profile">지역별</a>
+                            <a class="nav-item nav-link" id="6" data-toggle="tab" th:href="@{/user/statistic/regionCateStt}" role="tab" aria-controls="my-profile">도별/업종별</a>
+                        </nav><br/>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <!-- 해당 년도 가져올 수 있게 -->
+                            <h2>2023년 예산 대비 사용률</h2>
+                            <div class="clearfix"></div>
+                        </div><br/>
+
+                        <div>
+                            <h3>전국 도별 총 소진액 통계</h3>
+                            <div style="display: flex;">
+                                <div class="col" style="padding-top: 3%">
+                                    <div class="project-p1-cont wow fadeInUp  text-center">
+                                        <h4>전국 총 예산</h4><br/>
+                                        <p>230,000,000,000</p>
+                                    </div>
+                                </div>
+                                <div class="col" style="padding-top: 3%">
+                                    <div class="project-p1-cont wow fadeInUp  text-center">
+                                        <h4>${해당} 도 예산</h4><br/>
+                                        <p>20,000,000,000</p>
+                                    </div>
+                                </div>
+                                <div class="col" style="padding-top: 3%">
+                                    <div class="project-p1-cont wow fadeInUp  text-center">
+                                        <h4>${해당}업종 누적 <br/>소진금액</h4>
+                                        <p>17,000,000,000</p>
+                                    </div>
+                                </div>
+                                <div class="col" style="padding-top: 3%">
+                                    <div class="project-p1-cont wow fadeInUp  text-center">
+                                        <h4>${해당} 도 예산 <br/>차액</h4>
+                                        <p>3,000,000,000</p>
+                                    </div>
+                                </div>
+                                <div class="col" style="padding-top: 3%">
+                                    <div class="project-p1-cont wow fadeInUp  text-center">
+                                        <h4>${해당}도 예산 <br/>소진액 퍼센트</h4>
+                                        <p>%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br/><br/>
+                        <div>
+                            <h3>월별 예산 소진액</h3>
+                            <canvas id="budgetChart" width="600" height="350"></canvas>
+                        </div>
+                    </div><br/><br/><br/><br/><br/>
+
+                    <section class="what-we-do bg-gradiant">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h3>검색 조건</h3>
+                                    <div class="heading-border-light"></div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row" style="margin-bottom: 3%">
+                                        <div class="form-group">
+                                            <label class="regionSelect"> 지역 입력 </label>
+                                            <div>
+                                                <select>
+                                                    <option> === 지역을 선택해주세요 ===</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="cateSelect"> 업종 입력 </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select>
+                                                    <option> === 업종을 선택해주세요 ===</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="regionSelect"> 가맹점 코드 입력 </label>
+                                            <div>
+                                                <input type="text" id="storecodeinput" name="" placeholder="가맹점 코드를 입력해주세요" style="width: 200px; height:32px;"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="margin-right: 50px">
+                                            <label class="yearSelect">년도 선택</label>
+                                            <div class="year">
+                                                <select>
+                                                    <option> === 년도 선택 ===</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="monthSelect">월 선택</label>
+                                            <div class="month">
+                                                <select>
+                                                    <option> === 월 선택 ===</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 30px">
+                                        <button class="searchBtn" role="button">검색</button>
+                                        <button class="searchBtn" role="button">초기화</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="x_content">
+                        <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                            <thead>
+                            <tr>
+                                <th>해당 월</th>
+                                <th>1월</th>
+                                <th>2월</th>
+                                <th>3월</th>
+                                <th>4월</th>
+                                <th>5월</th>
+                                <th>6월</th>
+                                <th>7월</th>
+                                <th>8월</th>
+                                <th>9월</th>
+                                <th>10월</th>
+                                <th>11월</th>
+                                <th>12월</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="pull-right">
+                            <h5>총 소진액 : ${}원</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+</th:block>
+<!-- 차트 js 작성 -->
+<th:block layout:fragment="customJsCode">
+    <script>
+        // chart js 호출부 작성하시오
+        const ctx = document.getElementById('budgetChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+</th:block>
+</html>
