@@ -14,4 +14,9 @@ public class BoardController {
     public String boardList(Model model){
         return "user/board/boardList";
     }
+
+    @GetMapping("boardView")
+    public String boardView(Model model){
+        return "user/board/boardView";
+    }
 }
