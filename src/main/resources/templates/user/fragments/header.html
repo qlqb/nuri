@@ -14,7 +14,7 @@
 					<div class="col-md">
 						<ul class="list-inline top-data">
 							<li><a class="fa" style="color: #808080" th:href="@{/user/login}">로그인</a></li>
-							<li><a class="fa" style="color: #808080" th:href="@{/user/mypage/myInfo}">마이페이지</a></li>
+							<li><a class="fa" style="color: #808080" th:href="@{/user/mypage/mypage}">마이페이지</a></li>
 							<li><a class="fa" style="color: #808080" th:href="@{/user/regist/registType}">회원가입</a></li>
 						</ul>
 					</div>
@@ -44,45 +44,36 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">문화누리카드</a>
 						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{user/munhwa/aboutMunhwa}">문화누리카드 소개</a>
-							<a class="dropdown-item" th:href="@{user/munhwa/munhwaRegist}">문화누리카드 등록</a>
-							<a class="dropdown-item" th:href="@{user/munhwa/munhwaCharge}">문화누리카드 충전</a>
+							<a class="dropdown-item" th:href="@{/user/munhwa/aboutMunhwa}">문화누리카드 소개</a>
+							<a class="dropdown-item" th:href="@{/user/munhwa/munhwaRegist}">문화누리카드 등록</a>
+							<a class="dropdown-item" th:href="@{/user/munhwa/munhwaCharge}">문화누리카드 충전</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown" >
 						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">컨텐츠</a>
 						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{/user/contents/view}">컨텐츠 조회</a>
-							<a class="dropdown-item" th:href="@{/user/contents/contentsReg}">컨텐츠 등록</a>
-							<a class="dropdown-item" th:href="@{/user/contents/modifyContents}">컨텐츠 수정</a>
+							<a class="dropdown-item" th:href="@{/user/contents/contentsInfoList}">컨텐츠 조회</a>
+							<a class="dropdown-item" th:href="@{/user/contents/contentsInfoRegist}">컨텐츠 등록</a>
+							<a class="dropdown-item" th:href="@{/user/contents/contentsInfoUpdate}">컨텐츠 수정</a>
+							<a class="dropdown-item" th:href="@{/user/contents/contentsInfoSpecific}">컨텐츠 검색</a>
 
 						</div>
 					</li>
 					<li class="nav-item dropdown" >
 						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">가맹점</a>
 						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{/user/store/storeList.html}">가맹점 조회</a>
-							<a class="dropdown-item" th:href="@{/user/store/contentsRegist.html}">컨텐츠 등록</a>
-							<a class="dropdown-item" th:href="@{/user/store/adjustmentList.html}">정산 내역 확인하기</a>
+							<a class="dropdown-item" th:href="@{/user/store/storeList}">가맹점 조회</a>
+							<a class="dropdown-item" th:href="@{/user/store/storeRegist}">가맹점 등록</a>
+							<a class="dropdown-item" th:href="@{/user/store/storeModify}">가맹점 수정</a>
 						</div>
 					</li>
-					<li class="nav-item dropdown" >
-						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">알림</a>
-						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{/user/inform/notice.html}">공지사항</a>
-							<a class="dropdown-item" th:href="@{/user/inform/promotion.html}">지역 홍보</a>
-							<a class="dropdown-item" th:href="@{/user/inform/userReview.html}">이용자 후기</a>
-						</div>
+					<li>
+						<a class="nav-link" th:href="@{/user/board/boardList}" id="navbarDropdownMenuLink">게시판</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle smooth-scroll" th:href="@{/user/statistic/mainSTT}" id="" aria-haspopup="true" aria-expanded="false">통계</a>
-					</li>
-					<li class="nav-item dropdown" >
-						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">고객센터</a>
+						<a class="nav-link dropdown-toggle smooth-scroll" th:href="@{/user/statistic/sttInfo}" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">통계</a>
 						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{/user/customerService/FAQ.html}">자주 묻는 질문</a>
-							<a class="dropdown-item" th:href="@{/user/customerService/inqueryGuide.html}">문의 및 신고 안내</a>
-							<a class="dropdown-item" th:href="@{/user/customerService/inquery.html}">문의하기</a>
+							<a class="dropdown-item" th:href="@{/user/statistic/sttInfo}">전체 통계 조회</a>
 						</div>
 					</li>
 					<li>

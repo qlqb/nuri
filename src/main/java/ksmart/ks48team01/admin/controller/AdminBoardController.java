@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/board")
 public class AdminBoardController {
 
-	//사용자 정보 목록 조회
-	@GetMapping("boardCate")
-	public String boardCate(Model model) {
+	//게시판 카테고리 목록 조회
+	@GetMapping("boardCateInfo")
+	public String boardCateInfo(Model model) {
 
-		return "admin/board/boardCate";
+		return "admin/board/boardCateInfo";
 	}
-	
-	//사용자 상세 정보 조회
-	@GetMapping(value={"boardInfo"})
-	public String boardInfo(Model model) {
 
-		return "admin/board/boardInfo";
+	//사용자 상세 정보 조회
+	@GetMapping(value={"boardContentRegist"})
+	public String boardContentRegist(Model model) {
+
+		return "admin/board/boardContentRegist";
 	}
 
 }
