@@ -67,26 +67,13 @@
 							<a class="dropdown-item" th:href="@{/user/store/storeModify}">가맹점 수정</a>
 						</div>
 					</li>
-					<li class="nav-item dropdown" >
-						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">알림</a>
-						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{/user/inform/notice}">공지사항</a>
-							<a class="dropdown-item" th:href="@{/user/inform/promotion}">지역 홍보</a>
-							<a class="dropdown-item" th:href="@{/user/inform/userReview}">이용자 후기</a>
-						</div>
+					<li>
+						<a class="nav-link" th:href="@{/user/board/boardList}" id="navbarDropdownMenuLink">게시판</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle smooth-scroll" th:href="@{/user/statistic/sttInfo}" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">통계</a>
 						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" th:href="@{/user/statistic/sttInfo}">전체 통계 조회</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown" >
-						<a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">고객센터</a>
-						<div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" th:href="@{/user/customerService/FAQ}">자주 묻는 질문</a>
-							<a class="dropdown-item" th:href="@{/user/customerService/inqueryGuide}">문의 및 신고 안내</a>
-							<a class="dropdown-item" th:href="@{/user/customerService/inquery}">문의하기</a>
 						</div>
 					</li>
 					<li>
