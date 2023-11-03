@@ -23,30 +23,137 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 	<!-- 사용자별 스크립트 작성 -->
 	<th:block layout:fragment="customJsCode">
+		<script>
 
+			//========= glightbox
+			const myGallery = glightbox({
+				'href': 'assets/video/Free App Landing Page Template - AppLand.mp4',
+				'type': 'video',
+				'source': 'youtube', //vimeo, youtube or local
+				'width': 900,
+				'autoplayVideos': true,
+			});
+
+			//======== tiny slider for feature-product-carousel
+			tns({
+				slideBy: 'page',
+				autoplay: false,
+				mouseDrag: true,
+				gutter: 20,
+				nav: false,
+				controls: true,
+				controlsPosition: 'bottom',
+				controlsText: [
+					'<span class="prev"><i class="lni lni-chevron-left"></i></span>',
+					'<span class="next"><i class="lni lni-chevron-right"></i></span>'
+				],
+				container: ".feature-product-carousel",
+				items: 1,
+				center: false,
+				autoplayTimeout: 5000,
+				swipeAngle: false,
+				speed: 400,
+				responsive: {
+					768: {
+						items: 2,
+					},
+
+					992: {
+						items: 2,
+					},
+
+					1200: {
+						items: 3,
+					}
+				}
+			});
+
+			//======== tiny slider for testimonial
+			tns({
+				slideBy: 'page',
+				autoplay: false,
+				mouseDrag: true,
+				gutter: 20,
+				nav: true,
+				controls: false,
+				container: ".testimonial-carousel",
+				items: 1,
+				center: false,
+				autoplayTimeout: 5000,
+				swipeAngle: false,
+				speed: 400,
+				responsive: {
+					768: {
+						items: 2,
+					},
+					1200: {
+						items: 3,
+					}
+				}
+			});
+		</script>
 	</th:block>
 
 	<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 	<th:block layout:fragment="customContents">
-		<section id="home">
-			<div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-				<!-- Carousel items -->
-				<div class="carousel-inner">
-					<div class="carousel-item active slides">
-						<div class="overlay"></div>
-						<div class="slide-1"></div>
-						<div class="hero ">
-							<hgroup class="wow fadeInUp">
-								<h1>We Help <span ><a th:href="@{/user}" class="typewrite" data-period="2000" data-type='[ " Business", " Startup"]'>
-                        <span class="wrap"></span></a></span> </h1>
-								<h3>The next big idea is waiting for its next big changer</h3>
-							</hgroup>
-							<button class="btn btn-general btn-green wow fadeInUp" role="button">Contact Now</button>
+		<!--====== HERO PART START ======-->
+		<section id="home" class="hero-area bg_cover">
+			<div class="container">
+				<div class="row">
+					<div class="mx-auto col-lg-7 col-xl-6 col-md-10">
+						<div class="text-center hero-content">
+							<h1 class="mb-30 wow fadeInUp" data-wow-delay=".2s">NURI CULTURE</h1>
+							<p class="wow fadeInUp" data-wow-delay=".4s">문화누리카드 충전, 온라인구매 원스탑 플랫폼입니다</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+		<!--====== HERO PART END ======-->
+
+		<!--====== SEARCH PART START ======-->
+		<div class="search-area">
+			<div class="container">
+				<div class="search-wrapper">
+					<form action="#">
+						<div class="row justify-content-center">
+							<div class="col-lg-3 col-sm-5 col-10">
+								<div class="search-input">
+									<label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
+									<input type="text" name="keyword" id="keyword" placeholder="컨텐츠 이름">
+								</div>
+							</div>
+							<div class="col-lg-3 col-sm-5 col-10">
+								<div class="search-input">
+									<label for="category"><i class="lni lni-grid-alt theme-color"></i></label>
+									<select name="category" id="category">
+										<option value="none" selected disabled>카테고리</option>
+										<option value="none">카테고리1</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-3 col-sm-5 col-10">
+								<div class="search-input">
+									<label for="location"><i class="lni lni-map-marker theme-color"></i></label>
+									<select name="location" id="location">
+										<option value="none" selected disabled>지역</option>
+										<option value="none">지역1</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 col-sm-5 col-10">
+								<div class="search-btn">
+									<button class="main-btn btn-hover">검색 <i class="lni lni-search-alt"></i></button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--====== SEARCH PART END ======-->
+
+		<!--====== CATEGORY LIST PART END ======-->
 
 	</th:block>
 
