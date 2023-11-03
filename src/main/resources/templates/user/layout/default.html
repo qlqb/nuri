@@ -39,11 +39,6 @@
 	<link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
 </head>
 
-<body class="nav-md">
-<div class="container body">
-	<div class="main_container">
-
-
 		<!-- top navigation -->
 		<div th:replace="~{user/fragments/header :: headerFragment}"></div>
 		<!-- /top navigation -->
@@ -85,75 +80,7 @@
 		<!--====== Main js ======-->
 		<script th:src="@{/user/assets/js/main.js}"></script>
 
-		<script>
 
-			//========= glightbox
-			const myGallery = glightbox({
-				'href': 'assets/video/Free App Landing Page Template - AppLand.mp4',
-				'type': 'video',
-				'source': 'youtube', //vimeo, youtube or local
-				'width': 900,
-				'autoplayVideos': true,
-			});
-
-			//======== tiny slider for feature-product-carousel
-			tns({
-				slideBy: 'page',
-				autoplay: false,
-				mouseDrag: true,
-				gutter: 20,
-				nav: false,
-				controls: true,
-				controlsPosition: 'bottom',
-				controlsText: [
-					'<span class="prev"><i class="lni lni-chevron-left"></i></span>',
-					'<span class="next"><i class="lni lni-chevron-right"></i></span>'
-				],
-				container: ".feature-product-carousel",
-				items: 1,
-				center: false,
-				autoplayTimeout: 5000,
-				swipeAngle: false,
-				speed: 400,
-				responsive: {
-					768: {
-						items: 2,
-					},
-
-					992: {
-						items: 2,
-					},
-
-					1200: {
-						items: 3,
-					}
-				}
-			});
-
-			//======== tiny slider for testimonial
-			tns({
-				slideBy: 'page',
-				autoplay: false,
-				mouseDrag: true,
-				gutter: 20,
-				nav: true,
-				controls: false,
-				container: ".testimonial-carousel",
-				items: 1,
-				center: false,
-				autoplayTimeout: 5000,
-				swipeAngle: false,
-				speed: 400,
-				responsive: {
-					768: {
-						items: 2,
-					},
-					1200: {
-						items: 3,
-					}
-				}
-			});
-		</script>
 
 	</div>
 </div>
