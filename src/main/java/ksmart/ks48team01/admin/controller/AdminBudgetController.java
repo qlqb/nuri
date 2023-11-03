@@ -35,6 +35,10 @@ public class AdminBudgetController {
 
 		return "admin/budget/budgetUpdate";
 	}
-	
+	@GetMapping(value={"budgetUpdateRegion"})
+	public String budgetUpdateRegion(Model model) {
+
+		return "admin/budget/budgetUpdateRegion";
+	}
 
 }

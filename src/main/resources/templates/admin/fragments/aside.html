@@ -41,14 +41,13 @@
 						<a><i class="fa fa-home"></i> 회원 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/user/userInfoList}">회원 목록</a></li>
-							<li><a th:href="@{/admin/user/userInfoRegister}">회원 등록</a></li>
+							<li><a th:href="@{/admin/user/userManualRegist}">회원 등록</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-edit"></i>공무원/행정 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/region/regionList}">지역 목록</a></li>
-							<li><a th:href="@{/admin/district/districtList}">행정지역 목록</a></li>
-							<li><a th:href="@{/admin/department/depList}">행정기관 목록</a></li>
+							<li><a th:href="@{/admin/officer/officerInfoList}">공무원 목록</a></li>
+							<li><a th:href="@{/admin/officer/publicInfoList}">지역/행정기관 목록</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-edit"></i>예산 관리 <span class="fa fa-chevron-down"></span></a>
@@ -61,19 +60,19 @@
 					<li><a><i class="fa fa-desktop"></i> 가맹점 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/store/storeInfoList}">가맹점 목록</a></li>
-							<li><a th:href="@{/admin/store/storeInfoSpecific}">가맹점 검색</a></li>
+							<li><a th:href="@{/admin/store/storeInfoSpecific}">가맹점 상세정보</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-table"></i> 컨텐츠 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/contents/contentsInfoList}">컨텐츠 목록</a></li>
-							<li><a th:href="@{/admin/contents/contentsInfoSpecific}">컨텐츠 검색</a></li>
+							<li><a th:href="@{/admin/contents/contentsInfoSpecific}">컨텐츠 상세정보</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-bar-chart-o"></i> 게시판 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/board/boardCateInfo}">게시판 컨텐츠 관리</a></li>
-							<li><a th:href="@{/admin/board/boardContentRegist}">게시판 컨텐츠 등록</a></li>
+							<li><a th:href="@{/admin/board/boardCate}">게시판 카테고리 관리</a></li>
+							<li><a th:href="@{/admin/board/boardInfo}">게시판 글 관리</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-clone"></i> 결제/예약/정산 관리 <span class="fa fa-chevron-down"></span></a>
@@ -88,12 +87,7 @@
 					</li>
 					<li><a><i class="fa fa-clone"></i> 통계 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/statistic/storeStt}">가맹점별 통계 조회</a></li>
-							<li><a th:href="@{/admin/statistic/cateStt}">업종별 통계 조회</a></li>
-							<li><a th:href="@{/admin/statistic/regionStt}">도별 통계 조회</a></li>
-							<li><a th:href="@{/admin/statistic/districtStt}">시군별 통계 조회(보류)</a></li>
-							<li><a th:href="@{/admin/statistic/regionCateStt}">도 및 업종별 통계 조회</a></li>
-							<li><a th:href="@{/admin/statistic/budgetUseage}">예산 사용률 조회</a></li>
+							<li><a th:href="@{/admin/statistic/sttInfo}">통계 조회(분야별)</a></li>
 						</ul>
 					</li>
 				</ul>
