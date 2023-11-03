@@ -43,6 +43,6 @@ public class ContentsController {
 		@GetMapping(value = {"/contentsInfoList"})
 		public String contentsListPage(Model model) {
 			model.addAttribute("title", "컨텐츠 조회");
-			return "user/contents/contentsInfoList";
+			return "user/contents/contentsInfoList2";
 		}
 }
