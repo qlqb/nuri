@@ -30,9 +30,6 @@
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
 
-    <!-- Template의 원본에서 Core StyleSheets 가져와야 합니다.
-    레퍼런스 CSS 파일이 되는 것 - contact.css & shop.css <link rel="stylesheet" href="css/contact.css"> -->
-
     <!--====== BANNER PART START ======-->
     <section class="banner-area bg_cover">
         <div class="container">
@@ -58,10 +55,21 @@
         <div class="container">
             <div class="row justify-content-center">
 
-                <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
                     <div class="single-service">
                         <div class="icon">
                             <strong>1</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>회원 약관 동의</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
+                    <div class="single-service">
+                        <div class="icon">
+                            <strong>2</strong>
                         </div>
                         <div class="service-content">
                             <h3>회원 정보 작성</h3>
@@ -69,10 +77,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
                     <div class="single-service">
                         <div class="icon">
-                            <strong>2</strong>
+                            <strong>3</strong>
                         </div>
                         <div class="service-content">
                             <h3>공무원 정보 작성</h3>
@@ -80,10 +88,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
                     <div class="single-service">
                         <div class="icon">
-                            <strong>3</strong>
+                            <strong>4</strong>
                         </div>
                         <div class="service-content">
                             <h3>회원 가입 완료</h3>
@@ -96,13 +104,13 @@
     <!--====== 입력 단계 정보 끝 ======-->
 
     <!--====== 사용자 회원 가입 form 시작 ======-->
-    <section class="login-area pt-70 pb-70">
+    <form action="#">
+    <section class="login-area pt-70 pb-70" id="user-form">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
                         <h3 class="mb-20">회원 정보 입력</h3>
-                        <form action="#">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
@@ -114,6 +122,12 @@
                                     <div class="single-form mb-20">
                                         <label for="password" class="mb-2"><small class="input-specific">*</small>비밀번호</label>
                                         <input type="password" id="password" name="password" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="contact" class="mb-2"><small class="input-specific">*</small>이름</label>
+                                        <input type="text" id="contact" name="user_contact" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -160,14 +174,7 @@
                                 <div class="single-form mb-20">
                                     <p><small class="input-specific">*</small>는 필수 요소 항목입니다.</p>
                                 </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-30">
-                                        <button class="main-btn btn-hover py-2 px-5 rounded">로그인</button>
-                                    </div>
-                                </div>
-
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -176,65 +183,33 @@
     <!--====== 사용자 회원 가입 form 끝 ======-->
 
     <!--====== 공무원 회원 가입 form 시작 ======-->
-    <section class="login-area pt-70 pb-70">
+    <section class="login-area pt-70 pb-70" id="officer-form">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
                         <h3 class="mb-20">회원 정보 입력</h3>
-                        <form action="#">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="identifier" class="mb-2"><small class="input-specific">*</small>아이디</label>
-                                        <input type="text" id="identifier" name="user_id" placeholder="아이디" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="password" class="mb-2"><small class="input-specific">*</small>비밀번호</label>
-                                        <input type="password" id="password" name="password" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="contact" class="mb-2"><small class="input-specific">*</small>연락처</label>
-                                        <input type="text" id="contact" name="user_contact" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="email" class="mb-2"><small class="input-specific">*</small>이메일</label>
-                                        <input type="email" id="email" name="user_email" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <!-- 주소 API 이용할 수 있을 경우, 주소 API를 통한 값을 Parsing(구문분석)하여 자동완성 -->
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="region" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="region">
+                                        <label for="department" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">행정기관</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="department">
                                             <option value="none" selected disabled>region dataset</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="district" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="district">
+                                        <label for="division" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">부서</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="division">
                                             <option value="none" selected disabled>district dataset</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세 주소 1 </label>
-                                        <input type="text" id="address-1" name="address-1" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="address-2" class="mb-2">&nbsp;상세 주소 2 </label>
-                                        <input type="text" id="address-2" name="address-2" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="officer" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
+                                        <input type="text" id="officer" name="user_email" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="single-form mb-20">
@@ -242,25 +217,24 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-30">
-                                        <button class="main-btn btn-hover py-2 px-5 rounded">로그인</button>
+                                        <button class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
                                     </div>
                                 </div>
-
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    </form>
     <!--====== 공무원 회원 가입 form 끝 ======-->
 
 </th:block>
+    <body>
+        <script>
 
-<script>
-
-</script>
-
+        </script>
+    </body>
 
 
 </html>
