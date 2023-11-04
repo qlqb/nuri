@@ -8,6 +8,13 @@
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}"/>
     <link rel="stylesheet" th:href="@{/user/assets/css/news.css}"/>
+
+    <!-- 필수 입력 및 input 태그 설명을 색을 이용하여 강조-->
+    <style>
+        .input-specific {
+            color: indianred;
+        }
+    </style>
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -23,29 +30,292 @@
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
 
-    <section id="shop-p1" class="shop-p1">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="shop-p1-title">
-                        <h3>마이페이지</h3>
-                        <div class="heading-border-light"></div>
-                    </div>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">로그인</a>
-                        <a href="#" class="list-group-item">아이디 찾기</a>
-                        <a href="#" class="list-group-item">비밀번호 찾기</a>
-                        <a href="#" class="list-group-item">회원가입</a>
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">회원가입</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">메인 페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">공무원 회원 가입</li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!--====== BANNER PART END ======-->
+
+    <!--====== 입력 단계 정보 시작 ======-->
+    <section class="service-area pt-60">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
+                    <div class="single-service">
+                        <div class="icon">
+                            <strong>1</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>회원 약관 동의</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
+                    <div class="single-service">
+                        <div class="icon">
+                            <strong>2</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>회원 정보 작성</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
+                    <div class="single-service">
+                        <div class="icon">
+                            <strong>3</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>공무원 정보 작성</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
+                    <div class="single-service">
+                        <div class="icon">
+                            <strong>4</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>회원 가입 완료</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== 입력 단계 정보 끝 ======-->
+
+    <!--====== 약관 동의 설명 시작 ======-->
+    <section class="accordions-area pt-60 pb-90">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion-wrapper">
+                        <h1 class="text-center mb-50">회원 가입 약관</h1>
+                        <div class="accordion" id="accordionExample">
+                            <div class="single-accordion">
+                                <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                    1번째 약관
+                                </button>
+
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="accordion-content">
+                                        1번째 약관입니다.
+                                    </div>
+                                    <div class="content d-flex justify-content-center">
+                                        <input class="p-0 form-check-input" type="checkbox" name="flexRadioDefault" id="term1">
+                                        <span class="px-1">위의 약관을 읽고 동의하였습니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-accordion">
+                                <button class="text-left accordion-btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                        aria-expanded="true" aria-controls="collapseTwo">
+                                    2번째 약관
+                                </button>
+
+                                <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                    <div class="accordion-content">
+                                        2번째 약관입니다.
+                                    </div>
+                                    <div class="content d-flex justify-content-center">
+                                        <input class="p-0 form-check-input" type="checkbox" name="flexRadioDefault" id="term2">
+                                        <span class="px-1">위의 약관을 읽고 동의하였습니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-accordion">
+                                <button class="text-left accordion-btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
+                                        aria-expanded="true" aria-controls="collapseThree">
+                                    3번째 약관
+                                </button>
+
+                                <div id="collapseThree" class="collapse" data-parent="#accordionExample">
+                                    <div class="accordion-content">
+                                        3번째 약관입니다.
+                                    </div>
+                                    <div class="content d-flex justify-content-center">
+                                        <input class="p-0 form-check-input" type="checkbox" name="flexRadioDefault" id="term3">
+                                        <span class="px-1">위의 약관을 읽고 동의하였습니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-accordion">
+                                <button class="text-left accordion-btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseFour"
+                                        aria-expanded="true" aria-controls="collapseFour">
+                                    4번째 약관
+                                </button>
+
+                                <div id="collapseFour" class="collapse" data-parent="#accordionExample">
+                                    <div class="accordion-content">
+                                        4번째 약관입니다.
+                                    </div>
+                                    <div class="content d-flex justify-content-center">
+                                        <input class="p-0 form-check-input" type="checkbox" name="flexRadioDefault" id="term4">
+                                        <span class="px-1">위의 약관을 읽고 동의하였습니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== 약관 동의 설명 시작 ======-->
+
+    <!--====== 사용자 회원 가입 form 시작 ======-->
+    <form action="#">
+        <section class="login-area pt-70 pb-70" id="user-form">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-10">
+                        <div class="login-wrapper box-style">
+                            <h3 class="mb-20">회원 정보 입력</h3>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="identifier" class="mb-2"><small class="input-specific">*</small>아이디</label>
+                                        <input type="text" id="identifier" name="user_id" placeholder="아이디" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="password" class="mb-2"><small class="input-specific">*</small>비밀번호</label>
+                                        <input type="password" id="password" name="password" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="contact" class="mb-2"><small class="input-specific">*</small>이름</label>
+                                        <input type="text" id="contact" name="user_contact" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="contact" class="mb-2"><small class="input-specific">*</small>연락처</label>
+                                        <input type="text" id="contact" name="user_contact" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="email" class="mb-2"><small class="input-specific">*</small>이메일</label>
+                                        <input type="email" id="email" name="user_email" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <!-- 주소 API 이용할 수 있을 경우, 주소 API를 통한 값을 Parsing(구문분석)하여 자동완성 -->
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="region" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="region">
+                                            <option value="none" selected disabled>region dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="district" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="district">
+                                            <option value="none" selected disabled>district dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세 주소 1 </label>
+                                        <input type="text" id="address-1" name="address-1" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="address-2" class="mb-2">&nbsp;상세 주소 2 </label>
+                                        <input type="text" id="address-2" name="address-2" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="single-form mb-20">
+                                    <p><small class="input-specific">*</small>는 필수 요소 항목입니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--====== 사용자 회원 가입 form 끝 ======-->
+
+        <!--====== 공무원 회원 가입 form 시작 ======-->
+        <section class="login-area pt-70 pb-70" id="officer-form">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-10">
+                        <div class="login-wrapper box-style">
+                            <h3 class="mb-20">회원 정보 입력</h3>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="department" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">행정기관</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="department">
+                                            <option value="none" selected disabled>region dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="division" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">부서</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="division">
+                                            <option value="none" selected disabled>district dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="officer" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
+                                        <input type="text" id="officer" name="user_email" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="single-form mb-20">
+                                    <p><small class="input-specific">*</small>는 필수 요소 항목입니다.</p>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-30">
+                                        <button class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <!--====== 공무원 회원 가입 form 끝 ======-->
 
 </th:block>
+<body>
+<script>
 
-
-
+</script>
+</body>
 
 
 </html>
