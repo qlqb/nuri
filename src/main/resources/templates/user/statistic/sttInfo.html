@@ -6,14 +6,14 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
 
-    <link rel="stylesheet" th:href="@{/user/css/shop.css}">
+    <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}">
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script th:src="@{/user/echarts/dist/echarts.min.js}"></script>
-    <script th:src="@{/user/css/Chart.js/dist/Chart.js}"></script>
+    <script th:src="@{/user/assets/css/Chart.js/dist/Chart.js}"></script>
 </th:block>
 
 <!-- 사용자별 스크립트 작성 -->
