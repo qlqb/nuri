@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user/about")
 public class AboutController {
 
-    @GetMapping(value = "/nuriService")
+    @GetMapping("/nuriService")
     public String aboutNuriService(Model model) {
 
         return "user/about/nuriService";
     }
 
-    @GetMapping(value = "/nuriStore")
+    @GetMapping("/nuriStore")
     public String aboutNuriStore(Model model) {
 
         return "user/about/nuriStore";
     }
 
-    @GetMapping(value = "/nuriCard")
+    @GetMapping("/nuriCard")
     public String aboutNuriCard(Model model) {
 
         return "user/about/nuriCard";
