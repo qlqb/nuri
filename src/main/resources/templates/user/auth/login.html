@@ -45,7 +45,7 @@
     <!--====== 사용자 페이지 가입 관련 링크  ======-->
     <div class="justify-content-center">
         <a href="/user/auth/login">로그인</a> </br>
-        <a href="/user/auth/findMyId">로그인 찾기</a> </br>
+        <a href="/user/auth/findMyId">아이디 찾기</a> </br>
         <a href="/user/auth/findMyPw">비밀번호 찾기</a> </br>
         <a href="/user/auth/resetMyId">비밀번호 찾은 후 초기화</a> </br>
         <a href="/user/register/registerType">회원 등급 선택</a> </br>
@@ -54,6 +54,7 @@
         <a href="/user/register/officerRegister">공무원 회원 가입 폼</a> </br>
         <a href="/user/register/storeRegister">가맹점 회원 가입 폼</a> </br>
         <a href="/user/register/registerConfirm">가입 확인 페이지</a>
+        <a href="/user/register/registerType">가입 확인 페이지</a>
     </div>
     <!--====== 사용자 페이지 가입 관련 링크  ======-->
 
@@ -78,19 +79,17 @@
                                         <input type="password" id="password" name="password" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 d-flex justify-content-center">
                                     <div class="single-form mb-30">
                                         <button class="main-btn btn-hover py-2 px-5 rounded">로그인</button>
                                     </div>
                                 </div>
+
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <p><a href="javascript:void(0)">재설정</a></p>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-30">
-                                        <p><a href="signup.html">회원가입</a></p>
+                                        <p><a th:href="@{/user/auth/findMyId}">아이디 찾기</a></p>
+                                        <p><a th:href="@{/user/auth/findMyPw}">비밀번호 찾기</a></p>
+                                        <p><a th:href="@{/user/register/registerType}">회원가입</a></p>
                                     </div>
                                 </div>
 

@@ -42,8 +42,8 @@
                         <h1 class="text-white">회원가입</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">메인 페이지</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">사용자 회원 가입</li>
+                                <li class="breadcrumb-item"><a th:href="@{/user}">메인페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">사용자 회원가입</li>
                             </ol>
                         </nav>
                     </div>
@@ -64,7 +64,7 @@
                             <strong>1</strong>
                         </div>
                         <div class="service-content">
-                            <h3>회원 약관 동의</h3>
+                            <h3>약관동의</h3>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                             <strong>2</strong>
                         </div>
                         <div class="service-content">
-                            <h3>회원 정보 작성</h3>
+                            <h3>회원정보 작성</h3>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                             <strong>3</strong>
                         </div>
                         <div class="service-content">
-                            <h3>회원 가입 완료</h3>
+                            <h3>가입완료</h3>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="accordion-wrapper">
-                        <h1 class="text-center mb-50">회원 가입 약관</h1>
+                        <h1 class="text-center mb-50">가입약관</h1>
                         <div class="accordion" id="accordionExample">
                             <div class="single-accordion">
                                 <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
@@ -185,8 +185,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
-                        <h3 class="mb-20">회원 정보 입력</h3>
-                        <form action="#">
+                        <h3 class="mb-20">회원정보 입력</h3>
+                        <form th:action="@{/user/register/memberRegister}">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
@@ -237,13 +237,13 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세 주소 1 </label>
+                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세주소 1 </label>
                                         <input type="text" id="address-1" name="address-1" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="address-2" class="mb-2 px-1">상세 주소 2 </label>
+                                        <label for="address-2" class="mb-2 px-1">상세주소 2 </label>
                                         <input type="text" id="address-2" name="address-2" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>

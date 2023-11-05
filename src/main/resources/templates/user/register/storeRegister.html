@@ -12,7 +12,15 @@
     <!-- 필수 입력 및 input 태그 설명을 색을 이용하여 강조-->
     <style>
         .input-specific {
-            color: indianred;
+            color: #FF6B6B;
+        }
+
+        .appear {
+            display: block;
+        }
+
+        .disappear {
+            display: none;
         }
     </style>
 </head>
@@ -39,8 +47,8 @@
                         <h1 class="text-white">회원가입</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">메인 페이지</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">공무원 회원 가입</li>
+                                <li class="breadcrumb-item"><a th:href="@{/user}">메인페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">가맹점 회원가입</li>
                             </ol>
                         </nav>
                     </div>
@@ -61,7 +69,7 @@
                             <strong>1</strong>
                         </div>
                         <div class="service-content">
-                            <h3>회원 약관 동의</h3>
+                            <h3>회원약관 동의</h3>
                         </div>
                     </div>
                 </div>
@@ -72,7 +80,7 @@
                             <strong>2</strong>
                         </div>
                         <div class="service-content">
-                            <h3>회원 정보 작성</h3>
+                            <h3>회원정보 작성</h3>
                         </div>
                     </div>
                 </div>
@@ -83,7 +91,7 @@
                             <strong>3</strong>
                         </div>
                         <div class="service-content">
-                            <h3>공무원 정보 작성</h3>
+                            <h3>가맹점 정보 작성</h3>
                         </div>
                     </div>
                 </div>
@@ -94,7 +102,7 @@
                             <strong>4</strong>
                         </div>
                         <div class="service-content">
-                            <h3>회원 가입 완료</h3>
+                            <h3>회원가입 완료</h3>
                         </div>
                     </div>
                 </div>
@@ -104,12 +112,12 @@
     <!--====== 입력 단계 정보 끝 ======-->
 
     <!--====== 약관 동의 설명 시작 ======-->
-    <section class="accordions-area pt-60 pb-90">
+    <section class="accordions-area pt-60 pb-90" id="process-1">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="accordion-wrapper">
-                        <h1 class="text-center mb-50">회원 가입 약관</h1>
+                        <h1 class="text-center mb-50">회원가입 약관</h1>
                         <div class="accordion" id="accordionExample">
                             <div class="single-accordion">
                                 <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
@@ -186,7 +194,7 @@
 
     <!--====== 사용자 회원 가입 form 시작 ======-->
     <form action="#">
-        <section class="login-area pt-70 pb-70" id="user-form">
+        <section class="login-area pt-70 pb-70" id="process-2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-10">
@@ -202,13 +210,13 @@
                                 <div class="col-12">
                                     <div class="single-form mb-20">
                                         <label for="password" class="mb-2"><small class="input-specific">*</small>비밀번호</label>
-                                        <input type="password" id="password" name="password" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                        <input type="password" id="password" name="user_pw" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="contact" class="mb-2"><small class="input-specific">*</small>이름</label>
-                                        <input type="text" id="contact" name="user_contact" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="name" class="mb-2"><small class="input-specific">*</small>이름</label>
+                                        <input type="text" id="name" name="user_name" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -242,14 +250,14 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세 주소 1 </label>
-                                        <input type="text" id="address-1" name="address-1" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세주소 1 </label>
+                                        <input type="text" id="address-1" name="address-1" placeholder="상세주소 1" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="address-2" class="mb-2">&nbsp;상세 주소 2 </label>
-                                        <input type="text" id="address-2" name="address-2" placeholder="비밀번호" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="address-2" class="mb-2 px-1">상세주소 2 </label>
+                                        <input type="text" id="address-2" name="address-2" placeholder="상세주소 2" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="single-form mb-20">
@@ -264,33 +272,59 @@
         <!--====== 사용자 회원 가입 form 끝 ======-->
 
         <!--====== 공무원 회원 가입 form 시작 ======-->
-        <section class="login-area pt-70 pb-70" id="officer-form">
+        <section class="login-area pt-70 pb-70" id="process-3">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-10">
                         <div class="login-wrapper box-style">
-                            <h3 class="mb-20">회원 정보 입력</h3>
+                            <h3 class="mb-20">가맹점 정보 입력</h3>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="department" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">행정기관</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="department">
+                                        <label for="store-category-code" class="mb-2"><small class="input-specific">*</small>가맹점 카테고리</label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" id="store-category-code" name="store_category_code">
                                             <option value="none" selected disabled>region dataset</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="division" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">부서</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="division">
+                                        <label for="store-name" class="mb-2"><small class="input-specific">*</small>상호명</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="store-name" name="store_name" placeholder="가맹점의 상호명을 입력해주세요">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="store-contact" class="mb-2"><small class="input-specific">*</small>가맹점 연락처</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="store-contact" name="store_contact" placeholder="가맹점 연락처를 입력해주세요">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="store-region" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="store_region" id="store-region">
                                             <option value="none" selected disabled>district dataset</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="officer" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
-                                        <input type="text" id="officer" name="user_email" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
+                                        <label for="store-district" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="store_district" id="store-district">
+                                            <option value="none" selected disabled>district dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="business" class="mb-2"><small class="input-specific">*</small>법인 등록번호</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="business" name="business_number" placeholder="법인 등록번호를 입력해주세요.">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="corporation" class="mb-2"><small class="input-specific">*</small>사업자 등록번호</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="corporation" name="corporation_number" placeholder="사업자 등록번호를 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="single-form mb-20">
@@ -311,11 +345,7 @@
     <!--====== 공무원 회원 가입 form 끝 ======-->
 
 </th:block>
-<body>
-<script>
 
-</script>
-</body>
-
+<script src="/user/assets/js/register-tab.js"></script>
 
 </html>

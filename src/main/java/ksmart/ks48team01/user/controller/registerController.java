@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("registController")
 @RequestMapping("/user/register")
@@ -20,15 +22,6 @@ public class registerController {
         return "user/register/registerType";
     }
 
-    // 회원 가입 시 이용약관의 동의를 체크하는 페이지
-    @GetMapping(value = "/registerTerms")
-    public String registerTerms(Model model) {
-
-        model.addAttribute("title", "약관동의 - 누리컬쳐");
-
-        return "user/register/registerTerms";
-    }
-
     // Nuriculture 웹 애플리케이션을 이용하는 사용자(User) 권한의 가입 Form
     @GetMapping(value = "/memberRegister")
     public String memberRegister(Model model) {
@@ -36,6 +29,12 @@ public class registerController {
         model.addAttribute("title", "회원가입 - 누리컬쳐");
 
         return "user/register/memberRegister";
+    }
+
+    @PostMapping(value = "/memberRegister")
+    public String memberRegister() {
+
+        return "redirect:/user/register/registerConfirm";
     }
 
     // Nuriculture 웹 애플리케이션에서 상품을 판매, 게시하는 가맹점(store) 권한의 가입 Form
@@ -47,6 +46,14 @@ public class registerController {
         return "user/register/storeRegister";
     }
 
+
+    @PostMapping(value = "/storeRegister")
+    public String storeRegister() {
+
+        return "redirect:/user/register/registerConfirm";
+    }
+
+
     // Nuriculture 웹 애플리케이션을 이용, 관리하는 공무원(officer) 권한의 가입 Form
     @GetMapping(value = "/officerRegister")
     public String officerRegister(Model model) {
@@ -54,6 +61,20 @@ public class registerController {
         model.addAttribute("title", "회원가입 - 누리컬쳐");
 
         return "user/register/officerRegister";
+    }
+
+
+    /**
+     * 
+     * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
+     * @return
+     */
+    @PostMapping(value = "/officerRegister")
+    public String officerRegister(RedirectAttributes redirectAttributes) {
+
+        //redirectAttributes.addAttribute("level", "공무원");
+
+        return "redirect:/user/register/registerConfirm";
     }
 
 
@@ -67,6 +88,14 @@ public class registerController {
         return "user/register/registerConfirm";
     }
 
+//    @GetMapping(value = "/registerConfirm")
+//    public String registerConfirm(@RequestParam("level") String userLevel, Model model) {
+//
+//        model.addAttribute("title", "회원가입 - 누리컬쳐");
+//        model.addAttribute("userLevel", userLevel);
+//
+//        return "user/register/registerConfirm";
+//    }
 
 
 

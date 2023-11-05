@@ -47,20 +47,7 @@
     </section>
     <!--====== BANNER PART END ======-->
 
-    <!--====== 사용자 페이지 가입 관련 링크  ======-->
-    <div>
-        <a href="/user/auth/login">로그인</a>
-        <a href="/user/auth/findMyId">로그인 찾기</a>
-        <a href="/user/auth/findMyPw">비밀번호 찾기</a>
-        <a href="/user/auth/resetMyId">비밀번호 찾은 후 초기화</a>
-        <a href="/user/register/registerType">회원 등급 선택</a>
-        <a href="/user/register/registerTerms">가입 약관 확인</a>
-        <a href="/user/register/memberRegister">사용자 회원 가입 폼</a>
-        <a href="/user/register/officerRegister">공무원 회원 가입 폼</a>
-        <a href="/user/register/storeRegister">가맹점 회원 가입 폼</a>
-        <a href="/user/register/registerConfirm">가입 확인 페이지</a>
-    </div>
-    <!--====== 사용자 페이지 가입 관련 링크  ======-->
+
 
     <!--====== PRICING PRODUCT PART START ======-->
     <section class="pricing-area pt-140 pb-140">
@@ -88,7 +75,7 @@
                             <li>공공시설 관리업체</li>
                         </ul>
 
-                        <a href="javascript:void(0)" class="main-btn btn-hover">가맹점으로 가입</a>
+                        <a th:href="@{/user/register/storeRegister}" class="main-btn btn-hover">가맹점으로 가입</a>
                     </div>
                 </div>
 
@@ -104,7 +91,7 @@
                             <li>문화누리카드 발급대상</li>
                         </ul>
 
-                        <a href="javascript:void(0)" class="main-btn btn-hover">사용자로 가입</a>
+                        <a th:href="@{/user/register/memberRegister}" class="main-btn btn-hover">사용자로 가입</a>
                     </div>
                 </div>
 
@@ -115,12 +102,12 @@
                         </div>
                         <h3 class="name">공무원</h3>
                         <ul>
-                            <li>공공시설의 관리 및 예산집행 관계자</li>
-                            <li>문화, 체육, 복지시설의 이용실태 관리</li>
-                            <li>문화누리카드 및 시설의 데이터 이용</li>
+                            <li>공공시설의 관리, 예산집행</li>
+                            <li>문화시설 현황확인</li>
+                            <li>문화누리카드 데이터 이용</li>
                         </ul>
 
-                        <a href="javascript:void(0)" class="main-btn btn-hover">공무원으로 가입</a>
+                        <a th:href="@{/user/register/officerRegister}" class="main-btn btn-hover">공무원으로 가입</a>
                     </div>
                 </div>
 
