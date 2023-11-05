@@ -6,6 +6,15 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
     <title th:text="${title}"></title>
+    <style>
+        .img-radius10 {
+            border-radius: 10px;
+        }
+
+        .img-shadow {
+            box-shadow: 0px 3px 25px rgba(203, 207, 213, 0.3)
+        }
+    </style>
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -47,8 +56,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="welcome-img">
-                        <img src="assets/images/about/about-img.png" alt="" class="image">
-                        <img src="assets/images/about/dot-shape.svg" alt="" class="dot-shape">
+                        <img  class="image img-radius10 img-shadow" src="/user/assets/images/about/gamcheon.jpg" alt="">
+                        <small class="mt-10 d-flex justify-content-center">대한민국 부산광역시 사하구 감천동 감내1로 감천문화마을</small>
                     </div>
                 </div>
 
@@ -56,7 +65,7 @@
                     <div class="welcome-content">
                         <h1 class="mb-30">누리컬쳐의 서비스</h1>
                         <p>우리 주변의 공공문화시설은 우리가 생각했던 것보다 많습니다. 그리고 누구나 누릴 수 있습니다. <br><br>
-                            누리컬쳐는 정보를 통해서 더 많은 사람들이 쉽고 간편하게 문화생활을 할 수 있도록 지원합니다.</p>
+                            누리컬쳐는 정보를 통해서 보다 더 많은 사람들이 쉽고 간편하게 문화생활을 할 수 있도록 지원합니다.</p>
                     </div>
                 </div>
             </div>
@@ -72,7 +81,7 @@
                     <div class="why-chose-content">
                         <div class="section-title">
                             <h1>누리컬쳐의 방향</h1>
-                            <p>공공문화시설을 이용하는 사람부터 운영하는 사람까지, 누리컬쳐는 모든 사람을 위한 방향으로 나아갑니다.</p>
+                            <p>공공문화시설을 이용하는 사람부터 운영하는 사람까지, 정보제공을 통해 모든 사람을 위한 방향으로 나아갑니다.</p>
                         </div>
 
                         <div class="why-chose-item">
@@ -81,7 +90,7 @@
                             </div>
                             <div class="content">
                                 <h3>사용자</h3>
-                                <p>누리</p>
+                                <p>주변의 공공 문화시설을 찾는 사람부터, 문화생활을 누리기 힘든 사람들에게 다양한 정보를 제공합니다.</p>
                             </div>
                         </div>
                         <div class="why-chose-item">
@@ -90,7 +99,7 @@
                             </div>
                             <div class="content">
                                 <h3>가맹점</h3>
-                                <p>사용자와 가맹점을 이어주고 문화누리카드의 가맹점, 문화시설에 도움이 되는 정보를 제공합니다.</p>
+                                <p>정보를 통해 사용자와 가맹점을 이어주고 공공 문화시설 운영에 도움을 줄 수 있는 데이터를 제공합니다.</p>
                             </div>
                         </div>
                         <div class="why-chose-item">
@@ -99,7 +108,7 @@
                             </div>
                             <div class="content">
                                 <h3>공무원</h3>
-                                <p>Buy and sell everything from used cars to mobile phones and computer.</p>
+                                <p>공공 문화시설의 운영과 예산의 집행에 있어 도움이 되는 데이터를 제공합니다.</p>
                             </div>
                         </div>
                     </div>
@@ -107,7 +116,8 @@
 
                 <div class="col-lg-6">
                     <div class="text-right why-chose-img">
-                        <img src="assets/images/about/why-us.png" alt="">
+                        <small class="mb-10 d-flex justify-content-center">전북 전주시 완산구 기린대로 99</small>
+                        <img class="image img-radius10 img-shadow" src="/user/assets/images/about/hanok.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -136,7 +146,7 @@
                             <h3>누리컬쳐에 가입</h3>
                             <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>
                         </div>
-                        <a href="javascript:void(0)" class="main-btn btn-hover">더보기</a>
+                        <a th:href="@{/user/register/registerType}" class="main-btn btn-hover">더보기</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-8">
@@ -148,7 +158,7 @@
                             <h3>누리컬쳐의 가맹점에 대하여</h3>
                             <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>
                         </div>
-                        <a href="javascript:void(0)" class="main-btn btn-hover">더보기</a>
+                        <a th:href="@{/user/about/nuriStore}" class="main-btn btn-hover">더보기</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-8">
@@ -160,7 +170,7 @@
                             <h3>문화누리카드에 대하여</h3>
                             <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>
                         </div>
-                        <a href="javascript:void(0)" class="main-btn btn-hover">더보기</a>
+                        <a th:href="@{/user/about/nuriCard}" class="main-btn btn-hover">더보기</a>
                     </div>
                 </div>
             </div>

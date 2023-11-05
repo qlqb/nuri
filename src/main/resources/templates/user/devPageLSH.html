@@ -27,7 +27,7 @@
                         <h1 class="text-white" th:text="${pageTitle}"></h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html" th:text="${breadCrumb1}"></a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/user/}" th:text="${breadCrumb1}"></a></li>
                                 <li class="breadcrumb-item active" aria-current="page" th:text="${breadCrumb2}"></li>
                             </ol>
                         </nav>
@@ -54,17 +54,20 @@
                             아이디를 출력한다.</p>
                     </li>
                     <li class="list-group-item">
-                        <a href="/user/auth/findMyId">1. 아이디 찾기 (HTML 구성완료)</a>
+                        <a href="/user/auth/login">1. 로그인 (HTML 구성완료)</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="/user/auth/findMyPw">2. 비밀번호 찾기 (HTML 구성완료)</a>
+                        <a href="/user/auth/findMyId">2. 아이디 찾기 (HTML 구성완료)</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/user/auth/findMyPw">3. 비밀번호 찾기 (HTML 구성완료)</a>
                     </li>
                     <li class="list-group-item">
                         <p>비밀번호의 경우는 비밀번호를 초기화 해야하기 때문에 redirectAttributes.addAttribute 속성을 사용하여 해당 회원의 아이디를
                             전송한 후에, HTML에서 전송하는 Form에 hidden으로 해당 회원의 아이디를 집어넣어서 POST로 데이터 격납시에 해당 회원을 식별할 수 있도록한다.</p>
                     </li>
                     <li class="list-group-item">
-                        <a href="/user/auth/resetMyPw">3. 비밀번호 찾은 후 초기화 (HTML 구성완료)</a>
+                        <a href="/user/auth/resetMyPw">4. 비밀번호 찾은 후 초기화 (HTML 구성완료)</a>
                     </li>
                 </ul>
             </div>
