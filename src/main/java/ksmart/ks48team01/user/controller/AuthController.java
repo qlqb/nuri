@@ -1,7 +1,9 @@
 package ksmart.ks48team01.user.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,15 +23,21 @@ public class AuthController {
     }
 
     @GetMapping("/findMyPw")
-    public String findMyPw() {
+    public String findMyPw(Model model) {
 
         return "user/auth/findMyPw";
     }
 
-    @GetMapping("/resetMyId")
-    public String resetMyId() {
+    @PostMapping("/findMyPw")
+    public String findMyPw() {
 
-        return "user/auth/resetMyId";
+        return "redirect:/user/auth/resetMyId";
+    }
+
+    @GetMapping("/resetMyPw")
+    public String resetMyPw() {
+
+        return "user/auth/resetMyPw";
     }
 
 

@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="banner-content">
-                        <h1 class="text-white">내 아이디 찾기</h1>
+                        <h1 class="text-white">비밀번호 재설정</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">메인</a></li>
@@ -45,35 +45,26 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
-                        <h3 class="mb-20">내 아이디 찾기</h3>
+                        <h3 class="mb-20">비밀번호 재설정</h3>
                         <form action="#">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="email" class="mb-2">이메일</label>
-                                        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="password" class="mb-2">비밀번호</label>
+                                        <input type="password" id="password" name="password" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="password" class="mb-2">회원이름</label>
-                                        <input type="password" id="password" name="password" placeholder="회원이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="password-check" class="mb-2">비밀번호 확인</label>
+                                        <input type="password" id="password-check" name="password-check" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-center">
                                     <div class="single-form mb-30">
-                                        <button class="main-btn btn-hover py-2 rounded">아이디 찾기</button>
+                                        <button class="main-btn btn-hover py-2 rounded">재설정</button>
                                     </div>
                                 </div>
-
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <p><a th:href="@{/user/auth/login}">로그인</a></p>
-                                        <p><a th:href="@{/user/auth/findMyPw}">비밀번호 찾기</a></p>
-                                        <p><a th:href="@{/user/register/registerType}">회원가입</a></p>
-                                    </div>
-                                </div>
-
                             </div>
                         </form>
                     </div>
