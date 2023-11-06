@@ -1,15 +1,28 @@
 package ksmart.ks48team01.user.controller;
 
+import ksmart.ks48team01.user.dto.Area;
+import ksmart.ks48team01.user.service.AreaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller("registController")
+import java.util.HashMap;
+import java.util.List;
+
+@Controller("registerController")
 @RequestMapping("/user/register")
 public class RegisterController {
+
+
+    private final AreaService areaService;
+
+    public RegisterController (AreaService areaService) {
+        this.areaService = areaService;
+    }
 
     // 가입 할 회원 권한을 선택할 수 있는 페이지
     // 권한 버튼에 따라서 쿼리스트링의 값이 바뀌고, 그 입력값에 따라 다른 가입 Form을 가져온다.
@@ -21,11 +34,15 @@ public class RegisterController {
         return "user/register/registerType";
     }
 
+
     // Nuriculture 웹 애플리케이션을 이용하는 사용자(User) 권한의 가입 Form
     @GetMapping(value = "/memberRegister")
     public String memberRegister(Model model) {
 
+        List<Area> areaList = areaService.getAreaList();
+
         model.addAttribute("title", "회원가입 - 누리컬쳐");
+        model.addAttribute("areaList", areaList);
 
         return "user/register/memberRegister";
     }

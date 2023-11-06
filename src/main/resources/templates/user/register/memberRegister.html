@@ -224,6 +224,7 @@
                                         <label for="regionCode" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
                                         <select class="col-12 py-2 px-3 mb-0 rounded border" name="regionCode" id="regionCode">
                                             <option value="none" selected disabled>region dataset</option>
+                                            <option th:each="area : ${areaList}"  th:value="${area.regionCode}" th:text="${area.regionName}"></option>
                                         </select>
                                     </div>
                                 </div>
