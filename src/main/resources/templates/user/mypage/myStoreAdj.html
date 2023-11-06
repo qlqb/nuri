@@ -53,36 +53,73 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="dashboard-wrapper box-style">
                         <div class="title">
-                            <h3>내 컨텐츠 목록</h3>
+                            <h3>내 가맹점 정산</h3>
                         </div>
 
                         <div style="margin: 50px;"></div>
+                        <div class="cards-wrapper">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="box-style single-card">
+                                        <div class="icon">
+                                            <i class="lni lni-notepad"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h5>총 판매 건수</h5>
+                                            <p>10회</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="box-style single-card">
+                                        <div class="icon">
+                                            <i class="lni lni-add-files"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h5>총 판매 가격</h5>
+                                            <p>300,000원</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="table-wrapper table-responsive">
-                            <table class="table" style="text-align: center;">
+                        <div class="box-style single-card">
+                            <h6>날짜로 검색하기(시작일과 종료일 입력)</h6>
+                            <div style="margin: 20px;"></div>
+                            <form action="@{}" class="subscribe-form">
+                                <input type="date" name="startDate" class="col-lg-4" placeholder="시작 날짜">
+                                <input type="date" name="endDate" class="col-lg-4" placeholder="종료 날짜">
+                                <button type="button" class="main-btn btn-hover d-none d-md-block col-lg-2">검색</button>
+                            </form>
+                        </div>
+
+
+                        <div class="table-wrapper table-responsive box-style single-card">
+                            <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="form-check check-style">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                            </div>
-                                        </th>
-                                        <th>
-                                            컨텐츠 코드
-                                        </th>
-                                        <th>
-                                            컨텐츠명
-                                        </th>
-                                        <th>
-                                            장소
-                                        </th>
-                                        <th>
-                                            가격
-                                        </th>
-                                        <th>
-
-                                        </th>
-                                    </tr>
+                                <tr>
+                                    <th>
+                                        <div class="form-check check-style">
+                                            <input class="form-check-input" type="checkbox" value="">
+                                        </div>
+                                    </th>
+                                    <th style="text-align: center;">
+                                        컨텐츠명
+                                    </th>
+                                    <th style="text-align: center;">
+                                        업종
+                                    </th>
+                                    <th style="text-align: center;">
+                                        금액
+                                    </th>
+                                    <th style="text-align: center;">
+                                        정산일자
+                                    </th>
+                                    <th style="text-align: center;">
+                                        정산코드
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody>
 
@@ -93,22 +130,19 @@
                                             </div>
                                         </th>
                                         <td>
-                                            <span>contentscode</span>
+                                            <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
                                         </td>
                                         <td>
-                                            <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a>
-                                        </td>
-                                        <td>
-                                            <span class="category">울산광역시 남구 신정동 789-123</span>
+                                            <span class="category">공연</span>
                                         </td>
                                         <td>
                                             <p>10000</p>
                                         </td>
                                         <td>
-                                            <div class="action-btns">
-                                                <a th:href="@{/user/mypage/myContentsModify}" class="edit-btn"><i class="lni lni-pencil"></i></a>
-                                                <a th:href="@{#}" class="delete-btn"><i class="lni lni-trash"></i></a>
-                                            </div>
+                                            <p>2023-11-06</p>
+                                        </td>
+                                        <td>
+                                            <p>ADJM20231106</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -118,22 +152,19 @@
                                             </div>
                                         </th>
                                         <td>
-                                            <span>contentscode</span>
+                                            <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
                                         </td>
                                         <td>
-                                            <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a>
-                                        </td>
-                                        <td>
-                                            <span class="category">울산광역시 남구 신정동 789-123</span>
+                                            <span class="category">공연</span>
                                         </td>
                                         <td>
                                             <p>10000</p>
                                         </td>
                                         <td>
-                                            <div class="action-btns">
-                                                <a th:href="@{/user/mypage/myContentsModify}" class="edit-btn"><i class="lni lni-pencil"></i></a>
-                                                <a th:href="@{#}" class="delete-btn"><i class="lni lni-trash"></i></a>
-                                            </div>
+                                            <p>2023-11-06</p>
+                                        </td>
+                                        <td>
+                                            <p>ADJM20231106</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -143,36 +174,30 @@
                                             </div>
                                         </th>
                                         <td>
-                                            <span>contentscode</span>
+                                            <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
                                         </td>
                                         <td>
-                                            <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a>
-                                        </td>
-                                        <td>
-                                            <span class="category">울산광역시 남구 신정동 789-123</span>
+                                            <span class="category">공연</span>
                                         </td>
                                         <td>
                                             <p>10000</p>
                                         </td>
                                         <td>
-                                            <div class="action-btns">
-                                                <a th:href="@{/user/mypage/myContentsModify}" class="edit-btn"><i class="lni lni-pencil"></i></a>
-                                                <a th:href="@{#}" class="delete-btn"><i class="lni lni-trash"></i></a>
-                                            </div>
+                                            <p>2023-11-06</p>
+                                        </td>
+                                        <td>
+                                            <p>ADJM20231106</p>
                                         </td>
                                     </tr>
 
 
                                 </tbody>
                                 <tfoot>
-                                    <td>
-                                        <button type="button" class="main-btn btn-hover d-none d-md-block">등록</button>
-                                    </td>
-                                    <td colspan="4">
-                                        <h4></h4>
+                                    <td colspan="5">
+                                        <h4>합계</h4>
                                     </td>
                                     <td>
-                                        <button type="button" class="main-btn btn-hover d-none d-md-block">삭제?</button>
+                                        <h4>`${}`원</h4>
                                     </td>
                                 </tfoot>
                             </table>

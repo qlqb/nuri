@@ -24,15 +24,47 @@
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
 
-    <section id="shop-p1" class="shop-p1">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
         <div class="container">
             <div class="row">
-
-                <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
-                <div class="col-lg-9">
-                    마이페이지 - 컨텐츠 등록
-
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="dashboard-wrapper box-style">
+                        <div class="title">
+                            <h3>컨텐츠 등록하기</h3>
+                        </div>
+
+                        <div style="margin: 50px;"></div>
+
+                        <div class="table-wrapper table-responsive">
+
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
