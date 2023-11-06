@@ -57,67 +57,59 @@
                             </div>
 
                             <form action="#">
-                                <div class="cards-wrapper">
-                                    <div class="col-lg-12">
-                                        <div class="box-style">
-                                            <div class="col-lg-3">
-                                                <img src="assets/images/dashboard/profile-img.png" alt="">
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <div class="info">
-                                                    <h5>${아이디}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">아이디</label>
+                                        <input type="email" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">비밀번호</label>
+                                        <input type="password" class="form-control" id="inputPassword4">
                                     </div>
                                 </div>
-                                <div style="margin: 50px;"></div>
-
-                                <div class="single-form mb-15">
-                                    <label for="memberName" class="mb-1">이름*</label>
-                                    <input type="text" id="memberName" class="px-3 py-2 mb-0 border rounded">
-                                </div>
-                                <div class="single-form mb-15">
-                                    <label class="mb-1">성별*</label>
-                                    <select class="px-3 py-2 mb-0 border rounded" >
-                                        <option value="M">남</option>
-                                        <option value="W">여</option>
-                                    </select>
-
-                                </div>
-                                <div class="single-form mb-15">
-                                    <label  class="mb-1">주민등록번호*</label><br/>
-                                    <input type="text" class="px-3 py-2 mb-0 border rounded col-md-5"> -
-                                    <input type="password" class="px-3 py-2 mb-0 border rounded col-md-5">
-                                </div>
-                                <div class="single-form mb-15">
-                                    <label class="mb-1">연락처*</label>
-                                    <div>
-                                        <select class="px-3 py-2 mb-0 border rounded">
-                                            <option>010</option>
-                                            <option>010</option>
-                                            <option>010</option>
-                                        </select>
-                                        -
-                                        <input type="text" class="px-3 py-2 mb-0 border rounded col-md-3">-
-                                        <input type="text" class="px-3 py-2 mb-0 border rounded col-md-3">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">이름</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">주민등록번호</label>
+                                        <input type="password" class="form-control" id="resident" placeholder="7자리">
                                     </div>
                                 </div>
-                                <div class="single-form mb-15">
-                                    <label class="mb-1">이메일*</label>
-                                    <div>
-                                        <input type="text" class="px-3 py-2 mb-0 border rounded col-md-3">
-                                        <select class="px-3 py-2 mb-0 border rounded">
-                                            <option>@gmail.com</option>
-                                            <option>@naver.com</option>
-                                            <option>@kakao.com</option>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">생년월일</label>
+                                        <input type="date" class="form-control" id="birth">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputState">성별</label>
+                                        <select id="gender" class="form-control">
+                                            <option selected>남</option>
+                                            <option>여</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="single-form mb-15">
-                                    <label for="memberAddr" class="mb-1">주소</label>
-                                    <input type="text" id="memberAddr" name="memberAddr" class="px-3 py-2 mb-0 border rounded">
-
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputCity">도</label>
+                                        <input type="text" class="form-control" id="inputCity">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputState">시</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected>시를 선택해주세요</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">우편번호</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">상세주소</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="시">
                                 </div>
                                 <a th:href="@{/user/mypage/myInfo}" class="main-btn btn-hover d-none d-md-block">수정하기</a>
 
