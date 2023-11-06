@@ -2,12 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/news.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}"/>
 </head>
+
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
+
 </th:block>
 
 <!-- 사용자별 스크립트 작성 -->
@@ -21,13 +27,12 @@
     <section id="shop-p1" class="shop-p1">
         <div class="container">
             <div class="row">
-               
-                <div th:replace="~{user/fragments/aside :: mypageAsideOfficer}"></div>
-		        <div class="col-lg-9">
-		        	마이페이지 - 공무원
-		        	공무원 상세정보 조회/수정
-		        	
-		        </div>
+
+                <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                <div class="col-lg-9">
+                    마이페이지 - 컨텐츠 목록 조회
+
+                </div>
             </div>
         </div>
     </section>

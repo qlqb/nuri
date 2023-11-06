@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/news.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}"/>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="dashboard-wrapper box-style">
+                        마이페이지 메인 페이지<br/>
+                        사용자 권한으로 마이페이지 누르면 보이는 div<br/>
+                    </div>
+                    <div class="dashboard-wrapper box-style">
+                        마이페이지 메인 페이지<br/>
+                        가맹점 권한으로 마이페이지 누르면 보이는 div<br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</th:block>
+</html>

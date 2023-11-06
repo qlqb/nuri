@@ -24,16 +24,107 @@
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
 
-    <section id="shop-p1" class="shop-p1">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
         <div class="container">
             <div class="row">
-
-                <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
-                <div class="col-lg-9">
-                    마이페이지 - 사용자 정보 수정
-
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                    <div class="col-xl-3 col-lg-4">
+                        <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                    </div>
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="dashboard-wrapper box-style">
+                            <div class="title">
+                                <h3>내 정보</h3>
+                            </div>
+
+                            <form action="#">
+                                <div class="cards-wrapper">
+                                    <div class="col-lg-12">
+                                        <div class="box-style">
+                                            <div class="col-lg-3">
+                                                <img src="assets/images/dashboard/profile-img.png" alt="">
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="info">
+                                                    <h5>${아이디}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin: 50px;"></div>
+
+                                <div class="single-form mb-15">
+                                    <label for="memberName" class="mb-1">이름*</label>
+                                    <input type="text" id="memberName" class="px-3 py-2 mb-0 border rounded">
+                                </div>
+                                <div class="single-form mb-15">
+                                    <label class="mb-1">성별*</label>
+                                    <select class="px-3 py-2 mb-0 border rounded" >
+                                        <option value="M">남</option>
+                                        <option value="W">여</option>
+                                    </select>
+
+                                </div>
+                                <div class="single-form mb-15">
+                                    <label  class="mb-1">주민등록번호*</label><br/>
+                                    <input type="text" class="px-3 py-2 mb-0 border rounded col-md-5"> -
+                                    <input type="password" class="px-3 py-2 mb-0 border rounded col-md-5">
+                                </div>
+                                <div class="single-form mb-15">
+                                    <label class="mb-1">연락처*</label>
+                                    <div>
+                                        <select class="px-3 py-2 mb-0 border rounded">
+                                            <option>010</option>
+                                            <option>010</option>
+                                            <option>010</option>
+                                        </select>
+                                        -
+                                        <input type="text" class="px-3 py-2 mb-0 border rounded col-md-3">-
+                                        <input type="text" class="px-3 py-2 mb-0 border rounded col-md-3">
+                                    </div>
+                                </div>
+                                <div class="single-form mb-15">
+                                    <label class="mb-1">이메일*</label>
+                                    <div>
+                                        <input type="text" class="px-3 py-2 mb-0 border rounded col-md-3">
+                                        <select class="px-3 py-2 mb-0 border rounded">
+                                            <option>@gmail.com</option>
+                                            <option>@naver.com</option>
+                                            <option>@kakao.com</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="single-form mb-15">
+                                    <label for="memberAddr" class="mb-1">주소</label>
+                                    <input type="text" id="memberAddr" name="memberAddr" class="px-3 py-2 mb-0 border rounded">
+
+                                </div>
+                                <a th:href="@{/user/mypage/myInfo}" class="main-btn btn-hover d-none d-md-block">수정하기</a>
+
+                            </form>
+                            </div>
+                        </div>
+                    </div>
         </div>
     </section>
 
