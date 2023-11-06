@@ -47,6 +47,24 @@ public class MyPageController {
 		return "user/mypage/myCard";
 	}
 
+	@GetMapping("/myCardModify")
+	public String myCardModify(Model model) {
+
+		model.addAttribute("title", "내 카드");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myCardModify";
+	}
+
+	@GetMapping("/myCardCharge")
+	public String myCardCharge(Model model) {
+
+		model.addAttribute("title", "내 카드");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myCardCharge";
+	}
+
 	@GetMapping("/myOrder")
 	public String myOrder(Model model) {
 
