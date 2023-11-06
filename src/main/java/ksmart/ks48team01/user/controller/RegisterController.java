@@ -1,17 +1,15 @@
 package ksmart.ks48team01.user.controller;
 
-import ksmart.ks48team01.user.dto.Area;
+import java.util.List;
+
+import ksmart.ks48team01.user.dto.District;
+import ksmart.ks48team01.user.dto.Region;
 import ksmart.ks48team01.user.service.AreaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
-import java.util.List;
 
 @Controller("registerController")
 @RequestMapping("/user/register")
@@ -26,7 +24,7 @@ public class RegisterController {
 
     // 가입 할 회원 권한을 선택할 수 있는 페이지
     // 권한 버튼에 따라서 쿼리스트링의 값이 바뀌고, 그 입력값에 따라 다른 가입 Form을 가져온다.
-    @GetMapping(value = "/registerType")
+    @GetMapping("/registerType")
     public String registerType(Model model) {
 
         model.addAttribute("title", "회원선택 - 누리컬쳐");
@@ -34,27 +32,35 @@ public class RegisterController {
         return "user/register/registerType";
     }
 
+    @ResponseBody
+    @GetMapping("/districtList")
+    public List<District> getDistrictList(Model model,@RequestParam(name = "regionCode") String regionCode) {
+        List<District> districtList = areaService.getDistrictList(regionCode);
+
+        return districtList;
+    }
+
 
     // Nuriculture 웹 애플리케이션을 이용하는 사용자(User) 권한의 가입 Form
-    @GetMapping(value = "/memberRegister")
+    @GetMapping("/memberRegister")
     public String memberRegister(Model model) {
 
-        List<Area> areaList = areaService.getAreaList();
+        List<Region> regionList = areaService.getRegionList();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
-        model.addAttribute("areaList", areaList);
+        model.addAttribute("regionList", regionList);
 
         return "user/register/memberRegister";
     }
 
-    @PostMapping(value = "/memberRegister")
+    @PostMapping("/memberRegister")
     public String memberRegister() {
 
         return "redirect:/user/register/registerConfirm";
     }
 
     // Nuriculture 웹 애플리케이션에서 상품을 판매, 게시하는 가맹점(store) 권한의 가입 Form
-    @GetMapping(value = "/storeRegister")
+    @GetMapping("/storeRegister")
     public String storeRegister(Model model) {
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
@@ -63,7 +69,7 @@ public class RegisterController {
     }
 
 
-    @PostMapping(value = "/storeRegister")
+    @PostMapping("/storeRegister")
     public String storeRegister() {
 
         return "redirect:/user/register/registerConfirm";
@@ -71,7 +77,7 @@ public class RegisterController {
 
 
     // Nuriculture 웹 애플리케이션을 이용, 관리하는 공무원(officer) 권한의 가입 Form
-    @GetMapping(value = "/officerRegister")
+    @GetMapping("/officerRegister")
     public String officerRegister(Model model) {
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
@@ -85,7 +91,7 @@ public class RegisterController {
      * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
      * @return
      */
-    @PostMapping(value = "/officerRegister")
+    @PostMapping("/officerRegister")
     public String officerRegister(RedirectAttributes redirectAttributes) {
 
         //redirectAttributes.addAttribute("level", "공무원");
@@ -96,7 +102,7 @@ public class RegisterController {
 
 
     // 회원가입이 완료되었다는 것을 표시하는 페이지
-    @GetMapping(value = "/registerConfirm")
+    @GetMapping("/registerConfirm")
     public String registerConfirm(Model model) {
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");

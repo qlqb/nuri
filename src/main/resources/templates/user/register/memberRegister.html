@@ -223,8 +223,8 @@
                                     <div class="single-form mb-20">
                                         <label for="regionCode" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
                                         <select class="col-12 py-2 px-3 mb-0 rounded border" name="regionCode" id="regionCode">
-                                            <option value="none" selected disabled>region dataset</option>
-                                            <option th:each="area : ${areaList}"  th:value="${area.regionCode}" th:text="${area.regionName}"></option>
+                                            <option value="none" selected disabled style="color: grey">지역을 입력해주세요</option>
+                                            <option th:each="area : ${regionList}"  th:value="${area.regionCode}" th:text="${area.regionName}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -268,6 +268,18 @@
 
 </th:block>
 
+<body>
+    <script>
+        fetch('http://localhost/user/register/districtList')
+            .then(district => res.json())
+            .then(function (data){
+                console.log(data)
+            })
+            .catch(function (error){
+                console.log('실패함')
+            });
+    </script>
+</body>
 
 
 

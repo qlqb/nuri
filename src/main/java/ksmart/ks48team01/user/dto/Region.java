@@ -1,6 +1,6 @@
 package ksmart.ks48team01.user.dto;
 
-public class Area {
+public class Region {
 
     private String regionCode;
     private String regionName;
@@ -23,11 +23,10 @@ public class Area {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Area{");
-        sb.append("regionCode=").append(regionCode);
+        final StringBuilder sb = new StringBuilder("Region{");
+        sb.append("regionCode='").append(regionCode).append('\'');
         sb.append(", regionName='").append(regionName).append('\'');
         sb.append('}');
         return sb.toString();
     }
-
 }

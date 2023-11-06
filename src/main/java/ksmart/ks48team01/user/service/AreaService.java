@@ -1,12 +1,12 @@
 package ksmart.ks48team01.user.service;
 
-import ksmart.ks48team01.user.dto.Area;
+import ksmart.ks48team01.user.dto.District;
+import ksmart.ks48team01.user.dto.Region;
 import ksmart.ks48team01.user.mapper.AreaMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
@@ -18,8 +18,13 @@ public class AreaService {
         this.areaMapper = areaMapper;
     }
 
-    public List<Area> getAreaList() {
-        List<Area> areaList = areaMapper.getAreaList();
-        return areaList;
+    public List<Region> getRegionList() {
+        List<Region> regionList = areaMapper.getRegionList();
+        return regionList;
+    }
+
+    public List<District> getDistrictList(String regionCode) {
+        List<District> districtList = areaMapper.getDistrictList(regionCode);
+        return districtList;
     }
 }
