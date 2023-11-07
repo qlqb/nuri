@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!-- mypageAside start -->
+    <div th:fragment="mypageAside">
+
+                <div class="left-sidebar-wrapper box-style">
+                    <div class="sidebar-header">
+                       <div class="info">
+                            <h3>Musharraf Karim</h3>
+                            <p class="mb-30">Director at Uideck.com</p>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a th:href="@{/user/mypage/mypageMain}" class="active"><i class="lni lni-dashboard"></i>마이페이지</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myInfo}"><i class="lni lni-cog"></i>내 정보</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myCard}"><i class="lni lni-cog"></i>내 카드</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myOrder}"><i class="lni lni-layers"></i>내 주문/예약</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myStore}"><i class="lni lni-envelope"></i>내 가맹점</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myStoreSaleHistory}"><i class="lni lni-envelope"></i>판매/환불 내역</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myStoreAdj}"><i class="lni lni-paypal"></i>정산 내역</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myContentsList}"><i class="lni lni-heart"></i>내 컨텐츠</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myContentsRegist}"><i class="lni lni-star"></i>컨텐츠 등록하기</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/main}"><i class="lni lni-exit"></i>로그아웃</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- mypageAside end -->
+</html>

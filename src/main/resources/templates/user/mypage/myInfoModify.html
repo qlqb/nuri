@@ -6,8 +6,9 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
     <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}"/>
-    <link rel="stylesheet" th:href="@{/user/assets/css/news.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/news.css}"/>
+    <link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}"/>
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -23,55 +24,101 @@
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
 
-    <!-- Template의 원본에서 Core StyleSheets 가져와야 합니다.
-    레퍼런스 CSS 파일이 되는 것 - contact.css & shop.css <link rel="stylesheet" href="css/contact.css"> -->
-
-    <section id="contact-p1" class="contact-p1">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <div class="p-5 text-center">
-                        <h3 th:text="${head}"></h3>
-                        <p th:text="${title}"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="shop-p1" class="shop-p1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="shop-p1-title">
-                            <h3 th:text="${head}"></h3>
-                            <div class="heading-border-light"></div>
-                        </div>
-
-                        <!-- 권한 별로 접근할 수 있는 aside 제어필요 -->
-                        <div class="list-group">
-                            <a th:href="@{/user/mypage/myInfo}" class="list-group-item">나의 정보</a>
-                            <a th:href="@{/user/mypage/myOrder}" class="list-group-item">나의 주문/예약 조회</a>
-                            <a th:href="@{/user/mypage/myRefund}" class="list-group-item">주문 취소/환불 조회</a>
-                            <a th:href="@{/user/mypage/myBoard}" class="list-group-item">작성한 게시글</a>
-                            <a th:href="@{/user/mypage/myContents}" class="list-group-item">작성한 컨텐츠</a>
-                            <a th:href="@{/user/mypage/myStore}" class="list-group-item">가맹점 정보</a>
-                            <a th:href="@{/user/myoffice/myOffice}" class="list-group-item">행정기관 정보</a>
-                            <a th:href="@{/user/myoffice/officerBudget}" class="list-group-item">행정업무</a>
-                        </div>
-
-                        <div class="col-lg-9">
-
-                        </div>
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!--====== BANNER PART END ======-->
+
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                    <div class="col-xl-3 col-lg-4">
+                        <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                    </div>
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="dashboard-wrapper box-style">
+                            <div class="title">
+                                <h3>내 정보</h3>
+                            </div>
+
+                            <form th:action="@{/user/mypage/myInfo}">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">아이디</label>
+                                        <input type="email" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">비밀번호</label>
+                                        <input type="password" class="form-control" id="inputPassword4">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">이름</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">주민등록번호</label>
+                                        <input type="password" class="form-control" id="resident" placeholder="7자리">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">생년월일</label>
+                                        <input type="date" class="form-control" id="birth">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputState">성별</label>
+                                        <select id="gender" class="form-control">
+                                            <option selected>남</option>
+                                            <option>여</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputCity">도</label>
+                                        <input type="text" class="form-control" id="inputCity">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputState">시</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected>시를 선택해주세요</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">우편번호</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">상세주소</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="시">
+                                </div>
+                                <button type="submit" class="main-btn btn-hover d-none d-md-block">수정하기</button>
+
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </section>
 
 </th:block>
-
-
-
-
-
 </html>

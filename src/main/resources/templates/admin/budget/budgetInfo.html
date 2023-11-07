@@ -32,19 +32,7 @@
 	                         	 <input type="number" id="" name="" class="form-control col-md-7 col-xs-12">
 	                        	</div>
 	                      	</div>
-						  
-		                      <div class="form-group">
-		                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 입력 </label>
-		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		                          <select id="inputRegion" class="form-control">
-				                  	<option value="">=====지역을 선택하세요=====</option>
-				                  	<option value="11">서울특별시</option>
-				                  	<option value="21">부산광역시</option>
-				                  	<option value="24">광주광역시</option>
-				                  </select>  
-		                        </div>
-		                      </div>
-		                      
+
 		                      <div class="ln_solid"></div>
 		                      <div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
@@ -79,14 +67,14 @@
 		
 		               		   <tbody>
 				                 <tr>
-				                   <td><input type="checkbox" id="check-all" class="flat"></td>
+				                   <td><input type="checkbox" class="flat"></td>
 				                   <td>2023</td>
 				                   <th>210,000,000,000</th>
 				                   <td>110000</td>
 
 				                 </tr>
 				                 <tr>
-				                   <td><input type="checkbox" id="check-all" class="flat"></td>
+				                   <td><input type="checkbox" class="flat"></td>
 				                   <td>2022</td>
 				                   <th>240,000,000,000</th>
 				                   <td>100000</td>
@@ -97,7 +85,8 @@
 							<div class="ln_solid"></div>
 	                      	<div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-		                          <button type="button" class="btn btn-primary">수정</button>
+		                          <button type="button" class="btn btn-primary">
+									  <a th:href="@{/admin/budget/budgetUpdate}">수정</a></button>
 		                          <button type="submit" class="btn btn-success">삭제</button>
 		                        </div>
 	                      	</div>
