@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--====================================================
+                  FOOTER
+======================================================-->
+<footer th:fragment="footerFragment">
+	<div id="footer-s1" class="footer-s1">
+		<div class="footer">
+			<div id="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="footer-copyrights">
+								<p>Copyrights &copy; 2017 All Rights Reserved by Businessbox. <a th:href="@{user/#}">Privacy Policy</a> <a th:href="@{user/#}">Terms of Services</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a th:href="@{user/#home}" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+				<i class="fa fa-angle-up"></i>
+			</a>
+		</div>
+	</div>
+</footer>
+</html>
