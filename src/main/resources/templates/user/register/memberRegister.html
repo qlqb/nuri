@@ -6,8 +6,6 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
     <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}"/>
-    <link rel="stylesheet" th:href="@{/user/assets/css/news.css}"/>
 
     <!-- 필수 입력 및 input 태그 설명을 색을 이용하여 강조-->
     <style>
@@ -232,7 +230,7 @@
                                     <div class="single-form mb-20">
                                         <label for="districtCode" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
                                         <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtCode" id="districtCode">
-                                            <option value="none" selected disabled>district dataset</option>
+                                            <option value="none" selected disabled>지역을 입력해주세요</option>
                                         </select>
                                     </div>
                                 </div>
@@ -267,11 +265,54 @@
     <!--====== 사용자 회원 가입 form 끝 ======-->
 
 </th:block>
-<th:block layout:fragment="customJsCode">
-    <script>
-        fetch('http://localhost/user/register/districtList?regionCode=22')
-    </script>
 
-</th:block>
+<body>
+    <script>
+
+
+        const $regionCode = document.querySelector('#regionCode');
+        const $districtCode = document.querySelector('#districtCode');
+
+        // Ajax를 호출할 URL과 Query 스트링
+        let districtListUrl = 'http://localhost/user/register/districtList?regionCode=';
+
+        $regionCode.addEventListener('change', function () {
+            if($districtCode.childElementCount > 1) {
+                $districtCode.replaceChildren();
+            }
+            const regionValue = $regionCode.value;
+            const requestDistrictList = districtListUrl + regionValue;
+            console.log(requestDistrictList);
+            getDistrictList(requestDistrictList);
+        })
+
+        function getDistrictList(requestDistrictListUrl) {
+            fetch(requestDistrictListUrl)
+                .then(response => response.json())
+                .then(json => json.forEach((data) => {
+                    let districtOption = document.createElement("option");
+                    districtOption.value = `${data.districtCode}`;
+                    districtOption.text = `${data.districtName}`;
+                    $districtCode.appendChild(districtOption);
+                }))
+        }
+
+
+
+/*        function getDistrictList (districtListUrl, inputValue) {
+            let requestParam = districtListUrl + inputValue;
+            console.log(requestParam);
+            fetch(requestParam)
+                .then(response => response.json())
+                .then(json => console.log(json));
+        }*/
+
+/*        fetch('http://localhost/user/register/districtList?regionCode=11')
+            .then(res=>res.json())
+            .then(json=> console.log(json));*/
+    </script>
+</body>
+
+
 
 </html>
