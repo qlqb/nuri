@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.user.mapper.StoreMapper">
+
+    <resultMap type="Store" id="storeInfoResultMap">
+        <id property="storeId" column="STORE_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="businessNumber" column="BUSINESS_NUMBER"/>
+        <result property="corporationNumber" column="CORPORATION_NUMBER"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeContact" column="STORE_CONTACT"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="openingTime" column="OPENING_TIME"/>
+        <result property="storeRegDate" column="STORE_REG_DATE"/>
+    </resultMap>
+
+    <select id="getStoreKeyword" resultType="Store" parameterType="String">
+        SELECT
+            STORE_ID,
+            STORE_CATEGORY_CODE,
+            STORE_CATEGORY_NAME,
+            STORE_NAME,
+            STORE_REG_DATE
+        FROM
+            STORE_INFO
+        WHERE
+            STORE_CATEGORY_NAME = #{storeKeyword};
+    </select>
+
+</mapper>
