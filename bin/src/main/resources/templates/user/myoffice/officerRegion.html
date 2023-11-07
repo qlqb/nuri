@@ -1,0 +1,218 @@
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/default}">
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Business Bootstrap Responsive Template</title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Global Stylesheets -->
+	<link th:href="@{https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i}" rel="stylesheet">
+	<link th:href="@{/user/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/user/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/animate/animate.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.carousel.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.theme.default.min.css}">
+	<link rel="stylesheet" th:href="@{/user/css/style.css}">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" th:href="@{css/shop.css}"> 
+    
+    <style>
+
+    	#carouselExampleIndicators{
+    		height:300px;
+    		text-align:center;
+    	}
+    	
+    	#officerRegion{
+    		margin:15px 0;
+    	}
+    	
+    	table{
+			border: 1px solid black;
+			table-layout: auto;
+			text-align: center;
+			margin: 8px;
+		}
+		
+   		th{
+			border: 1px solid black;
+			width: 100px;
+			background-color: cornflowerblue;
+			color:azure;
+			height: 30px;
+			text-align: center;
+		}
+		
+		td{
+			border: 1px solid black;
+			height: 30px;
+		}
+
+		
+		#card{
+			width:100%;
+			display:flex;
+		}
+		
+		.desc-comp-offer-cont{
+		 	list-style:none;
+			width:200px;
+			height:150px;
+			text-align:center;
+			margin:10px;
+			
+
+		}
+		
+		.margin{
+			margin:30px 0;
+		}
+		
+
+    	
+    </style>
+  </head>
+	<th:block layout:fragment="customJs">
+		<script th:src="@{/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	
+  <body id="page-top">
+
+     
+ 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+	<th:block layout:fragment="customContents">
+	<!--====================================================
+	                         HOME
+	======================================================-->
+	    <section id="home-shop">
+	      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	        <h1>마이페이지 - 공무원</h1>
+	        <h3>지역 관리 페이지</h3>
+	      </div>
+	    </section> 
+	
+	<!--====================================================
+	                        aside
+	======================================================--> 
+	    <section id="officerAside" class="shop-p1">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-lg-3">
+	            <div class="title">  
+	              <h5>홍공무님의 마이페이지</h5>
+	              <div class="heading-border-light"></div> 
+	            </div>
+	            
+	            <div class="list-group">
+	              <a href="#" class="list-group-item">회원 정보 수정</a>
+	            </div>
+	            <div class="list-group">
+	              <a th:href="@{/mypage/officerBudget}" class="list-group-item">예산 등록</a>
+	            </div>
+	            <div class="list-group">
+	              <a th:href="@{/mypage/officerRegion}" class="list-group-item">문화누리카드 사용자 관리</a>
+	            </div>
+	          </div> 
+	          
+	          
+            <div id="officerRegion" class="col-lg-9">
+            	<div>
+            		<h1 class="margin">문화누리카드 사용자 관리</h1>
+            		<h4 class="margin">홍공무님의 담당 지역 : 전라북도 전주시</h4>
+            	</div>
+
+
+			    <div id="card">
+				    <div class="desc-comp-offer-cont">
+						<h3>문화누리카드 발급</br> 대상 인원</h3>
+						<h2 align="center">847명</h2>
+				    </div>
+
+				    <div class="desc-comp-offer-cont">
+						<h3>문화누리카드를</br>발급한 시민의 수</h3>
+						<h2 class="desc" align="center">431명</h2>
+				    </div>
+
+					<div class="desc-comp-offer-cont">
+						<h3>문화누리카드 </br> 발급률</h3>
+						<h2 class="desc" align="center">50.8%</h2>
+					</div>
+			    </div>
+
+
+	          <div id="budgetInfo">
+      
+		        <h6 class="margin">현재 전주시 지역에서 문화누리 카드를 발급한 회원의 목록</h6>
+	            <div class="officerMemberSearch">
+	           	
+					<table id="officerSearchResultTable">
+						<thead>
+								<th> - </th>
+								<th> 이름 </th>
+								<th> 지역 </th>
+								<th> 생년월일 </th>
+								<th> 성별 </th>
+								<th> 상세 주소 </th>
+								<th> 연락처 </th>
+								<th> 카드 발급일 </th>
+						
+						</thead>
+						<tbody>				
+							<tr>
+								<td><label for="num">1</label></td>
+								<td><label for="name">백서연</label></td>
+								<td><label for="distirct">전라북도 전주시</label></td>
+								<td><label for="birth">2000-08-11</label></td>
+								<td><label for="gender">W</label></td>
+								<td><label for="address">전주시 OO동 OO아파트 00동 00호</label></td>
+								<td><label for="phone">010-0001-0001</label></td>
+								<td><label for="issuDate">2023-03-11</label></td>
+							</tr>
+							<tr>
+								<td><label for="num">2</label></td>
+								<td><label for="name">김서연</label></td>
+								<td><label for="distirct">전라북도 전주시</label></td>
+								<td><label for="birth">2001-08-11</label></td>
+								<td><label for="gender">W</label></td>
+								<td><label for="address">전주시 OO동 OO빌라 00동 00호</label></td>
+								<td><label for="phone">010-0011-0011</label></td>
+								<td><label for="issuDate">2023-02-27</label></td>
+							</tr>
+							<tr>
+								<td><label for="num">3</label></td>
+								<td><label for="name">최서연</label></td>
+								<td><label for="distirct">전라북도 전주시</label></td>
+								<td><label for="birth">1999-08-11</label></td>
+								<td><label for="gender">M</label></td>
+								<td><label for="address">전주시 OO동 00-0</label></td>
+								<td><label for="phone">010-0111-0111</label></td>
+								<td><label for="issuDate">2023-05-02</label></td>
+							</tr>			
+						</tbody>
+					</table>
+	            </div>
+	          </div> 
+	           </div>
+	        </div> 
+	      </div>
+	   </section>
+	</th:block>
+
+</html>

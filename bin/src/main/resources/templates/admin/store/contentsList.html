@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/default}">
+<head>
+</head>
+<!-- 사용자 페이지별 javascript file 추가-->
+    <th:block layout:fragment="customJsFile">
+		
+    </th:block>
+    
+    <!-- 사용자별 스크립트 작성 -->
+    <th:block layout:fragment="customJsCode">
+
+    </th:block>
+
+    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+	<!-- 위 banner -->
+	<th:block layout:fragment="customContents">
+	<!-- 가맹점 검색 기능 추가 -->
+	
+	
+	<!-- 가맹점 목록 테이블 -->
+	<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>가맹점 전체 목록 <small>Total Store List</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th>
+                              <input type="checkbox" id="check-all" class="flat">
+                            </th>
+                            <th class="column-title">컨텐츠코드</th>
+                            <th class="column-title">컨텐츠명 </th>
+                            <th class="column-title">카테고리</th>
+                            <th class="column-title">컨텐츠 기간</th>
+                            <th class="column-title">컨텐츠 장소</th>
+                            <th class="column-title">컨텐츠 시간</th>
+                            <th class="column-title">연령제한</th>
+                            <th class="column-title no-link last"><span class="nobr">컨텐츠 가격</span>
+                            </th>
+                            <th class="bulk-actions" colspan="8">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"><i class="success fa fa-long-arrow-up"></i></a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></a>
+                            </td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "> </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "> </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></a>
+                            </td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></i></a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></i>
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></i></a>
+                            </td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></i></a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class=" "></i>
+                            </td>
+                            <td class=" "></td>
+                            <td class=" "></td>
+                            <td class="a-right a-right "></td>
+                            <td class=" last"><a href="#"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+	</th:block>
+</html>
