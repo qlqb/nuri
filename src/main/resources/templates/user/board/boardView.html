@@ -13,8 +13,6 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 <!-- 사용자별 css file 추가 부분 -->
 <head>
-    <link rel="stylesheet" th:href="@{/user/assets/css/faq.css}">
-    <link rel="stylesheet" th:href="@{/user/assets/css/news.css}">
     <style>
         .board_view .title_wrap{
             overflow: hidden;
@@ -56,22 +54,28 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
-    <!--상단 배너-->
-    <div id="home-p" class="home-p pages-head1 text-center">
+    <!--상단배너-->
+    <section class="banner-area bg_cover">
         <div class="container">
-            <h1>커뮤니티</h1>
-            <p>게시판</p>
-        </div><!--/end container-->
-    </div>
-
-    <!--게시판 헤더-->
-    <div class="row title-bar" style="padding-bottom: 0">
-        <div class="col-md-12">
-            <h1>공지사항</h1>
-            <div class="heading-border"></div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">공지사항</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Board</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+
     <!--게시판 테이블-->
+    <div class="product-details-wrapper box-style">
     <div class="board_view">
         <div class="title_wrap">
             <p class="date">2023-11-03</p>
@@ -119,9 +123,12 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
     </div>
     <br/>
-    <div class="board_btn_wrap" style="margin-left:30px;">
+    <div class="board_btn_wrap" style="margin-left:30px; margin-bottom: 30px">
         <a th:href="@{/user/board/boardList}">목록</a>
     </div>
+    </div>
+
+
 
 
 </th:block>
