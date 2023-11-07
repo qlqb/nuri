@@ -6,13 +6,14 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
 
-    <link rel="stylesheet" th:href="@{/user/css/shop.css}">
-
+    <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}">
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
-
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script th:src="@{/user/echarts/dist/echarts.min.js}"></script>
+    <script th:src="@{/user/assets/css/Chart.js/dist/Chart.js}"></script>
 </th:block>
 
 <!-- 사용자별 스크립트 작성 -->
@@ -64,99 +65,59 @@
                         </div><br/>
 
                         <div>
+                            <h3>월별 예산 소진액</h3>
+                            <canvas id="budgetChart" width="600" height="350"></canvas>
+                        </div><br/><br/>
+
+
+                        <div>
                             <h3>예산 대비 월별 소진액 통계</h3>
                             <div style="display: flex;">
                                 <div class="col" style="padding-top: 3%">
                                     <div class="project-p1-cont wow fadeInUp  text-center">
                                         <h4>총 예산</h4><br/>
-                                        <p>230,000,000,000</p>
+                                        <h1>2300억</h1>
                                     </div>
                                 </div>
                                 <div class="col" style="padding-top: 3%">
                                     <div class="project-p1-cont wow fadeInUp  text-center">
                                         <h4>사용 예산</h4><br/>
-                                        <p>200,000,000,000</p>
+                                        <h1>2000억</h1>
                                     </div>
                                 </div>
                                 <div class="col" style="padding-top: 3%">
                                     <div class="project-p1-cont wow fadeInUp  text-center">
                                         <h4>예산 차액</h4><br/>
-                                        <p>30,000,000,000</p>
+                                        <h1>300억</h1>
                                     </div>
                                 </div>
                                 <div class="col" style="padding-top: 3%">
                                     <div class="project-p1-cont wow fadeInUp  text-center">
                                         <h4>퍼센트</h4><br/>
-                                        <p>%</p>
+                                        <h1>%</h1>
                                     </div>
                                 </div>
                             </div>
                         </div><br/><br/>
-                            <div>
-                                <h3>월별 예산 소진액</h3>
-                                <canvas id="budgetChart" width="600" height="350"></canvas>
-                            </div>
-                    </div><br/><br/><br/><br/><br/>
 
-                    <section class="what-we-do bg-gradiant">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h3>검색 조건</h3>
-                                    <div class="heading-border-light"></div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="row" style="margin-bottom: 3%">
-                                        <div class="form-group">
-                                            <label class="regionSelect"> 지역 입력 </label>
-                                            <div>
-                                                <select>
-                                                    <option> === 지역을 선택해주세요 ===</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="cateSelect"> 업종 입력 </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select>
-                                                    <option> === 업종을 선택해주세요 ===</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="regionSelect"> 가맹점 코드 입력 </label>
-                                            <div>
-                                                <input type="text" id="storecodeinput" name="" placeholder="가맹점 코드를 입력해주세요" style="width: 200px; height:32px;"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group" style="margin-right: 50px">
-                                            <label class="yearSelect">년도 선택</label>
-                                            <div class="year">
-                                                <select>
-                                                    <option> === 년도 선택 ===</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="monthSelect">월 선택</label>
-                                            <div class="month">
-                                                <select>
-                                                    <option> === 월 선택 ===</option>
-                                                </select>
-                                            </div>
+                        <div class="ln_solid"></div>
+                    <!--검색 조건-->
+                        <div class="col-lg-9">
+                            <div class="search-form">
+                                <form id="inputSearchForm">
+                                    <div class="form-group row">
+                                        <label>년도/월</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">First and last name</span>
+                                            <input type="text" aria-label="First name" class="form-control">
+                                            <input type="text" aria-label="Last name" class="form-control">
                                         </div>
                                     </div>
-                                    <div style="margin-bottom: 30px">
-                                        <button class="searchBtn" role="button">검색</button>
-                                        <button class="searchBtn" role="button">초기화</button>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                    </section>
 
-                        <div class="x_content">
+                        <div class="x_title">
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                                 <thead>
                                 <tr>

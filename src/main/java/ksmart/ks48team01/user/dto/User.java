@@ -1,5 +1,5 @@
 package ksmart.ks48team01.user.dto;
-public class userDTO {
+public class User {
     private String userId;
     private String levelId;
     private String userLevelName;
