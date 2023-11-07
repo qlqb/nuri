@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <title th:text="${title}"></title>
+    <style>
+        .img-radius10 {
+            border-radius: 10px;
+        }
+
+        .img-shadow {
+            box-shadow: 0px 3px 25px rgba(203, 207, 213, 0.3)
+        }
+    </style>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">누리컬쳐 서비스 소개</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">메인페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">누리컬쳐 서비스 소개</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <!--====== 등록된 가맹점 조회 (해당 가맹점 하이퍼링크 포함) ======-->
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-10">
+                    <div class="dashboard-wrapper box-style">
+                        <div class="title">
+                            <h3>Overview</h3>
+                            <span class="main-btn">Last 15 Days</span>
+                        </div>
+
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        가맹점
+                                    </th>
+                                    <th>
+                                        Category
+                                    </th>
+                                    <th>
+                                        카테고리
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>
+                                        <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                        <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">Ram & Laptop</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn">전시</span>
+                                    </td>
+                                    <td>
+                                        <p>$20.99</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                        <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">Ram & Laptop</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn">관광</span>
+                                    </td>
+                                    <td>
+                                        <p>$20.99</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                        <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">Ram & Laptop</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn bg-light text-dark">영화</span>
+                                    </td>
+                                    <td>
+                                        <p>$20.99</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                        <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">Ram & Laptop</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn bg-secondary">체육</span>
+                                    </td>
+                                    <td>
+                                        <p>$20.99</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                        <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">Ram & Laptop</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn bg-warning">도서</span>
+                                    </td>
+                                    <td>
+                                        <p>$20.99</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                        <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">Ram & Laptop</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn bg-danger">연극</span>
+                                    </td>
+                                    <td>
+                                        <p>$20.99</p>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== 등록된 가맹점 조회 (해당 가맹점 하이퍼링크 포함) 끝 ======-->
+
+</th:block>
+
+
+
+
+
+</html>
