@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">내 아이디 찾기</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">내 아이디 찾기</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <!--====== 404 PRODUCT PART START ======-->
+    <section class="login-area pt-70 pb-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-10">
+                    <div class="login-wrapper box-style">
+                        <h3 class="mb-20">내 아이디 찾기</h3>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="email" class="mb-2">이메일</label>
+                                        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="password" class="mb-2">회원이름</label>
+                                        <input type="password" id="password" name="password" placeholder="회원이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="single-form mb-30">
+                                        <button class="main-btn btn-hover py-2 rounded">아이디 찾기</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <p><a th:href="@{/user/auth/login}">로그인</a></p>
+                                        <p><a th:href="@{/user/auth/findMyPw}">비밀번호 찾기</a></p>
+                                        <p><a th:href="@{/user/register/registerType}">회원가입</a></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== 404 PRODUCT PART ENDS ======-->
+</th:block>
+
+
+
+
+
+</html>
