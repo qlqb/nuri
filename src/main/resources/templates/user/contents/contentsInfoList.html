@@ -234,8 +234,8 @@
         }
 
         .title-area {
-            margin-top: 2px;
-            margin-bottom: 80px;
+            margin-top: 52px;
+            margin-bottom: 50px;
             text-align: center;
         }
 
@@ -254,16 +254,29 @@
 
 <!--====== PRELOADER PART START ======-->
 <th:block layout:fragment="customContents">
-
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">문화정보</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user}">메인페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">문화정보</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
     <!--====== CATEGORY PART START ======-->
     <section class="category-area pb-110">
         <div class="container">
             <div class="box-style">
-                <div class="location">
-                    <a href="/index.do">홈</a>
-                    &gt; <a href="/home/index.do">문화체험</a>
-                    <strong>한눈에 보는 문화정보</strong>
-                </div>
                 <div class="category-main">
                     <div class="title-area">
                         <h1 class="title-h1">

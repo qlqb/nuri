@@ -6,44 +6,38 @@
 
 <head>
   <style>
-    .detail_tab_wrap .tabs li.active {
-      border: solid 1px #1b1b1b;
+    .cards-wrapper {
+      display: flex;
     }
 
-    .detail_tab_wrap .tabs li a:hover {
-      color: #1b1b1b;
+    .ads-btn {
+      padding: 8px 15px;
+      border: 1px solid rgba(124, 134, 154, 0.25);
+      border-radius: 5px;
+      color: #333F57;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      flex: 1;
+      display: flex;
+      height: 60px;
+      vertical-align: middle;
+      justify-content: center;
+      align-items: center;
+    }
+
+    a:link {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .ads-btn:hover {
+      background: #FF6B6B;
+      color: #fff;
     }
 
     .btn_wrap {
       overflow: hidden;
       margin-top: 20px;
-    }
-
-    .tabs li:last-child {
-      border-right: solid 1px #e5e5e5;
-      border-right-width: 1px;
-      border-right-style: solid;
-      border-right-color: rgb(229, 229, 229);
-    }
-
-    .tabs li a {
-      display: block;
-      font-size: 15px;
-      color: #7d7d7d;
-      line-height: 50px;
-      cursor: pointer;
-    }
-    .tabs li {
-      display: inline-block;
-      width: 25%;
-      border: solid 1px #e5e5e5;
-      border-right: 0;
-    }
-
-    .detail_tab_wrap .tabs {
-      text-align: center;
-      word-spacing: 0;
-      font-size: 0;
     }
 
     .detail_tab_wrap {
@@ -237,20 +231,12 @@
                 </ul>
               </div>
               <div class="detail_tab_wrap">
-                <ul class="tabs">
-                  <li>
-                    <a>상세정보</a>
-                  </li>
-                  <li>
-                    <a>관람후기</a>
-                  </li>
-                  <li>
-                    <a>장소안내</a>
-                  </li>
-                  <li>
-                    <a>예매시 유의사항</a>
-                  </li>
-                </ul>
+                <div class="cards-wrapper pb-25 mb-15">
+                  <a href="javascript:void(0)" class="ads-btn">상세정보</a>
+                  <a href="javascript:void(0)" class="ads-btn">관람후기</a>
+                  <a href="javascript:void(0)" class="ads-btn">장소안내</a>
+                  <a href="javascript:void(0)" class="ads-btn">예매시 유의사항</a>
+                </div>
               </div>
           </div>
         </div>
