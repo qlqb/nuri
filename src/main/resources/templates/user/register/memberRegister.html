@@ -267,21 +267,11 @@
     <!--====== 사용자 회원 가입 form 끝 ======-->
 
 </th:block>
-
-<body>
+<th:block layout:fragment="customJsCode">
     <script>
-        fetch('http://localhost/user/register/districtList')
-            .then(district => res.json())
-            .then(function (data){
-                console.log(data)
-            })
-            .catch(function (error){
-                console.log('실패함')
-            });
+        fetch('http://localhost/user/register/districtList?regionCode=22')
     </script>
-</body>
 
-
-
+</th:block>
 
 </html>

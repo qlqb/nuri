@@ -1,5 +1,7 @@
 package ksmart.ks48team01.user.dto;
 
+import java.util.Map;
+
 public class District {
 
     private String districtCode;

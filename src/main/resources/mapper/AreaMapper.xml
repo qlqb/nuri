@@ -8,6 +8,12 @@
         <result property="regionName" column="region_name"/>
     </resultMap>
 
+    <resultMap id="districtResultMap" type="District">
+        <id property="districtCode" column="district_code"/>
+        <result property="regionCode" column="region_code"/>
+        <result property="districtName" column="district_name"/>
+    </resultMap>
+
     <select id="getRegionList" resultType="Region">
         SELECT
             REGION_CODE AS regionCode,
@@ -16,7 +22,7 @@
             region;
     </select>
 
-    <select id="getDistrictList" resultType="District" parameterType="String">
+    <select id="getDistrictList" resultMap="districtResultMap" parameterType="String">
         SELECT
             DISTRICT_CODE,
             REGION_CODE,
@@ -26,5 +32,6 @@
         WHERE
             REGION_CODE = #{regionCode};
     </select>
+
 
 </mapper>

@@ -1,7 +1,12 @@
 package ksmart.ks48team01.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import ksmart.ks48team01.user.dto.District;
 import ksmart.ks48team01.user.dto.Region;
 import ksmart.ks48team01.user.service.AreaService;
@@ -34,19 +39,21 @@ public class RegisterController {
 
     @ResponseBody
     @GetMapping("/districtList")
-    public List<District> getDistrictList(Model model,@RequestParam(name = "regionCode") String regionCode) {
+    public String getDistrictList(Model model, @RequestParam(name = "regionCode") String regionCode) {
+        Gson gson = new Gson();
         List<District> districtList = areaService.getDistrictList(regionCode);
 
-        return districtList;
+
+        return gson.toJson(districtList);
     }
 
 
     // Nuriculture 웹 애플리케이션을 이용하는 사용자(User) 권한의 가입 Form
     @GetMapping("/memberRegister")
     public String memberRegister(Model model) {
-
+        // 지역 1 Select option 시 RegionList 출력
         List<Region> regionList = areaService.getRegionList();
-
+        
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
 
