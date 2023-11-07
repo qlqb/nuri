@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title th:text="${title}"></title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/admin/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/admin/vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{/admin/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+</head>
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<!-- aside menu start -->
+			<div th:replace="~{admin/fragments/aside :: asideFragment}"></div>
+			<!-- aside menu end -->
+
+			<!-- top navigation -->
+			<div th:replace="~{admin/fragments/header :: headerFragment}"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					
+
+					<div class="clearfix"></div>
+
+					<div class="row">
+						<!-- 사용자정의 contents start -->
+						<th:block layout:fragment="customContents">
+						</th:block>
+						<!-- 사용자정의 contents end -->
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer th:replace="~{admin/fragments/footer :: footerFragment}"></footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+	<!-- iCheck -->
+	<script th:src="@{/admin/vendors/iCheck/icheck.min.js}"></script>
+	
+	<!-- 사용자 페이지별 javascript file -->
+	<th:block layout:fragment="customJsFile"></th:block>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/admin/build/js/custom.min.js}"></script>
+	
+	<!-- 사용자별 스크립트 작성 -->
+	<th:block layout:fragment="customJsCode"></th:block>
+
+</body>
+</html>
+
+
+
+
+

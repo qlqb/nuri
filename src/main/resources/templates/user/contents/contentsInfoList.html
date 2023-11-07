@@ -1,0 +1,847 @@
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<head>
+    <style>
+        .product-img img {
+            height: 405.234px;
+        }
+        .single-product {
+            height: 682.594px;
+        }
+
+        .category-top {
+            display: none;
+        }
+
+        .left-wrapper {
+            margin-top: 80px;
+        }
+
+        button, input, optgroup, select, textarea {
+            font-family: inherit;
+        }
+
+        input, textarea {
+            font-size: 12px;
+        }
+
+        .right-wrapper form button {
+            position: absolute;
+            right: 39px;
+            top: 138px;
+            border: none;
+            background: none;
+        }
+
+        .right-wrapper form input {
+            border: 1px solid rgba(124, 134, 154, 0.25);
+            border-radius: 30px;
+            margin-bottom: 0;
+            padding: 14px 30px;
+        }
+
+        .area-input {
+            display: flex;
+        }
+
+        .area-util .list-search .form-box {
+            margin-right: 9px;
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
+            display: -ms-flexbox;
+            display: flex;
+            /* margin-right: 12px; */
+        }
+
+        .area-util .list-search {
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
+            display: -ms-flexbox;
+            display: flex;
+            margin-top: 15px;
+            /* -webkit-flex-wrap: wrap; */
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        .area-util .txt-total strong {
+            font-weight: bold;
+        }
+
+        .area-util .align-box .txt-total {
+            margin-right: 30px;
+        }
+
+        .area-util .align-box {
+            margin-right: 10px;
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
+            display: -ms-flexbox;
+            display: flex;
+            /* -webkit-box-align: center; */
+            /* -webkit-align-items: center; */
+            -ms-flex-align: center;
+            align-items: center;
+            /* -webkit-flex-wrap: wrap; */
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        .area-util {
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
+            display: -ms-flexbox;
+            display: flex;
+            /* -webkit-box-align: end; */
+            /* -webkit-align-items: flex-end; */
+            -ms-flex-align: end;
+            align-items: flex-end;
+            /* -webkit-box-pack: justify; */
+            /* -webkit-justify-content: space-between; */
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            margin-top: 17px;
+            border-bottom: 1px solid #ddd;
+            /* -webkit-flex-wrap: wrap; */
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        .search-result .cards-wrapper {
+            display: flex;
+        }
+
+        .ads-btn {
+
+        }
+
+        .ads-btn:hover {
+            background: #FF6B6B;
+            color: #fff;
+        }
+
+        /*js로 조절*/
+        .ads-btn.active {
+            background: #FF6B6B;
+            color: #fff;
+        }
+
+        .ads-btn {
+            padding: 8px 15px;
+            border: 1px solid rgba(124, 134, 154, 0.25);
+            border-radius: 5px;
+            color: #333F57;
+            margin-right: 5px;
+            margin-bottom: 5px;
+
+            flex: 1;
+            display: flex;
+            height: 60px;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center
+        }
+
+        .section-inner {
+            max-width: 1320px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .search-result {
+            margin-top: 52px;
+        }
+
+        .category-area .category-top .right-wrapper form {
+            max-width: 620px;
+        }
+
+        .category-area .category-top .right-wrapper {
+            justify-content: center;
+        }
+
+        .title-h1 .txt {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            margin-top: 25px;
+            font-size: 18px;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            line-height: 1.78;
+            font-weight: 400;
+            letter-spacing: -0.45px;
+            color: #666;
+        }
+
+        .location a:after {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: -1px 4px;
+            font-size: 12px;
+            color: #0f0f0f;
+            background: url(#) no-repeat 0 0 / 100% auto;
+        }
+
+        a:link {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .location a, .location strong {
+            margin-left: 4px;
+            color: #000;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .location a {
+            color: #666;
+        }
+
+        .location {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            padding: 32px 0;
+            margin: 0 auto;
+            font-size: 0;
+            text-align: left;
+        }
+
+        .category-area .category-main {
+            padding: 10px 30px;
+        }
+
+        .title-h1 {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 0.83;
+            letter-spacing: -1.2px;
+            color: #000;
+        }
+
+        .title-area {
+            margin-top: 2px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .category-main {
+            max-width: 1320px;
+            width: 100%;
+            /*margin: 0 auto;*/
+            padding: 0 20px;
+            position: relative;
+        }
+    </style>
+</head>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!--====== PRELOADER PART START ======-->
+<th:block layout:fragment="customContents">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">문화 생활 컨텐츠</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+<!--                                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>-->
+<!--                                <li class="breadcrumb-item active" aria-current="page">Category</li>-->
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <!--====== CATEGORY PART START ======-->
+    <section class="category-area pb-110">
+        <div class="container">
+            <div class="box-style">
+                <div class="location">
+                    <a href="/index.do">홈</a>
+                    &gt; <a href="/home/index.do">문화체험</a>
+                    <strong>한눈에 보는 문화정보</strong>
+                </div>
+                <div class="category-main">
+                    <div class="title-area">
+                        <h1 class="title-h1">
+                            한눈에 보는 문화 정보
+                            <span class="txt">
+                                공연/전시/축제 등 현장의 다채로운 문화정보를 찾아보세요
+                            </span>
+                        </h1>
+                    </div>
+                </div>
+                <!-- category top -->
+                <div class="category-top">
+                    <div class="row align-items-center">
+                        <div class="right-wrapper">
+                            <form action="#">
+                                <div class="area-input">
+                                    <input type="text" name="search" id="search" placeholder="검색어를 입력해주세요">
+                                    <button><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="section-inner">
+                        <div class="cards-wrapper pb-25 mb-15">
+                            <a href="javascript:void(0)" class="ads-btn">전체</a>
+                            <a href="javascript:void(0)" class="ads-btn">도서</a>
+                            <a href="javascript:void(0)" class="ads-btn">전시</a>
+                            <a href="javascript:void(0)" class="ads-btn">영화</a>
+                            <a href="javascript:void(0)" class="ads-btn">관광</a>
+                            <a href="javascript:void(0)" class="ads-btn">체육</a>
+                        </div>
+                        <div class="area-util">
+                            <div class="align-box">
+                                <div class="txt-total">
+                                    총
+                                    <strong class="total">
+                                        1234
+                                    </strong>
+                                    건
+                                </div>
+                            </div>
+                            <div class="list-search">
+                                <div class="form-box">
+                                    <select class="px-3 py-2 border rounded w-100">
+                                        <option value="none">장르 전체</option>
+                                        <option value="none">공연</option>
+                                        <option value="none">연주회</option>
+                                        <option value="none">리사이틀</option>
+                                        <option value="none">희곡</option>
+                                        <option value="none">오페라</option>
+                                        <option value="none">발레</option>
+                                        <option value="none">댄스</option>
+                                        <option value="none">뮤지컬</option>
+                                        <option value="none">서커스</option>
+                                        <option value="none">마술</option>
+                                        <option value="none">인형극</option>
+                                        <option value="none">행위예술</option>
+                                    </select>
+                                </div>
+                                <div class="form-box">
+                                    <select class="px-3 py-2 border rounded w-100">
+                                        <option value="none">지역 전체</option>
+                                    </select>
+                                </div>
+                                <div class="form-box">
+                                    <select class="px-3 py-2 border rounded w-100">
+                                        <option value="none">기간</option>
+                                    </select>
+                                </div>
+                                <div class="form-box">
+                                    <select class="px-3 py-2 border rounded w-100">
+                                        <option value="none">제목</option>
+                                    </select>
+                                </div>
+                                <div class="right-wrapper">
+                                    <form action="#">
+                                        <div class="area-input">
+                                            <input type="text" name="search" id="search" placeholder="검색어를 입력해주세요">
+                                            <button><i class="lni lni-search-alt"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                <!-- category wrapper -->
+                        <div class="category-wrapper">
+                            <div class="row">
+                                <!-- left-wrapper  -->
+                                <div class="col-lg-12">
+                                    <div class="left-wrapper">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img th:src="@{https://images.unsplash.com/photo-1524330685423-3e1966445abe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$120.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img th:src="@{https://images.unsplash.com/photo-1563775957449-d52dbc9aac1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$420.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img th:src="@{https://images.unsplash.com/photo-1526218626217-dc65a29bb444?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZvcm1hbmNlfGVufDB8MXwwfHx8MA%3D%3D}" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Cctv camera</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$80.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img th:src="@{https://images.unsplash.com/photo-1503095396549-807759245b35?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHx8MHx8fDA%3D}" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Apple's new iMac</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$3000.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img th:src="@{https://images.unsplash.com/photo-1578920568769-3c1b145bc9ea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBlcmZvcm1hbmNlfGVufDB8MXwwfHx8MA%3D%3D}" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Best Compact DSLR</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$290.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img th:src="@{https://images.unsplash.com/photo-1512264815082-9999c2d4894d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">10 Future Concept Cars</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$4520.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+
+                                                <div class="row">
+
+                                                    <div class="col-lg-12">
+                                                        <div class="single-product list-view">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img src="assets/images/product/l-product-1.jpg" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$120.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="single-product list-view">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img src="assets/images/product/l-product-2.jpg" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$420.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="single-product list-view">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img src="assets/images/product/l-product-3.jpg" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Cctv camera</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$80.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="single-product list-view">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img src="assets/images/product/l-product-4.jpg" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Apple's new iMac</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$3000.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="single-product list-view">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img src="assets/images/product/l-product-5.jpg" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">Best Compact DSLR</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$290.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="single-product list-view">
+                                                            <div class="product-img">
+                                                                <a href="product-details.html">
+                                                                    <img src="assets/images/product/l-product-6.jpg" alt="">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
+                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h3 class="name"><a href="product-details.html">10 Future Concept Cars</a></h3>
+                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <ul class="address">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="product-bottom">
+                                                                    <h3 class="price">$4520.99</h3>
+                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+<!--====== CATEGORY PART END ======-->
+</html>

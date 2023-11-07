@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminPurchaseController {
 
 
+
 	@GetMapping("reservationInfo")
 	public String reservationInfo(Model model) {
 
@@ -22,6 +23,12 @@ public class AdminPurchaseController {
 		return "admin/purchase/purchaseInfo";
 	}
 
+	@GetMapping(value={"purchaseInfoModify"})
+	public String purchaseInfoModify(Model model) {
+
+		return "admin/purchase/purchaseInfoModify";
+	}
+	
 	@GetMapping(value={"adjInfoRegion"})
 	public String adjInfoRegion(Model model) {
 
@@ -43,6 +50,12 @@ public class AdminPurchaseController {
 	public String adjInfoStore(Model model) {
 
 		return "admin/purchase/adjInfoStore";
+	}
+
+	@GetMapping("/reservationInfoModify")
+	public String reservationInfoModify(Model model) {
+
+		return "admin/purchase/reservationInfoModify";
 	}
 
 }

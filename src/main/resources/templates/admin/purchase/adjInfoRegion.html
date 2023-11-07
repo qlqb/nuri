@@ -6,7 +6,12 @@
 	<th:block layout:fragment="customJs">
 		<script th:src="@{/admin/js/jquery-3.7.1.js}"></script>
 	</th:block>
-
+	
+	<th:block layout:fragment="customJsCode">
+		<script>
+		
+		</script>
+	</th:block>
 	
   <body id="page-top">
 
@@ -28,7 +33,6 @@
 	       			<div class="x_content">
 						<br />
                     	<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-							
 	                      <div class="form-group">
 	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 입력 </label>
 	                        <div class="col-md-6 col-sm-6 col-xs-12">
@@ -84,17 +88,17 @@
 		
 		               		   <tbody>
 				                 <tr>
-				                   <td><input type="checkbox" class="flat"></td>
+				                   <td><input type="checkbox" id="check-all" class="flat"></td>
 				                   <td>가맹점A</td>
 				                   <td>2023-10-18</td>
-				                   <td>서울특별시 구구</td>
+				                   <td>전라북도 전주시</td>
 				                   <td>도서</td>
 				                   <td>도서A</td>
 				                   <td>30000</td>
 				                   <td>adjd20231018</td>
 				                 </tr>
 				                 <tr>
-				                   <td><input type="checkbox" class="flat"></td>
+				                   <td><input type="checkbox" id="check-all" class="flat"></td>
 				                   <td>가맹점B</td>
 				                   <td>2023-07-18</td>
 				                   <td>서울특별시 종로구</td>
