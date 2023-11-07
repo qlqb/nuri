@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="utf-8">
+
+	<!--====== Title ======-->
+	<title th:text="${title}"></title>
+
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!--====== Favicon Icon ======-->
+		<link rel="shortcut icon" th:href="@{/user/assets/images/favicon.png}" type="image/png">
+
+		<!--====== Animate CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/animate.css}">
+
+		<!--====== Tiny slider CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/tiny-slider.css}">
+
+		<!--====== glightbox CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/glightbox.min.css}">
+
+		<!--====== Line Icons CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/LineIcons.2.0.css}">
+
+		<!--====== Selectr CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/selectr.css}">
+
+		<!--====== Nouislider CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/nouislider.css}">
+
+		<!--====== Bootstrap CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/bootstrap-5.0.5-alpha.min.css}">
+
+		<!--====== Style CSS ======-->
+		<link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
+
+</head>
+<body>
+
+		<!-- top navigation -->
+		<div th:replace="~{user/fragments/header :: headerFragment}"></div>
+		<!-- /top navigation -->
+
+		<!-- page content -->
+		<th:block layout:fragment="customContents" th:fragment="~{user/fragments/aside}">
+
+
+		</th:block>
+		<!-- /page content -->
+
+		<!-- footer content -->
+		<div th:replace="~{user/fragments/footer :: footerFragment}"></div>
+		<!-- /footer content -->
+
+		<!--====== BACK TOP TOP PART START ======-->
+		<a href="#" class="back-to-top btn-hover"><i class="lni lni-chevron-up"></i></a>
+		<!--====== BACK TOP TOP PART ENDS ======-->
+
+
+		<!--====== Bootstrap js ======-->
+		<script th:src="@{/user/assets/js/bootstrap.bundle-5.0.0.alpha-min.js}"></script>
+
+		<!--====== Tiny slider js ======-->
+		<script th:src="@{/user/assets/js/tiny-slider.js}"></script>
+
+		<!--====== wow js ======-->
+		<script th:src="@{/user/assets/js/wow.min.js}"></script>
+
+		<!--====== glightbox js ======-->
+		<script th:src="@{/user/assets/js/glightbox.min.js}"></script>
+
+		<!--====== Selectr js ======-->
+		<script th:src="@{/user/assets/js/selectr.min.js}"></script>
+
+		<!--====== Nouislider js ======-->
+		<script th:src="@{/user/assets/js/nouislider.js}"></script>
+
+		<!--====== Main js ======-->
+		<script th:src="@{/user/assets/js/main.js}"></script>
+
+		<!-- 사용자 페이지별 javascript file -->
+		<th:block layout:fragment="customJsFile"></th:block>
+
+		<!-- 사용자별 스크립트 작성 -->
+		<th:block layout:fragment="customJsCode"></th:block>
+
+
+
+
+	</div>
+</div>
+</body>
+
+</html>
+
+
+
+
+
