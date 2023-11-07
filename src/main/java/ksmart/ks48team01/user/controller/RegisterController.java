@@ -43,7 +43,6 @@ public class RegisterController {
         Gson gson = new Gson();
         List<District> districtList = areaService.getDistrictList(regionCode);
 
-
         return gson.toJson(districtList);
     }
 
@@ -63,14 +62,18 @@ public class RegisterController {
     @PostMapping("/memberRegister")
     public String memberRegister() {
 
+
+
         return "redirect:/user/register/registerConfirm";
     }
 
     // Nuriculture 웹 애플리케이션에서 상품을 판매, 게시하는 가맹점(store) 권한의 가입 Form
     @GetMapping("/storeRegister")
     public String storeRegister(Model model) {
+        List<Region> regionList = areaService.getRegionList();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
+        model.addAttribute("regionList", regionList);
 
         return "user/register/storeRegister";
     }
@@ -86,8 +89,10 @@ public class RegisterController {
     // Nuriculture 웹 애플리케이션을 이용, 관리하는 공무원(officer) 권한의 가입 Form
     @GetMapping("/officerRegister")
     public String officerRegister(Model model) {
+        List<Region> regionList = areaService.getRegionList();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
+        model.addAttribute("regionList", regionList);
 
         return "user/register/officerRegister";
     }

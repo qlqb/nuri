@@ -6,13 +6,11 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
     <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}"/>
-    <link rel="stylesheet" th:href="@{/user/assets/css/news.css}"/>
 
     <!-- 필수 입력 및 input 태그 설명을 색을 이용하여 강조-->
     <style>
         .input-specific {
-            color: indianred;
+            color: #FF6B6B;
         }
     </style>
 </head>
@@ -22,10 +20,7 @@
 
 </th:block>
 
-<!-- 사용자별 스크립트 작성 -->
-<th:block layout:fragment="customJsCode">
 
-</th:block>
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
@@ -229,6 +224,7 @@
                                         <label for="regionCode" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
                                         <select class="col-12 py-2 px-3 mb-0 rounded border" name="regionCode" id="regionCode">
                                             <option value="none" selected disabled>region dataset</option>
+                                            <option th:each="area : ${regionList}"  th:value="${area.regionCode}" th:text="${area.regionName}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -280,7 +276,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="single-form mb-20">
-                                            <label for="department" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">행정기관</small></label>
+                                            <label for="department" class="mb-2"><small class="input-specific">*</small>행정기관 </label>
                                             <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="department">
                                                 <option value="none" selected disabled>region dataset</option>
                                             </select>
@@ -288,7 +284,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="single-form mb-20">
-                                            <label for="division" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">부서</small></label>
+                                            <label for="division" class="mb-2"><small class="input-specific">*</small>부서 </label>
                                             <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="division">
                                                 <option value="none" selected disabled>district dataset</option>
                                             </select>
@@ -318,4 +314,10 @@
     <!--====== 공무원 회원 가입 form 끝 ======-->
 
 </th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<body>
+    <script src="/user/assets/js/district-list.js"></script>
+</body>
+
 </html>
