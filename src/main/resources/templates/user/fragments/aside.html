@@ -2,94 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-
-
-<!--==================================================
-                       ASIDE
-==================================================-->
-
-    <!-- regist aside start -->
-    <div th:fragment="aboutAside">
-        <div class="col-lg-3">
-            <div class="shop-p1-title">
-                <h3>소개</h3>
-                <div class="heading-border-light"></div>
-            </div>
-            <div class="list-group">
-                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 서비스</a>
-                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 가맹점</a>
-                <a th:href="@{/user/about/nuriService}" class="list-group-item">누리컬쳐 데이터</a>
-            </div>
-        </div>
-    </div>
-    <!-- regist aside end -->
-
-    <!-- contentsAside start -->
-    <div th:fragment="contentsAside">
-        <div class="col-lg-3">
-            <div class="shop-p1-title">
-                <h3>마이페이지</h3>
-                <div class="heading-border-light"></div>
-            </div>
-            <div class="list-group">
-                <a href="#" class="list-group-item">로그인</a>
-                <a href="#" class="list-group-item">아이디 찾기</a>
-                <a href="#" class="list-group-item">비밀번호 찾기</a>
-                <a href="#" class="list-group-item">회원가입</a>
-            </div>
-        </div>
-    </div>
-    <!-- contentsAside end -->
-
-    <!-- boardAside start -->
-    <div th:fragment="boardAside">
-        <div class="col-lg-3">
-            <div class="shop-p1-title">
-                <h3>마이페이지</h3>
-                <div class="heading-border-light"></div>
-            </div>
-            <div class="list-group">
-                <a href="#" class="list-group-item">로그인</a>
-                <a href="#" class="list-group-item">아이디 찾기</a>
-                <a href="#" class="list-group-item">비밀번호 찾기</a>
-                <a href="#" class="list-group-item">회원가입</a>
-            </div>
-        </div>
-    </div>
-    <!-- boardAside end -->
-
     <!-- mypageAside start -->
     <div th:fragment="mypageAside">
-        <div class="shop-p1-title">
-            <h3>마이페이지</h3>
-            <div class="heading-border-light"></div>
-        </div>
-        <div class="list-group">
-            <a th:href="@{/user/mypage/mypageMain}" class="list-group-item">마이페이지</a>
-            <a th:href="@{/user/mypage/myInfo}" class="list-group-item">내 정보</a>
-            <a th:href="@{/user/mypage/myCardCharge}" class="list-group-item">카드 충전</a>
-            <a th:href="@{/user/mypage/myOrder}" class="list-group-item">내 구매내역</a>
-            <a th:href="@{/user/mypage/myStore}" class="list-group-item">내 가맹점</a>
-            <a th:href="@{/user/mypage/myStoreAdj}" class="list-group-item">내 가맹점 정산</a>
-            <a th:href="@{/user/mypage/myContentsList}" class="list-group-item">내 콘텐츠</a>
-        </div>
+
+                <div class="left-sidebar-wrapper box-style">
+                    <div class="sidebar-header">
+                       <div class="info">
+                            <h3>Musharraf Karim</h3>
+                            <p class="mb-30">Director at Uideck.com</p>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a th:href="@{/user/mypage/mypageMain}" class="active"><i class="lni lni-dashboard"></i>마이페이지</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myInfo}"><i class="lni lni-cog"></i>내 정보</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myCard}"><i class="lni lni-cog"></i>내 카드</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myOrder}"><i class="lni lni-layers"></i>내 주문/예약</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myStore}"><i class="lni lni-envelope"></i>내 가맹점</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myStoreSaleHistory}"><i class="lni lni-envelope"></i>판매/환불 내역</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myStoreAdj}"><i class="lni lni-paypal"></i>정산 내역</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myContentsList}"><i class="lni lni-heart"></i>내 컨텐츠</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/mypage/myContentsRegist}"><i class="lni lni-star"></i>컨텐츠 등록하기</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/user/main}"><i class="lni lni-exit"></i>로그아웃</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
     </div>
     <!-- mypageAside end -->
-
-    <!-- registAside start -->
-    <div th:fragment="registAside">
-        <div class="col-lg-3">
-            <div class="shop-p1-title">
-                <h3>마이페이지</h3>
-                <div class="heading-border-light"></div>
-            </div>
-            <div class="list-group">
-                <a href="#" class="list-group-item">로그인</a>
-                <a href="#" class="list-group-item">아이디 찾기</a>
-                <a href="#" class="list-group-item">비밀번호 찾기</a>
-                <a href="#" class="list-group-item">회원가입</a>
-            </div>
-        </div>
-    </div>
-    <!-- registAside end -->
 </html>

@@ -39,52 +39,125 @@
 	<link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
 </head>
 
-		<!-- top navigation -->
-		<div th:replace="~{user/fragments/header :: headerFragment}"></div>
-		<!-- /top navigation -->
-
-		<!-- page content -->
-		<th:block layout:fragment="customContents" th:fragment="~{user/fragments/aside}">
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
 
 
-		</th:block>
-		<!-- /page content -->
+			<!-- top navigation -->
+			<div th:replace="~{user/fragments/header :: headerFragment}"></div>
+			<!-- /top navigation -->
 
-		<!-- footer content -->
-		<div th:replace="~{user/fragments/footer :: footerFragment}"></div>
-		<!-- /footer content -->
-
-		<!--====== BACK TOP TOP PART START ======-->
-		<a href="#" class="back-to-top btn-hover"><i class="lni lni-chevron-up"></i></a>
-		<!--====== BACK TOP TOP PART ENDS ======-->
+			<!-- page content -->
+			<th:block layout:fragment="customContents" th:fragment="~{user/fragments/aside}">
 
 
-		<!--====== Bootstrap js ======-->
-		<script th:src="@{/user/assets/js/bootstrap.bundle-5.0.0.alpha-min.js}"></script>
+			</th:block>
+			<!-- /page content -->
 
-		<!--====== Tiny slider js ======-->
-		<script th:src="@{/user/assets/js/tiny-slider.js}"></script>
+			<!-- footer content -->
+			<div th:replace="~{user/fragments/footer :: footerFragment}"></div>
+			<!-- /footer content -->
 
-		<!--====== wow js ======-->
-		<script th:src="@{/user/assets/js/wow.min.js}"></script>
-
-		<!--====== glightbox js ======-->
-		<script th:src="@{/user/assets/js/glightbox.min.js}"></script>
-
-		<!--====== Selectr js ======-->
-		<script th:src="@{/user/assets/js/selectr.min.js}"></script>
-
-		<!--====== Nouislider js ======-->
-		<script th:src="@{/user/assets/js/nouislider.js}"></script>
-
-		<!--====== Main js ======-->
-		<script th:src="@{/user/assets/js/main.js}"></script>
+			<!--====== BACK TOP TOP PART START ======-->
+			<a href="#" class="back-to-top btn-hover"><i class="lni lni-chevron-up"></i></a>
+			<!--====== BACK TOP TOP PART ENDS ======-->
 
 
+			<!--====== Bootstrap js ======-->
+			<script th:src="@{/user/assets/js/bootstrap.bundle-5.0.0.alpha-min.js}"></script>
 
-	</div>
-</div>
-</body>
+			<!--====== Tiny slider js ======-->
+			<script th:src="@{/user/assets/js/tiny-slider.js}"></script>
+
+			<!--====== wow js ======-->
+			<script th:src="@{/user/assets/js/wow.min.js}"></script>
+
+			<!--====== glightbox js ======-->
+			<script th:src="@{/user/assets/js/glightbox.min.js}"></script>
+
+			<!--====== Selectr js ======-->
+			<script th:src="@{/user/assets/js/selectr.min.js}"></script>
+
+			<!--====== Nouislider js ======-->
+			<script th:src="@{/user/assets/js/nouislider.js}"></script>
+
+			<!--====== Main js ======-->
+			<script th:src="@{/user/assets/js/main.js}"></script>
+
+			<script>
+
+				//========= glightbox
+				const myGallery = GLightbox({
+					'href': 'assets/video/Free App Landing Page Template - AppLand.mp4',
+					'type': 'video',
+					'source': 'youtube', //vimeo, youtube or local
+					'width': 900,
+					'autoplayVideos': true,
+				});
+
+				//======== tiny slider for feature-product-carousel
+				tns({
+					slideBy: 'page',
+					autoplay: false,
+					mouseDrag: true,
+					gutter: 20,
+					nav: false,
+					controls: true,
+					controlsPosition: 'bottom',
+					controlsText: [
+						'<span class="prev"><i class="lni lni-chevron-left"></i></span>',
+						'<span class="next"><i class="lni lni-chevron-right"></i></span>'
+					],
+					container: ".feature-product-carousel",
+					items: 1,
+					center: false,
+					autoplayTimeout: 5000,
+					swipeAngle: false,
+					speed: 400,
+					responsive: {
+						768: {
+							items: 2,
+						},
+
+						992: {
+							items: 2,
+						},
+
+						1200: {
+							items: 3,
+						}
+					}
+				});
+
+				//======== tiny slider for testimonial
+				tns({
+					slideBy: 'page',
+					autoplay: false,
+					mouseDrag: true,
+					gutter: 20,
+					nav: true,
+					controls: false,
+					container: ".testimonial-carousel",
+					items: 1,
+					center: false,
+					autoplayTimeout: 5000,
+					swipeAngle: false,
+					speed: 400,
+					responsive: {
+						768: {
+							items: 2,
+						},
+						1200: {
+							items: 3,
+						}
+					}
+				});
+			</script>
+
+		</div>
+		</div>
+	</body>
 
 </html>
 

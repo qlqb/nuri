@@ -11,13 +11,13 @@ public class MyPageController {
 
 	public String mypage = "마이페이지";
 
-	@GetMapping("/mypage")
-	public String myPage(Model model) {
+	@GetMapping("/mypageMain")
+	public String myPageMain(Model model) {
 
-		model.addAttribute("title", "나의 정보");
+		model.addAttribute("title", "마이페이지");
 		model.addAttribute("head", mypage);
 
-		return "user/mypage/mypage";
+		return "/user/mypage/mypageMain";
 	}	
 	
 	@GetMapping("/myInfo")
@@ -38,13 +38,31 @@ public class MyPageController {
 		return "user/mypage/myInfoModify";
 	}
 
-	@GetMapping("/myInfoClose")
-	public String myInfoClose(Model model) {
+	@GetMapping("/myCard")
+	public String myCard(Model model) {
 
-		model.addAttribute("title", "나의 계정 해지");
+		model.addAttribute("title", "내 카드");
 		model.addAttribute("head", mypage);
 
-		return "user/mypage/myInfoClose";
+		return "user/mypage/myCard";
+	}
+
+	@GetMapping("/myCardModify")
+	public String myCardModify(Model model) {
+
+		model.addAttribute("title", "내 카드");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myCardModify";
+	}
+
+	@GetMapping("/myCardCharge")
+	public String myCardCharge(Model model) {
+
+		model.addAttribute("title", "내 카드");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myCardCharge";
 	}
 
 	@GetMapping("/myOrder")
@@ -56,13 +74,76 @@ public class MyPageController {
 		return "user/mypage/myOrder";
 	}
 
-	@GetMapping("/myRefund")
-	public String myRefund(Model model) {
+	@GetMapping("/myStore")
+	public String myStore(Model model) {
 
-		model.addAttribute("title", "주문 취소/환불 조회");
+		model.addAttribute("title", "내 가맹점 정보");
 		model.addAttribute("head", mypage);
 
-		return "user/mypage/myRefund";
+		return "user/mypage/myStore";
+	}
+
+	@GetMapping("/myStoreModify")
+	public String myStoreModify(Model model) {
+
+		model.addAttribute("title", "내 가맹점 정보 수정");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myStoreModify";
+	}
+
+	@GetMapping("/myStoreAdj")
+	public String myStoreAdj(Model model) {
+
+		model.addAttribute("title", "가맹점 정산 조회");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myStoreAdj";
+	}
+
+	@GetMapping("/myStoreSaleHistory")
+	public String myStoreSaleHistory(Model model) {
+
+		model.addAttribute("title", "가맹점 정산 조회");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myStoreSaleHistory";
+	}
+
+	@GetMapping("/myContentsList")
+	public String myContentsList(Model model) {
+
+		model.addAttribute("title", "내 컨텐츠 목록");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myContentsList";
+	}
+
+	@GetMapping("/myContentsRegist")
+	public String myContentsRegist(Model model) {
+
+		model.addAttribute("title", "컨텐츠 등록하기");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myContentsRegist";
+	}
+
+	@GetMapping("/myContents")
+	public String myContents(Model model) {
+
+		model.addAttribute("title", "내 컨텐츠 상세");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myContents";
+	}
+
+	@GetMapping("/myContentsModify")
+	public String myContentsListModify(Model model) {
+
+		model.addAttribute("title", "내 컨텐츠 수정");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myContentsModify";
 	}
 
 }
