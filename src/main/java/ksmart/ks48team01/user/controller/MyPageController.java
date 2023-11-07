@@ -101,6 +101,15 @@ public class MyPageController {
 		return "user/mypage/myStoreAdj";
 	}
 
+	@GetMapping("/myStoreSaleHistory")
+	public String myStoreSaleHistory(Model model) {
+
+		model.addAttribute("title", "가맹점 정산 조회");
+		model.addAttribute("head", mypage);
+
+		return "user/mypage/myStoreSaleHistory";
+	}
+
 	@GetMapping("/myContentsList")
 	public String myContentsList(Model model) {
 

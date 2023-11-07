@@ -52,8 +52,8 @@
                 </div>
                 <div class="col-xl-9 col-lg-8">
                     <div class="dashboard-wrapper box-style">
-                        <div class="title">
-                            <h3>내 가맹점 정산</h3>
+                        <div class="title" style="margin: 20px;">
+                            <h3>판매/환불 내역</h3>
                         </div>
 
                         <div style="margin: 50px;"></div>
@@ -73,11 +73,11 @@
                                 <div class="col-md-4">
                                     <div class="box-style single-card">
                                         <div class="icon">
-                                            <i class="lni lni-add-files"></i>
+                                            <i class="lni lni-notepad"></i>
                                         </div>
                                         <div class="text">
-                                            <h5>이번달 판매 가격</h5>
-                                            <p>80,000원</p>
+                                            <h5>환불 수</h5>
+                                            <p>2회</p>
                                         </div>
                                     </div>
                                 </div>
@@ -95,13 +95,76 @@
                             </div>
                         </div>
 
+                        <div class="table-wrapper table-responsive box-style single-card">
+                            <div class="title" style="margin: 20px;">
+                                <h6>요청된 환불 신청</h6>
+                            </div>
+
+                            <div style="margin: 20px;"></div>
+                            <table class="table" style="text-align: center;">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        컨텐츠
+                                    </th>
+                                    <th>
+                                        분류
+                                    </th>
+                                    <th>
+                                        신청 날짜
+                                    </th>
+                                    <th>
+                                        신청자
+                                    </th>
+                                    <th>
+                                        환불 사유
+                                    </th>
+                                    <th>
+                                        가격
+                                    </th>
+                                    <th>
+                                        상태
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>
+                                        <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
+                                        <span class="category">컨텐츠코드</span>
+                                    </td>
+                                    <td>
+                                        <span class="category">공연</span>
+                                    </td>
+                                    <td>
+                                        <p>2023-11-06</p>
+                                    </td>
+                                    <td>
+                                        <p>id013</p>
+                                    </td>
+                                    <td>
+                                        <span class="category">기타</span>
+                                    </td>
+                                    <td>
+                                        <p>10000</p>
+                                    </td>
+                                    <td>
+                                        <button class="status-btn bg-warning">환불신청</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div class="box-style single-card">
                             <h6>날짜로 검색하기(시작일과 종료일 입력)</h6>
                             <div style="margin: 20px;"></div>
                             <form action="@{}" class="subscribe-form">
-                                <input type="date" name="startDate" class="col-lg-4">
-                                <input type="date" name="endDate" class="col-lg-4">
-                                <button type="button" class="main-btn btn-hover d-none d-md-block">검색</button>
+                                <input type="date" name="startDate" class="col-lg-4" placeholder="시작 날짜">
+                                <input type="date" name="endDate" class="col-lg-4" placeholder="종료 날짜">
+                                <button type="button" class="main-btn btn-hover d-none d-md-block col-lg-2">검색</button>
                             </form>
                         </div>
 
@@ -162,7 +225,7 @@
                                         <p>10000</p>
                                     </td>
                                     <td>
-                                        <span class="status-btn bg-light text-dark">이용완료</span>
+                                        <span class="status-btn">결제완료</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -191,7 +254,7 @@
                                         <p>10000</p>
                                     </td>
                                     <td>
-                                        <span class="status-btn bg-light text-dark">이용완료</span>
+                                        <span class="status-btn bg-warning">환불신청</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -220,7 +283,7 @@
                                         <p>10000</p>
                                     </td>
                                     <td>
-                                        <span class="status-btn bg-light text-dark">이용완료</span>
+                                        <span class="status-btn bg-secondary">환불완료</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -255,7 +318,7 @@
 
                                 </tbody>
                                 <tfoot>
-                                <td colspan="6">
+                                <td colspan="6" style="text-align: right;">
                                     <h4>합계</h4>
                                 </td>
                                 <td>
