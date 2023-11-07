@@ -1,0 +1,81 @@
+
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <link rel="stylesheet" th:href="@{/user/css/faq.css}">
+    <style>
+        .table{
+            margin : 20px 20px 20px 20px;
+            padding: 20px 20px 0px 10px;
+        }
+    </style>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+    <!--상단 배너-->
+    <div id="home-p" class="home-p pages-head1 text-center">
+        <div class="container">
+            <h1>커뮤니티</h1>
+            <p>게시판</p>
+        </div><!--/end container-->
+    </div>
+
+    <!--게시판 헤더-->
+    <div class="row title-bar" style="padding-bottom: 0">
+        <div class="col-md-12">
+            <h1>공지사항</h1>
+            <div class="heading-border"></div>
+        </div>
+    </div>
+    <!--게시판 테이블-->
+    <div class="boardTable" style="margin-right: 30px">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="num">분류</th>
+                <th class="title">제목</th>
+                <th class="date">등록일자</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr>
+                <td>공지</td>
+                <td class="subject">
+                    <a th:href="@{/user/board/boardView}">누리컬쳐 사용안내</a>
+                </td>
+                <td>2023-11-03</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</th:block>
+
+
+
+
+
+</html>

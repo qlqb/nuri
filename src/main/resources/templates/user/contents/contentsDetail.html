@@ -1,44 +1,432 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeLeaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
 <head>
+  <style>
+    .detail_tab_wrap .tabs li.active {
+      border: solid 1px #1b1b1b;
+    }
 
+    .detail_tab_wrap .tabs li a:hover {
+      color: #1b1b1b;
+    }
+
+    .btn_wrap {
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .tabs li:last-child {
+      border-right: solid 1px #e5e5e5;
+      border-right-width: 1px;
+      border-right-style: solid;
+      border-right-color: rgb(229, 229, 229);
+    }
+
+    .tabs li a {
+      display: block;
+      font-size: 15px;
+      color: #7d7d7d;
+      line-height: 50px;
+      cursor: pointer;
+    }
+    .tabs li {
+      display: inline-block;
+      width: 25%;
+      border: solid 1px #e5e5e5;
+      border-right: 0;
+    }
+
+    .detail_tab_wrap .tabs {
+      text-align: center;
+      word-spacing: 0;
+      font-size: 0;
+    }
+
+    .detail_tab_wrap {
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .col-lg-5.col-xl-5 dt {
+      width: 50px;
+    }
+
+    .text-wrapper dd {
+      float: left;
+      width: calc(100% - 150px);
+      font-size: 15px;
+    }
+
+    .row .col-lg-4.col-xl-4 {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .text-wrapper dt {
+      float: left;
+      width: 90px;
+      font-size: 15px;
+      color: #545454;
+    }
+
+    .top_info {
+      overflow: hidden;
+      margin-bottom: 20px;
+      border-bottom: solid 1px #cccccc;
+    }
+
+    .top_info {
+       overflow: hidden;
+       margin-bottom: 20px;
+       border-bottom: solid 1px #cccccc;
+     }
+
+    .text-wrapper dl {
+      overflow: hidden;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .title_area h3 {
+      margin: 15px 0 35px;
+      font-size: 22px;
+    }
+
+    .title_area {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .mtop {
+      margin-top: 30px;
+    }
+
+    .btop {
+      overflow: hidden;
+      border-top: solid 3px #1b1b1b;
+      border-top-width: 3px;
+      border-top-style: solid;
+      border-top-color: rgb(27, 27, 27);
+    }
+
+    dd {
+      display: inline;
+      margin-inline-start: 20px;
+      font-size: 15px;
+    }
+
+    dt {
+      display: inline;
+      font-size: 15px
+    }
+
+    dl {
+      float: left;
+      width: 50%;
+    }
+
+    .fill {
+      height: 427px;
+      object-fit: fill;
+    }
+    .left {
+      margin-left: 40px;
+    }
+  </style>
 </head>
-<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
-    <th:block layout:fragment="customContents">
-	<section id="single-news-p1" class="single-news-p1">
-      <div class="container">
-        <div class="row">
 
-          <!-- left news details -->
-          <div class="col-md-8">
-            <div class="single-news-p1-cont">
-              <div class="single-news-img">
-                <img src="@{#}" alt="" class="img-fluid">
-              </div>
-              <div class="single-news-desc">
-                <h3>오펜하이머</h3>
-                <ul class="list-inline">
-                  <li>개봉일: 광복절<span class="text-theme-colored2"></span></li>
-                  <li>기간: 1달간<span class="text-theme-colored2"></span></li>
-                  <li><i class="fa fa-comments-o"></i>핵을 만든 사람</li>
-                </ul>
-                <hr>
-                <div class="bg-light-gray">
-                  <p>출연진</p>
-                  <p> We are the world
-                  <blockquote class="blockquote">
-                  <p class="mb-0">줄거리</p>
-                  <footer class="blockquote-footer">
-                    <cite title="Source Title"></cite>
-                  </footer>
-                  </blockquote>
-                </div>
-                 </div>
-            </div>
-          </div> 
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!--====== PRELOADER PART START ======-->
+<th:block layout:fragment="customContents">
+  <section class="banner-area bg_cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="banner-content">
+            <h1 class="text-white">Product Details</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Product</li>
+              </ol>
+            </nav>
+          </div>
         </div>
       </div>
-    </section>
-    </th:block>
+    </div>
+  </section>
+  <section class="product-details-area">
+    <div class="container">
+      <div class="product-details-wrapper box-style">
+        <div class="title_area">
+          <h3>[서울]연극＜조각＞</h3>
+        </div>
+        <div class="info-wrapper">
+          <div class="showcase-wrapper">
+            <div class="row mtop">
+              <div class="col-lg-4 col-xl-4 ">
+                <div class="tab-content" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-tab-1">
+                    <div class="showcase-img">
+                      <img th:src="@{https://theater.arko.or.kr/Down/Rent/202310/d00443f9-b63b-4dcd-9724-8236a763594a.png}" alt="" class="fill">
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-tab-2">
+                    <div class="showcase-img">
+                      <img th:src="@{/user/assets/images/product/product-details-2.jpg}" alt="">
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-tab-3">
+                    <div class="showcase-img">
+                      <img th:src="@{/user/assets/images/product/product-details-3.jpg}" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-wrapper col-lg-7 col-xl-7 left">
+                <div class="top_info">
+                  <dl class="col-lg-7 col-xl-7">
+                    <dt>공연 일시</dt>
+                    <dd>2023-01-04 ~ 2023-11-30</dd>
+                  </dl>
+                  <dl class="col-lg-5 col-xl-5">
+                    <dt >지역</dt>
+                    <dd >서울</dd>
+                  </dl>
+                  <dl class="col-lg-7 col-xl-7">
+                    <dt >판매기간</dt>
+                    <dd >2023-01-03 ~ 2023-11-29</dd>
+                  </dl>
+                  <dl class="col-lg-5 col-xl-5">
+                    <dt>장소</dt>
+                    <dd>대학로 댕로홀</dd>
+                  </dl>
+                </div>
+                <div class="info">
+                  <dl class="col-lg-12 col-xl-12">
+                    <dt>관람 시간</dt>
+                    <dd>약 70분</dd>
+                  </dl>
+                  <dl class="col-lg-12 col-xl-12">
+                    <dt>등급</dt>
+                    <dd>만 13세 이상 관람가</dd>
+                  </dl>
+                  <dl class="col-lg-12 col-xl-12">
+                    <dt>문의</dt>
+                    <dd>070-4792-8342</dd>
+                  </dl>
+                  <dl class="col-lg-12 col-xl-12">
+                    <dt>티켓가격</dt>
+                    <dd>비지정석 20,000원(정상가 50,000원의 60%할인)</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+              <div class="btn_wrap">
+                <ul class="header-btn d-md-flex" style="float: right;">
+                  <li>
+                    <a href="#" class="main-btn btn-hover d-none d-md-block">예매하기</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="detail_tab_wrap">
+                <ul class="tabs">
+                  <li>
+                    <a>상세정보</a>
+                  </li>
+                  <li>
+                    <a>관람후기</a>
+                  </li>
+                  <li>
+                    <a>장소안내</a>
+                  </li>
+                  <li>
+                    <a>예매시 유의사항</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </div>
+
+        <div class="review-wrapper">
+
+          <div class="review-header">
+            <div class="left-side">
+              <h5>5 Reviews</h5>
+            </div>
+            <div class="right-side">
+              <h6>Average Rating <span>4.5</span></h6>
+              <div class="rating">
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-body">
+            <div class="review-item-wrapper">
+
+              <div class="review-item">
+                <div class="image">
+                  <img src="assets/images/testimonial/testimonial-1.png" alt="">
+                </div>
+                <div class="media">
+                  <div class="info">
+                    <h6>Nichel Smith <span>Review 20 Minits ago</span></h6>
+                    <div class="rating">
+                      <i class="lni lni-star-filled"></i>
+                      <i class="lni lni-star-filled"></i>
+                      <i class="lni lni-star-filled"></i>
+                      <i class="lni lni-star"></i>
+                      <i class="lni lni-star"></i>
+                    </div>
+                  </div>
+                  <p class="mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+                    ut labore et dolore magna Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+                    et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolore.</p>
+                  <a href="javascript:void(0)" class="reply"><i class="lni lni-reply"></i> Reply</a>
+                </div>
+              </div>
+
+              <div class="review-item reply-item pt-35">
+                <div class="image">
+                  <img src="assets/images/testimonial/testimonial-2.png" alt="">
+                </div>
+                <div class="media">
+                  <div class="info">
+                    <h6>John Doe <span>Review 20 Minits ago</span></h6>
+                    <div class="rating">
+                      <i class="lni lni-star-filled"></i>
+                      <i class="lni lni-star-filled"></i>
+                      <i class="lni lni-star-filled"></i>
+                      <i class="lni lni-star"></i>
+                      <i class="lni lni-star"></i>
+                    </div>
+                  </div>
+                  <p class="mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+                    ut labore et dolore magna Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                  <a href="javascript:void(0)" class="reply"><i class="lni lni-reply"></i> Reply</a>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="add-review-wrapper">
+
+              <h5 class="mb-20">Add a Review</h5>
+              <p class="mb-30">Your email address will not be published. Required fields are marked</p>
+
+              <form action="#" class="review-form">
+                <div class="mb-15 form-check">
+                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" for="flexRadioDefault1">
+										<span class="rating">
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<span class="ml-2">(234)</span>
+										</span>
+                  </label>
+                </div>
+                <div class="mb-15 form-check">
+                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                  <label class="form-check-label" for="flexRadioDefault2">
+										<span class="rating">
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star"></i>
+											<span class="ml-2">(234)</span>
+										</span>
+                  </label>
+                </div>
+                <div class="mb-15 form-check">
+                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                  <label class="form-check-label" for="flexRadioDefault3">
+										<span class="rating">
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star"></i>
+											<i class="lni lni-star"></i>
+											<span class="ml-2">(234)</span>
+										</span>
+                  </label>
+                </div>
+                <div class="mb-15 form-check">
+                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                  <label class="form-check-label" for="flexRadioDefault4">
+										<span class="rating">
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star"></i>
+											<i class="lni lni-star"></i>
+											<i class="lni lni-star"></i>
+											<span class="ml-2">(234)</span>
+										</span>
+                  </label>
+                </div>
+                <div class="mb-15 form-check">
+                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
+                  <label class="form-check-label" for="flexRadioDefault5">
+										<span class="rating">
+											<i class="lni lni-star-filled"></i>
+											<i class="lni lni-star"></i>
+											<i class="lni lni-star"></i>
+											<i class="lni lni-star"></i>
+											<i class="lni lni-star"></i>
+											<span class="ml-2">(234)</span>
+										</span>
+                  </label>
+                </div>
+                <div class="row mt-30">
+                  <div class="col-md-6">
+                    <div class="single-input">
+                      <label for="name">Your Name</label>
+                      <input type="text" id="name" name="name" placeholder="John Doe">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="single-input">
+                      <label for="email">Your Email</label>
+                      <input type="email" id="email" name="email" placeholder="yourmail@gmail.com">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="single-input">
+                      <label for="message">Your Message</label>
+                      <textarea name="message" id="message" rows="5" placeholder="Type Message"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="single-input">
+                      <button class="main-btn btn-hover">Submit Review</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</th:block>
+<!--====== CATEGORY PART END ======-->
 </html>

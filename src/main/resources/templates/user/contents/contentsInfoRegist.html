@@ -1,62 +1,104 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  	  layout:decorate="~{user/layout/default}">
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Album example for Bootstrap</title>
+
+    <link rel="canonical" th:href="@{https://getbootstrap.com/docs/4.0/examples/album/}">
+
+    <!--         Bootstrap core CSS -->
+    <!--        <link th:href="@{https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css}" rel="stylesheet">-->
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{https://getbootstrap.com/docs/4.0/examples/album/album.css}" rel="stylesheet">
 </head>
-	<!-- 사용자 페이지별 javascript file 추가-->
-    <th:block layout:fragment="customJsFile">
-    </th:block>
-    
-    <!-- 사용자별 스크립트 작성 -->
-    <th:block layout:fragment="customJsCode">
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
 
-    </th:block>
-
-    <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
-	<th:block layout:fragment="customContents">
-		<div class="overlay-contact-h"></div>
-    <section id="contact-h" class="bg-parallax contact-h-bg">
+<!--====== PRELOADER PART START ======-->
+<th:block layout:fragment="customContents">
+    <section class="dashboard-area pb-110" style="margin-top: 150px;">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="contact-h-cont">
-                      <h3 class="cl-white">컨텐츠 등록</h3><br>
-                      <form>
-                        <div class="form-group cl-white">
-                          <label for="name">컨텐츠명</label>
-                          <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="컨텐츠명을 입력하시오"> 
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-9 col-lg-8 d-flex justify-content-center">
+                    <div class="post-ad-wrapper box-style" style="width: 700px;">
+                        <div class="d-flex justify-content-center">
+                            <div class="title">
+                                <h3>컨텐츠 등록</h3>
+                            </div>
                         </div>
-                        <div class="form-group cl-white">
-                          <label for="duration">컨텐츠 기간</label>
-                          <input type="text" class="form-control" id="duration" aria-describedby="durationHelp" placeholder="컨텐츠 기간을 입력하시오"> 
-                        </div>  
-                        <div class="form-group cl-white">
-                          <label for="director">감독</label>
-                          <input type="text" class="form-control" id="director" aria-describedby="directorMemberHelp" placeholder="감독 이름을 입력하시오"> 
+
+                        <div class="post-ad-form-wrapper">
+
+                            <form action="#">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-7">
+                                        <div class="right-wrapper pt-50 ">
+
+                                            <div class="single-form mb-15">
+                                                <label for="contentsName" class="mb-1">컨텐츠명</label>
+                                                <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsAddress" class="mb-1">컨텐츠 이용장소</label>
+                                                <input type="text" id="contentsAddress" name="contentsAddress" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsDuration" class="mb-1">컨텐츠 이용시간</label>
+                                                <input type="number" id="contentsDuration" name="contentsDuration" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsPG" class="mb-1">컨텐츠 연령제한</label>
+                                                <input type="number" id="contentsPG" name="contentsPG" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsPrice" class="mb-1">컨텐츠 가격</label>
+                                                <input type="number" id="contentsPrice" name="contentsPrice" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="startDate" class="mb-1">컨텐츠 시작일자</label>
+                                                <input type="date" id="startDate" name="startDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="endDate" class="mb-1">컨텐츠 종료일자</label>
+                                                <input type="date" id="endDate" name="endDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsCategory" class="mb-1">카테고리</label>
+                                                <select name="contentsCategory" id="contentsCategory" class="px-3 py-2 border rounded w-100">
+                                                    <option value="none">Select state</option>
+                                                    <option value="none">Select state</option>
+                                                    <option value="none">Select state</option>
+                                                    <option value="none">Select state</option>
+                                                </select>
+                                            </div>
+<!--                                            <div class="single-form mb-15">-->
+<!--                                                <label for="cast" class="mb-1">출연진</label>-->
+<!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+<!--                                            </div>-->
+                                            <!--                                                <div class="single-form mb-15">-->
+                                            <!--                                                    <label for="email" class="mb-1">Email</label>-->
+                                            <!--                                                    <input type="text" id="email" name="email" placeholder="Email" class="px-3 py-2 mb-0 border rounded">-->
+                                            <!--                                                </div>-->
+                                            <div class="d-flex justify-content-center" style="margin-top: 30px">
+                                                <button class="main-btn btn-hover">등록</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group cl-white">
-                          <label for="castMember">출연진</label>
-                          <input type="text" class="form-control" id="castMember" aria-describedby="castMemberHelp" placeholder="출연진을 입력하시오"> 
-                        </div>
-                        <div class="form-group cl-white">
-                          <label for="synopsis">줄거리</label>
-                          <textarea class="form-control" id="synopsis" aria-describedby="synopsisHelp" rows="3" placeholder="줄거리를 입력하시오"></textarea>
-                        </div>
-                     	<button class="btn btn-general btn-white" id="button" onclick="location.href='view'"><i fa fa-right-arrow></i>등록</button>
-                     	<script>
-                        let button = document.getElementById("button");
-                        button.addEventListener("click", function(){
-                        alert("등록이 완료되었습니다.");
-                        });
-                        </script>
-                      </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-	</th:block>
+</th:block>
+<!--====== CATEGORY PART END ======-->
 </html>

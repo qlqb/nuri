@@ -3,31 +3,41 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--====== Title ======-->
+	<title>ClassiList Classified Ads Template</title>
+
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title th:text="${title}"></title>
-	<link rel="shortcut icon" th:href="@{/user/img/favicon.ico}">
+	<!--====== Favicon Icon ======-->
+	<link rel="shortcut icon" th:href="@{/user/assets/images/favicon.png}" type="image/png">
 
-	<!-- Global Stylesheets -->
-	<link th:href="@{https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i}" rel="stylesheet">
-	<link th:href="@{/user/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/user/font-awesome-4.7.0/css/font-awesome.min.css}">
-	<link rel="stylesheet" th:href="@{/user/css/animate/animate.min.css}">
-	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.carousel.min.css}">
-	<link rel="stylesheet" th:href="@{/user/css/owl-carousel/owl.theme.default.min.css}">
-	<link rel="stylesheet" th:href="@{/user/css/shop.css}"/>
-	<link rel="stylesheet" th:href="@{/user/css/news.css}"/>
-	<link rel="stylesheet" th:href="@{/user/css/style.css}">
+	<!--====== Animate CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/animate.css}">
+
+	<!--====== Tiny slider CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/tiny-slider.css}">
+
+	<!--====== glightbox CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/glightbox.min.css}">
+
+	<!--====== Line Icons CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/LineIcons.2.0.css}">
+
+	<!--====== Selectr CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/selectr.css}">
+
+	<!--====== Nouislider CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/nouislider.css}">
+
+	<!--====== Bootstrap CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/bootstrap-5.0.5-alpha.min.css}">
+
+	<!--====== Style CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
 </head>
-
-<body class="nav-md">
-<div class="container body">
-	<div class="main_container">
-
 
 		<!-- top navigation -->
 		<div th:replace="~{user/fragments/header :: headerFragment}"></div>
@@ -44,25 +54,36 @@
 		<div th:replace="~{user/fragments/footer :: footerFragment}"></div>
 		<!-- /footer content -->
 
+		<!--====== BACK TOP TOP PART START ======-->
+		<a href="#" class="back-to-top btn-hover"><i class="lni lni-chevron-up"></i></a>
+		<!--====== BACK TOP TOP PART ENDS ======-->
 
 
-		<!--Global JavaScript -->
-		<script th:src="@{/user/js/jquery/jquery.min.js}"></script>
-		<script th:src="@{/user/js/popper/popper.min.js}"></script>
-		<script th:src="@{/user/js/bootstrap/bootstrap.min.js}"></script>
-		<script th:src="@{/user/js/wow/wow.min.js}"></script>
-		<script th:src="@{/user/js/owl-carousel/owl.carousel.min.js}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-		<!-- Plugin JavaScript -->
-		<script th:src="@{/user/js/jquery-easing/jquery.easing.min.js}"></script>
-		<script th:src="@{/user/js/custom.js}"></script>
+		<!--====== Bootstrap js ======-->
+		<script th:src="@{/user/assets/js/bootstrap.bundle-5.0.0.alpha-min.js}"></script>
+
+		<!--====== Tiny slider js ======-->
+		<script th:src="@{/user/assets/js/tiny-slider.js}"></script>
+
+		<!--====== wow js ======-->
+		<script th:src="@{/user/assets/js/wow.min.js}"></script>
+
+		<!--====== glightbox js ======-->
+		<script th:src="@{/user/assets/js/glightbox.min.js}"></script>
+
+		<!--====== Selectr js ======-->
+		<script th:src="@{/user/assets/js/selectr.min.js}"></script>
+
+		<!--====== Nouislider js ======-->
+		<script th:src="@{/user/assets/js/nouislider.js}"></script>
+
+		<!--====== Main js ======-->
+		<script th:src="@{/user/assets/js/main.js}"></script>
 
 
-		<!-- 사용자별 스크립트 작성 -->
-		<th:block layout:fragment="customJsCode"></th:block>
 
-
+	</div>
+</div>
 </body>
 
 </html>
