@@ -66,22 +66,18 @@
 					           </thead>
 		
 		               		   <tbody>
-				                 <tr>
+							   	 <tr th:if="${budgerList==null}">
+									 <td colspan="4">등록된 예산 목록이 없습니다</td>
+								 </tr>
+				                 <tr th:unless="${budgetList==null}" th:each="l:${budgetList}">
 				                   <td><input type="checkbox" class="flat"></td>
-				                   <td>2023</td>
-				                   <th>210,000,000,000</th>
-				                   <td>110000</td>
-
+									 <td th:text="${l.applyYear}"></td>
+									 <td th:text="${l.budgetTotalAmount}"></td>
+									 <td th:text="${l.budgetByPerson}"></td>
 				                 </tr>
-				                 <tr>
-				                   <td><input type="checkbox" class="flat"></td>
-				                   <td>2022</td>
-				                   <th>240,000,000,000</th>
-				                   <td>100000</td>
-				                 </tr>
-
 		                 		</tbody>
 		             		</table>
+
 							<div class="ln_solid"></div>
 	                      	<div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
