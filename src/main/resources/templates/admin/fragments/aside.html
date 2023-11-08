@@ -71,8 +71,8 @@
 					</li>
 					<li><a><i class="fa fa-bar-chart-o"></i> 게시판 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/board/boardCate}">게시판 카테고리 관리</a></li>
-							<li><a th:href="@{/admin/board/boardInfo}">게시판 글 관리</a></li>
+							<li><a th:href="@{/admin/board/boardCateInfo}">게시판 컨텐츠 관리</a></li>
+							<li><a th:href="@{/admin/board/boardContentRegist}">게시판 컨텐츠 등록</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-clone"></i> 결제/예약/정산 관리 <span class="fa fa-chevron-down"></span></a>
@@ -87,7 +87,12 @@
 					</li>
 					<li><a><i class="fa fa-clone"></i> 통계 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/statistic/sttInfo}">통계 조회(분야별)</a></li>
+							<li><a th:href="@{/admin/statistic/storeStt}">가맹점별 통계 조회</a></li>
+							<li><a th:href="@{/admin/statistic/cateStt}">업종별 통계 조회</a></li>
+							<li><a th:href="@{/admin/statistic/regionStt}">도별 통계 조회</a></li>
+							<li><a th:href="@{/admin/statistic/districtStt}">시군별 통계 조회(보류)</a></li>
+							<li><a th:href="@{/admin/statistic/regionCateStt}">도 및 업종별 통계 조회</a></li>
+							<li><a th:href="@{/admin/statistic/budgetUseage}">예산 사용률 조회</a></li>
 						</ul>
 					</li>
 				</ul>
