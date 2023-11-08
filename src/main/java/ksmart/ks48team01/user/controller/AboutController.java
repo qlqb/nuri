@@ -1,13 +1,10 @@
 package ksmart.ks48team01.user.controller;
 
-import ksmart.ks48team01.user.dto.Store;
-import ksmart.ks48team01.user.service.StoreService;
+import ksmart.ks48team01.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller("userAboutController")
 @RequestMapping("/user/about")

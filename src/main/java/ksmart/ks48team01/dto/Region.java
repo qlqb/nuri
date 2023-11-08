@@ -1,4 +1,4 @@
-package ksmart.ks48team01.user.dto;
+package ksmart.ks48team01.dto;
 
 public class Region {
 

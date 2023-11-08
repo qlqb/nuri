@@ -1,11 +1,11 @@
-package ksmart.ks48team01.user.dto;
+package ksmart.ks48team01.dto;
 
 public class Store {
 
 	private String storeId;
 	private String userId;
 	private String storeCategoryCode;
-	private int districtCode;
+	private String districtCode;
 	private String storeCategoryName;
 	private String businessNumber;
 	private String corporationNumber;
@@ -39,11 +39,11 @@ public class Store {
 		this.storeCategoryCode = storeCategoryCode;
 	}
 
-	public int getDistrictCode() {
+	public String getDistrictCode() {
 		return districtCode;
 	}
 
-	public void setDistrictCode(int districtCode) {
+	public void setDistrictCode(String districtCode) {
 		this.districtCode = districtCode;
 	}
 
@@ -117,7 +117,7 @@ public class Store {
 		sb.append("storeId='").append(storeId).append('\'');
 		sb.append(", userId='").append(userId).append('\'');
 		sb.append(", storeCategoryCode='").append(storeCategoryCode).append('\'');
-		sb.append(", districtCode=").append(districtCode);
+		sb.append(", districtCode='").append(districtCode).append('\'');
 		sb.append(", storeCategoryName='").append(storeCategoryName).append('\'');
 		sb.append(", businessNumber='").append(businessNumber).append('\'');
 		sb.append(", corporationNumber='").append(corporationNumber).append('\'');

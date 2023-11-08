@@ -1,14 +1,12 @@
-package ksmart.ks48team01.user.service;
+package ksmart.ks48team01.service;
 
-import ksmart.ks48team01.user.dto.District;
-import ksmart.ks48team01.user.dto.Region;
-import ksmart.ks48team01.user.mapper.AreaMapper;
+import ksmart.ks48team01.dto.District;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.mapper.AreaMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
