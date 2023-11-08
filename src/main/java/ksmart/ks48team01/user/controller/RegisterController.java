@@ -1,15 +1,11 @@
 package ksmart.ks48team01.user.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import ksmart.ks48team01.user.dto.District;
-import ksmart.ks48team01.user.dto.Region;
-import ksmart.ks48team01.user.service.AreaService;
+import ksmart.ks48team01.dto.District;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.service.AreaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +48,7 @@ public class RegisterController {
     public String memberRegister(Model model) {
         // 지역 1 Select option 시 RegionList 출력
         List<Region> regionList = areaService.getRegionList();
-        
+
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
 
@@ -99,7 +95,7 @@ public class RegisterController {
 
 
     /**
-     * 
+     *
      * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
      * @return
      */
