@@ -11,8 +11,6 @@ public interface UserMapper {
 
     public List<User> getUserList();
 
-    public void adminUserRegister();
-
-    public List<User> getSpecificUserList(String userId);
+    public User getSpecificUserList(String userId);
 
 }

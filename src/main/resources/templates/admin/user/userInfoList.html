@@ -105,7 +105,7 @@
                     <td th:text="${user.userRecentLogin}"></td>
                     <td th:text="${user.userStat}"></td>
                     <td>
-                        <a th:href="@{/admin/user/userInfoUpdate?userId=(${user.userId})}">수정</a>
+                        <a th:href="@{/admin/user/userInfoUpdate(userId=${user.userId})}">수정</a>
                     </td>
                   </tr>
                 </tbody>

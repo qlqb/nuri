@@ -71,8 +71,8 @@ public class AdminUserController {
 	 * @return
 	 */
 	@GetMapping("/userInfoUpdate")
-	public String userInfoUpdate(Model model, @RequestParam(name = "userId") String userId) {
-		List<User> specificUserList = userService.getSpecificUserList(userId);
+	public String userInfoUpdate(Model model, @RequestParam(name= "userId") String userId) {
+		User specificUserList = userService.getSpecificUserList(userId);
 		List<Region> regionList = areaService.getRegionList();
 		model.addAttribute("specificUserList", specificUserList);
 		model.addAttribute("regionList", regionList);
