@@ -6,6 +6,10 @@
 
 <head>
   <style>
+    .dashboard-area {
+      margin-top: -30px;
+    }
+    
     .cards-wrapper {
       display: flex;
     }
@@ -144,11 +148,11 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="banner-content">
-            <h1 class="text-white">Product Details</h1>
+            <h1 class="text-white">상품 상세</h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Product</li>
+                <li class="breadcrumb-item"><a href="index.html">메인페이지</a></li>
+                <li class="breadcrumb-item active" aria-current="page">상품</li>
               </ol>
             </nav>
           </div>
@@ -169,7 +173,7 @@
                 <div class="tab-content" id="v-pills-tabContent">
                   <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-tab-1">
                     <div class="showcase-img">
-                      <img th:src="@{https://theater.arko.or.kr/Down/Rent/202310/d00443f9-b63b-4dcd-9724-8236a763594a.png}" alt="" class="fill">
+                      <img th:src="@{https://plus.unsplash.com/premium_photo-1684923604128-c48f46b0cb00?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8JUVBJUIzJUI1JUVDJTk3JUIwfGVufDB8fDB8fHww}" alt="" class="fill">
                     </div>
                   </div>
                   <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-tab-2">
@@ -240,176 +244,232 @@
               </div>
           </div>
         </div>
+        <section class="dashboard-area pb-110">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12">
+                <div class="dashboard-wrapper box-style">
+                  <div class="table-wrapper table-responsive">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th>
+                          Photo
+                        </th>
+                        <th>
+                          Title
+                        </th>
+                        <th>
+                          Category
+                        </th>
+                        <th>
+                          Ad Status
+                        </th>
+                        <th>
+                          Price
+                        </th>
+                        <th>
+                          Action
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody>
 
-        <div class="review-wrapper">
+                      <tr>
+                        <td>
+                          <div class="image">
+                            <div class="form-check check-style">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                            </div>
+                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                          </div>
+                        </td>
+                        <td>
+                          <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                          <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                        </td>
+                        <td>
+                          <span class="category">Ram &amp; Laptop</span>
+                        </td>
+                        <td>
+                          <span class="status-btn">ACTIVE</span>
+                        </td>
+                        <td>
+                          <p>$20.99</p>
+                        </td>
+                        <td>
+                          <div class="action-btns">
+                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                            <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                            <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                          </div>
+                        </td>
+                      </tr>
 
-          <div class="review-header">
-            <div class="left-side">
-              <h5>5 Reviews</h5>
-            </div>
-            <div class="right-side">
-              <h6>Average Rating <span>4.5</span></h6>
-              <div class="rating">
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star"></i>
+                      <tr>
+                        <td>
+                          <div class="image">
+                            <div class="form-check check-style">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                            </div>
+                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                          </div>
+                        </td>
+                        <td>
+                          <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                          <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                        </td>
+                        <td>
+                          <span class="category">Ram &amp; Laptop</span>
+                        </td>
+                        <td>
+                          <span class="status-btn">ACTIVE</span>
+                        </td>
+                        <td>
+                          <p>$20.99</p>
+                        </td>
+                        <td>
+                          <div class="action-btns">
+                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                            <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                            <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="image">
+                            <div class="form-check check-style">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                            </div>
+                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                          </div>
+                        </td>
+                        <td>
+                          <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                          <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                        </td>
+                        <td>
+                          <span class="category">Ram &amp; Laptop</span>
+                        </td>
+                        <td>
+                          <span class="status-btn bg-light text-dark">INACTIVE</span>
+                        </td>
+                        <td>
+                          <p>$20.99</p>
+                        </td>
+                        <td>
+                          <div class="action-btns">
+                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                            <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                            <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="image">
+                            <div class="form-check check-style">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+                            </div>
+                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                          </div>
+                        </td>
+                        <td>
+                          <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                          <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                        </td>
+                        <td>
+                          <span class="category">Ram &amp; Laptop</span>
+                        </td>
+                        <td>
+                          <span class="status-btn bg-secondary">SOLD</span>
+                        </td>
+                        <td>
+                          <p>$20.99</p>
+                        </td>
+                        <td>
+                          <div class="action-btns">
+                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                            <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                            <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="image">
+                            <div class="form-check check-style">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
+                            </div>
+                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                          </div>
+                        </td>
+                        <td>
+                          <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                          <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                        </td>
+                        <td>
+                          <span class="category">Ram &amp; Laptop</span>
+                        </td>
+                        <td>
+                          <span class="status-btn bg-warning">EXPIRED</span>
+                        </td>
+                        <td>
+                          <p>$20.99</p>
+                        </td>
+                        <td>
+                          <div class="action-btns">
+                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                            <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                            <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="image">
+                            <div class="form-check check-style">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
+                            </div>
+                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                          </div>
+                        </td>
+                        <td>
+                          <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                          <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                        </td>
+                        <td>
+                          <span class="category">Ram &amp; Laptop</span>
+                        </td>
+                        <td>
+                          <span class="status-btn bg-danger">DELETE</span>
+                        </td>
+                        <td>
+                          <p>$20.99</p>
+                        </td>
+                        <td>
+                          <div class="action-btns">
+                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                            <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                            <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="review-body">
-            <div class="review-item-wrapper">
-
-              <div class="review-item">
-                <div class="image">
-                  <img src="assets/images/testimonial/testimonial-1.png" alt="">
-                </div>
-                <div class="media">
-                  <div class="info">
-                    <h6>Nichel Smith <span>Review 20 Minits ago</span></h6>
-                    <div class="rating">
-                      <i class="lni lni-star-filled"></i>
-                      <i class="lni lni-star-filled"></i>
-                      <i class="lni lni-star-filled"></i>
-                      <i class="lni lni-star"></i>
-                      <i class="lni lni-star"></i>
-                    </div>
-                  </div>
-                  <p class="mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-                    ut labore et dolore magna Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                    et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolore.</p>
-                  <a href="javascript:void(0)" class="reply"><i class="lni lni-reply"></i> Reply</a>
-                </div>
-              </div>
-
-              <div class="review-item reply-item pt-35">
-                <div class="image">
-                  <img src="assets/images/testimonial/testimonial-2.png" alt="">
-                </div>
-                <div class="media">
-                  <div class="info">
-                    <h6>John Doe <span>Review 20 Minits ago</span></h6>
-                    <div class="rating">
-                      <i class="lni lni-star-filled"></i>
-                      <i class="lni lni-star-filled"></i>
-                      <i class="lni lni-star-filled"></i>
-                      <i class="lni lni-star"></i>
-                      <i class="lni lni-star"></i>
-                    </div>
-                  </div>
-                  <p class="mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-                    ut labore et dolore magna Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
-                  <a href="javascript:void(0)" class="reply"><i class="lni lni-reply"></i> Reply</a>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="add-review-wrapper">
-
-              <h5 class="mb-20">Add a Review</h5>
-              <p class="mb-30">Your email address will not be published. Required fields are marked</p>
-
-              <form action="#" class="review-form">
-                <div class="mb-15 form-check">
-                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                  <label class="form-check-label" for="flexRadioDefault1">
-										<span class="rating">
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<span class="ml-2">(234)</span>
-										</span>
-                  </label>
-                </div>
-                <div class="mb-15 form-check">
-                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                  <label class="form-check-label" for="flexRadioDefault2">
-										<span class="rating">
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star"></i>
-											<span class="ml-2">(234)</span>
-										</span>
-                  </label>
-                </div>
-                <div class="mb-15 form-check">
-                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                  <label class="form-check-label" for="flexRadioDefault3">
-										<span class="rating">
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star"></i>
-											<i class="lni lni-star"></i>
-											<span class="ml-2">(234)</span>
-										</span>
-                  </label>
-                </div>
-                <div class="mb-15 form-check">
-                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-                  <label class="form-check-label" for="flexRadioDefault4">
-										<span class="rating">
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star"></i>
-											<i class="lni lni-star"></i>
-											<i class="lni lni-star"></i>
-											<span class="ml-2">(234)</span>
-										</span>
-                  </label>
-                </div>
-                <div class="mb-15 form-check">
-                  <input class="p-0 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
-                  <label class="form-check-label" for="flexRadioDefault5">
-										<span class="rating">
-											<i class="lni lni-star-filled"></i>
-											<i class="lni lni-star"></i>
-											<i class="lni lni-star"></i>
-											<i class="lni lni-star"></i>
-											<i class="lni lni-star"></i>
-											<span class="ml-2">(234)</span>
-										</span>
-                  </label>
-                </div>
-                <div class="row mt-30">
-                  <div class="col-md-6">
-                    <div class="single-input">
-                      <label for="name">Your Name</label>
-                      <input type="text" id="name" name="name" placeholder="John Doe">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="single-input">
-                      <label for="email">Your Email</label>
-                      <input type="email" id="email" name="email" placeholder="yourmail@gmail.com">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="single-input">
-                      <label for="message">Your Message</label>
-                      <textarea name="message" id="message" rows="5" placeholder="Type Message"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="single-input">
-                      <button class="main-btn btn-hover">Submit Review</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-
-            </div>
-          </div>
-
-        </div>
-
+        </section>
       </div>
     </div>
   </section>

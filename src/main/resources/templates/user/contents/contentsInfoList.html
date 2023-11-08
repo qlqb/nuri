@@ -6,6 +6,44 @@
 
 <head>
     <style>
+        .bg-dark {
+            background: #0f0f0f;
+        }
+
+        .single-product .product-content .product-bottom {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .status-btn {
+            width: 105px;
+            text-align: center;
+            font-size: 15px;
+            padding: 10px 10px;
+            font-weight: 400;
+            border-radius: 30px;
+            background: #FF6B6B;
+            color: #fff;
+        }
+
+        .address .lni {
+            margin-right: 9px;
+        }
+
+        .single-product .product-content .address li {
+            width: 100%;
+        }
+
+        .name {
+            display: block; /* or inline-block */
+            width: 100%; /* or any specific width, like 200px */
+            max-width: 250px; /* optional, if you want a maximum width */
+            height: 30px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .product-img img {
             height: 405.234px;
         }
@@ -32,7 +70,7 @@
         .right-wrapper form button {
             position: absolute;
             right: 39px;
-            top: 138px;
+            top: 133px;
             border: none;
             background: none;
         }
@@ -379,32 +417,30 @@
                                                                 <a href="product-details.html">
                                                                     <img th:src="@{https://images.unsplash.com/photo-1524330685423-3e1966445abe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
-                                                                <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
-                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                                                    <a href="product-details.html" class="name">[서울]Piano Dynamism ＜김종윤 양윤희 김기경＞(객석나눔)</a>
+                                                                </h3>
+
                                                                 <ul class="address">
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i>2023-11-07~2023-11-07</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i>반포심산아트홀</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i>초등학생 이상 관람가</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-coin"></i>30,000원</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
-                                                                    <h3 class="price">$120.99</h3>
-                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                    <div class="status-btn bg-dark">자세히 보기</div>
+                                                                    <span class="status-btn">예매</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -416,32 +452,30 @@
                                                                 <a href="product-details.html">
                                                                     <img th:src="@{https://images.unsplash.com/photo-1563775957449-d52dbc9aac1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
-                                                                <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
-                                                                <span class="update">Last Update: 5 hours ago</span>
+                                                                <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                                                    <a href="product-details.html" class="name">[서울]Piano Dynamism ＜김종윤 양윤희 김기경＞(객석나눔)</a>
+                                                                </h3>
+
                                                                 <ul class="address">
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i>2023-11-07~2023-11-07</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i>반포심산아트홀</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i>초등학생 이상 관람가</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-coin"></i>30,000원</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
-                                                                    <h3 class="price">$420.99</h3>
-                                                                    <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                    <div class="status-btn bg-dark">자세히 보기</div>
+                                                                    <span class="status-btn bg-secondary">매진</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -453,10 +487,6 @@
                                                                 <a href="product-details.html">
                                                                     <img th:src="@{https://images.unsplash.com/photo-1526218626217-dc65a29bb444?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZvcm1hbmNlfGVufDB8MXwwfHx8MA%3D%3D}" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -471,9 +501,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -490,10 +517,6 @@
                                                                 <a href="product-details.html">
                                                                     <img th:src="@{https://images.unsplash.com/photo-1503095396549-807759245b35?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHx8MHx8fDA%3D}" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -508,9 +531,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -527,10 +547,6 @@
                                                                 <a href="product-details.html">
                                                                     <img th:src="@{https://images.unsplash.com/photo-1578920568769-3c1b145bc9ea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBlcmZvcm1hbmNlfGVufDB8MXwwfHx8MA%3D%3D}" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -545,9 +561,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -564,10 +577,6 @@
                                                                 <a href="product-details.html">
                                                                     <img th:src="@{https://images.unsplash.com/photo-1512264815082-9999c2d4894d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -582,9 +591,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -609,10 +615,6 @@
                                                                 <a href="product-details.html">
                                                                     <img src="assets/images/product/l-product-1.jpg" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -627,9 +629,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -646,10 +645,6 @@
                                                                 <a href="product-details.html">
                                                                     <img src="assets/images/product/l-product-2.jpg" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -664,9 +659,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -683,10 +675,6 @@
                                                                 <a href="product-details.html">
                                                                     <img src="assets/images/product/l-product-3.jpg" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -701,9 +689,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -720,10 +705,6 @@
                                                                 <a href="product-details.html">
                                                                     <img src="assets/images/product/l-product-4.jpg" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -738,9 +719,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -757,10 +735,6 @@
                                                                 <a href="product-details.html">
                                                                     <img src="assets/images/product/l-product-5.jpg" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -775,9 +749,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
@@ -794,10 +765,6 @@
                                                                 <a href="product-details.html">
                                                                     <img src="assets/images/product/l-product-6.jpg" alt="">
                                                                 </a>
-                                                                <div class="product-action">
-                                                                    <a href="javascript:void(0)"><i class="lni lni-heart"></i></a>
-                                                                    <a href="javascript:void(0)" class="share"><i class="lni lni-share"></i></a>
-                                                                </div>
                                                             </div>
 
                                                             <div class="product-content">
@@ -805,16 +772,13 @@
                                                                 <span class="update">Last Update: 5 hours ago</span>
                                                                 <ul class="address">
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-calendar"></i>2023-11-07~2023-11-07</a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-user"></i>초등학생 이상 관람가</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="product-bottom">
