@@ -1,6 +1,10 @@
-package ksmart.ks48team01.user.dto;
+package ksmart.ks48team01.dto;
 
 import java.util.Map;
+
+/**
+ * 지역목록(시, 군, 구)
+ */
 
 public class District {
 

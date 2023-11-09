@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.mapper.UserMapper">
+
+    <resultMap type="User" id="userResultMap">
+        <id property="userId" column="USER_ID"/>
+        <result property="levelId" column="LEVEL_ID"/>
+        <result property="userLevelName" column="USER_LEVEL_NAME"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="userPw" column="USER_PW"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userGender" column="USER_GENDER"/>
+        <result property="userBirth" column="USER_BIRTH"/>
+        <result property="residentNumber" column="RESIDENT_NUMBER"/>
+        <result property="userAddress" column="USER_ADDRESS"/>
+        <result property="userContact" column="USER_CONTACT"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="userRecentLogin" column="USER_RECENT_LOGIN"/>
+        <result property="userRegDate" column="USER_REGDATE"/>
+        <result property="userStat" column="USER_STAT"/>
+        <result property="ssoType" column="SSO_TYPE"/>
+    </resultMap>
+
+
+    <!--  회원 전체조회  -->
+    <select id="getUserList" resultType="User">
+        SELECT
+            U.USER_ID AS userId,
+            U.LEVEL_ID AS levelId,
+            U.USER_LEVEL_NAME AS userLevelName,
+            U.DISTRICT_CODE AS districtCode,
+            U.REGION_CODE AS regionCode,
+            U.USER_PW AS userPw,
+            U.USER_NAME AS userName,
+            U.USER_GENDER AS userGender,
+            U.USER_BIRTH AS userBirth,
+            U.RESIDENT_NUMBER AS residentNumber,
+            U.USER_ADDRESS AS userAddress,
+            U.USER_CONTACT AS userContact,
+            U.USER_EMAIL AS userEmail,
+            U.USER_RECENT_LOGIN AS userRecentLogin,
+            U.USER_REGDATE AS userRegDate,
+            U.USER_STAT AS userStat,
+            U.SSO_TYPE AS ssoType
+        FROM
+            USER_INFO AS U;
+    </select>
+
+    <!--  입력받은 회원 Form 전송   -->
+    <insert id="adminUserRegister" parameterType="User">
+        INSERT INTO USER_INFO
+        (USER_ID, LEVEL_ID, USER_LEVEL_NAME, DISTRICT_CODE, REGION_CODE,
+        USER_PW, USER_NAME, USER_GENDER, USER_BIRTH,RESIDENT_NUMBER,
+        USER_ADDRESS, USER_CONTACT, USER_EMAIL, USER_RECENT_LOGIN, USER_REGDATE,
+        USER_STAT, SSO_TYPE)
+        VALUES
+        (#{userId}, #{levelId}, #{userLevelName}, #{districtCode}, #{regionCode},
+        #{userPw}, #{userName}, #{userGender}, #{userBirth}, #{residentNumber},
+        #{userAddress}, #{userContact}, #{userEmail}, #{userRecentLogin}, #{userRegDate},
+        #{userStat}, #{ssoType});
+    </insert>
+
+
+    <!--  관리자 화면에서 특정 회원 상세정보 조회  -->
+    <select id="getSpecificUserList" parameterType="String" resultMap="userResultMap">
+        SELECT
+            U.USER_ID,
+            U.LEVEL_ID,
+            U.USER_LEVEL_NAME,
+            U.DISTRICT_CODE,
+            U.REGION_CODE,
+            U.USER_PW,
+            U.USER_NAME,
+            U.USER_GENDER,
+            U.USER_BIRTH,
+            U.RESIDENT_NUMBER,
+            U.USER_ADDRESS,
+            U.USER_CONTACT,
+            U.USER_EMAIL,
+            U.USER_RECENT_LOGIN,
+            U.USER_REGDATE,
+            U.USER_STAT,
+            U.SSO_TYPE
+        FROM
+            USER_INFO AS U
+        WHERE
+            U.USER_ID = #{userId};
+    </select>
+
+
+</mapper>
