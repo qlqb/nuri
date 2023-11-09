@@ -1,5 +1,9 @@
 package ksmart.ks48team01.dto;
 
+/**
+ * 유저 정보 목록
+ */
+
 public class User {
     private String userId;
     private String levelId;

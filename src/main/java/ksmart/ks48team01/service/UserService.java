@@ -23,5 +23,11 @@ public class UserService {
         return userList;
     }
 
+    public User getSpecificUserList(String userId) {
+        User specificUserList = userMapper.getSpecificUserList(userId);
+
+        return specificUserList;
+    }
+
 
 }

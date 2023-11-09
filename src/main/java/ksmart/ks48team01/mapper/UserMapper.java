@@ -9,6 +9,18 @@ import java.util.List;
 public interface UserMapper {
 
 
+    /**
+     * 관리자 페이지 전체 회원 조회
+     * @return
+     */
     public List<User> getUserList();
+
+    /**
+     * 관리자 페이지 특정 회원 상세 조회
+     * @param userId
+     * @return
+     */
+    public User getSpecificUserList(String userId);
+
 
 }

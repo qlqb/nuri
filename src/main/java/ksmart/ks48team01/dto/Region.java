@@ -1,5 +1,9 @@
 package ksmart.ks48team01.dto;
 
+/**
+ * 지역목록(도, 특별시)
+ */
+
 public class Region {
 
     private String regionCode;

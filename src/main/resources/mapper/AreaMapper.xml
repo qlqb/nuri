@@ -19,7 +19,7 @@
             REGION_CODE AS regionCode,
             REGION_NAME AS regionName
         FROM
-            region;
+            REGION;
     </select>
 
     <select id="getDistrictList" resultMap="districtResultMap" parameterType="String">
@@ -28,7 +28,7 @@
             REGION_CODE,
             DISTRICT_NAME
         FROM
-            district
+            DISTRICT
         WHERE
             REGION_CODE = #{regionCode};
     </select>

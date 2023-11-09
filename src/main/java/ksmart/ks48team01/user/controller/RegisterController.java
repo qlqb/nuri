@@ -29,6 +29,7 @@ public class RegisterController {
     public String registerType(Model model) {
 
         model.addAttribute("title", "회원선택 - 누리컬쳐");
+        model.addAttribute("bannerTitle", "회원가입");
 
         return "user/register/registerType";
     }
