@@ -1,5 +1,7 @@
 package ksmart.ks48team01.user.controller;
 
+import ksmart.ks48team01.user.dto.StoreCategory;
+import ksmart.ks48team01.user.service.ContentsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("contentsController")
 @RequestMapping("/user/contents")
 public class ContentsController {
-	
+
+	private final ContentsService contentsService;
+
+	public ContentsController(ContentsService contentsService) {
+		this.contentsService = contentsService;
+	}
+
 	//컨텐츠 검색
-		@GetMapping(value = {"/contentsInfoSpecific"})
-		public String contentsSpecificPage(Model model) {
-			model.addAttribute("title", "컨텐츠 검색");
-			return "user/contents/contentsInfoSpecific";
-		}
+	@GetMapping(value = {"/contentsInfoSpecific"})
+	public String contentsSpecificPage(Model model) {
+		model.addAttribute("title", "컨텐츠 검색");
+		return "user/contents/contentsInfoSpecific";
+	}
 	
 	//컨텐츠 수정
 	@GetMapping(value = {"/contentsInfoUpdate"})
@@ -43,6 +51,8 @@ public class ContentsController {
 		@GetMapping(value = {"/contentsInfoList"})
 		public String contentsListPage(Model model) {
 			model.addAttribute("title", "컨텐츠 조회");
+			model.addAttribute("contentsInfoList", contentsService.getContentsInfoList());
+			System.out.println(contentsService.getContentsInfoList().get(0).get("contentsSellDuration"));
 			return "user/contents/contentsInfoList";
 		}
 
