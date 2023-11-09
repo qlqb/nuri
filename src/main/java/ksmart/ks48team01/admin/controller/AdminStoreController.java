@@ -18,7 +18,6 @@ public class AdminStoreController {
 
 
     private final StoreService storeService;
-    private final UserService userService;
 
     public AdminStoreController (StoreService storeService) {
         this.storeService = storeService;
