@@ -39,6 +39,44 @@
             BUDGET_TOTAL
     </select>
 
+    <select id="getBudgetTotalSearch" resultMap="budgetTotalResultMap">
+        /* 연도 기준으로 검색 */
+        SELECT
+            BUDGET_NUM,
+            OFFICER_ID,
+            APPLY_YEAR,
+            BUDGET_BY_PERSON,
+            BUDGET_TOTAL_AMOUNT,
+            REGIST_DT,
+            UPDATE_DT
+        FROM
+            BUDGET_TOTAL
+        WHERE
+            APPLY_YEAR = #{searchYear}
+    </select>
+
+    <insert id="addBudgetTotal" parameterType="Budget">
+        /* 전국 단위 예산 등록 */
+        INSERT INTO BUDGET_TOTAL(
+            BUDGET_NUM,
+            OFFICER_ID,
+            APPLY_YEAR,
+            BUDGET_BY_PERSON,
+            BUDGET_TOTAL_AMOUNT,
+            REGIST_DT,
+            UPDATE_DT
+        )VALUES(
+            #{budgetNum},
+            #{officerId},
+            #{applyYear},
+            #{budgetByPerson},
+            #{budgetTotalAmount},
+            CURDATE(),
+            CURDATE()
+        )
+
+    </insert>
+
     <select id="getBudgetRegionList" resultMap="budgetRegionResultMap">
         /* 연도별 각 지역 예산, 지원 대상 인구 수 */
         SELECT
