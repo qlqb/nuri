@@ -34,6 +34,7 @@ public class AdminBudgetController {
 	public String budgetRegist(Budget budget){
 
 		log.info("예산 등록 Budget : {}", budget);
+		System.out.println(budget);
 		budgetService.addBudgetTotal(budget);
 
 		return "redirect:/admin/budget/budgetInfo";
@@ -44,7 +45,7 @@ public class AdminBudgetController {
 	 * @param budget
 	 * @return 각 지역 예산 조회 페이지로 이동
 	 */
-	@PostMapping("/budgetRegistRegion")
+	@PostMapping("/budgetInfoRegion")
 	public String addBudgetRegion(Budget budget){
 
 		log.info("예산 등록 Budget : {}", budget);
