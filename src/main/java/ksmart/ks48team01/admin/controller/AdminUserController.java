@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.geom.Area;
 import java.util.List;
 
+/**
+ * 회원 관련 CRUD 처리
+ * 사용자, 가맹점, 공무원의 회원 정보를 수정 및 등급에 따른 회원 삭제 처리
+ */
+
 @Controller
 @RequestMapping("/admin/user")
 public class AdminUserController {
@@ -66,7 +71,7 @@ public class AdminUserController {
 
 	/**
 	 * 사용자 정보 수정
-	 * @param model select해서 해당 회원의 정보 가지고와서 출력
+	 * @param model select해서 해당 회원의 정보 가지고 와서 출력
 	 *              회원가입 Form과 같이, Category에 해당하는 정보는 <select>와 반복문 사용
 	 * @return
 	 */
@@ -81,7 +86,7 @@ public class AdminUserController {
 	}
 
 	/**
-	 *
+	 * 회원정보 수정 전송
 	 * @param model
 	 * @return
 	 */
@@ -111,6 +116,7 @@ public class AdminUserController {
 
 
 
+	
 	@PostMapping("/userInfoRegister")
 	public String userInfoRegister() {
 		// DTO 타입으로 값 담아서 Mapper에서 Insert 실행
@@ -118,15 +124,7 @@ public class AdminUserController {
 		return "redirect:/admin/user/userInfoList";
 	}
 
-	
-	
 
-
-	/**
-	 * 회원정보 수정 전송
-	 * @param model
-	 * @return
-	 */
 
 
 	@GetMapping("/userInfoDelete")

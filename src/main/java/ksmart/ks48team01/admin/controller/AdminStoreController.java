@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+/**
+ * 게시판 상세조회 및 게시판 정보 수정을 위한
+ */
+
 @Controller
 @RequestMapping("/admin/store")
 public class AdminStoreController {
@@ -16,9 +20,8 @@ public class AdminStoreController {
     private final StoreService storeService;
     private final UserService userService;
 
-    public AdminStoreController (StoreService storeService, UserService userService) {
+    public AdminStoreController (StoreService storeService) {
         this.storeService = storeService;
-        this.userService = userService;
     }
 
     /**
