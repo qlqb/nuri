@@ -34,3 +34,4 @@ build/
 /src/main/resources/static/
 /src/main/resources/application.properties
 /src/main/resources/templates/application.properties
+/src/main/java/ksmart/ks48team01/service/ContentsService2.java

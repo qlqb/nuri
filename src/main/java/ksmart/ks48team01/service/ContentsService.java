@@ -1,10 +1,9 @@
-package ksmart.ks48team01.user.service;
+package ksmart.ks48team01.service;
 
-import ksmart.ks48team01.user.mapper.ContentsMapper;
+import ksmart.ks48team01.mapper.ContentsMapper;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,24 +15,34 @@ public class ContentsService {
         this.contentsMapper = contentsMapper;
     }
 
-    public List<Map<String, Object>> getContentsInfoList() {
-        List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoList();
+    public Map<String, Object> getContentsInfoList(int currentPage) {
 
-//        for (Map<String, Object> contentsInfo : contentsInfoList) {
-//            System.out.println("처음" + contentsInfo);
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            dateFormat.format(contentsInfo.get("contentsSellStartDate"));
-//
-//            String contentsSellStartDate = dateFormat.format(contentsInfo.get("contentsSellStartDate"));
-//            String contentsSellEndDate = dateFormat.format(contentsInfo.get("contentsSellEndDate"));
-//            String contentsSellDuration = contentsSellStartDate + '~' + contentsSellEndDate;
-//
-//
-//            contentsInfoList.get(0).put("contentsSellDuration", contentsSellDuration);
-//            System.out.println("마지막" + contentsInfo);
-//        }
-//        System.out.println("마지막 ----- " + contentsInfoList);
+        //보여줄 컨텐츠의 개수
+        int contentsPerPage = 12;
 
-        return contentsMapper.getContentsInfoList();
+        // 보여줄 행의 시작점
+        int startContentsNum = (currentPage - 1) * contentsPerPage;
+
+        // 전체 컨텐츠의 갯수
+        double contentsCnt = contentsMapper.getContentsCnt();
+
+        // 마지막페이지 (전체 컨텐츠의 갯수/보여줄 컨텐츠의 갯수) 올림
+        int lastPage = (int)Math.ceil(contentsCnt/contentsPerPage);
+
+        // 보여줄 페이지 번호 초기값:1
+        int startPageNum = 1;
+
+        // 마지막 페이지 번호 초기값:10
+        int endPageNum = (lastPage < 10) ? lastPage : 10;
+
+        List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoList(startContentsNum, contentsPerPage);
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("contentsInfoList", contentsInfoList);
+        resultMap.put("lastPage", lastPage);
+        resultMap.put("startPageNum", startPageNum);
+        resultMap.put("endPageNum", endPageNum);
+
+        return resultMap;
     }
 }

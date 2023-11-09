@@ -45,7 +45,7 @@
     </appender> -->
 	
 	<!-- 프로젝트 패키지 안 클래스에 설정된 로그 출력 -->
-	<logger name="ksmart.mybatis" level="INFO" additivity="false">
+	<logger name="ksmart.ks48team01" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
@@ -80,11 +80,11 @@
 	</logger> 
 	
 	<!-- SQL 결과 조회된 데이터의 table로 표현하여 로그 출력 --> 
-	<logger name="jdbc.resultsettable" level="INFO" additivity="false">
+	<logger name="jdbc.resultsettable" level="OFF" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<root level="ERROR">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>
