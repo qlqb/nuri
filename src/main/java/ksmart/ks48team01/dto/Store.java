@@ -1,5 +1,9 @@
 package ksmart.ks48team01.dto;
 
+/**
+ * 가맹점 목록
+ */
+
 public class Store {
 
 	private String storeId;

@@ -18,14 +18,14 @@
 			<form th:action="@{/admin/user/userInfoDelete}" method="post">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title text-center" id="exampleModalLabel">삭제</h5>
-						<p class="text-center">해당 회원을 삭제하시겠습니까?</p>
+						<h5 class="modal-title text-center" id="exampleModalLabel">회원삭제</h5>
 					</div>
-					<div class="modal-body" style="padding-bottom: 40px">
-						<p class="text-center">삭제 확인을 위해 비밀번호 입력</p>
-						<input id="checkPw" class="form-control text-center" type="password" name="checkPw">
+					<div class="modal-body text-center">
+						<label for="checkPw">삭제 확인을 위해 비밀번호 입력
+							<input id="checkPw" class="form-control text-center" type="password" name="checkPw"/>
+						</label>
 					</div>
-					<div class="modal-footer" style="padding-top: 30px">
+					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger">삭제</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
 					</div>

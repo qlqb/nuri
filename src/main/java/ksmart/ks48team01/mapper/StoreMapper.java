@@ -8,12 +8,24 @@ import java.util.List;
 @Mapper
 public interface StoreMapper {
 
-    // 게시판 전체정보 조회
+
+    /**
+     * 가맹점 전체조회
+     * @return
+     */
     public List<Store> getStoreList();
 
-    // 게시판 소개 페이지에 출력될 전체목록
+
+    /**
+     * 가맹점 소개 페이지에서 사용될 페이지 전체 조회
+     * @return
+     */
     public List<Store> getStoreAllKeyword();
 
-    // 게시판 특정 키워드 조회
+    /**
+     *
+     * @param storeKeyword
+     * @return
+     */
     public List<Store> getStoreKeyword(String storeKeyword);
 }
