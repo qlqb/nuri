@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.ks48team01.user.mapper.ContentsMapper">
+<mapper namespace="ksmart.ks48team01.mapper.ContentsMapper">
 
     <select id="getContentsInfoList" resultType="map">
         /* 컨텐츠 정보 */

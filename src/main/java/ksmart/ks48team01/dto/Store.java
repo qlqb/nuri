@@ -1,5 +1,7 @@
 package ksmart.ks48team01.dto;
 
+import java.util.List;
+
 /**
  * 가맹점 목록
  */
@@ -18,6 +20,46 @@ public class Store {
 	private String storeAddress;
 	private String openingTime;
 	private String storeRegDate;
+
+	/**
+	 * User Join JavaBeans
+	 */
+	private String userName;
+	private String userLevelName;
+	private String userEmail;
+	private String userStat;
+
+
+	public String getUserLevelName() {
+		return userLevelName;
+	}
+
+	public void setUserLevelName(String userLevelName) {
+		this.userLevelName = userLevelName;
+	}
+
+	public String getUserStat() {
+		return userStat;
+	}
+
+	public void setUserStat(String userStat) {
+		this.userStat = userStat;
+	}
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 
 	public String getStoreId() {
 		return storeId;
@@ -130,6 +172,10 @@ public class Store {
 		sb.append(", storeAddress='").append(storeAddress).append('\'');
 		sb.append(", openingTime='").append(openingTime).append('\'');
 		sb.append(", storeRegDate='").append(storeRegDate).append('\'');
+		sb.append(", userName='").append(userName).append('\'');
+		sb.append(", userLevelName='").append(userLevelName).append('\'');
+		sb.append(", userEmail='").append(userEmail).append('\'');
+		sb.append(", userStat='").append(userStat).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}

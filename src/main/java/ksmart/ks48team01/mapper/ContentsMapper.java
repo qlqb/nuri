@@ -1,4 +1,4 @@
-package ksmart.ks48team01.user.mapper;
+package ksmart.ks48team01.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,6 +1,6 @@
 package ksmart.ks48team01.user.controller;
 
-import ksmart.ks48team01.user.dto.StoreCategory;
+import ksmart.ks48team01.dto.StoreCategory;
 import ksmart.ks48team01.user.service.ContentsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

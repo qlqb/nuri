@@ -1,10 +1,8 @@
 package ksmart.ks48team01.user.service;
 
-import ksmart.ks48team01.user.mapper.ContentsMapper;
+import ksmart.ks48team01.mapper.ContentsMapper;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 

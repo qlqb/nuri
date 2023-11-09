@@ -31,9 +31,16 @@ public class StoreController {
         return "user/store/storeInfo";
     }
 
+    /**
+     * Get 방식의 Ajax 통신으로 취득할 수 있는
+     * 유저 페이지 및 기타 간단한 가맹점 정보 목록
+     * @param storeKeyword 가맹점의 NuriStore 페이지에서 View 상의 키워드 클릭 시
+     *                     Ajax 통신으로 값을 입력받음
+     * @return 입력받은 키워드에 해당되는 List
+     */
     @ResponseBody
     @GetMapping("/storeKeywordList")
-    public String storeKeywordList(Model model, @RequestParam (name = "storeKeyword", required = false) String storeKeyword) {
+    public String storeKeywordList(@RequestParam (name = "storeKeyword", required = false) String storeKeyword) {
         Gson gson = new Gson();
 
         List<Store> keywordList = null;

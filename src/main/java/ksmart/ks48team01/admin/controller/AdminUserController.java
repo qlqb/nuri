@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.geom.Area;
 import java.util.List;
 
 /**
@@ -64,7 +63,7 @@ public class AdminUserController {
 		model.addAttribute("regionList", regionList);
 
 
-		return "admin/user/userInfoRegister";
+		return "userManualRegister";
 	}
 
 
