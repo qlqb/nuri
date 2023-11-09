@@ -24,6 +24,13 @@ public interface StoreMapper {
 
 
     /**
+     * 가맹점 회원가입 입력 Form
+     * @param store 가맹점 회원가입 입력 Form
+     */
+    public void adminRegisterStore(Store store);
+
+
+    /**
      * 검색어의 입력이 없거나, GET 방식으로 메소드 호출시에 조회된 전체 목록을 출력
      * @return List 타입으로 반환하여 가맹점의 간략한 정보를 출력
      */

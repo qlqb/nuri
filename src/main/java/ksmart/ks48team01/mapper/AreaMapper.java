@@ -1,5 +1,6 @@
 package ksmart.ks48team01.mapper;
 
+import ksmart.ks48team01.dto.Department;
 import ksmart.ks48team01.dto.District;
 import ksmart.ks48team01.dto.Region;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,5 +22,6 @@ public interface AreaMapper {
      * @return
      */
     public List<District> getDistrictList(String regionCode);
+
 
 }

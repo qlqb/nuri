@@ -47,27 +47,6 @@ public class AdminUserController {
 		return "admin/user/userInfoList";
 	}
 
-
-	/**
-	 * 유저 가입 페이지
-	 * @param model -> Form <Select>에 들어갈 데이터 전송 & Parsing (파싱에 해당되는지 모르겠음)
-	 *              사용자 -> 판매자(클릭) -> 판매자에 해당하는 값(name = 2) 입력
-	 * @return
-	 */
-	@GetMapping("/userInfoRegister")
-	public String userInfoRegister(Model model) {
-		// 사용자 가입 시, Form에 들어갈 카테고리의 데이터를 조회하여 전송
-		// 조회한 데이터를 Model를 통해 View로 전송, Thymeleaf의 each 등을 통해 도메인을 출력
-		List<Region> regionList = areaService.getRegionList();
-
-		model.addAttribute("regionList", regionList);
-
-
-		return "userManualRegister";
-	}
-
-
-
 	/**
 	 * 사용자 정보 수정
 	 * @param model select해서 해당 회원의 정보 가지고 와서 출력
@@ -82,6 +61,13 @@ public class AdminUserController {
 		model.addAttribute("regionList", regionList);
 
 		return "admin/user/userInfoUpdate";
+	}
+
+	@GetMapping("/manualRegister")
+	public String manualRegister() {
+
+
+		return "admin/user/manualRegister";
 	}
 
 	/**
@@ -101,7 +87,7 @@ public class AdminUserController {
 	 * @param userId -> Mapper에서 #{memberId}를 조회, count를 통해 boolean 값으로 전송
 	 * @return
 	 */
-	@PostMapping("/IdCheck")
+	@PostMapping("/userIdCheck")
 	@ResponseBody
 	public boolean userIdCheck(@RequestParam(name = "userId") String userId) {
 		// String으로 입력받은 Id 매개변수를 Service 단에서 중복검사
@@ -113,24 +99,9 @@ public class AdminUserController {
 		return isDuplicate;
 	}
 
-
-
-	
-	@PostMapping("/userInfoRegister")
-	public String userInfoRegister() {
-		// DTO 타입으로 값 담아서 Mapper에서 Insert 실행
-
-		return "redirect:/admin/user/userInfoList";
-	}
-
-
-
-
 	@GetMapping("/userInfoDelete")
 	public String userInfoDelete(@RequestParam(value = "userId") String userId,
 								 Model model) {
-
-
 
 		return "admin/user/userInfoDelete";
 	}
@@ -143,7 +114,5 @@ public class AdminUserController {
 		return "redirect:/admin/user/userInfoList";
 
 	}
-
-
 
 }
