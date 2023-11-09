@@ -1,15 +1,11 @@
 package ksmart.ks48team01.user.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import ksmart.ks48team01.user.dto.District;
-import ksmart.ks48team01.user.dto.Region;
-import ksmart.ks48team01.user.service.AreaService;
+import ksmart.ks48team01.dto.District;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.service.AreaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

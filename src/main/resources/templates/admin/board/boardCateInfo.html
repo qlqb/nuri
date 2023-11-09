@@ -28,16 +28,16 @@
           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
             <div class="form-group">
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12"> 게시글 제목 </label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">게시글 제목</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="" name="" class="form-control col-md-7 col-xs-12">
+                  <input type="text" id="boardTitle" name="" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12"> 작성자 아이디 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="" name="" class="form-control col-md-7 col-xs-12">
+                  <input type="text" id="userId" name="" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
@@ -78,25 +78,24 @@
             </thead>
 
             <tbody>
-            <tr>
+            <tr th:if="${boardList == null}">
+              <td colspan="8">상품의 목록이 없습니다.</td>
+            </tr>
+            <tr th:unless="${boardList == null}" th:each="l : ${boardList}">
               <td><input type="checkbox" id="check-all2" class="flat"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td th:text="${l.boardCode}"></td>
+              <th:block th:object="${l.userInfo}">
+                <td th:text="*{userId}"></td>
+              </th:block>
+              <td th:text="${l.boardWritingTitle}"></td>
+              <td th:text="${l.boardWritingContents}"></td>
+
+              <!--date형식 바꿔야됨!!-->
+              <td th:text="${l.boardRegDate}"></td>
+              <td th:text="${l.boardUpdateDate}"></td>
 
             </tr>
-            <tr>
-              <td><input type="checkbox" id="check-all3" class="flat"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+
 
             </tbody>
           </table>

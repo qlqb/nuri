@@ -41,7 +41,7 @@
 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12 col-xs-12">
-			<form id="addBoardContents" th:action="@{/admin/board/boardContentRegist}" method="post">
+			<form id="addBoardContents" th:action="@{/admin/board/boardContentModify}" method="post">
 				<div class="x_panel">
 					<div class="x_title">
 						<h1><input class="board_writing_title" style="border:none" placeholder="제목을 입력하세요"/></h1>
