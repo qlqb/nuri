@@ -29,6 +29,10 @@ public class AdminBudgetController {
 	public String budgetInfo(Model model) {
 
 		List<Budget> budgetTotalList = budgetService.getBudgetTotalList();
+
+		model.addAttribute("budgetTotalList", budgetTotalList);
+		model.addAttribute("title", "예산조회");
+
 		return "admin/budget/budgetInfo";
 	}
 	

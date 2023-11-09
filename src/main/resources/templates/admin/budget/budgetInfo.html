@@ -66,10 +66,10 @@
 					           </thead>
 		
 		               		   <tbody>
-							   	 <tr th:if="${budgerList==null}">
+							   	 <tr th:if="${budgetTotalList==null}">
 									 <td colspan="4">등록된 예산 목록이 없습니다</td>
 								 </tr>
-				                 <tr th:unless="${budgetList==null}" th:each="l:${budgetList}">
+				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
 				                   <td><input type="checkbox" class="flat"></td>
 									 <td th:text="${l.applyYear}"></td>
 									 <td th:text="${l.budgetTotalAmount}"></td>

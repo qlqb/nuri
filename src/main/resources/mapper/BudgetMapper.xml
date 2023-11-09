@@ -28,15 +28,15 @@
     <select id="getBudgetTotalList" resultMap="budgetTotalResultMap">
         /* 연도별 총 예산, 인당 최대 지원금 조회*/
         SELECT
-            b.BUDGET_NUM,
-            b.OFFICER_ID,
-            b.APPLY_YEAR,
-            b.BUDGET_BY_PERSON,
-            b.BUDGET_TOTAL_AMOUNT,
-            b.REGIST_DT,
-            b.UPDATE_DT
+            BUDGET_NUM,
+            OFFICER_ID,
+            APPLY_YEAR,
+            BUDGET_BY_PERSON,
+            BUDGET_TOTAL_AMOUNT,
+            REGIST_DT,
+            UPDATE_DT
         FROM
-            BUDGET_TOTAL AS b
+            BUDGET_TOTAL
     </select>
 
     <select id="getBudgetRegionList" resultMap="budgetRegionResultMap">
