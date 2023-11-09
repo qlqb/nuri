@@ -20,6 +20,15 @@ public class AdminBoardController {
 		this.boardService = boardService;
 	}
 
+	//게시판 컨텐츠 등록
+	@GetMapping("/boardContentRegist")
+	public String boardContentRegist(Model model){
+		model.addAttribute("title","게시판 등록");
+		/*model.addAttribute("")*/
+
+		return "admin/board/boardContentRegist";
+	}
+
 	//게시판 컨텐츠 수정
 	@GetMapping("/boardContentsModify")
 	public String modifyBoardContents(@RequestParam(name="boardCode") String boardCode, Model model){
