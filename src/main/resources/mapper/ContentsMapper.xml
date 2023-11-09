@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.user.mapper.ContentsMapper">
+
+    <select id="getContentsInfoList" resultType="map">
+        /* 컨텐츠 정보 */
+        SELECT
+            c.CONTENTS_NAME AS contentsName,
+            c.CONTENTS_SELL_START_DATE AS contentsSellStartDate,
+            c.CONTENTS_SELL_END_DATE AS contentsSellEndDate,
+            c.CONTENTS_PG AS contentsPg,
+            c.CONTENTS_PRICE AS contentsPrice,
+            cf.FILE_NAME AS fileName
+        FROM
+            CONTENTS AS c
+            INNER JOIN
+            CONTENTS_FILE AS cf
+            ON
+            cf.CONTENTS_ID=c.CONTENTS_ID;
+    </select>
+</mapper>
