@@ -49,7 +49,7 @@ public class RegisterController {
     public String memberRegister(Model model) {
         // 지역 1 Select option 시 RegionList 출력
         List<Region> regionList = areaService.getRegionList();
-        
+
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
 
@@ -96,7 +96,7 @@ public class RegisterController {
 
 
     /**
-     * 
+     *
      * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
      * @return
      */
