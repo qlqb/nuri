@@ -22,7 +22,16 @@
             REGION;
     </select>
 
-    <select id="getDistrictList" resultMap="districtResultMap" parameterType="String">
+    <select id="getDistrictList" resultType="District">
+        SELECT
+            DISTRICT_CODE AS districtCode,
+            REGION_CODE AS regionCode,
+            DISTRICT_NAME AS districtName
+        FROM
+            DISTRICT
+    </select>
+
+    <select id="getDistrictListByRegion" resultMap="districtResultMap" parameterType="String">
         SELECT
             DISTRICT_CODE,
             REGION_CODE,
@@ -33,8 +42,14 @@
             REGION_CODE = #{regionCode};
     </select>
 
-    <select id="getDepartmentList" resultType="Department">
-
+    <select id="getDistrictDepartmentList" resultType="DistrictDep">
+        select
+            district_dep_code AS districtDepCode,
+            region_code AS regionCode,
+            district_code AS districtCode,
+            district_dep_name AS districtDepName
+        from
+            DISTRICT_DEP
     </select>
 
 

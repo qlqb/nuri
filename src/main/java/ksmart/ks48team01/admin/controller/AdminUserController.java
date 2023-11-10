@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 회원 관련 CRUD 처리
@@ -47,8 +48,33 @@ public class AdminUserController {
 		return "admin/user/userInfoList";
 	}
 
+	@GetMapping("/adminRegister")
+	public String adminRegister(Model model) {
+		// 사용자 가입 시, Form에 들어갈 카테고리의 데이터를 조회하여 전송
+		// 조회한 데이터를 Model를 통해 View로 전송, Thymeleaf의 each 등을 통해 도메인을 출력
+		List<Region> regionList = areaService.getRegionList();
+
+		model.addAttribute("regionList", regionList);
+
+		return "admin/user/adminRegister";
+	}
+
+
 	/**
-	 * 사용자 정보 수정
+	 * 관리자 회원가입 페이지 Form POST 전송
+	 * @param user 입력받은 회원가입 양식의 값
+	 */
+	@PostMapping("/adminRegister")
+	public String adminRegister(User user) {
+		userService.adminRegister(user);
+
+		return "redirect:/admin/user/userInfoList";
+	}
+
+
+
+	/**
+	 * 사용자 정보 수정 Form 페이지
 	 * @param model select해서 해당 회원의 정보 가지고 와서 출력
 	 *              회원가입 Form과 같이, Category에 해당하는 정보는 <select>와 반복문 사용
 	 * @return
@@ -63,56 +89,28 @@ public class AdminUserController {
 		return "admin/user/userInfoUpdate";
 	}
 
-	@GetMapping("/manualRegister")
-	public String manualRegister() {
-
-
-		return "admin/user/manualRegister";
-	}
 
 	/**
-	 * 회원정보 수정 전송
-	 * @param model
-	 * @return
+	 *
+	 * @param user 입력 받은 User 업데이트 정보
+	 * @return 유저 목록으로 리다이렉트
 	 */
 	@PostMapping("/userInfoUpdate")
-	public String userInfoUpdate(Model model) {
+	public String userInfoUpdate(User user) {
+		userService.updateUserByAdmin(user);
 
 		return "redirect:/admin/user/userInfoList";
 	}
 
 
-	/**
-	 * 아이디 중복검사를 위한 Ajax 응답
-	 * @param userId -> Mapper에서 #{memberId}를 조회, count를 통해 boolean 값으로 전송
-	 * @return
-	 */
-	@PostMapping("/userIdCheck")
-	@ResponseBody
-	public boolean userIdCheck(@RequestParam(name = "userId") String userId) {
-		// String으로 입력받은 Id 매개변수를 Service 단에서 중복검사
-		// Mapper 단에서 Id 매개변수를 조회, SELECT의 count를 사용하여 boolean 값을 return
-		// Return 받은 Boolean 값을 Controller에 전송, View에서 JS를 통해 중복유무를 응답
 
-		boolean isDuplicate = true;
-
-		return isDuplicate;
-	}
-
-	@GetMapping("/userInfoDelete")
-	public String userInfoDelete(@RequestParam(value = "userId") String userId,
-								 Model model) {
-
-		return "admin/user/userInfoDelete";
-	}
-	
-	
-	@PostMapping("/userInfoDelete")
-	public String userInfoDelete(@RequestParam(value = "userId") String userId,
-								 @RequestParam(value = "userPw") String userPw) {
-
-		return "redirect:/admin/user/userInfoList";
-
-	}
-
+//	@PostMapping("/userDeleteByAdmin")
+//	public String userDeleteByAdmin(@RequestParam(value = "deleteTarget", required = true) String deleteTarget,
+//									@RequestParam(value = "targetLevel", required = true) int targetLevel) {
+//
+//		// switch 이용해서 회원 권한 별 삭제 실행
+//		userService.userDeleteByAdmin(deleteTarget, targetLevel);
+//
+//		return "redirect:/admin/user/userInfoDelete";
+//	}
 }

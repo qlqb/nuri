@@ -1,4 +1,4 @@
-package ksmart.ks48team01.user.dto;
+package ksmart.ks48team01.dto;
 
 public class Contents {
 
@@ -9,7 +9,7 @@ public class Contents {
     private String contentsCategoryName;
     private String contentsName;
     private String contentsAddress;
-    private String contentsDuration;
+    private String contentsSellDuration;
     private String contentsPg;
     private int contentsPrice;
     private String contentsStartDate;
@@ -76,12 +76,12 @@ public class Contents {
         this.contentsAddress = contentsAddress;
     }
 
-    public String getContentsDuration() {
-        return contentsDuration;
+    public String getContentsSellDuration() {
+        return contentsSellDuration;
     }
 
-    public void setContentsDuration(String contentsDuration) {
-        this.contentsDuration = contentsDuration;
+    public void setContentsSellDuration(String contentsSellDuration) {
+        this.contentsSellDuration = contentsSellDuration;
     }
 
     public String getContentsPg() {

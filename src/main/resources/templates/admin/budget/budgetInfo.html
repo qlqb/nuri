@@ -62,6 +62,9 @@
 				                   <th>연도</th>
 				                   <th>예산</th>
 				                   <th>1인당 지원 금액</th>
+									<th>등록자</th>
+									<th>등록일자</th>
+									<th>수정일자</th>
 					             </tr>
 					           </thead>
 		
@@ -74,6 +77,9 @@
 									 <td th:text="${l.applyYear}"></td>
 									 <td th:text="${l.budgetTotalAmount}"></td>
 									 <td th:text="${l.budgetByPerson}"></td>
+									 <td th:text="${l.officerId}"></td>
+									 <td th:text="${l.registDT}"></td>
+									 <td th:text="${l.updateDT}"></td>
 				                 </tr>
 		                 		</tbody>
 		             		</table>

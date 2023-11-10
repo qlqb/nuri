@@ -19,4 +19,6 @@ public class StoreCategory {
     public void setStoreCategoryName(String storeCategoryName) {
         this.storeCategoryName = storeCategoryName;
     }
+
+
 }
