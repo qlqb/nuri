@@ -34,7 +34,7 @@ public interface UserMapper {
      * 관리자의 회원정보 수정
      * @param user SQL의 Where에서 사용할 Parameter
      */
-    public void userUpdateByAdmin(User user);
+    public int updateUserByAdmin(User user);
 
 
     // 사용자 문화누리카드 등록정보 삭제

@@ -89,26 +89,28 @@ public class AdminUserController {
 		return "admin/user/userInfoUpdate";
 	}
 
+
 	/**
-	 * 회원정보 수정 전송
-	 * @param model
-	 * @return
+	 *
+	 * @param user 입력 받은 User 업데이트 정보
+	 * @return 유저 목록으로 리다이렉트
 	 */
 	@PostMapping("/userInfoUpdate")
-	public String userInfoUpdate(Model model) {
+	public String userInfoUpdate(User user) {
+		userService.updateUserByAdmin(user);
 
 		return "redirect:/admin/user/userInfoList";
 	}
 
 
 
-	@PostMapping("/userDeleteByAdmin")
-	public String userDeleteByAdmin(@RequestParam(value = "deleteTarget", required = true) String deleteTarget,
-									@RequestParam(value = "targetLevel", required = true) int targetLevel) {
-
-		// switch 이용해서 회원 권한 별 삭제 실행
-		userService.userDeleteByAdmin(deleteTarget, targetLevel);
-
-		return "redirect:/admin/user/userInfoDelete";
-	}
+//	@PostMapping("/userDeleteByAdmin")
+//	public String userDeleteByAdmin(@RequestParam(value = "deleteTarget", required = true) String deleteTarget,
+//									@RequestParam(value = "targetLevel", required = true) int targetLevel) {
+//
+//		// switch 이용해서 회원 권한 별 삭제 실행
+//		userService.userDeleteByAdmin(deleteTarget, targetLevel);
+//
+//		return "redirect:/admin/user/userInfoDelete";
+//	}
 }

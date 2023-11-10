@@ -81,8 +81,35 @@
             U.USER_ID = #{userId};
     </select>
 
-
-
+    <!--  특정 회원의 정보변경  -->
+    <update id="updateUserByAdmin" parameterType="User">
+        UPDATE USER_INFO AS UI
+        <set>
+            <if test="userPw != null and userPw != ''">
+                UI.USER_PW = #{userPw},
+            </if>
+            <if test="regionCode != null and regionCode != ''">
+                UI.REGION_CODE = #{regionCode},
+            </if>
+            <if test="districtCode != null and districtCode != ''">
+                UI.DISTRICT_CODE = #{districtCode},
+            </if>
+            <if test="userName != null and userName != ''">
+                UI.USER_NAME = #{userName},
+            </if>
+            <if test="userAddress != null and userAddress != ''">
+                UI.USER_ADDRESS = #{userAddress},
+            </if>
+            <if test="userContact != null and userContact != ''">
+                UI.USER_CONTACT = #{userContact},
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                UI.USER_EMAIL = #{userEmail}
+            </if>
+        </set>
+        WHERE
+            UI.USER_ID = #{userId};
+    </update>
 
     <!--  사용자 문화누리카드 등록정보 삭제  -->
     <delete id="userCardInfoDelete" parameterType="String">
@@ -119,7 +146,6 @@
         WHERE
         PM.USER_ID = #{deleteTarget};
     </delete>
-    <!--    -->
 
 
 </mapper>
