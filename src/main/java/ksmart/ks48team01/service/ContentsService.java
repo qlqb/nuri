@@ -1,5 +1,9 @@
 package ksmart.ks48team01.service;
 
+import ksmart.ks48team01.dto.ContentsCategory;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.dto.StoreCategory;
+import ksmart.ks48team01.mapper.AreaMapper;
 import ksmart.ks48team01.mapper.ContentsMapper;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +39,16 @@ public class ContentsService {
         // 마지막 페이지 번호 초기값:10
         int endPageNum = (lastPage < 10) ? lastPage : 10;
 
+        // 동적으로 페이지번호 구성
+        if(currentPage > 6 && lastPage > 9) {
+            startPageNum = currentPage - 5;
+            endPageNum = currentPage + 4;
+            if(endPageNum >= lastPage) {
+                startPageNum = lastPage - 9;
+                endPageNum = lastPage;
+            }
+        }
+
         List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoList(startContentsNum, contentsPerPage);
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -42,7 +56,21 @@ public class ContentsService {
         resultMap.put("lastPage", lastPage);
         resultMap.put("startPageNum", startPageNum);
         resultMap.put("endPageNum", endPageNum);
+        resultMap.put("contentsCnt", contentsCnt);
 
         return resultMap;
     }
+
+    public List<StoreCategory> getStoreCategory() {
+        return contentsMapper.getStoreCategory();
+    }
+
+    public List<ContentsCategory> getContentsCategory() {
+        return contentsMapper.getContentsCategory();
+    }
+
+//    public Map<String, Object> getContentsInfoList(String performanceGenre, int currentPage) {
+//        Map<String, Object>  = contentsMapper.getContentsCategoryBySearch(performanceGenre);
+//        return
+//    }
 }
