@@ -51,6 +51,7 @@ public class AdminBudgetController {
 
 		return "redirect:/admin/budget/budgetInfoRegion";
 	}
+
 	/**
 	 * 예산 등록 페이지(전국단위, 지역단위 포함)
 	 * @param model
