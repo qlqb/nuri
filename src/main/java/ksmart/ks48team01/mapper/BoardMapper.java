@@ -1,6 +1,7 @@
 package ksmart.ks48team01.mapper;
 
 import ksmart.ks48team01.dto.Board;
+import ksmart.ks48team01.dto.BoardCategory;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,6 +11,12 @@ public interface BoardMapper {
 
     //게시판 수정
     public String modifyBoardContents(Board board);
+
+    //게시글 등록
+    public int boardContentRegist(Board board);
+
+    //게시판 카테고리 조회
+    public List<BoardCategory> getBoardCategoryList();
 
     //게시판 목록 조회
     public List<Board> getBoardList();

@@ -4,6 +4,11 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ksmart.ks48team01.mapper.BoardMapper">
+    <resultMap id="boardCategoryMap" type="BoardCategory">
+        <id property="boardCateCode" column="BOARD_CATE_CODE"/>
+        <result property="boardCateName" column="BOARD_CATE_NAME"/>
+    </resultMap>
+
     <resultMap id="boardResultMap" type="Board">
         <!-- pk == id -->
         <id property="boardCode" column="BOARD_CODE"/>
@@ -40,6 +45,50 @@
     <update id="modifyBoardContents" parameterType="Board">
 
     </update>
+
+    <!--게시글 등록-->
+    <insert id="boardContentRegist" parameterType="Board">
+            <selectKey keyProperty="boardCode" resultType="String" order="BEFORE">
+                /*게시판 코드 자동증가*/
+                SELECT
+                    (CASE
+                    WHEN COUNT(b.BOARD_CODE) = 0 THEN 'BOARD001'
+                    WHEN (max(cast(SUBSTRING_INDEX(b.BOARD_CODE, 'BOARD', -1) AS UNSIGNED))+1) > 999
+                    THEN CONCAT('BOARD', MAX(CAST(SUBSTRING_INDEX(b.BOARD_CODE, 'BOARD', -1) AS UNSIGNED))+1)
+                    ELSE CONCAT('BOARD', LPAD(max(cast(SUBSTRING_INDEX(b.BOARD_CODE, 'BOARD', -1) AS UNSIGNED))+1,3,'0'))
+                    END) AS boardCode
+                FROM
+                    BOARD_MAIN AS b
+            </selectKey>
+                INSERT INTO BOARD_MAIN
+                    (BOARD_CODE,
+                    BOARD_CATE_CODE,
+                    USER_ID,
+                    BOARD_WRITING_TITLE,
+                    BOARD_WRITING_CONTENTS,
+                    BOARD_FILE_LINK,
+                    BOARD_REG_DATE,
+                    BOARD_UPDATE_DATE)
+                VALUES
+                    (#{boardCode},
+                    #{boardCateCode},
+                    #{userId},
+                    #{boardWritingTitle},
+                    #{boardWritingContents},
+                    #{boardFileLink},
+                    CURDATE(),
+                    CURDATE());
+    </insert>
+
+    <!--게시판 카테고리 조회-->
+    <select id="getBoardCategoryList" resultMap="boardCategoryMap">
+        SELECT
+        bc.BOARD_CATE_CODE,
+        bc.BOARD_CATE_NAME
+        FROM
+        BOARD_CATEGORY AS bc
+    </select> 
+
 
     <!--게시판 목록 조회-->
     <select id="getBoardList" resultMap="boardResultMap">
