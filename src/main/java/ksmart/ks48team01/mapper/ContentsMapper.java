@@ -17,5 +17,5 @@ public interface ContentsMapper {
 
     public List<ContentsCategory> getContentsCategory();
 
-    public List<ContentsCategory> getContentsCategoryBySearch(String performanceGenre);
+//    public List<ContentsCategory> getContentsCategoryBySearch(String performanceGenre);
 }
