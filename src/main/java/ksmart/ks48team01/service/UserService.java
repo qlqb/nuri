@@ -23,11 +23,30 @@ public class UserService {
         return userList;
     }
 
+    public void adminRegister (User user) {
+        userMapper.adminRegister(user);
+    }
+
     public User getSpecificUserList(String userId) {
         User specificUserList = userMapper.getSpecificUserList(userId);
 
         return specificUserList;
     }
 
+    public void updateUserByAdmin(User user) {
+        userMapper.updateUserByAdmin(user);
+    }
 
+//    public void userDeleteByAdmin(String deleteTarget, int targetLevel) {
+//
+//        switch (targetLevel) {
+//            case 4 :
+//            userMapper.userCardInfoDelete(deleteTarget);
+//            break;
+//        }
+//        userMapper.userFileDelete(deleteTarget);
+//        userMapper.userBoardDelete(deleteTarget);
+//        userMapper.userPaymentInfoDelete(deleteTarget);
+//
+//    }
 }
