@@ -79,7 +79,7 @@
 
             <tbody>
             <tr th:if="${boardList == null}">
-              <td colspan="8">상품의 목록이 없습니다.</td>
+              <td colspan="8">게시글이 없습니다.</td>
             </tr>
             <tr th:unless="${boardList == null}" th:each="l : ${boardList}">
               <td><input type="checkbox" id="check-all2" class="flat"></td>
@@ -88,7 +88,7 @@
                 <td th:text="*{userId}"></td>
               </th:block>
               <td th:text="${l.boardWritingTitle}"></td>
-              <td th:text="${l.boardWritingContents}"></td>
+              <td th:utext="${l.boardWritingContents}"></td>
 
               <!--date형식 바꿔야됨!!-->
               <td th:text="${l.boardRegDate}"></td>

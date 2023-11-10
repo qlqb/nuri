@@ -10,8 +10,20 @@ public class Board {
     private String boardFileLink;
     private Date boardRegDate;
 
+    private Date boardUpdateDate;
+
     //user DTO에서 가져오는 정보
     private User userInfo;
+
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public User getUserInfo() {
         return userInfo;
@@ -77,7 +89,6 @@ public class Board {
         this.boardUpdateDate = boardUpdateDate;
     }
 
-    private Date boardUpdateDate;
 
     @Override
     public String toString() {
@@ -88,8 +99,9 @@ public class Board {
         sb.append(", boardWritingContents='").append(boardWritingContents).append('\'');
         sb.append(", boardFileLink='").append(boardFileLink).append('\'');
         sb.append(", boardRegDate=").append(boardRegDate);
-        sb.append(", userInfo=").append(userInfo);
         sb.append(", boardUpdateDate=").append(boardUpdateDate);
+        sb.append(", userInfo=").append(userInfo);
+        sb.append(", userId='").append(userId).append('\'');
         sb.append('}');
         return sb.toString();
     }
