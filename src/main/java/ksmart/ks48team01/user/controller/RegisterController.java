@@ -38,7 +38,7 @@ public class RegisterController {
     @GetMapping("/districtList")
     public String getDistrictList(Model model, @RequestParam(name = "regionCode") String regionCode) {
         Gson gson = new Gson();
-        List<District> districtList = areaService.getDistrictList(regionCode);
+        List<District> districtList = areaService.getDistrictListByRegion(regionCode);
 
         return gson.toJson(districtList);
     }

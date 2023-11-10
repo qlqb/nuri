@@ -12,9 +12,7 @@ public class User {
     private String regionCode;
     private String userPw;
     private String userName;
-    private String userGender;
     private String userBirth;
-    private String residentNumber;
     private String userAddress;
     private String userContact;
     private String userEmail;
@@ -79,28 +77,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getUserGender() {
-        return userGender;
-    }
-
-    public void setUserGender(String userGender) {
-        this.userGender = userGender;
-    }
-
     public String getUserBirth() {
         return userBirth;
     }
 
     public void setUserBirth(String userBirth) {
         this.userBirth = userBirth;
-    }
-
-    public String getResidentNumber() {
-        return residentNumber;
-    }
-
-    public void setResidentNumber(String residentNumber) {
-        this.residentNumber = residentNumber;
     }
 
     public String getUserAddress() {
@@ -169,9 +151,7 @@ public class User {
         sb.append(", regionCode='").append(regionCode).append('\'');
         sb.append(", userPw='").append(userPw).append('\'');
         sb.append(", userName='").append(userName).append('\'');
-        sb.append(", userGender='").append(userGender).append('\'');
         sb.append(", userBirth='").append(userBirth).append('\'');
-        sb.append(", residentNumber='").append(residentNumber).append('\'');
         sb.append(", userAddress='").append(userAddress).append('\'');
         sb.append(", userContact='").append(userContact).append('\'');
         sb.append(", userEmail='").append(userEmail).append('\'');
@@ -182,6 +162,4 @@ public class User {
         sb.append('}');
         return sb.toString();
     }
-
-
 }
