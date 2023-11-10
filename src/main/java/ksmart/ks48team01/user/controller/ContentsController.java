@@ -1,20 +1,39 @@
 package ksmart.ks48team01.user.controller;
 
-import ksmart.ks48team01.user.dto.StoreCategory;
-import ksmart.ks48team01.user.service.ContentsService;
+import com.sun.source.tree.MemberSelectTree;
+import ksmart.ks48team01.dto.ContentsCategory;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.dto.StoreCategory;
+import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.ContentsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.RedirectViewControllerRegistration;
+
+import javax.management.modelmbean.RequiredModelMBean;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller("contentsController")
 @RequestMapping("/user/contents")
 public class ContentsController {
 
-	private final ContentsService contentsService;
+	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
 
-	public ContentsController(ContentsService contentsService) {
+	private final ContentsService contentsService;
+	private final AreaService areaService;
+
+	public ContentsController(ContentsService contentsService, AreaService areaService) {
 		this.contentsService = contentsService;
+		this.areaService = areaService;
 	}
 
 	//컨텐츠 검색
@@ -48,17 +67,45 @@ public class ContentsController {
 	}
 	
 	//컨텐츠 전체 목록 조회
-		@GetMapping(value = {"/contentsInfoList"})
-		public String contentsListPage(Model model) {
+		@GetMapping("/contentsInfoList")
+		public String contentsListPage(Model model,
+									   @RequestParam(name="currentPage", required=false, defaultValue = "1") int currentPage,
+									   @RequestParam(name="performanceGenre", required = false) String performanceGenre) {
+
+			List<StoreCategory> storeCategory = contentsService.getStoreCategory();
+
+			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
+
+			List<Region> regionList = areaService.getRegionList();
+			
+			Map<String, Object> resultMap = contentsService.getContentsInfoList(currentPage);
+			List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
+
+			int lastPage = (int) resultMap.get("lastPage");
+			int startPageNum = (int) resultMap.get("startPageNum");
+			int endPageNum = (int) resultMap.get("endPageNum");
+			int contentsCnt = ((Double) resultMap.get("contentsCnt")).intValue();
+
+			model.addAttribute("storeCategory", storeCategory);
+
+//			model.addAttribute("contentsCategory", contentsCategory);
+
+			model.addAttribute("regionList", regionList);
+
 			model.addAttribute("title", "컨텐츠 조회");
-			model.addAttribute("contentsInfoList", contentsService.getContentsInfoList());
-			System.out.println(contentsService.getContentsInfoList().get(0).get("contentsSellDuration"));
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("lastPage", lastPage);
+			model.addAttribute("startPageNum", startPageNum);
+			model.addAttribute("endPageNum", endPageNum);
+			model.addAttribute("contentsInfoList", contentsInfoList);
+			model.addAttribute("contentsCnt", contentsCnt);
+
 			return "user/contents/contentsInfoList";
 		}
 
 		@GetMapping(value = {"reservation"})
 		public String reservation(Model model) {
-			model.addAttribute("title", "컨텐츠 조회");
+			model.addAttribute("title", "예약 화면");
 			return "user/contents/reservation";
 		}
 

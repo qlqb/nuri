@@ -1,4 +1,4 @@
-package ksmart.ks48team01.user.dto;
+package ksmart.ks48team01.dto;
 
 public class StoreCategory {
     private String storeCategoryCode;
@@ -19,4 +19,6 @@ public class StoreCategory {
     public void setStoreCategoryName(String storeCategoryName) {
         this.storeCategoryName = storeCategoryName;
     }
+
+
 }

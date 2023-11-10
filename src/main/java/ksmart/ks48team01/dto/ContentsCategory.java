@@ -1,6 +1,6 @@
 package ksmart.ks48team01.dto;
 
-public class ContentCategory {
+public class ContentsCategory {
     private String contentsCategoryCode;
     private String storeCategoryCode;
     private String contentsCategoryName;
