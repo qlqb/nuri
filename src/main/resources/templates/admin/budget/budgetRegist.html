@@ -9,14 +9,66 @@
 	
 	<th:block layout:fragment="customJsCode">
 		<script>
-			$("#resetBtn1").click(function(){
-				$("#inputBugetForm > div > div > input").val('');
-			});
-			
-			$("#resetBtn2").click(function(){
-				$("#inputBugetByRegionForm > div > div > input").val('');
-				$("#inputBugetByRegionForm > div > div > select").val('');
-			});
+          $(function() {
+
+
+            //연도가 중복되는지 체크
+
+
+            //전국 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
+            $("#resetBtn1").click(function () {
+              $("#addBugetTotalForm > div > div > input").val('');
+            });
+
+            //지역 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
+            $("#resetBtn2").click(function () {
+              $("#addBugetRegionForm > div > div > input").val('');
+              $("#addBugetRegionForm > div > div > select").val('');
+            });
+
+            //전국단위 - 등록 버튼 눌렀을 시 유효성 검사 후 insert 실행
+            $("#addBudgetTotalBtn").click(function () {
+              //버튼 눌렀을 때의 값을 받아 객체 생성하기
+              const budget = {
+                budgetNum: 'BUD' + $("#applyYear").val(),
+                officerId: 'OFC231012001',
+                applyYear: $("#applyYear").val(),
+                budgetByPerson: $("#budgetByPerson").val(),
+                budgetTotalAmount: $("#budgetTotalAmount").val()
+              }
+              console.log(budget);
+
+              //유효성 검사
+              let isValid = true;
+              $.each(budget, function (key, value) {
+                if (value == null || value == '' || typeof value == 'undefined') {
+                  //입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
+                  isValid = false;
+                  //유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
+                  console.log(`${key} + ${value}`);
+                  let elementId = $(`label[for="${key}"]`).text();
+                  alert(`${elementId} <-- 필수 입력 항목입니다.`);
+                  $(`input[id="${key}"]`).focus();
+
+                  console.log(isValid);
+                  return isValid;
+                }
+              });
+
+              //위에 유효성검사 통과 후 값이 true인 경우에만 submit
+              if (isValid) {
+                const addBudgetTotalForm = $("#addBudgetTotalForm");
+                const $budgetNum = $('<input />', {'type': 'hidden', 'name': 'budgetNum', 'value': budget.budgetNum});
+                const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
+                addBudgetTotalForm.append($budgetNum);
+                addBudgetTotalForm.append($officerId);
+                addBudgetTotalForm.submit();
+              }
+            });
+          });
+
+
+
 		</script>
 	</th:block>
 	
@@ -32,33 +84,35 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content" >
-              <form id="inputBugetForm" class="form-horizontal form-label-left">
-
+              <form id="addBudgetTotalForm" class="form-horizontal form-label-left"
+                    th:action="@{/admin/budget/budgetInfo}" method="post">
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
+                  <label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputYear" type="number" class="form-control" placeholder="연도를 입력하세요 예)2023">
+                    <input type="number" class="form-control" id="applyYear" name="applyYear"
+                           placeholder="연도를 입력하세요 예)2023" min="2014" max="2123">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+                  <label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputBudget" type="number" class="form-control" placeholder="예산 금액을 입력하세요(단위 : 1억 원)">
+                    <input type="number" class="form-control" id="budgetByPerson" name="budgetByPerson"
+                           placeholder="1인 최대 지원금액을 입력하세요(단위 : 원)">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
+                  <label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputBudget" type="number" class="form-control" placeholder="1인 최대 지원금액을 입력하세요(단위 : 원)">
+                    <input type="number" class="form-control" id="budgetTotalAmount" name="budgetTotalAmount"
+                           placeholder="예산 금액을 입력하세요(단위 : 원)" min="100000000">
                   </div>
                 </div>
-
                 <div class="ln_solid"></div>
 
                 <div class="form-group row">
                   <div class="col-md-9 offset-md-3">
                     <button id="resetBtn1" type="button" class="btn btn-primary">초기화</button>
-                    <button type="submit" class="btn btn-success">등록</button>
+                    <button id="addBudgetTotalBtn" type="button" class="btn btn-success">등록</button>
                   </div>
                 </div>
 
@@ -73,7 +127,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content" >
-              <form id="inputBugetByRegionForm" class="form-horizontal form-label-left">
+              <form id="addBugetRegionForm" class="form-horizontal form-label-left">
 
                 <div class="form-group row">
                   <label class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
@@ -101,7 +155,7 @@
                 <div class="form-group row">
                   <label class="control-label col-md-3 col-sm-3 col-xs-3">지원 대상 인원</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputBudget" type="number" class="form-control" placeholder="해당 지역의 발급 대상 인원 수를 입력하세요">
+                    <input id="inputNOP" type="number" class="form-control" placeholder="해당 지역의 발급 대상 인원 수를 입력하세요">
                   </div>
                 </div>
 
@@ -110,7 +164,7 @@
                 <div class="form-group row">
                   <div class="col-md-9 offset-md-3">
                     <button id="resetBtn2" type="button" class="btn btn-primary">초기화</button>
-                    <button type="submit" class="btn btn-success">등록</button>
+                    <button type="button" class="btn btn-success">등록</button>
                   </div>
                 </div>
 

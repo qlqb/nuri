@@ -1,5 +1,8 @@
 package ksmart.ks48team01.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 public class Budget {
 
     private String budgetNum;
@@ -7,13 +10,10 @@ public class Budget {
     private String applyYear;
     private int budgetByPerson;
     private long budgetTotalAmount;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String registDT;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String updateDT;
-
-    private String budgetRegionNum;
-    private String regionCode;
-    private long budgetRegionAmount;
-    private int munhwaRegionNOP;
 
     public String getBudgetNum() {
         return budgetNum;
@@ -71,52 +71,17 @@ public class Budget {
         this.updateDT = updateDT;
     }
 
-    public String getBudgetRegionNum() {
-        return budgetRegionNum;
-    }
-
-    public void setBudgetRegionNum(String budgetRegionNum) {
-        this.budgetRegionNum = budgetRegionNum;
-    }
-
-    public String getRegionCode() {
-        return regionCode;
-    }
-
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
-    }
-
-    public long getBudgetRegionAmount() {
-        return budgetRegionAmount;
-    }
-
-    public void setBudgetRegionAmount(long budgetRegionAmount) {
-        this.budgetRegionAmount = budgetRegionAmount;
-    }
-
-    public int getMunhwaRegionNOP() {
-        return munhwaRegionNOP;
-    }
-
-    public void setMunhwaRegionNOP(int munhwaRegionNOP) {
-        this.munhwaRegionNOP = munhwaRegionNOP;
-    }
-
     @Override
     public String toString() {
         return "Budget{" +
                 "budgetNum='" + budgetNum + '\'' +
                 ", officerId='" + officerId + '\'' +
-                ", applyYear='" + applyYear + '\'' +
+                ", applyYear=" + applyYear +
                 ", budgetByPerson=" + budgetByPerson +
                 ", budgetTotalAmount=" + budgetTotalAmount +
-                ", registDT='" + registDT + '\'' +
-                ", updateDT='" + updateDT + '\'' +
-                ", budgetRegionNum='" + budgetRegionNum + '\'' +
-                ", regionCode='" + regionCode + '\'' +
-                ", budgetRegionAmount=" + budgetRegionAmount +
-                ", munhwaRegionNOP=" + munhwaRegionNOP +
+                ", registDT=" + registDT +
+                ", updateDT=" + updateDT +
                 '}';
     }
 }
+

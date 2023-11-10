@@ -14,10 +14,13 @@ import java.util.List;
 public class BudgetService {
 
     private final BudgetMapper budgetMapper;
+    private final AreaMapper areaMapper;
 
-    public BudgetService(BudgetMapper budgetMapper) {
+    public BudgetService(BudgetMapper budgetMapper, AreaMapper areaMapper) {
         this.budgetMapper = budgetMapper;
+        this.areaMapper = areaMapper;
     }
+
 
     public List<Budget> getBudgetTotalList() {
         return budgetMapper.getBudgetTotalList();
@@ -27,4 +30,10 @@ public class BudgetService {
         return budgetMapper.getBudgetRegionList();
     }
 
+    public void addBudgetTotal(Budget budget) {
+        budgetMapper.addBudgetTotal(budget);
+    }
+    public void addBudgetRegion(Budget budget) {
+        budgetMapper.addBudgetRegion(budget);
+    }
 }
