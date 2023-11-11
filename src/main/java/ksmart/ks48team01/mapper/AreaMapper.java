@@ -31,6 +31,10 @@ public interface AreaMapper {
     public List<District> getDistrictListByRegion(String regionCode);
 
 
+    /**
+     * 
+     * @return region, district, district의 department 정보 반환
+     */
     public List<DistrictDep> getDistrictDepartmentList();
 
 
