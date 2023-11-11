@@ -21,4 +21,7 @@ public interface BudgetMapper {
     //지역 단위 예산 등록
     public int addBudgetRegion(Budget budget);
 
+    //전국 단위 예산 검색 조회
+    public List<Budget> getBudgetListByYear();
+
 }

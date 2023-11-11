@@ -11,20 +11,43 @@
 		<script>
           $(function() {
 
-
-            //연도가 중복되는지 체크
-
-
             //전국 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
             $("#resetBtn1").click(function () {
-              $("#addBugetTotalForm > div > div > input").val('');
+              $("#addBudgetTotalForm > div > div > input").val('');
             });
 
             //지역 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
             $("#resetBtn2").click(function () {
-              $("#addBugetRegionForm > div > div > input").val('');
-              $("#addBugetRegionForm > div > div > select").val('');
+              $("#addBudgetRegionForm > div > div > input").val('');
+              $("#addBudgetRegionForm > div > div > select").val('');
             });
+
+            //ajax 사용한 중복체크(임시로 버튼 생성)
+            // $("#duplicateCheck").click(function (){
+            //     //연도가 중복되는지 체크(ajax 사용)
+            //     let applyYear = $('#applyYear').val;
+            //     console.log(applyYear);
+            //
+            //     const request = $.ajax({
+            //       url : '/budget/budgetRegist',
+            //       method : 'POST',
+            //       data : {'applyYear': applyYear},
+            //       dataType : 'json'
+            //     });
+            //
+            //     request.done(function(data){
+            //       let isDuplicate = data;
+            //       if(isDuplicate){
+            //         alert('이미 해당 연도의 예산 정보가 등록되어있습니다.');
+            //         $('#applyYear').val('');
+            //       }
+            //     })
+            //
+            //     request.fail(function(jqXHR, textStatus){
+            //       console.log(`Request failed: ${textStatus}`);
+            //     });
+            //
+            //   });
 
             //전국단위 - 등록 버튼 눌렀을 시 유효성 검사 후 insert 실행
             $("#addBudgetTotalBtn").click(function () {
@@ -55,15 +78,14 @@
                 }
               });
 
-              //위에 유효성검사 통과 후 값이 true인 경우에만 submit
-              if (isValid) {
+              //위에 유효성 검사 통과 후 값이 true인 경우에만 submit
+
                 const addBudgetTotalForm = $("#addBudgetTotalForm");
                 const $budgetNum = $('<input />', {'type': 'hidden', 'name': 'budgetNum', 'value': budget.budgetNum});
                 const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
                 addBudgetTotalForm.append($budgetNum);
                 addBudgetTotalForm.append($officerId);
                 addBudgetTotalForm.submit();
-              }
             });
           });
 
@@ -91,6 +113,7 @@
                   <div class="col-md-6 col-sm-6 col-xs-6">
                     <input type="number" class="form-control" id="applyYear" name="applyYear"
                            placeholder="연도를 입력하세요 예)2023" min="2014" max="2123">
+                    <button type="button" id="duplicateCheck">중복확인</button>
                   </div>
                 </div>
                 <div class="form-group row">

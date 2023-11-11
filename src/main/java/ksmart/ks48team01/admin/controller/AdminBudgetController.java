@@ -4,12 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ksmart.ks48team01.dto.Budget;
 import ksmart.ks48team01.service.BudgetService;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -70,9 +67,15 @@ public class AdminBudgetController {
 	 * @return
 	 */
 	@GetMapping(value={"budgetInfo"})
-	public String budgetInfo(Model model) {
+	public String budgetInfo(Model model, @RequestParam(name="ApplyYear", required=false, defaultValue = "") String applyYear) {
 
-		List<Budget> budgetTotalList = budgetService.getBudgetTotalList();
+		List<Budget> budgetTotalList = null;
+
+		if(applyYear != null){
+			budgetTotalList = budgetService.getBudgetListByYear();
+		}else{
+			budgetTotalList = budgetService.getBudgetTotalList();
+		}
 
 		model.addAttribute("budgetTotalList", budgetTotalList);
 		model.addAttribute("title", "예산조회");

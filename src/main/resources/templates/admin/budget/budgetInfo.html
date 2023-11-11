@@ -6,6 +6,50 @@
 	<th:block layout:fragment="customJs">
 		<script th:src="@{/js/jquery-3.7.1.js}"></script>
 	</th:block>
+
+	<th:block layout:fragment="customJsCode">
+		<script>
+			$(function() {
+				//유효성 검사
+				const validationCheck = function (data){
+					let isValid = true;
+					if(typeof data == "object") {
+						$.each(budget, function (key, value) {
+							if (value == null || value == '' || typeof value == 'undefined') {
+								//입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
+								isValid = false;
+								//유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
+								console.log(`${key} + ${value}`);
+								let elementId = $(`label[for="${key}"]`).text();
+								alert(`${elementId} <-- 필수 입력 항목입니다.`);
+								$(`input[id="${key}"]`).focus();
+
+								console.log(isValid);
+								return isValid;
+							}
+						});
+					}else{
+						if (data == null || data == '' || typeof data == 'undefined') {
+							isValid = false;
+							alert(`${`label[for="${applyYear}"]).text()`} <-- 필수 입력 항목입니다.`);
+							return isValid;
+						}
+					}
+				}
+
+				//검색 버튼 클릭 시
+				//1. 입력된 값의 유효성 검사
+				//2. 검색된 값과 일치하는 APPLY_YEAR 컬럼 값을 가져오기
+				$('#budgetSearchBtn').click(function(){
+					// let $applyYear = $(input[name="applyYear"]).val();
+					// if(validationCheck($applyYear)){
+					// 	//유효성 검사 통과, selelct문 실행
+					//
+					// }
+				});
+			});
+		</script>
+	</th:block>
 	
   <body id="page-top">
 
@@ -25,19 +69,19 @@
 	       			<div class="x_content">
 						<br />
 						
-                    	<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    	<form id="budgetSearchForm" data-parsley-validate class="form-horizontal form-label-left">
 	                        <div class="form-group">
-	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
+	                        	<label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                         	 <input type="number" id="" name="" class="form-control col-md-7 col-xs-12">
+	                         	 <input type="number" id="applyYear" name="applyYear" class="form-control col-md-7 col-xs-12">
 	                        	</div>
 	                      	</div>
 
 		                      <div class="ln_solid"></div>
 		                      <div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-		                          <button type="button" class="btn btn-primary">초기화</button>
-		                          <button type="submit" class="btn btn-success">검색</button>
+		                          <button type="reset" class="btn btn-primary">초기화</button>
+		                          <button type="submit" id="budgetSearchBtn" class="btn btn-success">검색</button>
 		                        </div>
 		                      </div>
                     	</form>

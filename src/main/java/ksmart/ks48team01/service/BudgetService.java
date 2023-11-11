@@ -36,4 +36,8 @@ public class BudgetService {
     public void addBudgetRegion(Budget budget) {
         budgetMapper.addBudgetRegion(budget);
     }
+
+    public List<Budget> getBudgetListByYear(){
+        return budgetMapper.getBudgetListByYear();
+    }
 }
