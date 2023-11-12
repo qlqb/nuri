@@ -5,7 +5,9 @@ import java.util.List;
 import com.google.gson.Gson;
 import ksmart.ks48team01.dto.District;
 import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.dto.User;
 import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,11 @@ public class RegisterController {
 
 
     private final AreaService areaService;
+    private final UserService userService;
 
-    public RegisterController (AreaService areaService) {
+    public RegisterController (AreaService areaService, UserService userService) {
         this.areaService = areaService;
+        this.userService = userService;
     }
 
     // 가입 할 회원 권한을 선택할 수 있는 페이지
@@ -57,9 +61,8 @@ public class RegisterController {
     }
 
     @PostMapping("/memberRegister")
-    public String memberRegister() {
-
-
+    public String memberRegister(User user) {
+        userService.memberRegister(user);
 
         return "redirect:/user/register/registerConfirm";
     }
@@ -103,8 +106,6 @@ public class RegisterController {
     @PostMapping("/officerRegister")
     public String officerRegister(RedirectAttributes redirectAttributes) {
 
-        //redirectAttributes.addAttribute("level", "공무원");
-
         return "redirect:/user/register/registerConfirm";
     }
 
@@ -118,16 +119,4 @@ public class RegisterController {
 
         return "user/register/registerConfirm";
     }
-
-//    @GetMapping(value = "/registerConfirm")
-//    public String registerConfirm(@RequestParam("level") String userLevel, Model model) {
-//
-//        model.addAttribute("title", "회원가입 - 누리컬쳐");
-//        model.addAttribute("userLevel", userLevel);
-//
-//        return "user/register/registerConfirm";
-//    }
-
-
-
 }

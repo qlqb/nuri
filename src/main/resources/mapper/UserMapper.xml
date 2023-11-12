@@ -57,6 +57,18 @@
         NOW(), '활동', 'general')
     </insert>
 
+    <!--  입력받은 사용자 회원 Form 전송  -->
+    <insert id="memberRegister" parameterType="User">
+        INSERT INTO USER_INFO
+        (USER_ID, LEVEL_ID, USER_LEVEL_NAME, DISTRICT_CODE, REGION_CODE,
+        USER_PW, USER_NAME, USER_BIRTH, USER_ADDRESS, USER_CONTACT,
+        USER_EMAIL, USER_RECENT_LOGIN, USER_REGDATE, USER_STAT, SSO_TYPE)
+        VALUES
+        (#{userId}, 4, '사용자', #{districtCode}, #{regionCode}, #{userPw}, #{userName},
+        #{userBirth}, #{userAddress}, #{userContact}, #{userEmail}, NOW(),
+        NOW(), '활동', 'general')
+    </insert>
+
     <!--  관리자 화면에서 특정 회원 상세정보 조회  -->
     <select id="getSpecificUserList" parameterType="String" resultMap="userResultMap">
         SELECT
@@ -79,6 +91,16 @@
             USER_INFO AS U
         WHERE
             U.USER_ID = #{userId};
+    </select>
+
+    <!--  아이디 중복 검사  -->
+    <select id="userIdCheck" resultType="boolean" parameterType="String">
+        SELECT
+            COUNT(UI.USER_ID)
+        FROM
+            USER_INFO AS UI
+        WHERE
+            UI.USER_ID = #{userId};
     </select>
 
     <!--  특정 회원의 정보변경  -->

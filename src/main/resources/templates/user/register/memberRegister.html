@@ -187,6 +187,7 @@
                                         <input type="password" id="userPw" name="userPw" placeholder="비밀번호를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
+                                <p id="pwValidation"></p>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
                                         <label for="userPwCheck" class="mb-2"><small class="input-specific">*</small>비밀번호 확인</label>
@@ -197,6 +198,12 @@
                                     <div class="single-form mb-20">
                                         <label for="userName" class="mb-2"><small class="input-specific">*</small>이름</label>
                                         <input type="text" id="userName" name="userName" placeholder="이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="userBirth" class="mb-2"><small class="input-specific">*</small>이름</label>
+                                        <input type="date" id="userBirth" name="userBirth" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -232,13 +239,13 @@
                                 <div class="col-12">
                                     <div class="single-form mb-20">
                                         <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세주소 1 </label>
-                                        <input type="text" id="address-1" name="address-1" placeholder="상세주소를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                        <input type="text" id="address-1" name="userAddress" placeholder="상세주소를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
                                         <label for="address-2" class="mb-2 px-1">상세주소 2 </label>
-                                        <input type="text" id="address-2" name="address-2" placeholder="" class="py-2 px-3 mb-0 rounded border">
+                                        <input type="text" id="address-2" placeholder="" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="single-form mb-20">
@@ -263,6 +270,7 @@
 
 <body>
     <script src="/user/assets/js/district-list.js"></script>
+    <script src="/user/assets/js/userValidate.js"></script>
 </body>
 
 
