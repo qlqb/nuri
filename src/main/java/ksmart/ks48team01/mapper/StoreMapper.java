@@ -17,6 +17,10 @@ public interface StoreMapper {
      */
     public List<Store> getStoreListForAdmin();
 
+
+    public List<Store> storeSearchList(String searchKey, String searchValue);
+
+
     /**
      * 관리자 특정 가맹점 정보 수정 및 가맹점 사용자의 가맹점 정보 수정 시에 사용
      */

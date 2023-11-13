@@ -22,4 +22,13 @@ public class OfficerService {
 
         return officerInfoList;
     }
+
+    public List<Officer> officerSearchList(String searchKey, String searchValue) {
+        List<Officer> officerSearchList = officerMapper.officerSearchList(searchKey, searchValue);
+
+        return officerSearchList;
+    }
+
+
+
 }

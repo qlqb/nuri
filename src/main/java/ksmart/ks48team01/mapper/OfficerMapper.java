@@ -9,4 +9,6 @@ import java.util.List;
 public interface OfficerMapper {
 
     public List<Officer> getOfficerInfoList();
+
+    public List<Officer> officerSearchList(String searchKey, String searchValue);
 }

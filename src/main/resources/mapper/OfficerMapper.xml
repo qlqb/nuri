@@ -22,4 +22,25 @@
         ON
             OI.DISTRICT_DEP_CODE = DD.DISTRICT_DEP_CODE;
     </select>
+
+    <select id="officerSearchList" resultType="Officer" parameterType="String">
+        SELECT
+            OI.OFFICER_ID AS officerId,
+            OI.USER_ID AS userId,
+            OI.OFFICE_USER_NAME AS officerUserName,
+            OI.DISTRICT_DEP_CODE AS districtDepCode,
+            DD.DISTRICT_DEP_NAME AS districtDepName,
+            OI.OFFICER_CERT AS officerCert,
+            OI.WORK_START_DATE AS workStartDate,
+            OI.OFFICER_ACCOUNT_STAT AS officerAccountStat,
+            OI.OFFICER_RECENT_LOGIN AS officerRecentLogin
+        FROM
+            OFFICER_INFO AS OI
+        INNER JOIN
+            DISTRICT_DEP AS DD
+        ON
+            OI.DISTRICT_DEP_CODE = DD.DISTRICT_DEP_CODE
+        WHERE
+            ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+    </select>
 </mapper>

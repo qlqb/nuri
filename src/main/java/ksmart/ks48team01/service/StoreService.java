@@ -32,6 +32,13 @@ public class StoreService {
     }
 
 
+    public List<Store> storeSearchList(String searchKey, String searchValue) {
+        List<Store> storeSearchList = storeMapper.storeSearchList(searchKey, searchValue);
+
+        return storeSearchList;
+    }
+
+
     /**
      * 특정 가맹점 조회 및 수정 기능
      * @param storeId 조회할 가맹점

@@ -66,13 +66,13 @@ public class AdminUserController {
             case "userName" -> "U.USER_NAME";
             case "userEmail" -> "U.USER_EMAIL";
             case "userContent" -> "U.USER_CONTACT";
-            default -> searchKey;
+            default -> null;
         };
 
 		String searchValue = (String) paramMap.get("searchValue");
 		System.out.println(searchKey + " / " + searchValue);
 
-		if(searchValue != null) {
+		if(searchValue != null && searchKey != null) {
 			userSearchList = userService.userSearchList(searchKey, searchValue);
 		} else {
 			userSearchList = userService.getUserList();

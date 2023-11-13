@@ -57,6 +57,32 @@
         ON SI.USER_ID = UI.USER_ID;
     </select>
 
+    <select id="storeSearchList" resultType="Store" parameterType="String">
+        SELECT
+            SI.STORE_ID AS storeId,
+            SI.USER_ID AS userId,
+            UI.USER_NAME AS userName,
+            SI.STORE_CATEGORY_CODE AS storeCategoryCode,
+            SI.DISTRICT_CODE AS districtCode,
+            SI.STORE_CATEGORY_NAME AS storeCategoryName,
+            SI.BUSINESS_NUMBER AS businessNumber,
+            SI.CORPORATION_NUMBER AS corporationNumber,
+            SI.STORE_NAME AS storeName,
+            SI.STORE_CONTACT AS storeContact,
+            UI.USER_EMAIL AS userEmail,
+            SI.STORE_ADDRESS AS storeAddress,
+            SI.OPENING_TIME AS openingTime,
+            SI.STORE_REG_DATE AS storeRegDate
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        WHERE
+            ${searchKey} LIKE CONCAT('%',#{searchValue},'%');
+    </select>
+
     <select id="getSpecificStoreInfo" resultType="Store" parameterType="String">
         SELECT
             SI.STORE_ID AS storeId,
