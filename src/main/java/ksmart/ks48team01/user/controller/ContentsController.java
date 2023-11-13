@@ -70,15 +70,16 @@ public class ContentsController {
 		@GetMapping("/contentsInfoList")
 		public String contentsListPage(Model model,
 									   @RequestParam(name="currentPage", required=false, defaultValue = "1") int currentPage,
-									   @RequestParam(name="performanceGenre", required = false) String performanceGenre) {
+									   @RequestParam(name="tabValue", defaultValue = "전체") String tabValue) {
 
 			List<StoreCategory> storeCategory = contentsService.getStoreCategory();
 
 			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
 
 			List<Region> regionList = areaService.getRegionList();
-			
-			Map<String, Object> resultMap = contentsService.getContentsInfoList(currentPage);
+
+			Map<String, Object> resultMap = contentsService.getContentsInfoList(currentPage, tabValue);
+
 			List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
 
 			int lastPage = (int) resultMap.get("lastPage");
@@ -88,7 +89,7 @@ public class ContentsController {
 
 			model.addAttribute("storeCategory", storeCategory);
 
-//			model.addAttribute("contentsCategory", contentsCategory);
+			model.addAttribute("contentsCategory", contentsCategory);
 
 			model.addAttribute("regionList", regionList);
 
@@ -100,13 +101,44 @@ public class ContentsController {
 			model.addAttribute("contentsInfoList", contentsInfoList);
 			model.addAttribute("contentsCnt", contentsCnt);
 
+
+			log.info("contentsInfoList {}", contentsInfoList);
+
 			return "user/contents/contentsInfoList";
 		}
+
+//		@GetMapping("/contentsInfoList/tab2")
+//		public String contentsTab() {
+//
+//		}
+//		@GetMapping("/contentsInfoList/tab3")
+//		public String contentsTab() {
+//
+//		}
+//		@GetMapping("/contentsInfoList/tab4")
+//		public String contentsTab() {
+//
+//		}
+//		@GetMapping("/contentsInfoList/tab5")
+//		public String contentsTab() {
+//
+//		}
+//		@GetMapping("/contentsInfoList/tab5")
+//		public String contentsTab() {
+//
+//		}
+//		@GetMapping("/contentsInfoList/tab7")
+//		public String contentsTab() {
+//
+//		}
+//		@GetMapping("/contentsInfoList/tab8")
+//		public String contentsTab() {
+//
+//		}
 
 		@GetMapping(value = {"reservation"})
 		public String reservation(Model model) {
 			model.addAttribute("title", "예약 화면");
 			return "user/contents/reservation";
 		}
-
 }

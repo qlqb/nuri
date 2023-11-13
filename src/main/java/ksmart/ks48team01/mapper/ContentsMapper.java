@@ -11,11 +11,11 @@ import java.util.Map;
 public interface ContentsMapper {
     public List<Map<String, Object>> getContentsInfoList(int startContentsNum, int contentsPerPage);
 
-    public int getContentsCnt();
+    public int getContentsByTabCnt(String tabValue);
 
     public List<StoreCategory> getStoreCategory();
 
     public List<ContentsCategory> getContentsCategory();
 
-//    public List<ContentsCategory> getContentsCategoryBySearch(String performanceGenre);
+    public List<Map<String, Object>> getContentsInfoListByTabValue(int startContentsNum, int contentsPerPage, String tabValue);
 }

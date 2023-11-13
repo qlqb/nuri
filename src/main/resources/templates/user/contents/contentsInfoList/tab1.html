@@ -1,0 +1,78 @@
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- left-wrapper  -->
+<div class="col-lg-12">
+    <div class="left-wrapper">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3" th:each="cil : ${contentsInfoList}">
+                        <div class="single-product">
+                            <div class="product-img">
+                                <a href="product-details.html">
+                                    <img th:src="@{https://images.unsplash.com/photo-1524330685423-3e1966445abe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
+                                </a>
+                            </div>
+
+                            <div class="product-content">
+                                <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                    <a href="product-details.html" class="name" th:text="${cil.contentsName}">[서울]Piano Dynamism ＜김종윤 양윤희 김기경＞(객석나눔)</a>
+                                </h3>
+
+                                <ul class="address">
+                                    <th:block th:if="${cil.contentsSellDuration != '0'}">
+                                        <li th:if="${cil.contentsSellDuration != '0'}">
+                                            <a href="javascript:void(0)"><i class="lni lni-calendar"></i><th:block th:text="${cil.contentsSellDuration}"></th:block></a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${cil.contentsSellDuration != '0'}"></th:block>
+
+                                    <th:block th:if="${cil.contentsPg == 'book'}">
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-book"></i><th:block th:text="${cil.contentsPg}"></th:block></a>
+                                        </li>
+                                    </th:block>
+
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-map-marker"></i><th:block  th:text="${cil.storeName}"></th:block></a>
+                                    </li>
+                                    <th:block th:if="${cil.contentsPg != 'book' && cil.contentsPg != 'exercise'}">
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-user"></i><th:block th:text="${cil.contentsPg}"></th:block></a>
+                                        </li>
+                                    </th:block>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-coin"></i><th:block th:text="${cil.contentsPrice}"></th:block></a>
+                                    </li>
+                                </ul>
+                                <div class="product-bottom">
+                                    <a class="status-btn bg-dark">자세히 보기</a>
+                                    <a th:unless="${cil.amountContentsRemaining == 0}" class="status-btn">공연 예매</a>
+                                    <a th:if="${cil.amountContentsRemaining == 0}" class="status-btn bg-secondary" style="cursor: unset">매진</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="justify-content-center d-flex">
+    <a th:href="@{/user/contents/contentsInfoList}">[맨처음으로]</a>
+    <a th:if="${currentPage > 1}"
+       th:href="@{/user/contents/contentsInfoList(currentPage=${currentPage - 1})}">[이전]</a>
+    <span th:unless="${currentPage > 1}">[이전]</span>
+    <th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+        <a th:if="${num != currentPage}"
+           th:href="@{/user/contents/contentsInfoList(currentPage=${num})}">[[${'[' + num + ']'}]]</a>
+        <span th:unless="${num != currentPage}" th:text="|[${num}]|"></span>
+    </th:block>
+    <a th:if="${currentPage < lastPage}"
+       th:href="@{/user/contents/contentsInfoList(currentPage=${currentPage + 1})}">[다음]</a>
+    <span th:unless="${currentPage < lastPage}">[다음]</span>
+    <a th:href="@{/user/contents/contentsInfoList(currentPage=${lastPage})}">[맨마지막]</a>
+</div>
+</html>

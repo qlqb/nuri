@@ -310,7 +310,38 @@
         }
     </style>
 </head>
-<!--[if IE]>
+
+<th:block layout:fragment="customJsCode">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
+    <script>
+        $(function() {
+            $('[role="tab"]').click(function() {
+                let activeTab = $(this).attr('data-tab');
+                let activeTabUrl = `tab${activeTab}`
+                let tabValue = $(this).text().trim();
+                $('[role="tab"]').removeClass('active');
+                $(this).addClass('active');
+                const request = $.ajax({
+                    url : `/user/contents/contentsInfoList/${activeTabUrl}`,
+                    method : 'GET',
+                    data: {'tabValue' : tabValue},
+                    dataType : 'json'
+                });
+
+                request.done(function(data) {
+                    let contentsInfoListByTabs = data;
+                    console.log(contentsInfoListByTabs);
+                });
+
+                request.fail(function(jqXHR, textStatus) {
+                    console.log(`Request failed: ${textStatus}`);
+                });
+            });
+            //$('#default').click();
+        });
+    </script>
+
+</th:block>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
 <![endif]-->
 
@@ -355,7 +386,7 @@
                         <div class="right-wrapper">
                             <form action="#">
                                 <div class="area-input">
-<!--                                    <input type="text" name="search" id="search" placeholder="검색어를 입력해주세요">-->
+                                    <!--                                    <input type="text" name="search" id="search" placeholder="검색어를 입력해주세요">-->
                                     <button><i class="lni lni-search-alt"></i></button>
                                 </div>
                             </form>
@@ -365,13 +396,10 @@
                 <div class="search-result">
                     <div class="section-inner">
                         <div class="cards-wrapper pb-25 mb-15">
-                            <a href="javascript:void(0)" class="ads-btn">전체</a>
-                            <a href="javascript:void(0)" class="ads-btn" th:each="sc : ${storeCategory}"><th:block th:text="${sc.storeCategoryName}">도서</th:block></a>
-<!--                            <a href="javascript:void(0)" class="ads-btn">전시</a>-->
-<!--                            <a href="javascript:void(0)" class="ads-btn">영화</a>-->
-<!--                            <a href="javascript:void(0)" class="ads-btn">관광</a>-->
-<!--                            <a href="javascript:void(0)" class="ads-btn">체육</a>-->
-<!--                            <a href="javascript:void(0)" class="ads-btn">디지털 컨텐츠</a>-->
+                            <a href="javascript:void(0)" class="ads-btn" role="tab" data-tab="0" id="default">전체</a>
+                            <a href="javascript:void(0)" class="ads-btn" role="tab" th:data-tab="${i.count}" th:each="sc, i : ${storeCategory}">
+                                <th:block th:text="${sc.storeCategoryName}"></th:block>
+                            </a>
                         </div>
                         <div class="area-util">
                             <div class="align-box">
@@ -382,7 +410,7 @@
                                 </div>
                             </div>
                             <form th:action="@{/user/contents/contentsDetail}" method="get" style="all:unset">
-                            <div class="list-search">
+                                <div class="list-search">
                                     <div class="form-box">
                                         <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
                                             <option value="all">장르 전체</option>
@@ -422,7 +450,7 @@
                             </form>
                         </div>
                     </div>
-                     <!-- category wrapper -->
+                    <!-- category wrapper -->
                     <div class="category-wrapper">
                         <div class="row">
                             <!-- left-wrapper  -->
