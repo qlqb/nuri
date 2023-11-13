@@ -26,6 +26,13 @@ public class UserService {
         return userList;
     }
 
+    public List<User> userSearchList(String searchKey, String searchValue) {
+
+        List<User> userSearchList = userMapper.userSearchList(searchKey, searchValue);
+
+        return userSearchList;
+    }
+
     // 관리자 계정 가입
     public void adminRegister (User user) {
         userMapper.adminRegister(user);

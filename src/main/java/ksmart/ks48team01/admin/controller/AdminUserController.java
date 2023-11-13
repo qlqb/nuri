@@ -1,5 +1,6 @@
 package ksmart.ks48team01.admin.controller;
 
+import com.google.gson.Gson;
 import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.dto.User;
 import ksmart.ks48team01.service.AreaService;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 회원 관련 CRUD 처리
@@ -45,6 +48,37 @@ public class AdminUserController {
 		model.addAttribute("userList", userList);
 
 		return "admin/user/userInfoList";
+	}
+
+
+	@ResponseBody
+	@PostMapping("/userSearchList")
+	public String userSearchList(@RequestBody Map<String, Object> paramMap) {
+
+		Gson gson = new Gson();
+		List<User> userSearchList;
+
+		System.out.println(paramMap);
+		String searchKey = (String) paramMap.get("searchKey");
+        searchKey = switch (searchKey) {
+            case "userLevel" -> "U.USER_LEVEL_NAME";
+            case "userId" -> "U.USER_ID";
+            case "userName" -> "U.USER_NAME";
+            case "userEmail" -> "U.USER_EMAIL";
+            case "userContent" -> "U.USER_CONTACT";
+            default -> searchKey;
+        };
+
+		String searchValue = (String) paramMap.get("searchValue");
+		System.out.println(searchKey + " / " + searchValue);
+
+		if(searchValue != null) {
+			userSearchList = userService.userSearchList(searchKey, searchValue);
+		} else {
+			userSearchList = userService.getUserList();
+		}
+
+		return gson.toJson(userSearchList);
 	}
 
 	@GetMapping("/adminRegister")

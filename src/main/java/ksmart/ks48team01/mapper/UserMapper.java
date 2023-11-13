@@ -22,6 +22,8 @@ public interface UserMapper {
     
     // 사용자 등록
     public void memberRegister(User user);
+
+    public List<User> userSearchList(String searchKey, String searchValue);
     
     
     // 사용자 문화누리카드 등록정보 삭제

@@ -69,35 +69,32 @@
               <br />
               <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                 <div class="form-group">
-                  <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">항목</label>
+                  <label for="searchKey" class="control-label col-md-3 col-sm-3 col-xs-12">항목</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" name="userInfoSearch" required>
-                      <option value="userId">권한</option>
-                      <option value="press">아이디</option>
-                      <option value="net">이름</option>
-                      <option value="mouth">이메일</option>
-                      <option value="mouth">연락처</option>
-                      <option value="mouth">주소</option>
+                    <select id="searchKey" class="form-control" name="searchKey" required>
+                      <option value="">선택</option>
+                      <option value="userLevel">권한</option>
+                      <option value="userId">아이디</option>
+                      <option value="userName">이름</option>
+                      <option value="userEmail">이메일</option>
+                      <option value="userContact">연락처</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
+                  <label for="searchValue" class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                    <input id="searchValue" class="form-control col-md-7 col-xs-12" type="text" name="searchValue">
                   </div>
                 </div>
-
-
                 <div class="ln_solid"></div>
                 <div class="form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                     <button class="btn btn-primary" type="button">취소</button>
-                    <button class="btn btn-primary" type="button">초기화</button>
-                    <button type="submit" class="btn btn-success">검색</button>
+                    <button class="btn btn-primary" type="reset">초기화</button>
+                    <button id="searchBtn" type="button" class="btn btn-success">검색</button>
                   </div>
                 </div>
-
               </form>
             </div>
           </div>
@@ -116,7 +113,6 @@
             <div class="x_content">
               <p class="text-muted font-13 m-b-30">
                 키워드로 검색한 결과</p>
-
               <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                 <thead>
                   <tr>
@@ -157,8 +153,50 @@
         </div>
       </div>
 
-    </th:block>
+      <script>
+        console.log('바보')
 
+        const $searchBtn = document.querySelector('#searchBtn');
+        const $searchKey = document.querySelector('#searchKey');
+        const $searchValue = document.querySelector('#searchValue');
+        const searchListUrl = 'http://localhost/admin/user/userSearchList';
+        let key = "";
+        let value = "";
+
+        $searchBtn.addEventListener('click', () => {
+          key = $searchKey.value;
+          let value = $searchValue.value;
+          search(key, value)
+        })
+
+        function search (key, value) {
+          console.log(key, value);
+          fetch(searchListUrl, {
+            method : "POST",
+            headers : {
+              "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({
+              searchKey : key,
+              searchValue : value
+            })
+          })
+                  .then((response) => response.json())
+                  .then((result) => console.log(result));
+        }
+
+
+
+
+
+
+
+
+
+
+      </script>
+
+    </th:block>
 
 
   </body>

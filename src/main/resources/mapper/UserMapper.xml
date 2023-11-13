@@ -45,6 +45,30 @@
             USER_INFO AS U;
     </select>
 
+    <select id="userSearchList" resultType="User" parameterType="String">
+    SELECT
+        U.USER_ID AS userId,
+        U.LEVEL_ID AS levelId,
+        U.USER_LEVEL_NAME AS userLevelName,
+        U.DISTRICT_CODE AS districtCode,
+        U.REGION_CODE AS regionCode,
+        U.USER_PW AS userPw,
+        U.USER_NAME AS userName,
+        U.USER_BIRTH AS userBirth,
+        U.USER_ADDRESS AS userAddress,
+        U.USER_CONTACT AS userContact,
+        U.USER_EMAIL AS userEmail,
+        U.USER_RECENT_LOGIN AS userRecentLogin,
+        U.USER_REGDATE AS userRegDate,
+        U.USER_STAT AS userStat,
+        U.SSO_TYPE AS ssoType
+    FROM
+        USER_INFO AS U
+    WHERE
+        ${searchKey} LIKE CONCAT('%',#{searchValue},'%');
+    </select>
+
+
     <!--  입력받은 관리자 Form 전송   -->
     <insert id="adminRegister" parameterType="User">
         INSERT INTO USER_INFO
