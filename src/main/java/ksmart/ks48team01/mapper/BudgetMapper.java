@@ -24,4 +24,7 @@ public interface BudgetMapper {
     //전국 단위 예산 검색 조회
     public List<Budget> getBudgetListByYear();
 
+    //연도 중복 체크
+    public boolean yearCheck(String applyYear);
+
 }

@@ -40,4 +40,8 @@ public class BudgetService {
     public List<Budget> getBudgetListByYear(){
         return budgetMapper.getBudgetListByYear();
     }
+
+    public boolean yearCheck(String applyYear){
+        return budgetMapper.yearCheck(applyYear);
+    }
 }

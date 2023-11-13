@@ -21,6 +21,18 @@ public class AdminBudgetController {
 		this.budgetService = budgetService;
 	}
 
+	/**
+	 * 연도 중복체크 (ajax 요청 응답)
+	 * @param applyYear (입력받은 연도)
+	 * @return @ResponseBody 응답시 body 영역에 응답한 데이터를 전달
+	 */
+	@PostMapping("/yearCheck")
+	@ResponseBody
+	public boolean yearCheck(@RequestParam(name="applyYear") String applyYear) {
+
+		log.info("yearCheck Controller - applyYear : {}", applyYear);
+        return budgetService.yearCheck(applyYear);
+	}
 
 	/**
 	 * 전국 단위 예산 등록 처리
@@ -67,15 +79,9 @@ public class AdminBudgetController {
 	 * @return
 	 */
 	@GetMapping(value={"budgetInfo"})
-	public String budgetInfo(Model model, @RequestParam(name="ApplyYear", required=false, defaultValue = "") String applyYear) {
+	public String budgetInfo(Model model) {
 
-		List<Budget> budgetTotalList = null;
-
-		if(applyYear != null){
-			budgetTotalList = budgetService.getBudgetListByYear();
-		}else{
-			budgetTotalList = budgetService.getBudgetTotalList();
-		}
+		List<Budget> budgetTotalList = budgetService.getBudgetTotalList();
 
 		model.addAttribute("budgetTotalList", budgetTotalList);
 		model.addAttribute("title", "예산조회");
