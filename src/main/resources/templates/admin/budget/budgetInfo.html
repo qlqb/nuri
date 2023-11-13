@@ -29,7 +29,7 @@
 							isValid = false;
 							let $elementId = $(`label[for="searchYear"]`).text();
 							alert(`${$elementId} <-- 필수 입력 항목입니다.`);
-							console.log("유효성 검사 : "+isValid);
+							console.log("유효성 검사 : " + isValid);
 							return isValid;
 						}
 					}
@@ -49,8 +49,53 @@
 					}
 				});
 
-				//체크한 항목의 수정 페이지로 이동(한 개만 체크 가능)
+				//전체 체크 + 전체 체크 해제
+				$('#check-all').click(function(){
+					if($('#check-all').prop("checked")){
+						//전체 체크
+						$("input[name='checkEle']").prop("checked", true);
+					}else{
+						//전체 체크 해제
+						$("input[name='checkEle']").prop("checked", false);
+					}
+				})
 
+				//체크한 항목의 수정 페이지로 이동(한 개만 체크 가능)
+				$('#budgetUpdate').click(function () {
+					//allCheck 말고 리스트 각 행의 checkbox 행에 name="checkEle" 추가함
+
+					//체크된 값의 개수 카운팅
+					let count = $("input[name='checkEle']:checked").length;
+					console.log("체크된 행의 수 : " + count);
+
+					if(count === 0){
+						//체크된 값 없이 버튼만 누른 경우 수정 불가
+						alert("수정할 행을 선택해주세요");
+					}else if(count > 1){
+						//여러 개 체크된 경우 수정 불가
+						alert("수정할 한 개의 행만 선택해주세요");
+					}else{
+						//한 개의 행만 체크된 경우 해당 행의 연도를 수정 Form으로 전달
+						alert("대충 수정페이지로 이동한다는 내용");
+					}
+
+					//const checkedEles = $('input[type="checkbox"]:checked').next();
+
+
+				});
+
+				//체크한 항목 삭제(여러 행 한 번에 삭제)
+				$('#budgetDelete').click(function () {
+					//체크된 값의 개수 카운팅
+					let count = $("input[name='checkEle']:checked").length;
+					console.log("체크된 행의 수 : " + count);
+					if(count == 0){
+						alert("삭제할 행을 선택해주세요");
+					}else{
+						alert("삭제(곧 만들 예정)");
+					}
+
+				});
 
 			});
 		</script>
@@ -123,7 +168,7 @@
 									 <td colspan="7">등록된 예산 목록이 없습니다</td>
 								 </tr>
 				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
-				                   <td><input type="checkbox" class="flat"></td>
+				                   <td><input type="checkbox" class="flat" name="checkEle"></td>
 									 <td th:text="${l.applyYear}"></td>
 									 <td th:text="${l.budgetTotalAmount}"></td>
 									 <td th:text="${l.budgetByPerson}"></td>
@@ -137,8 +182,7 @@
 							<div class="ln_solid"></div>
 	                      	<div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-									<button type="button" id="budgetUpdate" class="btn btn-primary"
-											th:onclick="'location.href=\''+@{/admin/budget/budgetUpdate}+'\''">수정</button>
+									<button type="button" id="budgetUpdate" class="btn btn-primary">수정</button>
 		                            <button type="button" id="budgetDelete" class="btn btn-success">삭제</button>
 		                        </div>
 	                      	</div>
