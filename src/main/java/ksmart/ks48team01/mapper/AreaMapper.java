@@ -1,5 +1,6 @@
 package ksmart.ks48team01.mapper;
 
+import ksmart.ks48team01.dto.Department;
 import ksmart.ks48team01.dto.District;
 import ksmart.ks48team01.dto.DistrictDep;
 import ksmart.ks48team01.dto.Region;
@@ -30,6 +31,11 @@ public interface AreaMapper {
     public List<District> getDistrictListByRegion(String regionCode);
 
 
+    /**
+     * 
+     * @return region, district, district의 department 정보 반환
+     */
     public List<DistrictDep> getDistrictDepartmentList();
+
 
 }

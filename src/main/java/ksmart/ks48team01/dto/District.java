@@ -13,6 +13,15 @@ public class District {
     private String regionCode;
 
     private String districtName;
+    private String regionName;
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
 
     public String getDistrictCode() {
         return districtCode;
@@ -44,6 +53,7 @@ public class District {
         sb.append("districtCode='").append(districtCode).append('\'');
         sb.append(", regionCode='").append(regionCode).append('\'');
         sb.append(", districtName='").append(districtName).append('\'');
+        sb.append(", regionName='").append(regionName).append('\'');
         sb.append('}');
         return sb.toString();
     }

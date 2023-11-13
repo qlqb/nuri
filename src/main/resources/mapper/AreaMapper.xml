@@ -24,11 +24,16 @@
 
     <select id="getDistrictList" resultType="District">
         SELECT
-            DISTRICT_CODE AS districtCode,
-            REGION_CODE AS regionCode,
-            DISTRICT_NAME AS districtName
+            D.DISTRICT_CODE AS districtCode,
+            R.REGION_CODE AS regionCode,
+            R.REGION_NAME AS regionName,
+            D.DISTRICT_NAME AS districtName
         FROM
-            DISTRICT
+            DISTRICT AS D
+        INNER JOIN
+            REGION AS R
+        ON
+            D.REGION_CODE = R.REGION_CODE;
     </select>
 
     <select id="getDistrictListByRegion" resultMap="districtResultMap" parameterType="String">
@@ -43,13 +48,23 @@
     </select>
 
     <select id="getDistrictDepartmentList" resultType="DistrictDep">
-        select
-            district_dep_code AS districtDepCode,
-            region_code AS regionCode,
-            district_code AS districtCode,
-            district_dep_name AS districtDepName
-        from
-            DISTRICT_DEP
+        SELECT
+            R.REGION_CODE AS regionCode,
+            D.DISTRICT_CODE AS districtCode,
+            P.DISTRICT_DEP_CODE AS districtDepCode,
+            R.REGION_NAME AS regionName,
+            D.DISTRICT_NAME AS districtName,
+            P.DISTRICT_DEP_NAME AS districtDepName
+        FROM
+            DISTRICT AS D
+        INNER JOIN
+            REGION AS R
+        ON
+            D.REGION_CODE = R.REGION_CODE
+        INNER JOIN
+            DISTRICT_DEP AS P
+        ON
+            D.DISTRICT_CODE = P.DISTRICT_CODE;
     </select>
 
 

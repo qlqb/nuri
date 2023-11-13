@@ -4,34 +4,136 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.ks48team01.mapper.StoreMapper">
 
-    <resultMap type="Store" id="storeInfoResultMap">
+
+    <resultMap id="adminStoreResultMap" type="Store">
+        <id property="storeId" column="STORE_ID"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="corporationNumber" column="CORPORATION_NUMBER"/>
+        <result property="businessNumber" column="BUSINESS_NUMBER"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeContact" column="STORE_CONTACT"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="openingTime" column="OPENING_TIME"/>
+        <result property="storeRegDate" column="STORE_REG_DATE"/>
+    </resultMap>
+
+    <!--  유저 페이지 가맹점 조회 resultMap  -->
+    <resultMap id="userStoreResultMap" type="Store">
         <id property="storeId" column="STORE_ID"/>
         <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
         <result property="districtCode" column="DISTRICT_CODE"/>
         <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
         <result property="storeName" column="STORE_NAME"/>
+        <result property="storeContact" column="STORE_CONTACT"/>
         <result property="storeRegDate" column="STORE_REG_DATE"/>
     </resultMap>
 
-    <select id="getStoreAllKeyword" resultMap="storeInfoResultMap">
+
+
+
+    <!--  가맹점 페이지에서 가맹점 정보 전체조회 쿼리  -->
+    <select id="getStoreListForAdmin" resultType="Store">
+        SELECT
+            SI.STORE_ID AS storeId,
+            SI.USER_ID AS userId,
+            UI.USER_NAME AS userName,
+            SI.STORE_CATEGORY_CODE AS storeCategoryCode,
+            SI.DISTRICT_CODE AS districtCode,
+            SI.STORE_CATEGORY_NAME AS storeCategoryName,
+            SI.BUSINESS_NUMBER AS businessNumber,
+            SI.CORPORATION_NUMBER AS corporationNumber,
+            SI.STORE_NAME AS storeName,
+            SI.STORE_CONTACT AS storeContact,
+            UI.USER_EMAIL AS userEmail,
+            SI.STORE_ADDRESS AS storeAddress,
+            SI.OPENING_TIME AS openingTime,
+            SI.STORE_REG_DATE AS storeRegDate
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON SI.USER_ID = UI.USER_ID;
+    </select>
+
+    <select id="storeSearchList" resultType="Store" parameterType="String">
+        SELECT
+            SI.STORE_ID AS storeId,
+            SI.USER_ID AS userId,
+            UI.USER_NAME AS userName,
+            SI.STORE_CATEGORY_CODE AS storeCategoryCode,
+            SI.DISTRICT_CODE AS districtCode,
+            SI.STORE_CATEGORY_NAME AS storeCategoryName,
+            SI.BUSINESS_NUMBER AS businessNumber,
+            SI.CORPORATION_NUMBER AS corporationNumber,
+            SI.STORE_NAME AS storeName,
+            SI.STORE_CONTACT AS storeContact,
+            UI.USER_EMAIL AS userEmail,
+            SI.STORE_ADDRESS AS storeAddress,
+            SI.OPENING_TIME AS openingTime,
+            SI.STORE_REG_DATE AS storeRegDate
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        WHERE
+            ${searchKey} LIKE CONCAT('%',#{searchValue},'%');
+    </select>
+
+    <select id="getSpecificStoreInfo" resultType="Store" parameterType="String">
+        SELECT
+            SI.STORE_ID AS storeId,
+            SI.USER_ID AS userId,
+            UI.USER_STAT AS userStat,
+            UI.USER_NAME AS userName,
+            SI.STORE_CATEGORY_CODE AS storeCategoryCode,
+            SI.DISTRICT_CODE AS districtCode,
+            SI.STORE_CATEGORY_NAME AS storeCategoryName,
+            SI.BUSINESS_NUMBER AS businessNumber,
+            SI.CORPORATION_NUMBER AS corporationNumber,
+            SI.STORE_NAME AS storeName,
+            SI.STORE_CONTACT AS storeContact,
+            UI.USER_EMAIL AS userEmail,
+            SI.STORE_ADDRESS AS storeAddress,
+            SI.OPENING_TIME AS openingTime,
+            SI.STORE_REG_DATE AS storeRegDate
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        WHERE
+            SI.STORE_ID = #{storeId};
+    </select>
+
+
+    <!--  유저 페이지에서 가맹점 키워드 전체조회 쿼리  -->
+    <select id="getStoreKeywordAll" resultMap="userStoreResultMap">
         SELECT
             STORE_ID,
             STORE_CATEGORY_CODE,
             STORE_CATEGORY_NAME,
             DISTRICT_CODE,
             STORE_NAME,
+            STORE_CONTACT,
             STORE_REG_DATE
         FROM
             STORE_INFO;
     </select>
 
-    <select id="getStoreKeyword" resultMap="storeInfoResultMap" parameterType="String">
+    <!--  유저 페이지에서 가맹점의 특정 키워드 조회를 위한 쿼리  -->
+    <select id="getStoreKeyword" resultMap="userStoreResultMap" parameterType="String">
         SELECT
             STORE_ID,
             STORE_CATEGORY_CODE,
             STORE_CATEGORY_NAME,
             DISTRICT_CODE,
             STORE_NAME,
+            STORE_CONTACT,
             STORE_REG_DATE
         FROM
             STORE_INFO

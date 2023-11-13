@@ -12,7 +12,7 @@
 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 	<th:block layout:fragment="customContents">
 		<h1>userInfoDelete.html</h1>
-		<form th:action="@{/admin/region/regionDelete}" method="post">
+		<form th:action="@{/templates/admin/area/regionDelete}" method="post">
 			<input type="hidden" name="userId" value="id001">
 			<input type="hidden" name="userPw" value="pw001">
 			<button type="submit">삭제전송</button>
@@ -43,8 +43,8 @@
 						</div>
 						<div class="item form-group">
 							<div class="col-md-6 col-sm-6 offset-md-3">
-								<a th:action="@{/admin/region/depDelete}" class="btn btn-danger" type="button">회원삭제</a>
-								<a th:href="@{/admin/region/depList}">목록으로</a>
+								<a th:action="@{/templates/admin/area/depDelete}" class="btn btn-danger" type="button">회원삭제</a>
+								<a th:href="@{/templates/admin/area/depList}">목록으로</a>
 							</div>
 						</div>
 					</div>

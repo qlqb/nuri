@@ -1,82 +1,131 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{/admin/layout/default}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/default}">
 
-	<th:block layout:fragment="customJs">
-		<script th:src="@{/js/jquery-3.7.1.js}"></script>
-	</th:block>
-		<th:block>
-	<script>
-		$(function(){
-			function validationCheck(input){
-				let isValid=true;
-				if(typeof input == 'object'){
-					$.each(input, function(){
-						let checkValue = $(this).val();
-  							if(checkValue == null || checkValue == '' || typeof checkValue == 'undefined'){
-  		  						isValid = false;
-  		  						let eleId = $(this).attr('id');
-  		  						let cate = $(`label[for="${eleId}"]`).text();
-  		  						$(this).focus();
-  		  						return isValid;
-  							}
-					});
-				}else{
-					if(input == null || input == '' || typeof input == 'undefined') {
-						isValid=false;
-					}
-				}
-				return isValid;
-			}
-			//option 값에 입력을 안했다면 option에도 입력 안했다는 메세지를 출력하게 해야 함.
-		});
-		</script>
-	</th:block>
-  <body id="page-top">
+<th:block layout:fragment="customJs">
+    <script th:src="@{/js/jquery-3.7.1.js}"></script>
+</th:block>
 
-	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
-	<th:block layout:fragment="customContents">
-		<div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
+<body id="page-top">
 
-                    <!-- start form for validation -->
-                    <form id="demo-form" data-parsley-validate="form-horizontal form-label-left" required="required">
-                     <label for="memberId">회원아이디</label>
-                      <input type="text" id="memberId" class="form-control" name="mId"  readonly="readonly"/><br>
-                      <label for="storeName">가맹점명</label>
-                      <input type="text" id="storeName" class="form-control" name="sName" required="required" readonly="readonly"/><br>
-                      <label for="storeAddr">가맹점주소</label>
-                      <input type="text" id="storeAddr" class="form-control" name="sAddr" data-parsley-trigger="change" required="required" /><br>
-                      <label for="businessName">사업자명</label>
-                      <input type="text" id="businessName" class="form-control" name="bName" data-parsley-trigger="change" readonly="readonly"/><br>
-					   <label for="contentsCate">업종</label>
-					   <select id="heard" class="form-control" required="required" readonly="readonly">
-                            <option value="contentsSelect">선택하시오</option>
-                            <option value="book">도서</option>
-                            <option value="perform">전시</option>
-                            <option value="movie">영화</option>
-                            <option value="tour">관광</option>
-                            <option value="sports">체육</option>
-                            <option value="OTT">디지털 컨텐츠</option>
-                          </select><br>
-                      <label for="businessNumber">사업자번호</label>
-                      <input type="text" id="businessNum" class="form-control" name="businNum" data-parsley-trigger="change" required="required"></input><br>
-                      <label for="companyNumber">법인번호</label>
-                      <input type="text" id="companyNum" class="form-control" name="companyNum" data-parsley-trigger="change" required="required"></input><br>
-                      <label for="storeModifyDate">가맹점 정보 수정일</label>
-                      <input type="Date" id="ModifyDate" class="form-control" name="storeModifyDate" data-parsley-trigger="change" readonly="readonly"></input><br>
+<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+<th:block layout:fragment="customContents">
 
-                          <br/>
-                          <button type="submit" id="addStoreBtn" a th:href="@{/admin/store/aStoreList}" class="btn btn-primary">가맹점 정보 수정</button>
+    <!-- 삭제 확인 메시지 모달 시작 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form th:action="@{/admin/user/storeInfoDelete}" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel">가맹점 삭제</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <label for="checkPw">삭제 확인을 위해 비밀번호 입력
+                            <input id="checkPw" class="form-control text-center" type="password" name="checkPw"/>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">삭제</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 삭제 확인 메시지 모달 끝 -->
+
+    <!-- 가맹점 수정 Form 시작  -->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Form Elements</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Form Design <small>different form elements</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                        <div class="form-group">
+                            <label for="storeId" class="control-label col-md-3 col-sm-3 col-xs-12">가맹점 아이디</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="storeId" class="form-control col-md-7 col-xs-12" type="text"
+                                       name="userId" th:value="${specificStoreInfo.storeId}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userName" class="control-label col-md-3 col-sm-3 col-xs-12">가맹점명</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="userName" class="form-control col-md-7 col-xs-12" type="text"
+                                       name="userName" th:value="${specificStoreInfo.storeName}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail" class="control-label col-md-3 col-sm-3 col-xs-12">가맹점 회원명</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="userEmail" class="form-control col-md-7 col-xs-12" type="text"
+                                       name="userEmail" th:value="${specificStoreInfo.userName}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userId" class="control-label col-md-3 col-sm-3 col-xs-12">회원 아이디</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="userId" class="form-control col-md-7 col-xs-12" type="text"
+                                       name="userId" th:value="${specificStoreInfo.userId}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="storeCategory" class="control-label col-md-3 col-sm-3 col-xs-12">가맹점 분류</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="storeCategory" class="form-control">
+                                    <option value="" disabled>가맹점 분류를 입력해주세요</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userAddress" class="control-label col-md-3 col-sm-3 col-xs-12">상세주소 1</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="userAddress" class="form-control col-md-7 col-xs-12" type="text"
+                                       name="userAddress" th:value="${specificStoreInfo.storeAddress}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userSubAddress" class="control-label col-md-3 col-sm-3 col-xs-12">상세주소 2</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="userSubAddress" class="form-control col-md-7 col-xs-12" type="text" name="userSubAddress">
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">삭제</button>
+                                <button class="btn btn-primary" type="button">취소</button>
+                                <button class="btn btn-primary" type="reset">초기화</button>
+                                <button type="submit" class="btn btn-success">수정</button>
+                            </div>
+                        </div>
 
                     </form>
-                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 가맹점 수정 Form 시작  -->
 
-                  </div>
-	</th:block>
+    <script src="/admin/js/customjs/district-list.js"></script>
 
-  </body>
+</th:block>
+
+
+</body>
+
 
 </html>
