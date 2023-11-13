@@ -77,7 +77,6 @@
 
     </insert>
 
-
 <!--    <select id="getBudgetRegionList" resultMap="budgetRegionResultMap">-->
 <!--        /* 연도별 각 지역 예산, 지원 대상 인구 수 */-->
 <!--        SELECT-->
@@ -97,6 +96,15 @@
 <!--            ON-->
 <!--            r.REGION_CODE = b.REGION_CODE;-->
 <!--    </select>-->
+    <select id="yearCheck" parameterType="String" resultType="boolean">
+        /* 연도 중복 여부 검색 */
+        SELECT
+            COUNT(APPLY_YEAR)
+        FROM
+            BUDGET_TOTAL
+        WHERE
+            APPLY_YEAR = #{applyYear}
+    </select>
 
 
 </mapper>

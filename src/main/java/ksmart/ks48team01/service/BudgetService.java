@@ -36,4 +36,12 @@ public class BudgetService {
     public void addBudgetRegion(Budget budget) {
         budgetMapper.addBudgetRegion(budget);
     }
+
+    public List<Budget> getBudgetTotalSearch(String searchYear){
+        return budgetMapper.getBudgetTotalSearch(searchYear);
+    }
+
+    public boolean yearCheck(String applyYear){
+        return budgetMapper.yearCheck(applyYear);
+    }
 }

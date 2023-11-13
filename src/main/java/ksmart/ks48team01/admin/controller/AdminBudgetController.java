@@ -4,12 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ksmart.ks48team01.dto.Budget;
 import ksmart.ks48team01.service.BudgetService;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -24,6 +21,18 @@ public class AdminBudgetController {
 		this.budgetService = budgetService;
 	}
 
+	/**
+	 * 연도 중복체크 (ajax 요청 응답)
+	 * @param applyYear (입력받은 연도)
+	 * @return @ResponseBody 응답시 body 영역에 응답한 데이터를 전달
+	 */
+	@PostMapping("/yearCheck")
+	@ResponseBody
+	public boolean yearCheck(@RequestParam(name="applyYear") String applyYear) {
+
+		log.info("applyYear : {}", applyYear);
+        return budgetService.yearCheck(applyYear);
+	}
 
 	/**
 	 * 전국 단위 예산 등록 처리
@@ -34,6 +43,7 @@ public class AdminBudgetController {
 	public String budgetRegist(Budget budget){
 
 		log.info("예산 등록 Budget : {}", budget);
+		System.out.println(budget);
 		budgetService.addBudgetTotal(budget);
 
 		return "redirect:/admin/budget/budgetInfo";
@@ -44,7 +54,7 @@ public class AdminBudgetController {
 	 * @param budget
 	 * @return 각 지역 예산 조회 페이지로 이동
 	 */
-	@PostMapping("/budgetRegistRegion")
+	@PostMapping("/budgetInfoRegion")
 	public String addBudgetRegion(Budget budget){
 
 		log.info("예산 등록 Budget : {}", budget);
@@ -66,12 +76,20 @@ public class AdminBudgetController {
 	/**
 	 * 전국 단위 예산 조회
 	 * @param model
-	 * @return
+	 * @return view => budget/budgetInfo 예산 목록 페이지
 	 */
 	@GetMapping(value={"budgetInfo"})
-	public String budgetInfo(Model model) {
+	public String budgetInfo(Model model,
+							 @RequestParam(name="searchYear", required = false) String searchYear) {
 
-		List<Budget> budgetTotalList = budgetService.getBudgetTotalList();
+		List<Budget> budgetTotalList = null;
+		log.info("searchYear : {}", searchYear);
+
+		if(searchYear != null) {
+			budgetTotalList = budgetService.getBudgetTotalSearch(searchYear);
+		}else{
+			budgetTotalList = budgetService.getBudgetTotalList();
+		}
 
 		model.addAttribute("budgetTotalList", budgetTotalList);
 		model.addAttribute("title", "예산조회");
