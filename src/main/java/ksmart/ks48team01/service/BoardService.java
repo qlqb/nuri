@@ -29,12 +29,24 @@ public class BoardService {
         this.userMapper = userMapper;
     }
 
+
+    //검색어에 따른 회원의 목록조회
+    public List<Board> boardSearchList(String searchKey, String searchValue){
+
+        List<Board> boardSearchList = boardMapper.getBoardListBySearch(searchKey, searchValue);
+
+        return boardSearchList;
+    }
     //게시판 수정
     public void modifyBoardContents(Board board){
         boardMapper.modifyBoardContents(board);
     }
 
-
+    //특정 게시판 조회
+    public Board getBoardInfoById(String boardCode) {
+        Board boardInfo = boardMapper.getBoardInfoById(boardCode);
+        return boardInfo;
+    }
 
     //게시글 등록
     public void boardContentRegist(Board board){
@@ -61,6 +73,7 @@ public class BoardService {
 
         return boardList;
     }
+
 
 
 }

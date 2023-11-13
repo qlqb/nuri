@@ -3,12 +3,96 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/admin/layout/default}">
 
-<th:block layout:fragment="customJs">
-  <script th:src="@{/js/jquery-3.7.1.js}"></script>
+<head>
+  <style>
+    .x_content .title {
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+      -webkit-line-clamp: 1;
+    }
+    .contents {
+      overflow:hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 350px;
+      -webkit-line-clamp: 2 ;
+    }
+  </style>
+</head>
+
+<th:block layout:fragment="customJsCode">
+  <script>
+    $('.contents').each(function (){
+      if ($(this).text().length > 10) {
+        $(this).text($(this).text().substring(0, 20) + '...');
+      }
+    });
+  </script>
+
+  <script>
+    const $searchBtn = document.querySelector('#searchBtn');
+    const $searchKey = document.querySelector('#searchKey');
+    const $searchValue = document.querySelector('#searchValue');
+    const searchListUrl = 'http://localhost/admin/board/boardSearchList';
+    let key = "";
+    let value = "";
+
+    let checkBox = document.querySelector('#datatable-checkbox');
+    let $searchListTable = document.querySelector('#searchListTable');
+
+    $searchBtn.addEventListener('click', () => {
+      $searchListTable.replaceChildren();
+      key = $searchKey.value;
+      let value = $searchValue.value;
+      search(key, value)
+    })
+
+    function search (key, value) {
+      let searchRow = "";
+      console.log(key, value);
+      let tbodyData = [];
+      fetch(searchListUrl, {
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({
+          searchKey : key,
+          searchValue : value
+        })
+      })
+              .then((response) => response.json())
+              .then((result) => {
+                let searchRow = '';
+                console.log(result)
+                result.forEach((element) => {
+                  searchRow += `
+                              <tr>
+                                <td class="sorting_1">
+                                  <div class="icheckbox_flat-green" style="position: relative;">
+                                    <input type="checkbox" value="${element.boardCode}" name="check-board" class="flat" style="position: absolute; opacity: 0;">
+                                  </div>
+                                </td>
+                                <td>${element.boardCode}</td>
+                                <td>${element.boardCateCode}</td>
+                                <td>${element.userInfo.userId}</td>
+                                <td>${element.boardWritingTitle}</td>
+                                <td>${element.boardWritingContents}</td>
+                                <td>${element.boardRegDate}</td>
+                                <td>${element.boardUpdateDate}</td>
+                                <td>${element.boardContentModify}</td>
+                                <td>${element.removeBoardContents}</td>
+                            </tr>`;
+                });
+                $searchListTable.innerHTML = searchRow;
+              });
+    };
+  </script>
 </th:block>
 
 <body id="page-top">
-
 <!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 <th:block layout:fragment="customContents">
   <div class="" role="main">
@@ -16,43 +100,46 @@
     <div class="clearfix"></div>
 
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_panel">
-        <div class="x_title">
-          <h2>검색 조건</h2>
-          <a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
-          <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-          <br />
-
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-            <div class="form-group">
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">게시글 제목</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="boardTitle" name="" class="form-control col-md-7 col-xs-12">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12"> 작성자 아이디 </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="userId" name="" class="form-control col-md-7 col-xs-12">
-                </div>
-              </div>
-
-              <div class="ln_solid"></div>
-              <div class="form-group">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-                  <button type="button" class="btn btn-primary">초기화</button>
-                  <button type="submit" class="btn btn-success">검색</button>
-                </div>
-              </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>회원 조회 <small>누리컬쳐에 등록된 회원정보 </small></h2>
+              <div class="clearfix"></div>
             </div>
-          </form>
+            <div class="x_content">
+              <br />
+              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <div class="form-group">
+                  <label for="searchKey" class="control-label col-md-3 col-sm-3 col-xs-12">항목</label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select id="searchKey" class="form-control" name="searchKey" required>
+                      <option value="">선택</option>
+                      <option value="boardCateCode">게시판 카테고리</option>
+                      <option value="userId">아이디</option>
+                      <option value="userName">게시글 제목</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="searchValue" class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input id="searchValue" class="form-control col-md-7 col-xs-12" type="text" name="searchValue">
+                  </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <button class="btn btn-primary" type="button">취소</button>
+                    <button class="btn btn-primary" type="reset">초기화</button>
+                    <button id="searchBtn" type="button" class="btn btn-success">검색</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
     <div class="clearfix"></div>
 
@@ -69,30 +156,39 @@
             <tr>
               <th><input type="checkbox" id="check-all1" class="flat"></th>
               <th>게시글코드</th>
+              <th>게시글카테고리</th>
               <th>작성자 아이디</th>
               <th>게시글 제목</th>
               <th>게시글 내용</th>
               <th>작성일자</th>
               <th>수정일자</th>
+              <th>수정</th>
+              <th>삭제</th>
             </tr>
             </thead>
 
-            <tbody>
+            <tbody id="searchListTable">
             <tr th:if="${boardList == null}">
-              <td colspan="8">게시글이 없습니다.</td>
+              <td colspan="9">게시글이 없습니다.</td>
             </tr>
             <tr th:unless="${boardList == null}" th:each="l : ${boardList}">
-              <td><input type="checkbox" id="check-all2" class="flat"></td>
+              <td><input type="checkbox" class="flat"></td>
               <td th:text="${l.boardCode}"></td>
+              <!--boardCateName 들고와야됨-->
+              <td th:text="${l.boardCateCode}"></td>
               <th:block th:object="${l.userInfo}">
                 <td th:text="*{userId}"></td>
               </th:block>
-              <td th:text="${l.boardWritingTitle}"></td>
-              <td th:utext="${l.boardWritingContents}"></td>
-
-              <!--date형식 바꿔야됨!!-->
-              <td th:text="${l.boardRegDate}"></td>
-              <td th:text="${l.boardUpdateDate}"></td>
+              <td class="title" th:text="${l.boardWritingTitle}"></td>
+              <td class="contents" th:utext="${l.boardWritingContents}"></td>
+              <td class="regDate" th:text="${l.boardRegDate}"></td>
+              <td class="updateDate" th:text="${l.boardUpdateDate}"></td>
+              <td>
+                <a th:href="@{/admin/board/boardContentModify(boardCode=${l.boardCode})}"/>수정
+              </td>
+              <td>
+                <a th:href="@{/board/removeBoardContents(boardCode=${l.boardCode})}">삭제</a>
+              </td>
 
             </tr>
 
@@ -100,8 +196,8 @@
             </tbody>
           </table>
           <div class="pull-right">
-            <button type="button"> 수정</button>
-            <button type="button"> 삭제</button>
+            <button type="button" class="btn btn-success">수정</button>
+            <button type="button" class="btn btn-danger">삭제</button>
           </div>
         </div>
       </div>

@@ -9,8 +9,14 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
+    //검색조건에 따른 게시판목록 조회
+    public List<Board> getBoardListBySearch(String searchKey, String searchValue);
+
     //게시판 수정
-    public String modifyBoardContents(Board board);
+    public int modifyBoardContents(Board board);
+
+    //특정 게시판 조회
+    public Board getBoardInfoById(String boardCode);
 
     //게시글 등록
     public int boardContentRegist(Board board);
