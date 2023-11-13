@@ -11,42 +11,47 @@
 		<script>
 			$(function() {
 				//유효성 검사
-				const validationCheck = function (data){
+				function validationCheck(data) {
 					let isValid = true;
-					if(typeof data == "object") {
+					if (typeof data == "object") {
 						$.each(budget, function (key, value) {
 							if (value == null || value == '' || typeof value == 'undefined') {
-								//입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
 								isValid = false;
-								//유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
-								console.log(`${key} + ${value}`);
 								let elementId = $(`label[for="${key}"]`).text();
 								alert(`${elementId} <-- 필수 입력 항목입니다.`);
 								$(`input[id="${key}"]`).focus();
-
-								console.log(isValid);
+								console.log("유효성 검사 : "+isValid);
 								return isValid;
 							}
 						});
-					}else{
+					} else {
 						if (data == null || data == '' || typeof data == 'undefined') {
 							isValid = false;
-							alert(`${`label[for="${applyYear}"]).text()`} <-- 필수 입력 항목입니다.`);
+							let $elementId = $(`label[for="searchYear"]`).text();
+							alert(`${$elementId} <-- 필수 입력 항목입니다.`);
+							console.log("유효성 검사 : "+isValid);
 							return isValid;
 						}
 					}
+					return isValid;
 				}
 
-				//검색 버튼 클릭 시
-				//1. 입력된 값의 유효성 검사
-				//2. 검색된 값과 일치하는 APPLY_YEAR 컬럼 값을 가져오기
+				//검색 버튼 클릭 시 입력한 연도의 데이터 가져오기
 				$('#budgetSearchBtn').click(function(){
-					// let $applyYear = $(input[name="applyYear"]).val();
-					// if(validationCheck($applyYear)){
-					// 	//유효성 검사 통과, selelct문 실행
-					//
-					// }
+					let $searchYear = $("#searchYear").val();
+					console.log($searchYear);
+					let isValid = validationCheck($searchYear);
+					console.log(isValid);
+					if(isValid){
+						//유효성 검사를 통과한 경우 selelct문 실행
+						console.log($searchYear);
+						$("#budgetSearchForm").submit();
+					}
 				});
+
+				//체크한 항목의 수정 페이지로 이동(한 개만 체크 가능)
+
+
 			});
 		</script>
 	</th:block>
@@ -71,9 +76,10 @@
 						
                     	<form id="budgetSearchForm" data-parsley-validate class="form-horizontal form-label-left">
 	                        <div class="form-group">
-	                        	<label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
+	                        	<label for="searchYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                         	 <input type="number" id="applyYear" name="applyYear" class="form-control col-md-7 col-xs-12">
+	                         	 <input type="number" id="searchYear" name="searchYear" class="form-control col-md-7 col-xs-12"
+								 min="2011" max="2999">
 	                        	</div>
 	                      	</div>
 
@@ -81,7 +87,7 @@
 		                      <div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
 		                          <button type="reset" class="btn btn-primary">초기화</button>
-		                          <button type="submit" id="budgetSearchBtn" class="btn btn-success">검색</button>
+		                          <button type="button" id="budgetSearchBtn" class="btn btn-success">검색</button>
 		                        </div>
 		                      </div>
                     	</form>
@@ -114,7 +120,7 @@
 		
 		               		   <tbody>
 							   	 <tr th:if="${budgetTotalList==null}">
-									 <td colspan="4">등록된 예산 목록이 없습니다</td>
+									 <td colspan="7">등록된 예산 목록이 없습니다</td>
 								 </tr>
 				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
 				                   <td><input type="checkbox" class="flat"></td>
@@ -131,9 +137,9 @@
 							<div class="ln_solid"></div>
 	                      	<div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-		                          <button type="button" class="btn btn-primary">
-									  <a th:href="@{/admin/budget/budgetUpdate}">수정</a></button>
-		                          <button type="submit" class="btn btn-success">삭제</button>
+									<button type="button" id="budgetUpdate" class="btn btn-primary"
+											th:onclick="'location.href=\''+@{/admin/budget/budgetUpdate}+'\''">수정</button>
+		                            <button type="button" id="budgetDelete" class="btn btn-success">삭제</button>
 		                        </div>
 	                      	</div>
 		           		</div>

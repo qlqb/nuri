@@ -30,7 +30,7 @@ public class AdminBudgetController {
 	@ResponseBody
 	public boolean yearCheck(@RequestParam(name="applyYear") String applyYear) {
 
-		log.info("yearCheck Controller - applyYear : {}", applyYear);
+		log.info("applyYear : {}", applyYear);
         return budgetService.yearCheck(applyYear);
 	}
 
@@ -76,12 +76,20 @@ public class AdminBudgetController {
 	/**
 	 * 전국 단위 예산 조회
 	 * @param model
-	 * @return
+	 * @return view => budget/budgetInfo 예산 목록 페이지
 	 */
 	@GetMapping(value={"budgetInfo"})
-	public String budgetInfo(Model model) {
+	public String budgetInfo(Model model,
+							 @RequestParam(name="searchYear", required = false) String searchYear) {
 
-		List<Budget> budgetTotalList = budgetService.getBudgetTotalList();
+		List<Budget> budgetTotalList = null;
+		log.info("searchYear : {}", searchYear);
+
+		if(searchYear != null) {
+			budgetTotalList = budgetService.getBudgetTotalSearch(searchYear);
+		}else{
+			budgetTotalList = budgetService.getBudgetTotalList();
+		}
 
 		model.addAttribute("budgetTotalList", budgetTotalList);
 		model.addAttribute("title", "예산조회");

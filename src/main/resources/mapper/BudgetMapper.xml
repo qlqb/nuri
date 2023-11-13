@@ -77,22 +77,6 @@
 
     </insert>
 
-    <select id="getBudgetListByYear" resultMap="budgetTotalResultMap">
-        /* 특정 연도의 예산 조회 */
-        SELECT
-            OFFICER_ID,
-            APPLY_YEAR,
-            BUDGET_BY_PERSON,
-            BUDGET_TOTAL_AMOUNT,
-            REGIST_DT,
-            UPDATE_DT
-        FROM
-            BUDGET_TOTAL
-        WHERE
-            APPLY_YEAR = #{applyYear}
-    </select>
-
-
 <!--    <select id="getBudgetRegionList" resultMap="budgetRegionResultMap">-->
 <!--        /* 연도별 각 지역 예산, 지원 대상 인구 수 */-->
 <!--        SELECT-->

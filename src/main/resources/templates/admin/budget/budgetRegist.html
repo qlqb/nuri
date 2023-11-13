@@ -31,8 +31,8 @@
                     //입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
                     isValid = false;
                     //유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
-                    let elementId = $(`label[for="${key}"]`).text();
-                    alert(`${elementId} <-- 필수 입력 항목입니다.`);
+                    let $elementId = $(`label[for="${key}"]`).text();
+                    alert(`${$elementId} <-- 필수 입력 항목입니다.`);
                     $(`input[id="${key}"]`).focus();
                     return isValid;
                   }
@@ -49,14 +49,14 @@
 
             //연도 칸의 입력 내용이 바뀔 때마다 ajax를 이용한 중복체크
             $("#applyYear").change(function (){
-              let applyYear = $("#applyYear").val();
-              console.log(applyYear);
+              let $applyYear = $("#applyYear").val();
+              console.log($applyYear);
 
               //DB에 입력되어있는 연도 정보 받아오기
               const request = $.ajax({
                 url : '/admin/budget/yearCheck',
                 method : 'POST',
-                data : {'applyYear': applyYear},
+                data : {'applyYear': $applyYear},
                 dataType : 'json'
               });
 
