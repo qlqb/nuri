@@ -42,9 +42,6 @@
 
 			});
 
-			$('#boardWritingContents').summernote('pasteHTML', data);
-
-			$("#boardWritingContents").html(data.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g,'"').replace(/&#40;/g,'(').replace(/&#41;/g,')').replace(/&#35;/g,'#')).replaceAll("(\r\n|\r|\n|\n\r)", "");
 		});
 
 
@@ -68,15 +65,6 @@
 					$('#boardContentRegist').submit();
 				}
 			})
-
-
-
-
-
-
-
-
-
 
 	</script>
 </th:block>

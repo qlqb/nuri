@@ -1,5 +1,7 @@
 package ksmart.ks48team01.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Board {
@@ -8,14 +10,35 @@ public class Board {
     private String boardWritingTitle;
     private String boardWritingContents;
     private String boardFileLink;
-    private Date boardRegDate;
-
-    private Date boardUpdateDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String boardRegDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String boardUpdateDate;
 
     //user DTO에서 가져오는 정보
     private User userInfo;
 
     private String userId;
+
+    //BoardCateGory DTO에서 가져오는 정보
+    private BoardCategory boardCategory;
+    private String boardCateName;
+
+    public BoardCategory getBoardCategory() {
+        return boardCategory;
+    }
+
+    public void setBoardCategory(BoardCategory boardCategory) {
+        this.boardCategory = boardCategory;
+    }
+
+    public String getBoardCateName() {
+        return boardCateName;
+    }
+
+    public void setBoardCateName(String boardCateName) {
+        this.boardCateName = boardCateName;
+    }
 
     public String getUserId() {
         return userId;
@@ -73,22 +96,21 @@ public class Board {
         this.boardFileLink = boardFileLink;
     }
 
-    public Date getBoardRegDate() {
+    public String getBoardRegDate() {
         return boardRegDate;
     }
 
-    public void setBoardRegDate(Date boardRegDate) {
+    public void setBoardRegDate(String boardRegDate) {
         this.boardRegDate = boardRegDate;
     }
 
-    public Date getBoardUpdateDate() {
+    public String getBoardUpdateDate() {
         return boardUpdateDate;
     }
 
-    public void setBoardUpdateDate(Date boardUpdateDate) {
+    public void setBoardUpdateDate(String boardUpdateDate) {
         this.boardUpdateDate = boardUpdateDate;
     }
-
 
     @Override
     public String toString() {
@@ -98,11 +120,14 @@ public class Board {
         sb.append(", boardWritingTitle='").append(boardWritingTitle).append('\'');
         sb.append(", boardWritingContents='").append(boardWritingContents).append('\'');
         sb.append(", boardFileLink='").append(boardFileLink).append('\'');
-        sb.append(", boardRegDate=").append(boardRegDate);
-        sb.append(", boardUpdateDate=").append(boardUpdateDate);
+        sb.append(", boardRegDate='").append(boardRegDate).append('\'');
+        sb.append(", boardUpdateDate='").append(boardUpdateDate).append('\'');
         sb.append(", userInfo=").append(userInfo);
         sb.append(", userId='").append(userId).append('\'');
+        sb.append(", boardCategory=").append(boardCategory);
+        sb.append(", boardCateName='").append(boardCateName).append('\'');
         sb.append('}');
         return sb.toString();
     }
 }
+
