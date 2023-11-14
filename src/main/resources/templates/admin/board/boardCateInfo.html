@@ -79,11 +79,10 @@
                                 <td>${element.boardCateCode}</td>
                                 <td>${element.userInfo.userId}</td>
                                 <td>${element.boardWritingTitle}</td>
-                                <td>${element.boardWritingContents}</td>
                                 <td>${element.boardRegDate}</td>
                                 <td>${element.boardUpdateDate}</td>
-                                <td>${element.boardContentModify}</td>
-                                <td>${element.removeBoardContents}</td>
+                                <td></td>
+                                <td></td>
                             </tr>`;
                 });
                 $searchListTable.innerHTML = searchRow;
@@ -104,7 +103,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>회원 조회 <small>누리컬쳐에 등록된 회원정보 </small></h2>
+              <h2>게시글 조회 </h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -117,7 +116,7 @@
                       <option value="">선택</option>
                       <option value="boardCateCode">게시판 카테고리</option>
                       <option value="userId">아이디</option>
-                      <option value="userName">게시글 제목</option>
+                      <option value="boardWritingTitle">게시글 제목</option>
                     </select>
                   </div>
                 </div>
@@ -159,7 +158,6 @@
               <th>게시글카테고리</th>
               <th>작성자 아이디</th>
               <th>게시글 제목</th>
-              <th>게시글 내용</th>
               <th>작성일자</th>
               <th>수정일자</th>
               <th>수정</th>
@@ -180,13 +178,12 @@
                 <td th:text="*{userId}"></td>
               </th:block>
               <td class="title" th:text="${l.boardWritingTitle}"></td>
-              <td class="contents" th:utext="${l.boardWritingContents}"></td>
               <td class="regDate" th:text="${l.boardRegDate}"></td>
               <td class="updateDate" th:text="${l.boardUpdateDate}"></td>
-              <td>
+              <td class="boardContentModify">
                 <a th:href="@{/admin/board/boardContentModify(boardCode=${l.boardCode})}"/>수정
               </td>
-              <td>
+              <td class="removeBoardContents">
                 <a th:href="@{/board/removeBoardContents(boardCode=${l.boardCode})}">삭제</a>
               </td>
 
