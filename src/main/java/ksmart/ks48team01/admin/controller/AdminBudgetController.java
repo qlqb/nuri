@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ksmart.ks48team01.dto.Budget;
 import ksmart.ks48team01.service.BudgetService;
-
 import java.util.List;
 
 @Controller("AdminBudgetController")
@@ -63,7 +62,7 @@ public class AdminBudgetController {
 	}
 
 	/**
-	 * 예산 등록 페이지(전국단위, 지역단위 포함)
+	 * 예산 등록 페이지(전국단위)
 	 * @param model
 	 * @return view -> budget/budgetRegist
 	 */
