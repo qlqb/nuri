@@ -1,5 +1,6 @@
 package ksmart.ks48team01.admin.controller;
 
+import ksmart.ks48team01.dto.BudgetRegion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -104,7 +105,7 @@ public class AdminBudgetController {
 	@GetMapping(value={"budgetInfoRegion"})
 	public String budgetInfoRegion(Model model) {
 
-		List<Budget> budgetRegionList = budgetService.getBudgetRegionList();
+		List<BudgetRegion> budgetRegionList = budgetService.getBudgetRegionList();
 		return "admin/budget/budgetInfoRegion";
 	}
 

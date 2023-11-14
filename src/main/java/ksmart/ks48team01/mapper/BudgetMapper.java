@@ -1,5 +1,6 @@
 package ksmart.ks48team01.mapper;
 
+import ksmart.ks48team01.dto.BudgetRegion;
 import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.dto.Budget;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,13 +14,13 @@ public interface BudgetMapper {
     public List<Budget> getBudgetTotalList();
 
     //지역 단위 예산 목록 조회
-    public List<Budget> getBudgetRegionList();
+    public List<BudgetRegion> getBudgetRegionList();
 
     //전국 단위 예산 등록
     public int addBudgetTotal(Budget budget);
 
     //지역 단위 예산 등록
-    public int addBudgetRegion(Budget budget);
+    public int addBudgetRegion(BudgetRegion budgetRegion);
 
     //전국 단위 예산 검색 조회
     public List<Budget> getBudgetTotalSearch(String searchYear);

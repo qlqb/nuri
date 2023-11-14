@@ -1,5 +1,6 @@
 package ksmart.ks48team01.service;
 
+import ksmart.ks48team01.dto.BudgetRegion;
 import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.dto.Budget;
 import ksmart.ks48team01.mapper.AreaMapper;
@@ -26,15 +27,15 @@ public class BudgetService {
         return budgetMapper.getBudgetTotalList();
     }
 
-    public List<Budget> getBudgetRegionList() {
+    public List<BudgetRegion> getBudgetRegionList() {
         return budgetMapper.getBudgetRegionList();
     }
 
     public void addBudgetTotal(Budget budget) {
         budgetMapper.addBudgetTotal(budget);
     }
-    public void addBudgetRegion(Budget budget) {
-        budgetMapper.addBudgetRegion(budget);
+    public void addBudgetRegion(BudgetRegion budgetRegion) {
+        budgetMapper.addBudgetRegion(budgetRegion);
     }
 
     public List<Budget> getBudgetTotalSearch(String searchYear){

@@ -50,15 +50,15 @@
 				});
 
 				//전체 체크 + 전체 체크 해제
-				$('#check-all').click(function(){
-					if($('#check-all').prop("checked")){
-						//전체 체크
-						$("input[name='checkEle']").prop("checked", true);
-					}else{
-						//전체 체크 해제
-						$("input[name='checkEle']").prop("checked", false);
-					}
-				})
+				// $('#check-all').click(function(){
+				// 	if($('#check-all').prop("checked")){
+				// 		//전체 체크
+				// 		$("input[name='checkEle']").prop("checked", true);
+				// 	}else{
+				// 		//전체 체크 해제
+				// 		$("input[name='checkEle']").prop("checked", false);
+				// 	}
+				// })
 
 				//체크한 항목의 수정 페이지로 이동(한 개만 체크 가능)
 				$('#budgetUpdate').click(function () {
@@ -77,9 +77,16 @@
 					}else{
 						//한 개의 행만 체크된 경우 해당 행의 연도를 수정 Form으로 전달
 						alert("대충 수정페이지로 이동한다는 내용");
+						//체크된 행의 연도 값 가져오기
+						let selectedEle = $("tr[class='selected']").children("td[class='applyYear']").val();
+						console.log(selectedEle);
+
+						//페이지 이동
+						//@{/admin/budget/budgetUpdate(applyYear=${applyYear})}
+
 					}
 
-					//const checkedEles = $('input[type="checkbox"]:checked').next();
+
 
 
 				});
@@ -169,7 +176,7 @@
 								 </tr>
 				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
 				                   <td><input type="checkbox" class="flat" name="checkEle"></td>
-									 <td th:text="${l.applyYear}"></td>
+									 <td class="applyYear" th:text="${l.applyYear}"></td>
 									 <td th:text="${l.budgetTotalAmount}"></td>
 									 <td th:text="${l.budgetByPerson}"></td>
 									 <td th:text="${l.officerId}"></td>
