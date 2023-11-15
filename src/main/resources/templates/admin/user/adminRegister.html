@@ -14,7 +14,7 @@
 
 		<div class="page-title">
 			<div class="title_left">
-				<h3>Form Elements</h3>
+				<h3>플랫폼 관리</h3>
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -23,7 +23,7 @@
 				<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Form Design <small>different form elements</small></h2>
+							<h2>관리자 등록</h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -40,6 +40,16 @@
 										<input id="userPw" class="form-control col-md-7 col-xs-12" type="password" name="userPw">
 									</div>
 								</div>
+								<span id="pwMessage"></span>
+
+								<div class="form-group">
+									<label for="checkPw" class="control-label col-md-3 col-sm-3 col-xs-12">비밀번호 확인</label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<input id="checkPw" class="form-control col-md-7 col-xs-12" type="password">
+									</div>
+								</div>
+								<span id="pwCheckMessage"></span>
+
 								<div class="form-group">
 									<label for="userName" class="control-label col-md-3 col-sm-3 col-xs-12">이름</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
@@ -91,8 +101,7 @@
 									<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 										<button class="btn btn-primary" type="button">취소</button>
 										<button class="btn btn-primary" type="reset">초기화</button>
-										<button class="btn btn-primary" type="reset">미리보기</button>
-										<button type="submit" class="btn btn-success">가입</button>
+										<button type="submit" class="btn btn-success">등록</button>
 									</div>
 								</div>
 						</div>
@@ -101,15 +110,16 @@
 			</div>
 		</div>
 
-
-
-
 		<script src="/admin/js/customjs/district-list.js"></script>
+
+		<script src="/admin/js/customjs/form-validation.js"></script>
 
 	</th:block>
 
 
   </body>
+
+
 
 
 </html>

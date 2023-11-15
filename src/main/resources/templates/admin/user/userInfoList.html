@@ -201,23 +201,62 @@
         })
         .then((response) => response.json())
         .then((result) => result.forEach((element) => {
-          searchRow += `
-          <tr>
-          <td class="sorting_1">
-            <div class="icheckbox_flat-green" style="position: relative;">
-              <input type="checkbox" value=` +  `${element.userId}` +  `name="chk-user" class="flat" style="position: absolute; opacity: 0;">
-            </div>
-          </td>
-          <td>${element.userLevelName}</td>
-          <td>${element.userId}</td>
-          <td>${element.userName}</td>
-          <td>${element.userEmail}</td>
-          <td>${element.userContact}</td>
-          <td>${element.userAddress}</td>
-          <td>${element.userRegDate}</td>
-          <td>${element.userRecentLogin}</td>
-          <td>${element.userStat}</td></tr>`
-          $searchListTable.innerHTML = searchRow;
+          const tableRow = document.createElement('tr');
+
+          const checkBoxTd = document.createElement('td');
+                checkBoxTd.setAttribute("class", "sorting_1");
+
+          const checkBoxDiv = document.createElement('div');
+                checkBoxDiv.setAttribute("class", "icheckbox_flat-green");
+                checkBoxDiv.setAttribute("style", "position : relative");
+
+          const checkBoxInput = document.createElement('input');
+                checkBoxInput.setAttribute("type", "checkbox");
+                checkBoxInput.setAttribute("value", `${element.userId}`);
+                checkBoxInput.setAttribute("name", "chk-user");
+                checkBoxInput.setAttribute("class", "flat");
+                checkBoxInput.setAttribute("style", "position : absolute; opacity : 0;");
+
+          const tdUserLevelName = document.createElement('td');
+                tdUserLevelName.appendChild(document.createTextNode(`${element.userLevelName}`));
+
+          const tdUserId = document.createElement('td');
+                tdUserId.appendChild(document.createTextNode(`${element.userId}`));
+
+          const tdUserName = document.createElement('td');
+                tdUserName.appendChild(document.createTextNode(`${element.userName}`));
+
+          const tdUserEmail = document.createElement('td');
+                tdUserEmail.appendChild(document.createTextNode(`${element.userEmail}`));
+
+          const tdUserContact = document.createElement('td');
+                tdUserContact.appendChild(document.createTextNode(`${element.userContact}`));
+
+          const tdUserAddress = document.createElement('td');
+                tdUserAddress.appendChild(document.createTextNode(`${element.userAddress}`));
+
+          const tdUserRegDate = document.createElement('td');
+                tdUserRegDate.appendChild(document.createTextNode(`${element.userRegDate}`));
+
+          const tdUserRecentLogin = document.createElement('td');
+                tdUserRecentLogin.appendChild(document.createTextNode(`${element.userRecentLogin}`));
+
+          const tdUserStat = document.createElement('td');
+                tdUserStat.appendChild(document.createTextNode(`${element.userStat}`));
+
+                tableRow.appendChild(checkBoxTd);
+                checkBoxTd.appendChild(checkBoxDiv);
+                checkBoxDiv.appendChild(checkBoxInput);
+                tableRow.appendChild(tdUserLevelName);
+                tableRow.appendChild(tdUserId);
+                tableRow.appendChild(tdUserName);
+                tableRow.appendChild(tdUserEmail);
+                tableRow.appendChild(tdUserContact);
+                tableRow.appendChild(tdUserAddress);
+                tableRow.appendChild(tdUserRegDate);
+                tableRow.appendChild(tdUserRecentLogin);
+                tableRow.appendChild(tdUserStat);
+                $searchListTable.appendChild(tableRow);
         }))
       }
 

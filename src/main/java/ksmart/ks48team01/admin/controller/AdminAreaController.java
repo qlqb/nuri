@@ -1,9 +1,7 @@
 package ksmart.ks48team01.admin.controller;
 
 import com.google.gson.Gson;
-import ksmart.ks48team01.dto.District;
 import ksmart.ks48team01.dto.DistrictDep;
-import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.service.AreaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

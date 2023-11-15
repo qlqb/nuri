@@ -11,6 +11,8 @@ public interface UserMapper {
     // 관리자 페이지 전체 회원 조회
     public List<User> getUserList();
 
+    public Boolean getUserIdCheck(String userId);
+
     // 관리자 페이지 특정 회원 상세 조회
     public User getSpecificUserList(String userId);
     
@@ -22,6 +24,8 @@ public interface UserMapper {
     
     // 사용자 등록
     public void memberRegister(User user);
+
+
 
     public List<User> userSearchList(String searchKey, String searchValue);
     
