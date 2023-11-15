@@ -29,6 +29,10 @@ public class OfficerService {
         return officerSearchList;
     }
 
+    public Officer getOfficerUpdate (String officerId) {
+        Officer officerUpdateList = officerMapper.getOfficerUpdate(officerId);
 
+        return officerUpdateList;
+    }
 
 }

@@ -1,10 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
+<!--
+author: Boostraptheme
+author URL: https://boostraptheme.com
+License: Creative Commons Attribution 4.0 Unported
+License URL: https://creativecommons.org/licenses/by/4.0/
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <!--====== Style CSS ======-->
+    <link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
+
+    <style>
+        /*.table{
+            margin : 20px 20px 20px 20px;
+            padding: 20px 20px 0px 10px;
+        }*/
+        .pb-110 {
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<th:block layout:fragment="customJs"></th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+    <!--상단배너-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">공지사항</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a>Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Board</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== CATEGORY PART START ======-->
+    <section class="category-area pb-110">
+        <div class="container">
+            <!-- category top -->
+            <div class="category-top box-style">
+                <div class="row align-items-center">
+
+                    <div class="col-md-6">
+                        <div class="left-wrapper">
+                            <div class="sorting">
+                                <label for="sort">게시판 선택</label>
+                                <select name="sort" id="sort">
+                                    <!--!!JS가 적용이 안됨-->
+                                    <option value="0">공지</option>
+                                    <option value="1">홍보</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="right-wrapper">
+
+                            <ul class="nav product-view-btns" id="myTab" role="tablist">
+                                <li class="product-view-item" role="presentation">
+                                    <a class="product-view-btn active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
+                                       aria-selected="true"><i class="lni lni-list"></i></a>
+                                </li>
+                                <li class="product-view-item" role="presentation">
+                                    <a class="product-view-btn" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
+                                       aria-selected="false"><i class="lni lni-grid-alt"></i></a>
+                                </li>
+                            </ul>
+
+                            <form action="#">
+                                <input type="text" name="search" id="search" placeholder="검색">
+                                <button><i class="lni lni-search-alt"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="right-wrapper">
+                    <div class="col-12 justify-content-center dashboard-wrapper box-style">
+                        <div class="title">
+                            <h2>가맹점</h2>
+                        </div>
+
+                        <div class="cards-wrapper pb-25 mb-15 border-bottom">
+                            <a href="javascript:void(0)" class="ads-btn active">공지</a>
+                            <a href="javascript:void(0)" class="ads-btn">홍보</a>
+                        </div>
+
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        분류
+                                    </th>
+                                    <th>
+                                        가맹점명
+                                    </th>
+                                    <th>
+                                        사업자명
+                                    </th>
+                                    <th>
+                                        연락처
+                                    </th>
+                                    <th>
+                                        주소
+                                    </th>
+                                    <th>
+                                        영업일
+                                    </th>
+                                    <th>
+                                        등록일
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="boardCate">공지</span>
+                                        </td>
+                                        <td>
+                                            <a> <span class="title">누리컬쳐 사용안내</span></a>
+                                        </td>
+                                        <td>
+                                            <span class="date">2023.11.04</span>
+                                        </td>
+                                        <td>
+                                            <span class="boardCate">공지</span>
+                                        </td>
+                                        <td>
+                                            <a> <span class="title">누리컬쳐 사용안내</span></a>
+                                        </td>
+                                        <td>
+                                            <span class="date">2023.11.04</span>
+                                        </td>
+                                        <td>
+                                            <span class="date">2023.11.04</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--게시판 테이블-->
+
+
+
+</th:block>
+
 </html>

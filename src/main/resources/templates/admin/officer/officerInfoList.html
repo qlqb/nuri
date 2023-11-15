@@ -110,8 +110,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_content">
-              <p class="text-muted font-13 m-b-30">
-                키워드로 검색한 결과</p>
+              <p class="text-muted font-13 m-b-30">아이디를 클릭하면 해당 회원의 정보를 수정할 수 있습니다</p>
               <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                 <thead>
                   <tr>
@@ -132,7 +131,9 @@
                         <input type="checkbox" class="flat" style="position: absolute; opacity: 0;">
                       </div>
                     </td>
-                    <td th:text="${list.officerId}"></td>
+                    <td>
+                      <a th:href="@{/admin/officer/officerInfoUpdate(officerId=${list.officerId})}" th:text="${list.officerId}"></a>
+                    </td>
                     <td th:text="${list.officerUserName}"></td>
                     <td th:text="${list.districtDepName}"></td>
                     <td th:text="${list.workStartDate}"></td>
@@ -193,7 +194,9 @@
                           checkBoxInput.setAttribute("class", "flat");
                           checkBoxInput.setAttribute("style", "position : absolute; opacity : 0;");
                     const tdOfficerId = document.createElement('td');
-                          tdOfficerId.appendChild(document.createTextNode(`${element.officerId}`));
+                    const anchorOfficerUpdate = document.createElement('a');
+                          anchorOfficerUpdate.setAttribute("href", `/admin/officer/officerInfoUpdate?officerId=${element.officerId}`);
+                          anchorOfficerUpdate.appendChild(document.createTextNode(`${element.officerId}`));
                     const tdOfficerUserName = document.createElement('td');
                           tdOfficerUserName.appendChild(document.createTextNode(`${element.officerUserName}`));
                     const tdDistrictDepName = document.createElement('td');
@@ -204,6 +207,7 @@
                           tdOfficerRecentLogin.appendChild(document.createTextNode(`${element.officerRecentLogin}`));
                     const tdOfficerAccountStat = document.createElement('td');
                           tdOfficerAccountStat.appendChild(document.createTextNode(`${element.officerAccountStat}`));
+                          tdOfficerId.appendChild(anchorOfficerUpdate);
                           checkBoxTd.appendChild(checkBoxDiv);
                           checkBoxDiv.appendChild(checkBoxInput);
                           tableRow.appendChild(checkBoxTd);

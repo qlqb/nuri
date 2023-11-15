@@ -85,15 +85,4 @@ public class AdminStoreController {
         return "admin/store/storeInfoUpdate";
     }
 
-    /**
-     * 관리자가 사용하는 User 페이지와 기능이 중복
-     * 추후 POST 방식 전송만 남겨두고 페이지 삭제 가능성 있음
-     * @return 가맹점 정보 등록 페이지(storeInfoRegister)
-     */
-    @GetMapping("/storeManualRegister")
-    public String storeInfoRegister() {
-
-        return "admin/store/storeManualRegister";
-    }
-
 }
