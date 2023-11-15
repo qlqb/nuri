@@ -40,7 +40,23 @@
     </select>
 
     <select id="getBudgetTotalSearch" resultMap="budgetTotalResultMap">
-        /* 연도 기준으로 검색 */
+        /* 검색된 연도의 전국 예산 조회 */
+        SELECT
+            BUDGET_NUM,
+            OFFICER_ID,
+            APPLY_YEAR,
+            BUDGET_BY_PERSON,
+            BUDGET_TOTAL_AMOUNT,
+            REGIST_DT,
+            UPDATE_DT
+        FROM
+            BUDGET_TOTAL
+        WHERE
+            APPLY_YEAR = #{searchYear}
+    </select>
+
+    <select id="getBudgetTotalByYear" resultMap="budgetTotalResultMap">
+        /* 특정 연도의 전국 예산 조회 */
         SELECT
             BUDGET_NUM,
             OFFICER_ID,
@@ -105,6 +121,20 @@
         WHERE
             APPLY_YEAR = #{applyYear}
     </select>
+
+    <update id="updateBudgetTotal" parameterType="Budget">
+        /* 전국단위 예산 수정 */
+        UPDATE BUDGET_TOTAL
+        <set>
+            OFFICER_ID = #{officerId},
+            BUDGET_BY_PERSON = #{budgetByPerson},
+            BUDGET_TOTAL_AMOUNT = #{budgetTotalAmount},
+            UPDATE_DT = CURDATE()
+        </set>
+        WHERE
+            APPLY_YEAR = #{applyYear};
+
+    </update>
 
 
 </mapper>

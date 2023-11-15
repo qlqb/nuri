@@ -9,14 +9,62 @@
 
 <th:block layout:fragment="customJsCode">
 	<script>
+		const validationCheck = function(data) {
+			let isValid = true;
+			if(typeof data == 'object'){
+				$.each(data, function (key, value) {
+					if (value == null || value == '' || typeof value == 'undefined') {
+						//입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
+						isValid = false;
+						//유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
+						let $elementId = $(`label[for="${key}"]`).text();
+						alert(`${$elementId} <-- 필수 입력 항목입니다.`);
+						$(`input[id="${key}"]`).focus();
+						return isValid;
+					}
+				});
+			}else {
+				if (data == null || data == '' || typeof data == 'undefined') {
+					isValid = false;
+				}
+			}
+			return isValid;
+		}
+
+		//초기화 버튼 누른 경우 원래 입력되어있던 값으로 변경됨
 		$("#resetBtn1").click(function(){
-			$("#inputBugetForm > div > div > input").val('');
+			$("#budgetTotalAmount").val('');
 		});
 
-		$("#resetBtn2").click(function(){
-			$("#inputBugetByRegionForm > div > div > input").val('');
-			$("#inputBugetByRegionForm > div > div > select").val('');
-		});
+		$("#budgetUpdateBtn").click(function () {
+			if(confirm("수정하시겠습니까?")){
+				//값에 변동이 생긴 경우 객체 budget에 저장
+				const budget = {
+					officerId: 'OFC231012002',
+					budgetByPerson: $("#budgetByPerson").val(),
+					budgetTotalAmount: $("#budgetTotalAmount").val()
+				}
+				console.log(budget);
+				let isValid = validationCheck(budget);
+
+				if(!isValid){
+					//유효성 검사 통과하고 연도가 중복되지 않는 경우에만 submit
+					console.log("유효성 검사 : " + isValid);
+					return false;
+
+				}else{
+					console.log("유효성 검사 : " + isValid);
+					const updateBudgetForm = $("#updateBudgetForm");
+					const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
+					updateBudgetForm.append($officerId);
+					updateBudgetForm.submit();
+				}
+				alert("수정이 완료되었습니다.");
+
+			}else{
+				alert("수정 취소");
+			}
+		})
 	</script>
 </th:block>
 
@@ -32,17 +80,26 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content" >
-				<form id="inputBugetForm" class="form-horizontal form-label-left">
+				<form id="updateBudgetForm" th:action="@{/admin/budget/budgetUpdate}" class="form-horizontal form-label-left" th:object="${budget}" method="post">
 					<div class="form-group row">
-						<label class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+						<label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
 						<div class="col-md-6 col-sm-6 col-xs-6">
-							<input type="number" class="form-control" placeholder="전국 단위 예산 금액을 입력하세요(단위 : 1억 원)">
+							<input id="applyYear" type="number" name="applyYear" class="form-control"
+							readonly="readonly" th:field="*{applyYear}">
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
+						<label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
 						<div class="col-md-6 col-sm-6 col-xs-6">
-							<input type="number" class="form-control" placeholder="1인 기준 최대 지원금액을 입력하세요(단위 : 원)">
+							<input id="budgetByPerson" type="number" class="form-control"
+								   name="budgetByPerson" th:field="*{budgetByPerson}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<input id="budgetTotalAmount" type="number" class="form-control"
+								   name="budgetTotalAmount" th:field="*{budgetTotalAmount}">
 						</div>
 					</div>
 
@@ -50,8 +107,8 @@
 
 					<div class="form-group row">
 						<div class="col-md-9 offset-md-3">
-							<button id="resetBtn1" type="button" class="btn btn-primary">초기화</button>
-							<button type="submit" class="btn btn-success">수정</button>
+							<button type="reset" class="btn btn-primary">초기화</button>
+							<button id="budgetUpdateBtn" type="button" class="btn btn-success">수정</button>
 						</div>
 					</div>
 

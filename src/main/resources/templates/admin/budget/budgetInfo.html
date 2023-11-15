@@ -38,13 +38,16 @@
 
 				//검색 버튼 클릭 시 입력한 연도의 데이터 가져오기
 				$('#budgetSearchBtn').click(function(){
-					let $searchYear = $("#searchYear").val();
-					console.log($searchYear);
-					let isValid = validationCheck($searchYear);
+					let $applyYear = $("#applyYear").val();
+
+					//입력값이 ''일때 전체 리스트 다시 불러오기
+
+
+					console.log($applyYear);
+					let isValid = validationCheck($applyYear);
 					console.log(isValid);
 					if(isValid){
 						//유효성 검사를 통과한 경우 selelct문 실행
-						console.log($searchYear);
 						$("#budgetSearchForm").submit();
 					}
 				});
@@ -60,36 +63,6 @@
 				// 	}
 				// })
 
-				//체크한 항목의 수정 페이지로 이동(한 개만 체크 가능)
-				$('#budgetUpdate').click(function () {
-					//allCheck 말고 리스트 각 행의 checkbox 행에 name="checkEle" 추가함
-
-					//체크된 값의 개수 카운팅
-					let count = $("input[name='checkEle']:checked").length;
-					console.log("체크된 행의 수 : " + count);
-
-					if(count === 0){
-						//체크된 값 없이 버튼만 누른 경우 수정 불가
-						alert("수정할 행을 선택해주세요");
-					}else if(count > 1){
-						//여러 개 체크된 경우 수정 불가
-						alert("수정할 한 개의 행만 선택해주세요");
-					}else{
-						//한 개의 행만 체크된 경우 해당 행의 연도를 수정 Form으로 전달
-						alert("대충 수정페이지로 이동한다는 내용");
-						//체크된 행의 연도 값 가져오기
-						let selectedEle = $("tr[class='selected']").children("td[class='applyYear']").val();
-						console.log(selectedEle);
-
-						//페이지 이동
-						//@{/admin/budget/budgetUpdate(applyYear=${applyYear})}
-
-					}
-
-
-
-
-				});
 
 				//체크한 항목 삭제(여러 행 한 번에 삭제)
 				$('#budgetDelete').click(function () {
@@ -98,8 +71,10 @@
 					console.log("체크된 행의 수 : " + count);
 					if(count == 0){
 						alert("삭제할 행을 선택해주세요");
+					}else if(count == 1){
+						alert("한 행 삭제(곧 만들 예정)");
 					}else{
-						alert("삭제(곧 만들 예정)");
+						alert("여러 행 삭제(곧 만들 예정)");
 					}
 
 				});
@@ -128,10 +103,10 @@
 						
                     	<form id="budgetSearchForm" data-parsley-validate class="form-horizontal form-label-left">
 	                        <div class="form-group">
-	                        	<label for="searchYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
+	                        	<label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                         	 <input type="number" id="searchYear" name="searchYear" class="form-control col-md-7 col-xs-12"
-								 min="2011" max="2999">
+	                         	 <input type="number" id="applyYear" name="applyYear" class="form-control col-md-7 col-xs-12"
+								 min="2014" max="2114">
 	                        	</div>
 	                      	</div>
 
@@ -176,7 +151,10 @@
 								 </tr>
 				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
 				                   <td><input type="checkbox" class="flat" name="checkEle"></td>
-									 <td class="applyYear" th:text="${l.applyYear}"></td>
+									 <td>
+										 <a th:href="@{/admin/budget/budgetUpdate(applyYear=${l.applyYear})}">
+											 <th:block th:text="${l.applyYear}"></th:block></a>
+									 </td>
 									 <td th:text="${l.budgetTotalAmount}"></td>
 									 <td th:text="${l.budgetByPerson}"></td>
 									 <td th:text="${l.officerId}"></td>
@@ -189,7 +167,6 @@
 							<div class="ln_solid"></div>
 	                      	<div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-									<button type="button" id="budgetUpdate" class="btn btn-primary">수정</button>
 		                            <button type="button" id="budgetDelete" class="btn btn-success">삭제</button>
 		                        </div>
 	                      	</div>

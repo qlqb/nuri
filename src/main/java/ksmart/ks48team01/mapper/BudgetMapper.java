@@ -22,10 +22,16 @@ public interface BudgetMapper {
     //지역 단위 예산 등록
     public int addBudgetRegion(BudgetRegion budgetRegion);
 
-    //전국 단위 예산 검색 조회
-    public List<Budget> getBudgetTotalSearch(String searchYear);
+    //검색 범위 내 전국 단위 예산 조회
+    public List<Budget> getBudgetTotalSearch(String applyYear);
+
+    //특정 연도의 전국 단위 예산 조회
+    public Budget getBudgetTotalByYear(String applyYear);
 
     //연도 중복 체크
     public boolean yearCheck(String applyYear);
+
+    //전국 단위 예산 수정
+    public int updateBudgetTotal(Budget budget);
 
 }
