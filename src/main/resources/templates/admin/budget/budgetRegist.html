@@ -93,6 +93,7 @@
             //전국 단위 - 등록 버튼 눌렀을 시 유효성 검사 후 insert 실행
             $("#addBudgetTotalBtn").click(function () {
               //버튼 눌렀을 때의 값을 받아 객체 생성하기
+              console.log(budgetAmount);
               const budget = {
                 budgetNum: 'BUD' + $("#applyYear").val(),
                 officerId: 'OFC231012001',

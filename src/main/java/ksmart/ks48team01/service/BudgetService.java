@@ -59,4 +59,9 @@ public class BudgetService {
     public int updateBudgetTotal(Budget budget){
        return budgetMapper.updateBudgetTotal(budget);
     }
+
+    // 전국 단위 예산 삭제
+    public void removeBudgetTotal(String applyYear){
+        budgetMapper.removeBudgetTotal(applyYear);
+    }
 }

@@ -136,5 +136,14 @@
 
     </update>
 
+    <delete id="removeBudgetTotal" parameterType="String">
+        /* 전국 단위 예산 삭제 */
+        DELETE
+        FROM
+            BUDGET_TOTAL
+        WHERE
+            APPLY_YEAR=#{applyYear};
+
+    </delete>
 
 </mapper>

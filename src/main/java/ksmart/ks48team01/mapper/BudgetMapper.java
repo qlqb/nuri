@@ -34,4 +34,7 @@ public interface BudgetMapper {
     //전국 단위 예산 수정
     public int updateBudgetTotal(Budget budget);
 
+    //전국 단위 예산 삭제
+    public int removeBudgetTotal(String applyYear);
+
 }

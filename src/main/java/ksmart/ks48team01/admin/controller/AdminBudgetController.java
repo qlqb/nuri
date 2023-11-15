@@ -146,4 +146,10 @@ public class AdminBudgetController {
 		return "admin/budget/budgetUpdateRegion";
 	}
 
+//	@PostMapping(value={"budgetInfo"})
+//	public String removeBudgetTotal(@RequestParam(name="applyYear") String applyYear, Model model){
+//		budgetService.removeBudgetTotal(applyYear);
+//		return "redirect:/admin/budget/budgetInfo";
+//	}
+
 }
