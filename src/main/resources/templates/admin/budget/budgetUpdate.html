@@ -31,11 +31,6 @@
 			return isValid;
 		}
 
-		//초기화 버튼 누른 경우 원래 입력되어있던 값으로 변경됨
-		$("#resetBtn1").click(function(){
-			$("#budgetTotalAmount").val('');
-		});
-
 		$("#budgetUpdateBtn").click(function () {
 			if(confirm("수정하시겠습니까?")){
 				//값에 변동이 생긴 경우 객체 budget에 저장
@@ -57,14 +52,24 @@
 					const updateBudgetForm = $("#updateBudgetForm");
 					const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
 					updateBudgetForm.append($officerId);
-					updateBudgetForm.submit();
+					//updateBudgetForm.submit();
 				}
 				alert("수정이 완료되었습니다.");
 
 			}else{
 				alert("수정 취소");
 			}
-		})
+		});
+
+		//체크한 항목 삭제(여러 행 한 번에 삭제)
+		$('#budgetDelete').click(function () {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				alert("삭제되었습니다");
+				// $("#updateBudgetForm").submit();
+			}else{
+				alert("삭제 취소");
+			}
+		});
 	</script>
 </th:block>
 
@@ -108,7 +113,9 @@
 					<div class="form-group row">
 						<div class="col-md-9 offset-md-3">
 							<button type="reset" class="btn btn-primary">초기화</button>
-							<button id="budgetUpdateBtn" type="button" class="btn btn-success">수정</button>
+							<button id="budgetUpdateBtn" class="btn btn-success">수정</button>
+							<a id="budgetDelete" type="button" class="btn btn-success"
+									th:href="@{/admin/budget/removeBudgetTotal(applyYear=*{applyYear})}">삭제</a>
 						</div>
 					</div>
 

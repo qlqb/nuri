@@ -52,34 +52,9 @@
 					}
 				});
 
-				//전체 체크 + 전체 체크 해제
-				if("tr[class='selected']")
-
-				// $("tr[class='selected']").click(function(){
-				// 	if($('#check-all').prop("checked")){
-				// 		//전체 체크
-				// 		$("input[name='checkEle']").prop("checked", true);
-				// 	}else{
-				// 		//전체 체크 해제
-				// 		$("input[name='checkEle']").prop("checked", false);
-				// 	}
-				// })
 
 
-				//체크한 항목 삭제(여러 행 한 번에 삭제)
-				$('#budgetDelete').click(function () {
-					//체크된 값의 개수 카운팅
-					let count = $("input[name='checkEle']:checked").length;
-					console.log("체크된 행의 수 : " + count);
-					if(count == 0){
-						alert("삭제할 행을 선택해주세요");
-					}else if(count == 1){
-						alert("한 행 삭제(곧 만들 예정)");
-					}else{
-						alert("여러 행 삭제(곧 만들 예정)");
-					}
 
-				});
 
 			});
 		</script>
@@ -137,7 +112,6 @@
 		         			<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
 					           <thead>
 					             <tr>
-					               <th><input type="checkbox" id="check-all" class="flat"></th>
 				                   <th>연도</th>
 				                   <th>예산</th>
 				                   <th>1인당 지원 금액</th>
@@ -152,7 +126,6 @@
 									 <td colspan="7">등록된 예산 목록이 없습니다</td>
 								 </tr>
 				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
-				                   <td><input type="checkbox" class="flat" name="checkEle"></td>
 									 <td>
 										 <a th:href="@{/admin/budget/budgetUpdate(applyYear=${l.applyYear})}">
 											 <th:block th:text="${l.applyYear}"></th:block></a>
@@ -165,13 +138,6 @@
 				                 </tr>
 		                 		</tbody>
 		             		</table>
-
-							<div class="ln_solid"></div>
-	                      	<div class="form-group">
-		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-		                            <button type="button" id="budgetDelete" class="btn btn-success">삭제</button>
-		                        </div>
-	                      	</div>
 		           		</div>
 	       			</div>
 				</div>

@@ -127,7 +127,7 @@ public class AdminBudgetController {
 	/**
 	 * 전국 단위 예산 수정 처리
 	 */
-	@PostMapping("/budgetUpdate")
+	@PostMapping("budgetUpdate")
 	public String updateBudgetTotal(Budget budget){
 		System.out.println(budget);
 		budgetService.updateBudgetTotal(budget);
@@ -146,10 +146,17 @@ public class AdminBudgetController {
 		return "admin/budget/budgetUpdateRegion";
 	}
 
-//	@PostMapping(value={"budgetInfo"})
-//	public String removeBudgetTotal(@RequestParam(name="applyYear") String applyYear, Model model){
-//		budgetService.removeBudgetTotal(applyYear);
-//		return "redirect:/admin/budget/budgetInfo";
-//	}
+	/**
+	 * 전국 단위 예산 삭제
+	 * @param applyYear
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value={"removeBudgetTotal"})
+	public String removeBudgetTotal(@RequestParam(name="applyYear") String applyYear, Model model){
+		budgetService.removeBudgetTotal(applyYear);
+		//나중에 사용률통계 테이블에서도 삭제하는 거 추가해야할듯?
+		return "redirect:/admin/budget/budgetInfo";
+	}
 
 }
