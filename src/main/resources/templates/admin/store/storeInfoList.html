@@ -117,7 +117,7 @@
           <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
             <thead>
             <tr>
-              <th> </th>
+              <th>선택</th>
               <th>가맹점 아이디</th>
               <th>가맹점명</th>
               <th>가맹점 회원명</th>
@@ -135,7 +135,7 @@
               <td>
                 <input type="checkbox" value="${element.storeId}" name="chkb">
               </td>
-              <td th:text="${list.storeId}"></td>
+              <td><a th:href="@{/admin/store/storeInfoUpdate(storeId=${list.storeId})}" th:text="${list.storeId}"></a></td>
               <td th:text="${list.storeName}"></td>
               <td th:text="${list.userName}"></td>
               <td th:text="${list.storeCategoryName}"></td>
@@ -155,18 +155,6 @@
 
   <script>
 
-    const $chkBox = document.querySelectorAll('input[name=chkb]');
-    const chkArr = [];
-    $chkBox.forEach((chkBox) => {
-      chkBox.addEventListener('input', () => {
-        let chkValue = chkBox.value;
-        console.log(chkValue);
-        chkArr.push(chkValue);
-        return chkArr;
-      })
-      return chkArr;
-    })
-
     const $searchBtn = document.querySelector('#searchBtn');
     const $searchKey = document.querySelector('#searchKey');
     const $searchValue = document.querySelector('#searchValue');
@@ -174,7 +162,6 @@
     let key = "";
     let value = "";
 
-    let checkBox = document.querySelector('#datatable-checkbox');
     let $searchListTable = document.querySelector('#searchListTable');
 
     $searchBtn.addEventListener('click', () => {
@@ -185,9 +172,7 @@
     })
 
     function search (key, value) {
-      let searchRow = "";
       console.log(key, value);
-      let tbodyData = [];
       fetch(searchListUrl, {
         method : "POST",
         headers : {
@@ -200,23 +185,52 @@
       })
               .then((response) => response.json())
               .then((result) => result.forEach((element) => {
-                searchRow += `
-          <tr>
-          <td>
-            <input type="checkbox" value=  ` + `${element.storeId} ` + ` name="chkb">
-          </td>
-          <td>${element.storeId}</td>
-          <td>${element.storeName}</td>
-          <td>${element.userName}</td>
-          <td>${element.storeCategoryName}</td>
-          <td>${element.userEmail}</td>
-          <td>${element.storeContact}</td>
-          <td>${element.storeAddress}</td>
-          <td>${element.storeRegDate}</td>
-          <td>${element.openingTime}</td></tr>`
-                $searchListTable.innerHTML = searchRow;
+
+                const resultRow = document.createElement('tr');
+                const chkBox = document.createElement('input');
+                const chkTd = document.createElement('td');
+                chkBox.setAttribute("type", "checkbox");
+                chkBox.setAttribute("name", "chkb");
+                chkBox.setAttribute("value", `${element.userId} `);
+                chkTd.appendChild(chkBox);
+                const storeIdTd = document.createElement('td');
+                const storeUpdateAnchor = document.createElement('a');
+                storeUpdateAnchor.setAttribute("href", `http://localhost/admin/store/storeInfoUpdate?storeId=${element.storeId}`);
+                storeUpdateAnchor.appendChild(document.createTextNode(`${element.storeId}`));
+                storeIdTd.appendChild(storeUpdateAnchor);
+                const storeNameTd = document.createElement('td');
+                storeNameTd.appendChild(document.createTextNode(`${element.storeName}`));
+                const userNameTd = document.createElement('td');
+                userNameTd.appendChild(document.createTextNode(`${element.userName}`));
+                const storeCategoryTd = document.createElement('td');
+                storeCategoryTd.appendChild(document.createTextNode(`${element.storeCategoryName}`));
+                const userEmailTd = document.createElement('td');
+                userEmailTd.appendChild(document.createTextNode(`${element.userEmail}`));
+                const userContactTd = document.createElement('td');
+                userContactTd.appendChild(document.createTextNode(`${element.storeContact}`));
+                const userAddressTd = document.createElement('td');
+                userAddressTd.appendChild(document.createTextNode(`${element.storeAddress}`));
+                const storeRegDateTd = document.createElement('td');
+                storeRegDateTd.appendChild(document.createTextNode(`${element.storeRegDate}`));
+                const openingTimeTd = document.createElement('td');
+                openingTimeTd.appendChild(document.createTextNode(`${element.openingTime}`));
+                resultRow.appendChild(chkTd);
+                resultRow.appendChild(storeIdTd);
+                resultRow.appendChild(storeNameTd);
+                resultRow.appendChild(userNameTd);
+                resultRow.appendChild(storeCategoryTd);
+                resultRow.appendChild(storeCategoryTd);
+                resultRow.appendChild(userEmailTd);
+                resultRow.appendChild(userContactTd);
+                resultRow.appendChild(userAddressTd);
+                resultRow.appendChild(storeRegDateTd);
+                resultRow.appendChild(openingTimeTd);
+                $searchListTable.appendChild(resultRow);
               }))
     }
+
+
+
   </script>
 
 </th:block>

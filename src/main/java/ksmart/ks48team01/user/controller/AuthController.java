@@ -73,6 +73,13 @@ public class AuthController {
         return "user/auth/resetMyPw";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+
+        session.invalidate();
+        return "redirect:/user";
+    }
+
 
 
 }
