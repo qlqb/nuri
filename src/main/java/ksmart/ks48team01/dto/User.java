@@ -21,16 +21,6 @@ public class User {
     private String userStat;
     private String ssoType;
 
-    private Boolean checkedValue;
-
-    public Boolean isCheckedValue() {
-        return checkedValue;
-    }
-
-    public void setCheckedValue(Boolean checkedValue) {
-        this.checkedValue = checkedValue;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -169,7 +159,6 @@ public class User {
         sb.append(", userRegDate='").append(userRegDate).append('\'');
         sb.append(", userStat='").append(userStat).append('\'');
         sb.append(", ssoType='").append(ssoType).append('\'');
-        sb.append(", checkedValue=").append(checkedValue);
         sb.append('}');
         return sb.toString();
     }
