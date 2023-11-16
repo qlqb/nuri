@@ -418,6 +418,7 @@
                                             <option value="3">1개월</option>
                                         </select>
                                     </div>
+
                                     <div class="form-box">
                                         <select class="px-3 py-2 border rounded w-100">
                                             <option value="none">제목</option>
@@ -708,9 +709,9 @@
                 $('[role="tab"]').click(function() {
                     $('[role="tab"]').removeClass('active');
                     let activeTab = $(this).attr('data-tab');
-
                     let activeTabUrl = `tab${activeTab}`
                     let tabValue = $(this).text().trim();
+                    $(this).addClass('active');
                     const request = $.ajax({
                         url : `/user/contents/contentsInfoList/${activeTabUrl}`,
                         method : 'GET',
