@@ -75,8 +75,8 @@
                       <option value="officerId">공무원 번호</option>
                       <option value="officerUserName">이름</option>
                       <option value="districtDepName">부서명</option>
-                      <option value="storeCategoryName">등록일</option>
-                      <option value="storeAddress">상태</option>
+                      <option value="officerAccountStat">상태</option>
+                      <option value="workStartDate">등록일</option>
                     </select>
                   </div>
                 </div>
@@ -110,8 +110,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_content">
-              <p class="text-muted font-13 m-b-30">
-                키워드로 검색한 결과</p>
+              <p class="text-muted font-13 m-b-30">아이디를 클릭하면 해당 회원의 정보를 수정할 수 있습니다</p>
               <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                 <thead>
                   <tr>
@@ -132,7 +131,9 @@
                         <input type="checkbox" class="flat" style="position: absolute; opacity: 0;">
                       </div>
                     </td>
-                    <td th:text="${list.officerId}"></td>
+                    <td>
+                      <a th:href="@{/admin/officer/officerInfoUpdate(officerId=${list.officerId})}" th:text="${list.officerId}"></a>
+                    </td>
                     <td th:text="${list.officerUserName}"></td>
                     <td th:text="${list.districtDepName}"></td>
                     <td th:text="${list.workStartDate}"></td>
@@ -147,7 +148,6 @@
       </div>
 
       <script>
-        console.log('바보');
 
         const $searchBtn = document.querySelector('#searchBtn');
         const $searchKey = document.querySelector('#searchKey');
@@ -181,21 +181,43 @@
           })
                   .then((response) => response.json())
                   .then((result) => result.forEach((element) => {
-                    console.log(element);
-                    searchRow += `
-                    <tr>
-                    <td class="sorting_1">
-                      <div class="icheckbox_flat-green" style="position: relative;">
-                        <input type="checkbox" value=` +  `${element.officerId}` +  `name="chk-user" class="flat" style="position: absolute; opacity: 0;">
-                      </div>
-                    </td>
-                    <td>${element.officerId}</td>
-                    <td>${element.officerUserName}</td>
-                    <td>${element.districtDepName}</td>
-                    <td>${element.workStartDate}</td>
-                    <td>${element.officerRecentLogin}</td>
-                    <td>${element.officerAccountStat}</td>`
-                    $searchListTable.innerHTML = searchRow;
+                    const tableRow = document.createElement('tr');
+                    const checkBoxTd = document.createElement('td');
+                          checkBoxTd.setAttribute("class", "sorting_1");
+                    const checkBoxDiv = document.createElement('div');
+                          checkBoxDiv.setAttribute("class", "icheckbox_flat-green");
+                          checkBoxDiv.setAttribute("style", "position : relative");
+                    const checkBoxInput = document.createElement('input');
+                          checkBoxInput.setAttribute("type", "checkbox");
+                          checkBoxInput.setAttribute("value", `${element.officerId}`);
+                          checkBoxInput.setAttribute("name", "chk-user");
+                          checkBoxInput.setAttribute("class", "flat");
+                          checkBoxInput.setAttribute("style", "position : absolute; opacity : 0;");
+                    const tdOfficerId = document.createElement('td');
+                    const anchorOfficerUpdate = document.createElement('a');
+                          anchorOfficerUpdate.setAttribute("href", `/admin/officer/officerInfoUpdate?officerId=${element.officerId}`);
+                          anchorOfficerUpdate.appendChild(document.createTextNode(`${element.officerId}`));
+                    const tdOfficerUserName = document.createElement('td');
+                          tdOfficerUserName.appendChild(document.createTextNode(`${element.officerUserName}`));
+                    const tdDistrictDepName = document.createElement('td');
+                          tdDistrictDepName.appendChild(document.createTextNode(`${element.districtDepName}`));
+                    const tdWorkStartdate = document.createElement('td');
+                          tdWorkStartdate.appendChild(document.createTextNode(`${element.workStartDate}`));
+                    const tdOfficerRecentLogin = document.createElement('td');
+                          tdOfficerRecentLogin.appendChild(document.createTextNode(`${element.officerRecentLogin}`));
+                    const tdOfficerAccountStat = document.createElement('td');
+                          tdOfficerAccountStat.appendChild(document.createTextNode(`${element.officerAccountStat}`));
+                          tdOfficerId.appendChild(anchorOfficerUpdate);
+                          checkBoxTd.appendChild(checkBoxDiv);
+                          checkBoxDiv.appendChild(checkBoxInput);
+                          tableRow.appendChild(checkBoxTd);
+                          tableRow.append(tdOfficerId,
+                                  tdOfficerUserName,
+                                  tdDistrictDepName,
+                                  tdWorkStartdate,
+                                  tdOfficerRecentLogin,
+                                  tdOfficerAccountStat);
+                          $searchListTable.appendChild(tableRow);
                   }))
         }
       </script>

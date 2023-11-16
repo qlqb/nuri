@@ -33,6 +33,12 @@ public class UserService {
         return userSearchList;
     }
 
+    public Boolean getUserIdCheck(String userId) {
+        Boolean checkedValue = userMapper.getUserIdCheck(userId);
+
+        return checkedValue;
+    }
+
     // 관리자 계정 가입
     public void adminRegister (User user) {
         userMapper.adminRegister(user);

@@ -18,6 +18,8 @@
         <result property="boardFileLink" column="BOARD_FILE_LINK"/>
         <result property="boardRegDate" column="BOARD_REG_DATE"/>
         <result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
+        <!--resultmap으로 갖다 쓰려면 추가하렴-->
+        <result property="boardCateName" column="BOARD_CATE_NAME"/>
 
         <!--고급 매핑 1:1 association DTO에서 참조하는 데이터 타입 ex:) Member memberInfo-->
         <association property="userInfo" javaType="User">
@@ -41,17 +43,26 @@
     </association>
     </resultMap>
 
+    <!--게시판 컨텐츠 삭제-->
+    <delete id="removeBoardContents" parameterType="String">
+        /*게시판 컨텐츠 삭제*/
+        DELETE
+
+        FROM
+            BOARD_MAIN
+        WHERE
+            BOARD_CODE=#{boardCode}
+    </delete>
+
     <!--게시판 컨텐츠 수정-->
     <update id="modifyBoardContents" parameterType="Board">
         UPDATE BOARD_MAIN
             SET
-            BOARD_CODE=#{boardCode},
             BOARD_CATE_CODE=#{boardCateCode},
             USER_ID=#{userId},
             BOARD_WRITING_TITLE=#{boardWritingTitle},
             BOARD_WRITING_CONTENTS=#{boardWritingContents},
             BOARD_FILE_LINK=#{boardFileLink},
-            BOARD_REG_DATE=#{boardRegDate},
             BOARD_UPDATE_DATE=CURDATE()
         WHERE
             BOARD_CODE=#{boardCode};
@@ -145,7 +156,7 @@
             INNER JOIN
             BOARD_CATEGORY AS c
             on
-            b.BOARD_CATE_CODE = c.BOARD_CATE_CODE
+            c.BOARD_CATE_CODE = b.BOARD_CATE_CODE
         <where>
             <if test="searchKey != null and searchKey != ''">
                 ${searchKey} LIKE CONCAT ('%', #{searchValue}, '%')

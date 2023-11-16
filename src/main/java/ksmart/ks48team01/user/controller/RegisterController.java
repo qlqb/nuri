@@ -1,6 +1,8 @@
 package ksmart.ks48team01.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import ksmart.ks48team01.dto.District;
@@ -45,6 +47,24 @@ public class RegisterController {
         List<District> districtList = areaService.getDistrictListByRegion(regionCode);
 
         return gson.toJson(districtList);
+    }
+
+    @ResponseBody
+    @PostMapping("/userIdCheck")
+    public String getUserIdCheck(@RequestBody Map<String, String> userCheckMap) {
+        String userId = userCheckMap.get("userId");
+        System.out.println(userId);
+        Boolean checkedValue = userService.getUserIdCheck(userId);
+        Map<String, Object> checkedMap = new HashMap<>();
+        if(checkedValue) {
+            checkedMap.put("checkedValue", checkedValue);
+            checkedMap.put("message", "이미 가입된 아이디입니다.");
+        } else {
+            checkedMap.put("checkedValue", checkedValue);
+            checkedMap.put("message", "가입할 수 있는 아이디입니다.");
+        }
+
+        return checkedMap.toString();
     }
 
 

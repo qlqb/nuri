@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -25,10 +26,26 @@ public class AdminBoardController {
 		this.boardService = boardService;
 	}
 
+	//게시글 탈퇴 처리
+	@PostMapping("/removeBoardContents")
+	public String removeBoardContents(Board board, RedirectAttributes reAttr) {
+		String boardCode = board.getBoardCode();
+		boardService.removeBoardContents((boardCode));
+
+		return "redirect:/admin/board/boardCateInfo";
+	}
+
+
 	//게시판 컨텐츠 상세 조회
 	@GetMapping("/boardContentDetail")
-	public String boardContentDetail(Model model){
+	public String boardContentDetail(@RequestParam(name="boardCode") String boardCode, Model model){
+		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
+
+		Board boardInfo = boardService.getBoardInfoById(boardCode);
+
 		model.addAttribute("title","게시판컨텐츠상세조회");
+		model.addAttribute("boardInfo", boardInfo);
+		model.addAttribute("boardCategoryList", boardCategoryList);
 
 		return "admin/board/boardContentDetail";
 	}
@@ -43,7 +60,8 @@ public class AdminBoardController {
 		System.out.println(paramMap);
 		String searchKey = (String) paramMap.get("searchKey");
 		searchKey = switch(searchKey){
-			case "boardCateCode" -> "b.BOARD_CATE_CODE";
+			case "boardCateCode" -> "c.BOARD_CATE_CODE";
+			case "boardCateName" -> "c.BOARD_CATE_NAME";
 			case "userId" -> "u.USER_ID";
 			case "boardWritingTitle" -> "b.BOARD_WRITING_TITLE";
 			default -> searchKey;
@@ -65,8 +83,10 @@ public class AdminBoardController {
 	//게시판 컨텐츠 수정 처리
 	@PostMapping("/boardContentModify")
 	public String modifyBoardContents(Board board){
-		log.info("게시글 수정 Board:{}", board);
+
 		boardService.modifyBoardContents(board);
+
+		log.info("게시글 수정 Board:{}", board);
 		return "redirect:/admin/board/boardCateInfo";
 	}
 
@@ -74,8 +94,6 @@ public class AdminBoardController {
 	@GetMapping("/boardContentModify")
 	public String modifyBoardContents(@RequestParam(name="boardCode") String boardCode, Model model){
 		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
-
-		log.info("boardCode:{}", boardCode);
 
 		Board boardInfo = boardService.getBoardInfoById(boardCode);
 		/*User userInfo = userService.getUserInfoById(userId)*/

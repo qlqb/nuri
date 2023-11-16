@@ -9,6 +9,9 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
+    //게시글 삭제
+    public int removeBoardContents(String boardCode);
+
     //검색조건에 따른 게시판목록 조회
     public List<Board> getBoardListBySearch(String searchKey, String searchValue);
 

@@ -29,6 +29,10 @@ public class BoardService {
         this.userMapper = userMapper;
     }
 
+    //게시글 삭제
+    public void removeBoardContents(String boardCode){
+        boardMapper.removeBoardContents(boardCode);
+    }
 
     //검색어에 따른 회원의 목록조회
     public List<Board> boardSearchList(String searchKey, String searchValue){
@@ -38,8 +42,8 @@ public class BoardService {
         return boardSearchList;
     }
     //게시판 수정
-    public void modifyBoardContents(Board board){
-        boardMapper.modifyBoardContents(board);
+    public int modifyBoardContents(Board board){
+        return boardMapper.modifyBoardContents(board);
     }
 
     //특정 게시판 조회
