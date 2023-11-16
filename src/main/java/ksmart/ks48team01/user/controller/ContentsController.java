@@ -29,11 +29,8 @@ public class ContentsController {
 	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
 
 	private final ContentsService contentsService;
-	private final AreaService areaService;
-
-	public ContentsController(ContentsService contentsService, AreaService areaService) {
+	public ContentsController(ContentsService contentsService) {
 		this.contentsService = contentsService;
-		this.areaService = areaService;
 	}
 
 	//컨텐츠 검색
@@ -70,15 +67,15 @@ public class ContentsController {
 		@GetMapping("/contentsInfoList")
 		public String contentsListPage(Model model,
 									   @RequestParam(name="currentPage", required=false, defaultValue = "1") int currentPage,
-									   @RequestParam(name="tabValue", defaultValue = "전체") String tabValue) {
+									   @RequestParam(name="tabValue", defaultValue = "all") String tabValue) {
+
+			log.info("tabValue: {}", tabValue);
 
 			List<StoreCategory> storeCategory = contentsService.getStoreCategory();
 
 			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
 
-			List<Region> regionList = areaService.getRegionList();
-
-			Map<String, Object> resultMap = contentsService.getContentsInfoList(currentPage, tabValue);
+			Map<String, Object> resultMap = contentsService.getContentsInfoListByTabValue(currentPage, tabValue);
 
 			List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
 
@@ -91,8 +88,6 @@ public class ContentsController {
 
 			model.addAttribute("contentsCategory", contentsCategory);
 
-			model.addAttribute("regionList", regionList);
-
 			model.addAttribute("title", "컨텐츠 조회");
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("lastPage", lastPage);
@@ -100,41 +95,10 @@ public class ContentsController {
 			model.addAttribute("endPageNum", endPageNum);
 			model.addAttribute("contentsInfoList", contentsInfoList);
 			model.addAttribute("contentsCnt", contentsCnt);
-
-
-			log.info("contentsInfoList {}", contentsInfoList);
+			model.addAttribute("tabValue", tabValue);
 
 			return "user/contents/contentsInfoList";
 		}
-
-//		@GetMapping("/contentsInfoList/tab2")
-//		public String contentsTab() {
-//
-//		}
-//		@GetMapping("/contentsInfoList/tab3")
-//		public String contentsTab() {
-//
-//		}
-//		@GetMapping("/contentsInfoList/tab4")
-//		public String contentsTab() {
-//
-//		}
-//		@GetMapping("/contentsInfoList/tab5")
-//		public String contentsTab() {
-//
-//		}
-//		@GetMapping("/contentsInfoList/tab5")
-//		public String contentsTab() {
-//
-//		}
-//		@GetMapping("/contentsInfoList/tab7")
-//		public String contentsTab() {
-//
-//		}
-//		@GetMapping("/contentsInfoList/tab8")
-//		public String contentsTab() {
-//
-//		}
 
 		@GetMapping(value = {"reservation"})
 		public String reservation(Model model) {

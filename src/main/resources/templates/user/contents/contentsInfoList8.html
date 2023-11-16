@@ -678,20 +678,10 @@
                                 </div>
                             </div>
                             <div class="justify-content-center d-flex">
-                                <a th:href="@{/user/contents/contentsInfoList(tabValue=${tabValue})}">[맨처음으로]</a>
-                                <a th:if="${currentPage > 1}"
-                                   th:href="@{/user/contents/contentsInfoList(currentPage=${currentPage - 1}, tabValue=${tabValue})}">[이전]</a>
-                                <span th:unless="${currentPage > 1}">[이전]</span>
-                                <th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}" id="pages">
-                                    <a th:if="${num != currentPage}"
-                                       th:href="@{/user/contents/contentsInfoList(currentPage=${num}, tabValue=${tabValue})}">[[${'[' + num + ']'}]]</a>
-                                    <span th:unless="${num != currentPage}" th:text="|[${num}]|"></span>
-                                </th:block>
-
-                                <a th:if="${currentPage < lastPage}"
-                                   th:href="@{/user/contents/contentsInfoList(currentPage=${currentPage + 1}, tabValue=${tabValue})}">[다음]</a>
-                                <span th:unless="${currentPage < lastPage}">[다음]</span>
-                                <a th:href="@{/user/contents/contentsInfoList(currentPage=${lastPage}, tabValue=${tabValue})}">[맨마지막]</a>
+                                <a class="page">[맨처음으로]</a>
+                                <a class="page">[이전]</a>
+                                <a class="page">[다음]</a>
+                                <a class="page">[맨마지막]</a>
                             </div>
                         </div>
                     </div>
@@ -702,25 +692,19 @@
     <th:block layout:fragment="customJsCode">
         <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
         <script th:inline="javascript">
-
             $(function() {
 
-                $('[role="tab"]').click(function() {
-                    $('[role="tab"]').removeClass('active');
-                    let activeTab = $(this).attr('data-tab');
-
-                    let activeTabUrl = `tab${activeTab}`
-                    let tabValue = $(this).text().trim();
+                function contentsInfoAjax(currentPage) {
                     const request = $.ajax({
                         url : `/user/contents/contentsInfoList/${activeTabUrl}`,
                         method : 'GET',
-                        data: {'tabValue' : tabValue},
+                        data: {'tabValue' : tabValue, 'currentPage' : currentPage},
                         dataType: 'JSON'
                     });
 
                     request.done(function(data) {
 
-                        const utilArea = $('.area-util');
+                        const utilArea = $('.area-util')
 
                         const pageArea = $('body > section.category-area.pb-110 > div > div > div.search-result > div.category-wrapper > div > div.justify-content-center.d-flex');
 
@@ -729,21 +713,22 @@
                         let lastPage = data.lastPage;
                         let currentPage = data.currentPage;
                         let contentsCategory = data.contentsCategory;
-                        let tabValue = data.tabValue;
 
                         let contentsCnt = data.contentsCnt;
 
                         let contentsInfoList = data.contentsInfoList;
 
-                        let utilAreaEle = '';
-
-
                         const contentsArea = $('#grid > div');
 
                         $(utilArea).children().remove();
 
+                        let utilAreaEle = '';
 
-                        utilAreaEle += `<div class="align-box"><div class="txt-total">총<strong class="total"">${contentsCnt}</strong>건
+                        utilAreaEle += `<div class="align-box">
+                                            <div class="txt-total">
+                                                총
+                                                <strong class="total"">${contentsCnt}</strong>
+                                                건
                                             </div>
                                         </div>
                                         <form action="/user/contents/contentsDetail" method="get" style="all:unset">
@@ -872,31 +857,31 @@
 
                         pageArea.children().remove();
 
-                        let pageEle = `<a href="/user/contents/contentsInfoList?tabValue=${tabValue}">[맨처음으로]</a>`;
+                        let pageEle = `<a class="page">[맨처음으로]</a>`;
 
                         if(currentPage > 1) {
-                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage - 1}&tabValue=${tabValue}"">[이전]</a>`;
+                            pageEle += `<a class="page">[이전]</a>`;
                         } else {
                             pageEle += `<span>[이전]</span>`;
                         }
 
                         for(let i = startPageNum; i <= endPageNum; i += 1) {
                             if(i !== currentPage) {
-                                pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${i}&tabValue=${tabValue}">[${i}]</a>`;
+                                pageEle += `<a class="page"">[${i}]</a>`;
                             } else {
                                 pageEle += `<span>[${i}]</span>`;
                             }
                         }
 
                         if(currentPage < lastPage) {
-                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage + 1}&tabValue=${tabValue}">[다음]</a>`;
+                            pageEle += `<a class="page">[다음]</a>`;
                         } else {
                             pageEle += `<span>[다음]</span>`;
                         }
 
-                        pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${lastPage}&tabValue=${tabValue}">[맨마지막]</a>`
+                        pageEle += `<a class="page">[맨마지막]</a>`
 
-                        console.log(tabValue);
+                        console.log(pageEle);
 
                         pageArea.append(pageEle);
                     });
@@ -904,6 +889,20 @@
                     request.fail(function(jqXHR, textStatus) {
                         console.log(`Request failed: ${textStatus}`);
                     });
+                }
+
+                $('[role="tab"], .page').click(function() {
+                    let activeTab = $(this).attr('data-tab');
+                    let activeTabUrl = `tab${activeTab}`;
+                    let tabValue = $(this).text().trim();
+
+
+
+                    $('[role="tab"]').removeClass('active');
+                    console.log('3333333333333', $(this).attr('[role="tab"]'));
+                    $(this).addClass('active');
+
+
                 });
             });
         </script>
