@@ -1,6 +1,6 @@
 package ksmart.ks48team01.service;
 
-import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.dto.BudgetRegion;
 import ksmart.ks48team01.dto.Budget;
 import ksmart.ks48team01.mapper.AreaMapper;
 import ksmart.ks48team01.mapper.BudgetMapper;
@@ -22,26 +22,46 @@ public class BudgetService {
     }
 
 
+    // 전국 단위 예산 전체 조회
     public List<Budget> getBudgetTotalList() {
         return budgetMapper.getBudgetTotalList();
     }
 
-    public List<Budget> getBudgetRegionList() {
+    // 지역 단위 예산 전체 조회
+    public List<BudgetRegion> getBudgetRegionList() {
         return budgetMapper.getBudgetRegionList();
     }
 
+    // 전국 단위 예산 입력
     public void addBudgetTotal(Budget budget) {
         budgetMapper.addBudgetTotal(budget);
     }
-    public void addBudgetRegion(Budget budget) {
-        budgetMapper.addBudgetRegion(budget);
+
+    // 지역 단위 예산 입력
+    public void addBudgetRegion(BudgetRegion budgetRegion) {
+        budgetMapper.addBudgetRegion(budgetRegion);
     }
 
-    public List<Budget> getBudgetTotalSearch(String searchYear){
-        return budgetMapper.getBudgetTotalSearch(searchYear);
+    //특정 연도의 전국 예산 조회
+    public Budget getBudgetTotalByYear(String applyYear){
+        return budgetMapper.getBudgetTotalByYear(applyYear);
+    }
+    // 검색 범위 내 전국 예산 조회
+    public List<Budget> getBudgetTotalSearch(String applyYear){
+        return budgetMapper.getBudgetTotalSearch(applyYear);
     }
 
     public boolean yearCheck(String applyYear){
         return budgetMapper.yearCheck(applyYear);
+    }
+
+    // 전국 단위 예산 수정
+    public int updateBudgetTotal(Budget budget){
+       return budgetMapper.updateBudgetTotal(budget);
+    }
+
+    // 전국 단위 예산 삭제
+    public void removeBudgetTotal(String applyYear){
+        budgetMapper.removeBudgetTotal(applyYear);
     }
 }

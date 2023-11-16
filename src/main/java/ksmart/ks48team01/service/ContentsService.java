@@ -36,6 +36,24 @@ public class ContentsService {
             case "공연" :
                 tabValue = "A01";
                 break;
+            case "전시" :
+                tabValue = "A02";
+                break;
+            case "영화" :
+                tabValue = "A03";
+                break;
+            case "도서" :
+                tabValue = "A04";
+                break;
+            case "관광" :
+                tabValue = "B01";
+                break;
+            case "체육" :
+                tabValue = "C01";
+                break;
+            case "디지털 컨텐츠" :
+                tabValue = "D01";
+                break;
             default:
                 tabValue = "all";
                 break;

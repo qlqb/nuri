@@ -707,7 +707,25 @@
 
                 $('[role="tab"]').click(function() {
                     $('[role="tab"]').removeClass('active');
-                    let activeTab = $(this).attr('data-tab');
+                    let tabs = $('body > section.category-area.pb-110 > div > div > div.search-result > div.section-inner > div.cards-wrapper.pb-25.mb-15 a');
+                    let getActiveTab = $(tabs).each(function (idx, ele) {
+                        $(function () {
+                            let activeTabNum;
+                            let tabBtn = $(ele).attr('class');
+                            if (tabBtn.match("active")) {
+                                activeTabNum = $(ele).attr('data-tab');
+                            }
+                            return activeTabNum;
+                        })
+                        return getActiveTabNum;
+                    })
+                    tabs.each(function (idx) {
+                        let activeTab = getActiveTab();
+                        if(activeTab==idx) {
+                            console.log($(`a[data-tab=${activeTab}]`));
+                            $(`a[data-tab="${activeTab}"]`).addClass('active');
+                        }
+                    })
 
                     let activeTabUrl = `tab${activeTab}`
                     let tabValue = $(this).text().trim();
@@ -895,8 +913,6 @@
                         }
 
                         pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${lastPage}&tabValue=${tabValue}">[맨마지막]</a>`
-
-                        console.log(tabValue);
 
                         pageArea.append(pageEle);
                     });

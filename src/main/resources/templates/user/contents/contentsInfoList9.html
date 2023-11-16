@@ -707,8 +707,17 @@
 
                 $('[role="tab"]').click(function() {
                     $('[role="tab"]').removeClass('active');
-                    let activeTab = $(this).attr('data-tab');
-
+                    let activeTab = 0;
+                    let tabs = $('body > section.category-area.pb-110 > div > div > div.search-result > div.section-inner > div.cards-wrapper.pb-25.mb-15 a');
+                    $(tabs).each(function (idx, ele) {
+                        $(function () {
+                            let tabBtn = $(ele).attr('class');
+                            if(tabBtn.match("active")) {
+                                activeTab = $(ele).attr('data-tab');
+                               $(ele).addClass('active');
+                            }
+                        })
+                    })
                     let activeTabUrl = `tab${activeTab}`
                     let tabValue = $(this).text().trim();
                     const request = $.ajax({

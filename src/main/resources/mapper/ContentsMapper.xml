@@ -43,14 +43,17 @@
 
     <select id="getStoreCategory" resultType="StoreCategory">
         SELECT
-            sc.STORE_CATEGORY_NAME AS storeCategoryName
+            sc.STORE_CATEGORY_NAME AS storeCategoryName,
+            sc.STORE_CATEGORY_CODE AS storeCategoryCode
         FROM
             STORE_CATEGORY AS sc;
     </select>
 
     <select id="getContentsCategory" resultType="ContentsCategory">
         SELECT
-            cc.CONTENTS_CAT_NAME AS contentsCategoryName
+            cc.CONTENTS_CAT_NAME AS contentsCategoryName,
+            cc.CONTENTS_CAT_CODE AS contentsCategoryCode,
+            cc.STORE_CATEGORY_CODE AS storeCategoryCode
         FROM
             CONTENT_CATEGORY AS cc
         WHERE
