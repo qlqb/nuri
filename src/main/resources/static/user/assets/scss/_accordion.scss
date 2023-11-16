@@ -1,0 +1,60 @@
+
+
+.single-accordion {
+  margin-bottom: 20px;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+
+
+  .accordion-btn {
+    background: $white;
+    border: none;
+    padding: 15px 25px;
+    padding-right: 50px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    position: relative;
+    white-space: normal;
+
+
+    &::after {
+      content: "\ea5e";
+      font-family: 'LineIcons';
+      position: absolute;
+      right: 25px;
+      top: calc(50% - 16px);
+      color: $heading-color;
+      @include transition(.3s);
+    }
+
+    &.collapsed {
+
+      &::after {
+        @include transform(rotate(180deg));
+      }
+    }
+  }
+
+  .accordion-content {
+    padding: 10px 25px 30px;
+  }
+}
+
+
+.content-404 {
+  padding: 100px 0;
+  text-align: center;
+
+  h1 {
+    font-size: 70px;
+    font-weight: 900;
+
+    @media #{$md} {
+      font-size: 50px;
+    }
+    @media #{$xs} {
+      font-size: 40px;
+    }
+  }
+}

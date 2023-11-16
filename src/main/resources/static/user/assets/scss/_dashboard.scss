@@ -1,0 +1,441 @@
+
+
+.dashboard-area {
+  position: relative;
+  z-index: 1;
+  margin-top: -80px;
+
+  .left-sidebar-wrapper {
+    padding: 50px 0;
+
+    .sidebar-header {
+      padding: 0 30px;
+      text-align: center;
+
+      .image {
+        width: 110px;
+        height: 110px;
+        border-radius: 100%;
+        margin: auto;
+        margin-bottom: 20px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .info {
+        border-bottom: 1px solid rgba($body-color, .47);
+        margin-bottom: 45px;
+
+        h3 {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .sidebar-menu {
+
+      ul {
+
+        li {
+
+          a {
+            display: block;
+            padding: 17px 30px;
+            color: $body-color;
+            position: relative;
+
+            &::before {
+              content: '';
+              position: absolute;
+              width: 4px;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: transparent;
+              border-radius: 0 5px 5px 0;
+              @include transition(.3s);
+            }
+            
+            &.active,
+            &:hover {
+              background: #F5F7FC;
+
+              &::before {
+                background: $theme-color;
+              }
+
+              i {
+                color: $theme-color;
+              }
+            }
+
+            i {
+              margin-right: 15px;
+              @include transition(.3s);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard-wrapper {
+
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+
+      .main-btn {
+        font-size: 16px;
+        font-weight: 400;
+        padding: 7px 16px;
+      }
+    }
+
+    .cards-wrapper {
+
+      .ads-btn {
+        display: inline-block;
+        padding: 8px 15px;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        color: $heading-color;
+        margin-right: 5px;
+        margin-bottom: 5px;
+
+        &:hover,
+        &.active {
+          background: $theme-color;
+          color: $white;
+        }
+      }
+
+      .single-card {
+        padding: 25px 15px;
+        display: flex;
+        @include transition(.3s);
+
+        @media #{$lg} {
+          flex-direction: column;
+          padding: 20px 10px;
+          text-align: center;
+        }
+        @media #{$md} {
+          flex-direction: column;
+          padding: 20px 10px;
+          text-align: center;
+        }
+
+        &:hover {
+          background: $theme-color;
+          border-color: $theme-color;
+
+          .icon {
+            i {
+              background: $white;
+              color: $theme-color;
+            }
+          }
+          .text {
+            h5, p {
+              color: $white;
+            }
+          }
+        }
+
+        .icon {
+          margin-right: 15px;
+          @media #{$lg} {
+            margin: 0px auto 8px;
+          }
+          @media #{$md} {
+            margin: 0px auto 8px;
+          }
+
+          i {
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: $white;
+            background: $theme-color;
+            @include transition(.3s);
+          }
+        }
+
+        .text {
+
+          h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            @include transition(.3s);
+          }
+
+          p {
+            @include transition(.3s);
+          }
+        }
+      }
+    }
+
+    .table-wrapper {
+      thead, tbody, td, th {
+        border: none;
+      }
+      .table>:not(caption)>*>* {
+        padding: 1rem .5rem;
+        margin-bottom: 10px;
+      }
+      table {
+        thead {
+          margin-bottom: 20px;
+          tr {
+            th {
+              h5 {
+                font-size: 18px;
+                font-weight: 600;
+                color: $heading-color;
+              }
+            }
+          }
+        }
+
+        tbody {
+
+          tr {
+            vertical-align: middle;
+            border-bottom: 8px solid $white;
+            padding: 16px 20px;
+            border-radius: 5px;
+            position: relative;
+            @include transition(.3s);
+            @include box-shadow(0px 3px 35px rgba(218, 222, 228, 0.3));
+
+            &:hover {
+
+              &::before {
+                background: $theme-color;
+              }
+            }
+
+            td {
+              
+              @media #{$lg} {
+                min-width: 150px;
+              }
+              @media #{$md} {
+                min-width: 150px;
+              }
+              @media #{$xs} {
+                min-width: 150px;
+              }
+              
+              .image {
+                display: flex;
+                align-items: center;
+
+                .form-check {
+                  width: auto;
+                  display: inline-block;
+                  margin-right: 10px;
+                  margin-bottom: 0;
+                  input {
+                    padding: 0;
+                    background-color: $theme-color;
+                    outline: none;
+                    border-color: transparent;
+                    @include box-shadow(none);
+                    margin-bottom: 0;
+
+                    &:checked {
+                      background-color: $theme-color;
+                    }
+                  }
+                }
+              }
+
+              h6 {
+                font-size: 16px;
+                font-weight: 600;
+              }
+
+              span.ad-id {
+                font-size: 14px;
+                font-weight: 300;
+              }
+              span.category {
+                color: $body-color;
+              }
+
+              .status-btn {
+                width: 100px;
+                text-align: center;
+                font-size: 15px;
+                padding: 4px 18px;
+                font-weight: 400;
+                border-radius: 30px;
+                background: $theme-color;
+                color: $white;
+              }
+              
+
+              .action-btns {
+                display: flex;
+
+                a {
+                  width: 28px;
+                  height: 28px;
+                  border-radius: 50%;
+                  background: #F5F7FC;
+                  color: $body-color;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  font-size: 14px;
+                  margin-right: 5px;
+                  &:hover {
+                    color:$white;
+                  }
+
+                  &.eye-btn {
+                    &:hover {
+                      background: lightseagreen;
+                    }
+                  }
+                  &.edit-btn {
+                    &:hover {
+                      background: $heading-color;
+                    }
+                  }
+                  &.delete-btn {
+                    &:hover {
+                      background: $theme-color;
+                    }
+                  }
+
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+.form-check.check-style {
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0;
+  input {
+    padding: 0;
+    background-color: $theme-color;
+    outline: none;
+    border-color: transparent;
+    @include box-shadow(none);
+    margin-bottom: 0;
+
+    &:checked {
+      background-color: $theme-color;
+    }
+  }
+}
+
+.privacy-wrapper {
+
+  .left-wrapper {
+
+    ul {
+      li {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+.payments-wrapper {
+
+  .left-wrapper {
+
+    .checkout {
+      li {
+        padding: 10px 0;
+        border-top: 1px solid $border-color;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+.upload-input {
+  position: relative;
+  height: 240px;
+
+
+  input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed $border-color;
+    text-indent: -9999px;
+    z-index: 99;
+
+    &::placeholder {
+      display: none;
+    }
+
+    
+  }
+  input[type="file" i] {
+    color: $white;
+  }
+
+  .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+    
+    p {
+      margin-bottom: 10px;
+    }
+  }
+
+  .main-btn {
+    padding: 5px 30px;
+    width: 100%;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+}
+
+.post-ad-form-wrapper {
+
+  .right-wrapper {
+
+    .main-btn {
+      padding: 10px 30px;
+      font-weight: 400;
+    }
+  }
+}

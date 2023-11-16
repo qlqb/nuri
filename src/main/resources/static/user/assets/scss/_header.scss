@@ -1,0 +1,546 @@
+/*===========================
+    02.HEADER css 
+===========================*/
+
+/*===== NAVBAR =====*/
+
+.header_navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid rgba($border-color, .3);
+    @include transition(0.3s);
+}
+
+
+.sticky {
+    position: fixed;
+    z-index: 999999;
+    background-color: $white;
+    @include box-shadow (0 5px 40px 0 rgba(10,10,25,.1));
+    border-bottom: 0;
+    @include transition(0.3s);
+
+    & .navbar {
+        padding: 0;
+
+        @media #{$md} {
+            padding: 10px 0;
+        }
+        @media #{$xs} {
+            padding: 10px 0;
+        }
+    }
+}
+
+
+.navbar {
+    padding: 0;
+    position: relative;
+    @include transition(0.3s);
+    
+    @media #{$md} {
+        padding: 15px 0;
+    }
+    @media #{$xs} {
+        padding: 15px 0;
+    }
+}
+
+.navbar-brand {
+    padding: 0;
+    width: 100%;
+    max-width: 155px;
+    
+    & img{
+        width: 150px;
+    }
+}
+
+
+.navbar-toggler {
+    padding: 0;
+
+    @media #{$md} {
+        position: absolute;
+        right: 0;
+    }
+    @media #{$xs} {
+        position: absolute;
+        right: 0;
+    }
+
+    &:focus {
+        @include box-shadow(none);
+    }
+
+    & .toggler-icon {
+        width: 30px;
+        height: 2px;
+        background-color: $white;
+        display: block;
+        margin: 5px 0;
+        position: relative;
+        @include transition(0.3s);
+    }
+
+    &.active {
+        & .toggler-icon {
+            &:nth-of-type(1) {
+                @include transform(rotate(45deg));
+                top: 7px;
+            }
+
+            &:nth-of-type(2) {
+                opacity: 0;
+            }
+
+            &:nth-of-type(3) {
+                @include transform(rotate(135deg));
+                top: -7px;
+            }
+        }
+    }
+}
+
+
+.navbar-collapse {
+    justify-content: center;
+
+    @media #{$md} {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: $white;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 9;
+        @include box-shadow (0px 15px 20px 0px rgba(0, 0, 0, 0.1));
+        padding: 5px 12px;
+    }
+
+    @media #{$xs} {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: $white;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 9;
+        @include box-shadow (0px 15px 20px 0px rgba(0, 0, 0, 0.1));
+        padding: 5px 12px;
+    }
+}
+
+
+.navbar-nav {
+    align-items: center;
+
+    @media #{$md} {
+        align-items: flex-start;
+    }
+    @media #{$xs} {
+        align-items: flex-start;
+    }
+    
+    & .nav-item {
+        position: relative;
+        margin-right: 40px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+        
+        @media #{$lg}{
+            margin-right: 30px;
+        }
+        @media #{$md}{
+            margin: 0;
+            width: 100%;
+        }
+        @media #{$xs}{
+            margin: 0;
+            width: 100%;
+        }
+
+        & a {
+            font-weight: 400;
+            font-size: 16px;
+            color: $white;
+            padding: 25px 0;
+            position: relative;
+            @include transition(0.3s);
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                width: 0;
+                height: 3px;
+                background-color: $theme-color;
+                @include transition(.3s);
+            }
+
+            @media #{$md} {
+                display: block;
+                padding: 8px 0;
+                color: $heading-color;
+            }
+
+            @media #{$xs} {
+                display: block;
+                padding: 6px 0;
+                color: $heading-color;
+            }
+
+            &.active {
+                color: $theme-color;
+
+                &::after {
+                    width: 100%;
+
+                    @media #{$md} {
+                        width: 0;
+                    }
+                    @media #{$xs} {
+                        width: 0;
+                    }
+                }
+            }
+        }
+
+        
+
+        &:hover {
+
+            &> a {
+                color: $theme-color;
+
+                &::after {
+                    width: 100%;
+
+                    @media #{$md} {
+                        width: 0;
+                    }
+                    @media #{$xs} {
+                        width: 0;
+                    }
+                }
+            }
+
+            & .sub-menu {
+                top: 100%;
+                opacity: 1;
+                visibility: visible;
+
+                @media #{$md} {
+                    top: 0;
+                    opacity: 0;
+                }
+
+                @media #{$xs} {
+                    top: 0;
+                    opacity: 0;
+                }
+            }
+        }
+
+        & .sub-menu {
+            width: 200px;
+            background-color: $white;
+            @include box-shadow (0px 0px 20px 0px rgba(0, 0, 0, 0.1));
+            position: absolute;
+            top: 110%;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            @include transition(0.3s);
+
+            &.collapse:not(.show) {
+                display: block;
+
+                @media #{$md} {
+                    display: none;
+                }
+                @media #{$xs} {
+                    display: none;
+                }
+            }
+
+            @media #{$md} {
+                position: relative;
+                width: 100%;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                visibility: hidden;
+                height: 0;
+            }
+
+            @media #{$xs} {
+                position: relative;
+                width: 100%;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                visibility: hidden;
+                height: 0;
+            }
+
+            &.show {
+                @media #{$md} {
+                    height: auto;
+                    visibility: visible;
+                }
+                @media #{$xs} {
+                    height: auto;
+                    visibility: visible;
+                }
+            }
+
+            & li {
+                display: block;
+
+                & a {
+                    display: block;
+                    padding: 8px 20px;
+                    color: $body-color;
+
+                    @media #{$md} {
+                        padding: 8px 0;
+                    }
+                    @media #{$xs} {
+                        padding: 8px 0;
+                    }
+
+                    &.active,
+                    &:hover {
+                        padding-left: 25px;
+                        color: $theme-color;
+
+                        &::after {
+                            width: 0;
+                        }
+                        @media #{$md} {
+                            padding-left: 0;
+                        }
+                        @media #{$xs} {
+                            padding-left: 0;
+                        }
+                    }
+                }
+            }
+
+            &.show {
+                @media #{$md} {
+                    display: block;
+                    height: auto;
+                    opacity: 1;
+                    @include box-shadow(none);
+                }
+                @media #{$xs} {
+                    display: block;
+                    height: auto;
+                    opacity: 1;
+                    @include box-shadow(none);
+                }
+            }
+        }
+    }
+
+    & .sub-nav-toggler {
+        display: none;
+
+        @media #{$md} {
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: none;
+            color: $black;
+            font-size: 18px;
+            border: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        @media #{$xs} {
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: none;
+            color: $black;
+            font-size: 18px;
+            border: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        & span {
+            width: 8px;
+            height: 8px;
+            border-left: 1px solid $black;
+            border-bottom: 1px solid $black;
+            @include transform(rotate(-45deg));
+            position: relative;
+            top: -5px;
+        }
+    }
+}
+
+.account-icon {
+    position: absolute;
+    right: 60px;
+
+    a {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $white;
+        color: $theme-color;
+        border-radius: 50%;
+
+        &:hover {
+            color: $white;
+            background: $theme-color;
+        }
+    }
+}
+
+.header-btn {
+    @media #{$md} {
+        margin-right: 60px;
+    }
+    @media #{$xs} {
+        margin-right: 40px;
+    }
+
+    .main-btn {
+        font-size: 16px;
+        padding: 10px 30px;
+        font-weight: 400;
+
+        &.account-btn {
+            border: 1px solid $theme-color;
+            margin-right: 15px;
+            background: transparent;
+            color: $theme-color;
+            position: relative;
+            padding-right: 50px;
+
+            &::after {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 8px;
+                height: 8px;
+                right: 30px;
+                margin-top: -4px;
+                pointer-events: none;
+                top: 50%;
+                transform-origin: 66% 66%;
+                @include transform(rotate(45deg));
+                @include transition(.3s);
+                border-bottom: 2px solid $theme-color;
+                border-right: 2px solid $theme-color;
+            }
+
+            @media #{$xs} {
+                padding: 10px 14px;
+            }
+        }
+    }
+}
+
+.sticky{
+    & .navbar-toggler {
+        & .toggler-icon {
+            background-color: $heading-color;
+        }
+    }
+    
+        
+    & .navbar-nav {
+        & .nav-item {
+            & a {
+                color: $heading-color;
+                
+                &::before{
+                    background-color: $theme-color;
+                }
+                &.active,
+                &:hover {
+                    color: $theme-color;
+                }
+
+                &.header-btn {
+                    color: $white;
+                }
+            }
+            
+            
+        }
+    }
+}
+
+
+.dropdown-nav {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 200px;
+    background: $white;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    min-height: 300px;
+    @include transition(.3s);
+    @include box-shadow (0px 0px 20px 0px rgba(0, 0, 0, 0.1));
+
+    @media #{$xs} {
+        right: 0;
+        left: auto;
+    }
+
+    li {
+        margin-bottom: 12px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            a {
+                display: block;
+                color: $theme-color;
+            }
+        }
+
+        a {
+            color: $heading-color;
+        }
+    }
+}
+
+.header-btn li {
+    position: relative;
+
+    &:hover {
+        .dropdown-nav {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+
+
+
