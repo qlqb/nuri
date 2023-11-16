@@ -29,7 +29,7 @@
 							isValid = false;
 							let $elementId = $(`label[for="searchYear"]`).text();
 							alert(`${$elementId} <-- 필수 입력 항목입니다.`);
-							console.log("유효성 검사 : "+isValid);
+							console.log("유효성 검사 : " + isValid);
 							return isValid;
 						}
 					}
@@ -38,18 +38,22 @@
 
 				//검색 버튼 클릭 시 입력한 연도의 데이터 가져오기
 				$('#budgetSearchBtn').click(function(){
-					let $searchYear = $("#searchYear").val();
-					console.log($searchYear);
-					let isValid = validationCheck($searchYear);
+					let $applyYear = $("#applyYear").val();
+
+					//입력값이 ''일때 전체 리스트 다시 불러오기
+
+
+					console.log($applyYear);
+					let isValid = validationCheck($applyYear);
 					console.log(isValid);
 					if(isValid){
 						//유효성 검사를 통과한 경우 selelct문 실행
-						console.log($searchYear);
 						$("#budgetSearchForm").submit();
 					}
 				});
 
-				//체크한 항목의 수정 페이지로 이동(한 개만 체크 가능)
+
+
 
 
 			});
@@ -76,10 +80,10 @@
 						
                     	<form id="budgetSearchForm" data-parsley-validate class="form-horizontal form-label-left">
 	                        <div class="form-group">
-	                        	<label for="searchYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
+	                        	<label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                         	 <input type="number" id="searchYear" name="searchYear" class="form-control col-md-7 col-xs-12"
-								 min="2011" max="2999">
+	                         	 <input type="number" id="applyYear" name="applyYear" class="form-control col-md-7 col-xs-12"
+								 min="2014" max="2114">
 	                        	</div>
 	                      	</div>
 
@@ -108,7 +112,6 @@
 		         			<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
 					           <thead>
 					             <tr>
-					               <th><input type="checkbox" id="check-all" class="flat"></th>
 				                   <th>연도</th>
 				                   <th>예산</th>
 				                   <th>1인당 지원 금액</th>
@@ -123,8 +126,10 @@
 									 <td colspan="7">등록된 예산 목록이 없습니다</td>
 								 </tr>
 				                 <tr th:unless="${budgetTotalList==null}" th:each="l:${budgetTotalList}">
-				                   <td><input type="checkbox" class="flat"></td>
-									 <td th:text="${l.applyYear}"></td>
+									 <td>
+										 <a th:href="@{/admin/budget/budgetUpdate(applyYear=${l.applyYear})}">
+											 <th:block th:text="${l.applyYear}"></th:block></a>
+									 </td>
 									 <td th:text="${l.budgetTotalAmount}"></td>
 									 <td th:text="${l.budgetByPerson}"></td>
 									 <td th:text="${l.officerId}"></td>
@@ -133,15 +138,6 @@
 				                 </tr>
 		                 		</tbody>
 		             		</table>
-
-							<div class="ln_solid"></div>
-	                      	<div class="form-group">
-		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-									<button type="button" id="budgetUpdate" class="btn btn-primary"
-											th:onclick="'location.href=\''+@{/admin/budget/budgetUpdate}+'\''">수정</button>
-		                            <button type="button" id="budgetDelete" class="btn btn-success">삭제</button>
-		                        </div>
-	                      	</div>
 		           		</div>
 	       			</div>
 				</div>
