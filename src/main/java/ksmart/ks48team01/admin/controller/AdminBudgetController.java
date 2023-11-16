@@ -1,5 +1,8 @@
 package ksmart.ks48team01.admin.controller;
 
+
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.service.AreaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -7,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ksmart.ks48team01.dto.Budget;
 import ksmart.ks48team01.dto.BudgetRegion;
+import com.google.gson.Gson;
 import ksmart.ks48team01.service.BudgetService;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
 import java.util.List;
 
 @Controller("AdminBudgetController")
@@ -17,9 +24,12 @@ public class AdminBudgetController {
 	private static final Logger log = LoggerFactory.getLogger(AdminBudgetController.class);
 
 	private final BudgetService budgetService;
-	public AdminBudgetController(BudgetService budgetService) {
+	private final AreaService areaService;
+	public AdminBudgetController(BudgetService budgetService, AreaService areaService) {
 		this.budgetService = budgetService;
+		this.areaService = areaService;
 	}
+
 
 	/**
 	 * 연도 중복체크 (ajax 요청 응답)
@@ -32,6 +42,22 @@ public class AdminBudgetController {
 
 		log.info("applyYear : {}", applyYear);
         return budgetService.yearCheck(applyYear);
+	}
+
+	/**
+	 * 연도/지역 중복체크 (ajax 요청 응답)
+	 * @param applyYear (입력받은 연도)
+	 * @return @ResponseBody 응답시 body 영역에 응답한 데이터를 전달
+	 */
+	@PostMapping("/yearRegionCheck")
+	@ResponseBody
+	public boolean yearRegionCheck(@RequestParam(name="applyYear") String applyYear,
+								   @RequestParam(name="regionCode") int regionCode) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("applyYear", applyYear);
+		map.put("regionCode", regionCode);
+		return budgetService.yearRegionCheck(map);
 	}
 
 	/**
@@ -49,25 +75,27 @@ public class AdminBudgetController {
 
 	/**
 	 * 지역 단위 예산 등록 처리
-	 * @param budget
+	 * @param budgetRegion
 	 * @return 각 지역 예산 조회 페이지로 이동
 	 */
 	@PostMapping("/budgetInfoRegion")
-	public String addBudgetRegion(Budget budget){
+	public String addBudgetRegion(BudgetRegion budgetRegion){
 
-		log.info("예산 등록 Budget : {}", budget);
+		budgetService.addBudgetRegion(budgetRegion);
 
 		return "redirect:/admin/budget/budgetInfoRegion";
 	}
 
 	/**
-	 * 예산 등록 페이지(전국단위)
+	 * 예산 등록 페이지
 	 * @param model
 	 * @return view -> budget/budgetRegist
 	 */
 	@GetMapping("/budgetRegist")
 	public String budgetRegist(Model model) {
+		List<Region> regionList = areaService.getRegionList();
 		model.addAttribute("title", "예산 등록");
+		model.addAttribute("regionList", regionList);
 		return "admin/budget/budgetRegist";
 	}
 
@@ -104,6 +132,11 @@ public class AdminBudgetController {
 	public String budgetInfoRegion(Model model) {
 
 		List<BudgetRegion> budgetRegionList = budgetService.getBudgetRegionList();
+		List<Region> regionList = areaService.getRegionList();
+
+		model.addAttribute("budgetRegionList", budgetRegionList);
+		model.addAttribute("title", "지역 예산 조회");
+		model.addAttribute("regionList", regionList);
 		return "admin/budget/budgetInfoRegion";
 	}
 

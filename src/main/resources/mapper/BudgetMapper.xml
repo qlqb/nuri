@@ -14,16 +14,20 @@
         <result property="updateDT" column="UPDATE_DT"/>
     </resultMap>
 
-<!--    <resultMap type="Budget" id="budgetRegionResultMap">-->
-<!--        <id property="budgetRegionNum" column="BUDGET_REGION_NUM"/>-->
-<!--        <result property="applyYear" column="APPLY_YEAR"/>-->
-<!--        <result property="regionCode" column="REGION_CODE"/>-->
-<!--        <result property="officerId" column="OFFICER_ID"/>-->
-<!--        <result property="budgetRegionAmount" column="BUDGET_REGION_AMOUNT"/>-->
-<!--        <result property="munhwaRegionNOP" column="MUNHWA_REGION_NOP"/>-->
-<!--        <result property="registDT" column="REGIST_DT"/>-->
-<!--        <result property="updateDT" column="UPDATE_DT"/>-->
-<!--    </resultMap>-->
+    <resultMap type="BudgetRegion" id="budgetRegionResultMap">
+        <id property="budgetRegionNum" column="BUDGET_REGION_NUM"/>
+        <result property="applyYear" column="APPLY_YEAR"/>
+        <result property="officerId" column="OFFICER_ID"/>
+        <result property="budgetRegionAmount" column="BUDGET_REGION_AMOUNT"/>
+        <result property="munhwaRegionNOP" column="MUNHWA_REGION_NOP"/>
+        <result property="registDT" column="REGIST_DT"/>
+        <result property="updateDT" column="UPDATE_DT"/>
+
+        <association property="region" javaType="Region">
+            <id property="regionCode" column="REGION_CODE"></id>
+            <result property="regionName" column="REGION_NAME"></result>
+        </association>
+    </resultMap>
 
     <select id="getBudgetTotalList" resultMap="budgetTotalResultMap">
         /* 연도별 총 예산, 인당 최대 지원금 조회*/
@@ -37,6 +41,26 @@
             UPDATE_DT
         FROM
             BUDGET_TOTAL
+    </select>
+
+    <select id="getBudgetRegionList" resultMap="budgetRegionResultMap">
+        /* 연도별 지역 예산, 지역별 대상 인원 조회*/
+        SELECT
+            b.BUDGET_REGION_NUM,
+            b.APPLY_YEAR,
+            b.REGION_CODE,
+            r.REGION_NAME,
+            b.OFFICER_ID,
+            b.BUDGET_REGION_AMOUNT,
+            b.MUNHWA_REGION_NOP,
+            b.REGIST_DT,
+            b.UPDATE_DT
+        FROM
+            BUDGET_REGION AS b
+            INNER JOIN
+            REGION AS r
+            ON
+            b.REGION_CODE = r.REGION_CODE;
     </select>
 
     <select id="getBudgetTotalSearch" resultMap="budgetTotalResultMap">
@@ -86,7 +110,31 @@
             #{officerId},
             #{applyYear},
             #{budgetByPerson},
-            #{budgetTotalAmount},
+            #{budgetTotalAmount}*'100000000',
+            CURDATE(),
+            CURDATE()
+        )
+
+    </insert>
+
+    <insert id="addBudgetRegion" parameterType="BudgetRegion">
+        /* 지역 단위 예산 등록 */
+        INSERT INTO BUDGET_REGION(
+            BUDGET_REGION_NUM,
+            APPLY_YEAR,
+            REGION_CODE,
+            OFFICER_ID,
+            BUDGET_REGION_AMOUNT,
+            MUNHWA_REGION_NOP,
+            REGIST_DT,
+            UPDATE_DT
+        )VALUES(
+            #{budgetRegionNum},
+            #{applyYear},
+            #{regionCode},
+            #{officerId},
+            #{budgetRegionAmount},
+            #{munhwaRegionNOP},
             CURDATE(),
             CURDATE()
         )
@@ -122,8 +170,19 @@
             APPLY_YEAR = #{applyYear}
     </select>
 
+    <select id="yearRegionCheck" parameterType="hashmap" resultType="boolean">
+        /* 연도, 지역 중복 여부 검색 */
+        SELECT
+            COUNT(BUDGET_REGION_NUM)
+        FROM
+            BUDGET_REGION
+        WHERE
+            APPLY_YEAR = #{applyYear} AND
+            REGION_CODE = #{regionCode}
+    </select>
+
     <update id="updateBudgetTotal" parameterType="Budget">
-        /* 전국단위 예산 수정 */
+        /* 전국 단위 예산 수정 */
         UPDATE BUDGET_TOTAL
         <set>
             OFFICER_ID = #{officerId},

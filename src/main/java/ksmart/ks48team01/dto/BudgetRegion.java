@@ -7,10 +7,12 @@ public class BudgetRegion {
 
     private String budgetRegionNum;
     private String applyYear;
-    private String regionCode;
+    private Region region;
+    private int regionCode;
+    private String regionName;
     private String officerId;
-    private long budgetRegionAmount;
-    private int munhwaRegionNOP;
+    private String budgetRegionAmount;
+    private String munhwaRegionNOP;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String registDT;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -32,12 +34,20 @@ public class BudgetRegion {
         this.applyYear = applyYear;
     }
 
-    public String getRegionCode() {
+    public int getRegionCode() {
         return regionCode;
     }
 
-    public void setRegionCode(String regionCode) {
+    public void setRegionCode(int regionCode) {
         this.regionCode = regionCode;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public String getOfficerId() {
@@ -48,19 +58,19 @@ public class BudgetRegion {
         this.officerId = officerId;
     }
 
-    public long getBudgetRegionAmount() {
+    public String getBudgetRegionAmount() {
         return budgetRegionAmount;
     }
 
-    public void setBudgetRegionAmount(long budgetRegionAmount) {
+    public void setBudgetRegionAmount(String budgetRegionAmount) {
         this.budgetRegionAmount = budgetRegionAmount;
     }
 
-    public int getMunhwaRegionNOP() {
+    public String getMunhwaRegionNOP() {
         return munhwaRegionNOP;
     }
 
-    public void setMunhwaRegionNOP(int munhwaRegionNOP) {
+    public void setMunhwaRegionNOP(String munhwaRegionNOP) {
         this.munhwaRegionNOP = munhwaRegionNOP;
     }
 
@@ -80,15 +90,25 @@ public class BudgetRegion {
         this.updateDT = updateDT;
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "BudgetRegion{" +
                 "budgetRegionNum='" + budgetRegionNum + '\'' +
                 ", applyYear='" + applyYear + '\'' +
-                ", regionCode='" + regionCode + '\'' +
+                ", region=" + region +
+                ", regionCode=" + regionCode +
+                ", regionName='" + regionName + '\'' +
                 ", officerId='" + officerId + '\'' +
-                ", budgetRegionAmount=" + budgetRegionAmount +
-                ", munhwaRegionNOP=" + munhwaRegionNOP +
+                ", budgetRegionAmount='" + budgetRegionAmount + '\'' +
+                ", munhwaRegionNOP='" + munhwaRegionNOP + '\'' +
                 ", registDT='" + registDT + '\'' +
                 ", updateDT='" + updateDT + '\'' +
                 '}';

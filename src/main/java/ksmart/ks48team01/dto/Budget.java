@@ -8,8 +8,8 @@ public class Budget {
     private String budgetNum;
     private String officerId;
     private String applyYear;
-    private int budgetByPerson;
-    private long budgetTotalAmount;
+    private String budgetByPerson;
+    private String budgetTotalAmount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String registDT;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -39,19 +39,19 @@ public class Budget {
         this.applyYear = applyYear;
     }
 
-    public int getBudgetByPerson() {
+    public String getBudgetByPerson() {
         return budgetByPerson;
     }
 
-    public void setBudgetByPerson(int budgetByPerson) {
+    public void setBudgetByPerson(String budgetByPerson) {
         this.budgetByPerson = budgetByPerson;
     }
 
-    public long getBudgetTotalAmount() {
+    public String getBudgetTotalAmount() {
         return budgetTotalAmount;
     }
 
-    public void setBudgetTotalAmount(long budgetTotalAmount) {
+    public void setBudgetTotalAmount(String budgetTotalAmount) {
         this.budgetTotalAmount = budgetTotalAmount;
     }
 

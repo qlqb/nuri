@@ -7,6 +7,7 @@ import ksmart.ks48team01.mapper.BudgetMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -52,7 +53,11 @@ public class BudgetService {
     }
 
     public boolean yearCheck(String applyYear){
-        return budgetMapper.yearCheck(applyYear);
+            return budgetMapper.yearCheck(applyYear);
+    }
+
+    public boolean yearRegionCheck(HashMap<String, Object> map){
+        return budgetMapper.yearRegionCheck(map);
     }
 
     // 전국 단위 예산 수정
