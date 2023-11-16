@@ -1,0 +1,59 @@
+// Font Family
+$font-1: 'Roboto', sans-serif;
+
+
+// Colors ---------------
+$white: #fff;
+$black: #222;
+$gray: #F9F9F9;
+$success: #7CB637;
+$error: #FF4B22;
+
+$facebook: #6598FE;
+$twitter: #5FC5F2;
+$instagram: #FF679D;
+$linkedin: #336DB8;
+
+
+// Theme Color
+$theme-color: #FF6B6B;
+
+
+//Body Color
+$body-color: #7C869A;
+
+
+// Border Color
+$border-color: rgba(124, 134, 154, 0.25);
+
+
+// Heading Color
+$heading-color: #333F57;
+
+
+// Soft color
+$black-soft: #868AAA;
+
+
+
+$gradient-1: linear-gradient(#4354e2 0%, #6ca3f3 100%);
+$gradient-2: linear-gradient(#dc4985 0%, #f18da2 100%);
+$gradient-3: linear-gradient(#2cc590 0%, #75eb92 100%);
+$gradient-4: linear-gradient(#a866d1 0%, #f9a4d7 100%);
+
+
+
+
+
+
+
+
+// Responsive Variables
+$desktop: 'only screen and (min-width: 1400px)';
+$laptop: 'only screen and (min-width: 1200px) and (max-width: 1399px)';
+$lg : 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$md:'only screen and (min-width: 768px) and (max-width: 991px)';
+$xs:'(max-width: 767px)';
+$sm: 'only screen and (min-width: 576px) and (max-width: 767px)';
+
+
