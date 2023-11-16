@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import ksmart.ks48team01.user.dto.District;
-import ksmart.ks48team01.user.dto.Region;
-import ksmart.ks48team01.user.service.AreaService;
+import ksmart.ks48team01.dto.District;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.dto.User;
+import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,11 @@ public class RegisterController {
 
 
     private final AreaService areaService;
+    private final UserService userService;
 
-    public RegisterController (AreaService areaService) {
+    public RegisterController (AreaService areaService, UserService userService) {
         this.areaService = areaService;
+        this.userService = userService;
     }
 
     // 가입 할 회원 권한을 선택할 수 있는 페이지
@@ -33,6 +35,7 @@ public class RegisterController {
     public String registerType(Model model) {
 
         model.addAttribute("title", "회원선택 - 누리컬쳐");
+        model.addAttribute("bannerTitle", "회원가입");
 
         return "user/register/registerType";
     }
@@ -41,9 +44,27 @@ public class RegisterController {
     @GetMapping("/districtList")
     public String getDistrictList(Model model, @RequestParam(name = "regionCode") String regionCode) {
         Gson gson = new Gson();
-        List<District> districtList = areaService.getDistrictList(regionCode);
+        List<District> districtList = areaService.getDistrictListByRegion(regionCode);
 
         return gson.toJson(districtList);
+    }
+
+    @ResponseBody
+    @PostMapping("/userIdCheck")
+    public String getUserIdCheck(@RequestBody Map<String, String> userCheckMap) {
+        String userId = userCheckMap.get("userId");
+        System.out.println(userId);
+        Boolean checkedValue = userService.getUserIdCheck(userId);
+        Map<String, Object> checkedMap = new HashMap<>();
+        if(checkedValue) {
+            checkedMap.put("checkedValue", checkedValue);
+            checkedMap.put("message", "이미 가입된 아이디입니다.");
+        } else {
+            checkedMap.put("checkedValue", checkedValue);
+            checkedMap.put("message", "가입할 수 있는 아이디입니다.");
+        }
+
+        return checkedMap.toString();
     }
 
 
@@ -52,7 +73,7 @@ public class RegisterController {
     public String memberRegister(Model model) {
         // 지역 1 Select option 시 RegionList 출력
         List<Region> regionList = areaService.getRegionList();
-        
+
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
 
@@ -60,9 +81,8 @@ public class RegisterController {
     }
 
     @PostMapping("/memberRegister")
-    public String memberRegister() {
-
-
+    public String memberRegister(User user) {
+        userService.memberRegister(user);
 
         return "redirect:/user/register/registerConfirm";
     }
@@ -99,14 +119,12 @@ public class RegisterController {
 
 
     /**
-     * 
+     *
      * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
      * @return
      */
     @PostMapping("/officerRegister")
     public String officerRegister(RedirectAttributes redirectAttributes) {
-
-        //redirectAttributes.addAttribute("level", "공무원");
 
         return "redirect:/user/register/registerConfirm";
     }
@@ -121,16 +139,4 @@ public class RegisterController {
 
         return "user/register/registerConfirm";
     }
-
-//    @GetMapping(value = "/registerConfirm")
-//    public String registerConfirm(@RequestParam("level") String userLevel, Model model) {
-//
-//        model.addAttribute("title", "회원가입 - 누리컬쳐");
-//        model.addAttribute("userLevel", userLevel);
-//
-//        return "user/register/registerConfirm";
-//    }
-
-
-
 }

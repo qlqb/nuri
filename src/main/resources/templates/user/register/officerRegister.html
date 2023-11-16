@@ -13,6 +13,7 @@
             color: #FF6B6B;
         }
     </style>
+    <script src="/user/assets/js/jquery-3.7.1.min.js"></script>
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -180,7 +181,7 @@
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
                         <h3 class="mb-20">회원정보 입력</h3>
-                        <form th:action="@{/user/register/memberRegister}" method="post">
+                        <form id="member-form" th:action="@{/user/register/memberRegister}" method="post">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
@@ -273,49 +274,50 @@
                     <div class="col-lg-6 col-md-10">
                         <div class="login-wrapper box-style">
                             <h3 class="mb-20">공무원 정보 입력</h3>
-                                <div class="row">
-                                    <div class="col-12">
+                                <form th:action="@{/user/register/officerRegister}" method="post">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="single-form mb-20">
+                                                <label for="districtDep" class="mb-2"><small class="input-specific">*</small>행정기관 </label>
+                                                <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtDepCode" id="districtDep">
+                                                    <option value="none" selected disabled>region dataset</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="single-form mb-20">
+                                                <label for="division" class="mb-2"><small class="input-specific">*</small>부서 </label>
+                                                <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtCode" id="division">
+                                                    <option value="none" selected disabled>district dataset</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="single-form mb-20">
+                                                <label for="officer" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
+                                                <input type="text" id="officer" name="user_email" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
+                                            </div>
+                                        </div>
                                         <div class="single-form mb-20">
-                                            <label for="department" class="mb-2"><small class="input-specific">*</small>행정기관 </label>
-                                            <select class="col-12 py-2 px-3 mb-0 rounded border" name="region_code" id="department">
-                                                <option value="none" selected disabled>region dataset</option>
-                                            </select>
+                                            <p><small class="input-specific">*</small>는 필수 요소 항목입니다.</p>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <div class="single-form mb-30">
+                                                <button class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="single-form mb-20">
-                                            <label for="division" class="mb-2"><small class="input-specific">*</small>부서 </label>
-                                            <select class="col-12 py-2 px-3 mb-0 rounded border" name="district_code" id="division">
-                                                <option value="none" selected disabled>district dataset</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="single-form mb-20">
-                                            <label for="officer" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
-                                            <input type="text" id="officer" name="user_email" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
-                                        </div>
-                                    </div>
-                                    <div class="single-form mb-20">
-                                        <p><small class="input-specific">*</small>는 필수 요소 항목입니다.</p>
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <div class="single-form mb-30">
-                                            <button class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </form>
+            </section>
     <!--====== 공무원 회원 가입 form 끝 ======-->
 
 </th:block>
 
-<!-- 사용자별 스크립트 작성 -->
+<!-- 사용자 페이지별 javascript file 추가-->
 <body>
     <script src="/user/assets/js/district-list.js"></script>
 </body>

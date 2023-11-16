@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+<head>
+    <title th:text="${title}"></title>
+    <style>
+        .img-radius10 {
+            border-radius: 10px;
+        }
+
+        .img-shadow {
+            box-shadow: 0px 3px 25px rgba(203, 207, 213, 0.3)
+        }
+    </style>
+</head>
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">누리컬쳐 가맹점 소개</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">메인페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">누리컬쳐 서비스 소개</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <!--====== 키워드를 통한 가맹점 조회 페이지 ======-->
+    <section class="client-logo-area pt-140 pb-110">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto col-xl-6 col-lg-7 col-md-10">
+                    <div class="text-center section-title mb-60">
+                        <h1>누리컬처의 <br><a class="single-logo" th:href="@{/user/store/storeList}">가맹점</a> 그리고 <a th:href="@{/user/contents/contentsInfoList}">컨텐츠</a></h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="client-logo-wrapper pb-30">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">주변의 문화시설부터</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                           <strong style="font-size: 100px">연극</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">운동</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">도서</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">전시</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">관광</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">교육</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">영화</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">음악</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="single-logo">
+                            <strong style="font-size: 100px">디지털 컨텐츠까지</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center font-weight-bold">키워드를 클릭하면 해당 키워드의 가맹점을 확인할 수 있습니다.</p>
+
+            <div class="client-logo-wrapper pt-70 pb-40">
+                <div class="row">
+                    <table class="table-borderless text-center">
+                        <thead>
+                            <th class="col-3 single-logo">카테고리</th>
+                            <th class="col-3 single-logo">가맹점명</th>
+                            <th class="col-3 single-logo">등록일</th>
+                            <th class="col-3 single-logo">등록일</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                            </tr>
+                            <tr>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                            </tr>
+                            <tr>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                            </tr>
+                            <tr>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                                <td>바보</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+    <!--====== TESTIMONIAL PART ENDS ======-->
+
+    <!--====== WHY CHOSE PART START ======-->
+    <section class="why-chose-area bg_cover">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="why-chose-content">
+                        <div class="section-title">
+                            <h1>누리컬쳐의 방향</h1>
+                            <p>공공문화시설을 이용하는 사람부터 운영하는 사람까지, 정보제공을 통해 모든 사람을 위한 방향으로 나아갑니다.</p>
+                        </div>
+
+                        <div class="why-chose-item">
+                            <div class="icon">
+                                <i class="lni lni-layers"></i>
+                            </div>
+                            <div class="content">
+                                <h3>사용자</h3>
+                                <p>주변의 공공 문화시설을 찾는 사람부터, 문화생활을 누리기 힘든 사람들에게 다양한 정보를 제공합니다.</p>
+                            </div>
+                        </div>
+                        <div class="why-chose-item">
+                            <div class="icon">
+                                <i class="lni lni-code"></i>
+                            </div>
+                            <div class="content">
+                                <h3>가맹점</h3>
+                                <p>정보를 통해 사용자와 가맹점을 이어주고 공공 문화시설 운영에 도움을 줄 수 있는 데이터를 제공합니다.</p>
+                            </div>
+                        </div>
+                        <div class="why-chose-item">
+                            <div class="icon">
+                                <i class="lni lni-mobile"></i>
+                            </div>
+                            <div class="content">
+                                <h3>공무원</h3>
+                                <p>사용자와 가맹점의 이용현황 등의 정보와 공공 문화시설의 운영과 예산의 집행에 있어 도움을 줄 수 있는 데이터를 제공합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="text-right why-chose-img">
+                        <small class="mb-10 d-flex justify-content-center">전북 전주시 완산구 기린대로 99 전주한옥마을</small>
+                        <img class="image img-radius10 img-shadow" src="/user/assets/images/about/hanok.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== WHY CHOSE PART END ======-->
+
+</th:block>
+
+</html>

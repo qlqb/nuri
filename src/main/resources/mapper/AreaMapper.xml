@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.ks48team01.user.mapper.AreaMapper">
+<mapper namespace="ksmart.ks48team01.mapper.AreaMapper">
     <resultMap type="Region" id="regionResultMap">
         <id property="regionCode" column="region_code"/>
         <result property="regionName" column="region_name"/>
@@ -14,23 +14,57 @@
         <result property="districtName" column="district_name"/>
     </resultMap>
 
-    <select id="getRegionList" resultType="Region">
+    <select id="getRegionList">
         SELECT
             REGION_CODE AS regionCode,
             REGION_NAME AS regionName
         FROM
-            region;
+            REGION;
     </select>
 
-    <select id="getDistrictList" resultMap="districtResultMap" parameterType="String">
+    <select id="getDistrictList" resultType="District">
+        SELECT
+            D.DISTRICT_CODE AS districtCode,
+            R.REGION_CODE AS regionCode,
+            R.REGION_NAME AS regionName,
+            D.DISTRICT_NAME AS districtName
+        FROM
+            DISTRICT AS D
+        INNER JOIN
+            REGION AS R
+        ON
+            D.REGION_CODE = R.REGION_CODE;
+    </select>
+
+    <select id="getDistrictListByRegion" resultMap="districtResultMap" parameterType="String">
         SELECT
             DISTRICT_CODE,
             REGION_CODE,
             DISTRICT_NAME
         FROM
-            district
+            DISTRICT
         WHERE
             REGION_CODE = #{regionCode};
+    </select>
+
+    <select id="getDistrictDepartmentList" resultType="DistrictDep">
+        SELECT
+            R.REGION_CODE AS regionCode,
+            D.DISTRICT_CODE AS districtCode,
+            P.DISTRICT_DEP_CODE AS districtDepCode,
+            R.REGION_NAME AS regionName,
+            D.DISTRICT_NAME AS districtName,
+            P.DISTRICT_DEP_NAME AS districtDepName
+        FROM
+            DISTRICT AS D
+        INNER JOIN
+            REGION AS R
+        ON
+            D.REGION_CODE = R.REGION_CODE
+        INNER JOIN
+            DISTRICT_DEP AS P
+        ON
+            D.DISTRICT_CODE = P.DISTRICT_CODE;
     </select>
 
 

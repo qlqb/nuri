@@ -3,143 +3,152 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{/admin/layout/default}">
 
-	<th:block layout:fragment="customJs">
-		<script th:src="@{/js/jquery-3.7.1.js}"></script>
-	</th:block>
-	
-  <body id="page-top">
+<th:block layout:fragment="customJs">
+	<script th:src="@{/js/jquery-3.7.1.js}"></script>
+</th:block>
 
-	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
-	<th:block layout:fragment="customContents">
-		<div class="x_panel">
-			<div th:include="~{/admin/fragments/tabs :: userTabs}"></div>
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="x_panel">
-						<div class="x_content">
-							<p class="text-muted font-13 m-b-30">
-								데이터 테이블 조회하기</p>
+<body id="page-top">
 
-							<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-								<thead>
-								<tr>
-									<th>아이디</th>
-									<th>권한</th>
-									<th>이름</th>
-									<th>이메일</th>
-									<th>연락처</th>
-									<th>주소</th>
-								</tr>
-								</thead>
+<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+<th:block layout:fragment="customContents">
 
-								<tbody>
-								<tr>
-									<td>id001</td>
-									<td>공무원</td>
-									<td>김길동</td>
-									<td>emailexample14@email.com</td>
-									<td>010-0000-0003</td>
-									<td>경상남도 창원시 마산회원구 345-67 706호</td>
-								</tr>
 
-								</tbody>
-							</table>
+	<!-- 삭제 확인 메시지 모달 시작 -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<form th:action="@{/admin/user/userDeleteByAdmin}" method="get">
+					<!--  세션 정보로 관리자인지 다시 확인	-->
+					<input type="hidden" name="deleteTarget" th:value="${specificUserList.userId}">
+					<input type="hidden" name="targetLevel" th:value="${specificUserList.levelId}">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title text-center" id="exampleModalLabel">회원삭제</h5>
+						</div>
+<!--						<div class="modal-body text-center">-->
+<!--							<label for="checkPw">삭제 확인을 위해 비밀번호 입력-->
+<!--								<input id="checkPw" class="form-control text-center" type="password" name="checkAdmin"/>-->
+<!--							</label>-->
+<!--						</div>-->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger">삭제</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
+		</div>
+	</div>
+	<!-- 삭제 확인 메시지 모달 시작 -->
 
-			<div class="row">
-				<div class="col-md-12 col-sm-12 ">
-					<div class="x_panel">
-						<div class="x_title">
-							<h2>회원정보수정</h2>
-							<div class="clearfix"></div>
+
+	<div class="page-title">
+		<div class="title_left">
+			<h3>Form Elements</h3>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Form Design <small>different form elements</small></h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
+					<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+						<div class="form-group">
+							<label for="userId" class="control-label col-md-3 col-sm-3 col-xs-12">아이디</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userId" class="form-control col-md-7 col-xs-12" type="text"
+									   name="userId" th:value="${specificUserList.userId}" readonly>
+							</div>
 						</div>
-						<div class="x_content">
-							<br />
-							<form id="demo-form2" th:action="@{/admin/user/userInfoRegister}" method="post" class="form-horizontal form-label-left" novalidate>
-								<div class="item form-group">
-									<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">비밀번호<span class="required">*</span>
-									</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input type="text" id="last-name" name="last-name" required="required" class="form-control">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">비밀번호 확인<span class="required">*</span>
-									</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input type="text" id="last-name" name="last-name" required="required" class="form-control">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">권한등급</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input id="middle-name" class="form-control" type="text" name="middle-name">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">지역</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input id="middle-name" class="form-control" type="text" name="middle-name">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">행정구역</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input id="middle-name" class="form-control" type="text" name="middle-name">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">상세주소</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input id="middle-name" class="form-control" type="text" name="middle-name">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">이름</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input id="middle-name" class="form-control" type="text" name="middle-name">
-									</div>
-								</div>
-								<div class="item form-group">
-									<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">연락처</label>
-									<div class="col-md-6 col-sm-6 ">
-										<input id="middle-name" class="form-control" type="text" name="middle-name">
-									</div>
-								</div>
-
-								<div class="item form-group">
-									<label class="col-form-label col-md-3 col-sm-3 label-align">성별</label>
-									<div class="col-md-6 col-sm-6 ">
-										<div id="gender" class="btn-group" data-toggle="buttons">
-											<label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-												<input type="radio" name="gender" value="male" class="join-btn"> &nbsp; 남 &nbsp;
-											</label>
-											<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-												<input type="radio" name="gender" value="female" class="join-btn"> 여
-											</label>
-										</div>
-									</div>
-								</div>
-								<div class="ln_solid"></div>
-								<div class="item form-group">
-									<div class="col-md-6 col-sm-6 offset-md-3">
-										<a th:href="@{/admin/user/userInfoDelete?userId=id001}" class="btn btn-danger" type="button">회원삭제</a>
-										<button class="btn btn-primary" type="reset">미리보기</button>
-										<button type="submit" class="btn btn-success">회원수정</button>
-									</div>
-								</div>
-
-							</form>
+						<div class="form-group">
+							<label for="userPw" class="control-label col-md-3 col-sm-3 col-xs-12">비밀번호</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userPw" class="form-control col-md-7 col-xs-12" type="password"
+									   name="userPw" th:value="${specificUserList.userPw}"/>
+							</div>
 						</div>
-					</div>
+						<div class="form-group">
+							<label for="userName" class="control-label col-md-3 col-sm-3 col-xs-12">이름</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userName" class="form-control col-md-7 col-xs-12" type="text"
+									   name="userName" th:value="${specificUserList.userName}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="userBirth" class="control-label col-md-3 col-sm-3 col-xs-12">생년월일</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userBirth" class="form-control col-md-7 col-xs-12" type="date"
+									   th:value="${specificUserList.userBirth}" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="userEmail" class="control-label col-md-3 col-sm-3 col-xs-12">이메일</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userEmail" class="form-control col-md-7 col-xs-12" type="text"
+									   name="userEmail" th:value="${specificUserList.userEmail}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="userContact" class="control-label col-md-3 col-sm-3 col-xs-12">연락처</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userContact" class="form-control col-md-7 col-xs-12" type="text"
+									   name="userContact" th:value="${specificUserList.userContact}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="regionCode" class="control-label col-md-3 col-sm-3 col-xs-12">지역 1</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<select id="regionCode" class="form-control" name="regionCode" required>
+									<option th:each="area : ${regionList}" th:value="${specificUserList.regionCode}" th:text="${area.regionName}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="districtCode" class="control-label col-md-3 col-sm-3 col-xs-12">지역 2</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<select id="districtCode" class="form-control" name="districtCode" required>
+									<option>지역을 입력해주세요</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="userAddress" class="control-label col-md-3 col-sm-3 col-xs-12">상세주소</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input id="userAddress" class="form-control col-md-7 col-xs-12" type="text"
+									   name="userAddress" th:value="${specificUserList.userAddress}">
+							</div>
+						</div>
+
+						<div class="ln_solid"></div>
+						<div class="form-group">
+							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+									삭제
+								</button>
+								<button class="btn btn-primary" type="button">취소</button>
+								<button class="btn btn-primary" type="reset">초기화</button>
+								<button type="submit" class="btn btn-success">가입</button>
+							</div>
+						</div>
+
+					</form>
 				</div>
 			</div>
 		</div>
-	</th:block>
+	</div>
 
-  </body>
+	<script src="/admin/js/customjs/district-list.js"></script>
+
+</th:block>
+
+
+</body>
+
 
 </html>

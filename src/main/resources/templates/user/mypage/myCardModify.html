@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="dashboard-wrapper box-style">
+                        <div class="title">
+                            <h3>내 카드 정보 수정</h3>
+                        </div>
+                        <div style="margin: 50px;"></div>
+                        <div class="cards-wrapper">
+                            유의사항<br/>
+                            - 카드를 받은 후 인터넷이나 ARS로 수령등록을 완료한 경우 자동으로 카드 정보가 갱신됩니다.<br/>
+                            - 자동 갱신은 영업일 기준 1~3일 내에 갱신되며, 3일 이상 갱신이 되지 않은 경우 문화누리 홈페이지를 통해 수동으로 카드 변경 신청이 가능합니다.<br/>
+
+
+                        </div>
+                        <div style="margin: 50px;"></div>
+                        <form th:action="@{/user/mypage/myCard}">
+                            <div class="cards-wrapper">
+                                <div class="col-lg-12">
+                                    <div class="single-form mb-15">
+                                        <label class="mb-1">내 카드 정보</label>
+                                        <div>
+                                            <input type="text" class="px-3 py-2 mb-0 border rounded col-lg-2">-
+                                            <input type="text" class="px-3 py-2 mb-0 border rounded col-lg-2">-
+                                            <input type="text" class="px-3 py-2 mb-0 border rounded col-lg-2">-
+                                            <input type="text" class="px-3 py-2 mb-0 border rounded col-lg-2">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="single-form mb-15">
+                                        <label class="mb-1">발급 날짜</label>
+                                        <input type="text" class="px-3 py-2 mb-0 border rounded">
+                                    </div>
+
+                                    <div class="single-form mb-15">
+                                        <label class="mb-1">유효 기간</label>
+                                        <input type="text" class="px-3 py-2 mb-0 border rounded">
+                                    </div>
+
+                                    <div class="single-form mb-15">
+                                        <label class="mb-1">CVC</label>
+                                        <input type="text" class="px-3 py-2 mb-0 border rounded">
+                                    </div>
+
+                                    <div class="single-form mb-15">
+                                        <label class="mb-1">비밀번호</label>
+                                        <input type="password" class="px-3 py-2 mb-0 border rounded">
+                                    </div>
+                                    <button type="submit" class="main-btn btn-hover d-none d-md-block">수정하기</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+</html>

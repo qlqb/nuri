@@ -4,11 +4,7 @@
       layout:decorate="~{user/layout/default}">
 
 <!-- 사용자별 css file 추가 부분 -->
-<head>
-    <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/user/assets/css/shop.css}"/>
-    <link rel="stylesheet" th:href="@{/user/assets/css/news.css}"/>
-</head>
+
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
@@ -23,53 +19,119 @@
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
 <th:block layout:fragment="customContents">
 
-    <!-- Template의 원본에서 Core StyleSheets 가져와야 합니다.
-    레퍼런스 CSS 파일이 되는 것 - contact.css & shop.css <link rel="stylesheet" href="css/contact.css"> -->
-
-    <section id="contact-p1" class="contact-p1">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <div class="p-5 text-center">
-                        <h3 th:text="${head}"></h3>
-                        <p th:text="${title}"></p>
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <!--====== BANNER PART END ======-->
 
-        <div id="shop-p1" class="shop-p1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="shop-p1-title">
-                            <h3 th:text="${head}"></h3>
-                            <div class="heading-border-light"></div>
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="dashboard-wrapper box-style">
+                        <div class="title">
+                            <h3>내 가맹점 정보 수정</h3>
                         </div>
 
-                        <!-- 권한 별로 접근할 수 있는 aside 제어필요 -->
-                        <div class="list-group">
-                            <a th:href="@{/user/mypage/myInfo}" class="list-group-item">나의 정보</a>
-                            <a th:href="@{/user/mypage/myOrder}" class="list-group-item">나의 주문/예약 조회</a>
-                            <a th:href="@{/user/mypage/myRefund}" class="list-group-item">주문 취소/환불 조회</a>
-                            <a th:href="@{/user/mypage/myBoard}" class="list-group-item">작성한 게시글</a>
-                            <a th:href="@{/user/mypage/myContents}" class="list-group-item">작성한 컨텐츠</a>
-                            <a th:href="@{/user/mypage/myStore}" class="list-group-item">가맹점 정보</a>
-                            <a th:href="@{/user/myoffice/myOffice}" class="list-group-item">행정기관 정보</a>
-                            <a th:href="@{/user/myoffice/officerBudget}" class="list-group-item">행정업무</a>
-                        </div>
+                        <form th:action="@{/user/register/memberRegister}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="userId" class="mb-2"><small class="input-specific">*</small>아이디</label>
+                                        <input type="text" id="userId" name="userId" placeholder="아이디는 변경불가" class="py-2 px-3 mb-0 rounded border" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="userName" class="mb-2"><small class="input-specific">*</small>이름</label>
+                                        <input type="text" id="userName" name="userName" placeholder="이름" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="userContact" class="mb-2"><small class="input-specific">*</small>연락처</label>
+                                        <input type="text" id="userContact" name="userContact" placeholder="연락처(휴대폰)" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="userEmail" class="mb-2"><small class="input-specific">*</small>이메일</label>
+                                        <input type="text" id="userEmail" name="userEmail" placeholder="이메일" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <!-- 주소 API 이용할 수 있을 경우, 주소 API를 통한 값을 Parsing(구문분석)하여 자동완성 -->
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="regionCode" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="regionCode" id="regionCode">
+                                            <option value="none" selected disabled>region dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="districtCode" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtCode" id="districtCode">
+                                            <option value="none" selected disabled>district dataset</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세주소 1 </label>
+                                        <input type="text" id="address-1" name="address-1" placeholder="상세주소" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <label for="address-2" class="mb-2 px-1">상세주소 2 </label>
+                                        <input type="text" id="address-2" name="address-2" placeholder="상세주소2" class="py-2 px-3 mb-0 rounded border">
+                                    </div>
+                                </div>
+                                <div class="single-form mb-20">
+                                    <p><small class="input-specific">*</small>는 필수 요소 항목입니다.</p>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="single-form mb-30">
+                                        <a th:href="@{/user/mypage/myStore}" class="main-btn btn-hover d-none d-md-block">수정하기</a>
+                                    </div>
+                                </div>
 
-                        <div class="col-lg-9">
-
-                        </div>
+                            </div>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section class="login-area pt-70 pb-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-10">
+
                 </div>
             </div>
         </div>
     </section>
 
 </th:block>
-
-
-
 </html>

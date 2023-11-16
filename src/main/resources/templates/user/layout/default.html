@@ -6,40 +6,38 @@
 	<meta charset="utf-8">
 
 	<!--====== Title ======-->
-	<title th:text="${title}"></title>
+	<title>ClassiList Classified Ads Template</title>
 
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!--====== Favicon Icon ======-->
-		<link rel="shortcut icon" th:href="@{/user/assets/images/favicon.png}" type="image/png">
+	<!--====== Favicon Icon ======-->
+	<link rel="shortcut icon" th:href="@{/user/assets/images/favicon.png}" type="image/png">
 
-		<!--====== Animate CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/animate.css}">
+	<!--====== Animate CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/animate.css}">
 
-		<!--====== Tiny slider CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/tiny-slider.css}">
+	<!--====== Tiny slider CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/tiny-slider.css}">
 
-		<!--====== glightbox CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/glightbox.min.css}">
+	<!--====== glightbox CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/glightbox.min.css}">
 
-		<!--====== Line Icons CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/LineIcons.2.0.css}">
+	<!--====== Line Icons CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/LineIcons.2.0.css}">
 
-		<!--====== Selectr CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/selectr.css}">
+	<!--====== Selectr CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/selectr.css}">
 
-		<!--====== Nouislider CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/nouislider.css}">
+	<!--====== Nouislider CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/nouislider.css}">
 
-		<!--====== Bootstrap CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/bootstrap-5.0.5-alpha.min.css}">
+	<!--====== Bootstrap CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/bootstrap-5.0.5-alpha.min.css}">
 
-		<!--====== Style CSS ======-->
-		<link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
-
+	<!--====== Style CSS ======-->
+	<link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
 </head>
-<body>
 
 		<!-- top navigation -->
 		<div th:replace="~{user/fragments/header :: headerFragment}"></div>
@@ -82,14 +80,9 @@
 		<!--====== Main js ======-->
 		<script th:src="@{/user/assets/js/main.js}"></script>
 
-		<!-- 사용자 페이지별 javascript file -->
-		<th:block layout:fragment="customJsFile"></th:block>
 
-		<!-- 사용자별 스크립트 작성 -->
-		<th:block layout:fragment="customJsCode"></th:block>
-
-
-
+	<th:block layout:fragment="customJsFile"></th:block>
+	<th:block layout:fragment="customJsCode"></th:block>
 
 	</div>
 </div>

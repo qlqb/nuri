@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!-- Template의 원본에서 Core StyleSheets 가져와야 합니다.
+    레퍼런스 CSS 파일이 되는 것 - contact.css & shop.css <link rel="stylesheet" href="css/contact.css"> -->
+
+    <section id="contact-p1" class="contact-p1">
+		<div class="row">
+        	<div id="shop-p1" class="shop-p1 col-md-12">
+	        	<div class="row title-bar">
+	          	<div class="col-md-12">
+	           	 <h1 class="wow fadeInUp">권한을 선택하세요</h1>
+	            	<div class="heading-border"></div>
+	            	<p class="wow fadeInUp" data-wow-delay="0.4s">권한에 따라 다른 마이페이지 화면이 보여집니다</p>
+	            	<div class="title-but">
+	             		 <button class="btn btn-general btn-green" th:onclick="'location.href=\''+@{/user/mypage/myInfo}+'\''">사용자</button>
+	             		 <button class="btn btn-general btn-green" th:onclick="'location.href=\''+@{/user/mystore/myStore}+'\''">가맹점</button>
+	             		 <button class="btn btn-general btn-green" th:onclick="'location.href=\''+@{/user/myoffice/myOffice}+'\''">공무원</button>
+	            	</div>
+	          	</div>
+	        	</div>
+         	</div>
+        </div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    </section>
+
+</th:block>
+
+
+
+
+
+</html>

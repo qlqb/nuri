@@ -1,41 +1,108 @@
 package ksmart.ks48team01.user.controller;
 
+import com.sun.source.tree.MemberSelectTree;
+import ksmart.ks48team01.dto.ContentsCategory;
+import ksmart.ks48team01.dto.Region;
+import ksmart.ks48team01.dto.StoreCategory;
+import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.ContentsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.RedirectViewControllerRegistration;
+
+import javax.management.modelmbean.RequiredModelMBean;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller("contentsController")
 @RequestMapping("/user/contents")
 public class ContentsController {
+
+	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
+
+	private final ContentsService contentsService;
+	public ContentsController(ContentsService contentsService) {
+		this.contentsService = contentsService;
+	}
+
+	//컨텐츠 검색
+	@GetMapping(value = {"/contentsInfoSpecific"})
+	public String contentsSpecificPage(Model model) {
+		model.addAttribute("title", "컨텐츠 검색");
+		return "user/contents/contentsInfoSpecific";
+	}
 	
 	//컨텐츠 수정
-	@GetMapping(value = {"/modifyContents"})
+	@GetMapping(value = {"/contentsInfoUpdate"})
 	public String modifyContentsPage(Model model) {
-		
-		return "user/contents/modifyContents";
+		model.addAttribute("title", "컨텐츠 수정");
+		return "user/contents/contentsInfoUpdate";
 	}
 	
 	//컨텐츠 등록
-	@GetMapping(value = {"/contentsReg"})
+	@GetMapping(value = {"/contentsInfoRegist"})
 	public String contentsRegPage(Model model) {
-		
-		return "user/contents/contentsReg";
+		model.addAttribute("title", "컨텐츠 등록");
+		return "user/contents/contentsInfoRegist";
 	}
 	
 	//컨텐츠 상세설명 -> view에서 클릭하면 들어가는 경로로
-	@GetMapping(value={"/viewDetail"})
-	public String contentsViewDetail(Model model) {
+	@GetMapping(value={"/contentsDetail"})
+	public String contentsDetail(Model model) {
 		
 		model.addAttribute("title", "컨텐츠 상세설명");
 		
-		return "user/contents/viewDetail";
+		return "user/contents/contentsDetail";
 	}
 	
 	//컨텐츠 전체 목록 조회
-	@GetMapping(value = {"/view"})
-	public String contentsViewPage(Model model) {
-		
-		return "user/contents/view";
-	}
+		@GetMapping("/contentsInfoList")
+		public String contentsListPage(Model model,
+									   @RequestParam(name="currentPage", required=false, defaultValue = "1") int currentPage,
+									   @RequestParam(name="tabValue", defaultValue = "all") String tabValue) {
+
+			log.info("tabValue: {}", tabValue);
+
+			List<StoreCategory> storeCategory = contentsService.getStoreCategory();
+
+			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
+
+			Map<String, Object> resultMap = contentsService.getContentsInfoListByTabValue(currentPage, tabValue);
+
+			List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
+
+			int lastPage = (int) resultMap.get("lastPage");
+			int startPageNum = (int) resultMap.get("startPageNum");
+			int endPageNum = (int) resultMap.get("endPageNum");
+			int contentsCnt = ((Double) resultMap.get("contentsCnt")).intValue();
+
+			model.addAttribute("storeCategory", storeCategory);
+
+			model.addAttribute("contentsCategory", contentsCategory);
+
+			model.addAttribute("title", "컨텐츠 조회");
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("lastPage", lastPage);
+			model.addAttribute("startPageNum", startPageNum);
+			model.addAttribute("endPageNum", endPageNum);
+			model.addAttribute("contentsInfoList", contentsInfoList);
+			model.addAttribute("contentsCnt", contentsCnt);
+			model.addAttribute("tabValue", tabValue);
+
+			return "user/contents/contentsInfoList";
+		}
+
+		@GetMapping(value = {"reservation"})
+		public String reservation(Model model) {
+			model.addAttribute("title", "예약 화면");
+			return "user/contents/reservation";
+		}
 }

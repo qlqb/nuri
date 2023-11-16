@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.mapper.ContentsMapper">
+
+    <select id="getContentsInfoList" resultType="map" parameterType="int">
+        /* 컨텐츠 정보 */
+        SELECT
+            c.CONTENTS_NAME AS contentsName,
+            IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_END_DATE), 0) AS contentsSellDuration,
+            IF(si.STORE_CATEGORY_NAME = '도서', 'book',
+                IF(si.STORE_CATEGORY_NAME = '체육', 'exercise',
+                    IF(c.CONTENTS_PG=0, '전체 관람가', CONCAT(c.CONTENTS_PG, '세 이상 관람가')))) AS contentsPg,
+            CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
+
+            si.STORE_NAME AS storeName,
+            c.AMOUNT_CONTENT_REMAINING AS amountContentsRemaining
+        FROM
+            CONTENTS AS c
+            INNER JOIN
+            STORE_INFO AS si
+            ON
+            si.STORE_ID=c.STORE_ID
+        ORDER BY c.CONTENTS_REG_DATE
+        <if test="startContentsNum > -1">
+            LIMIT #{startContentsNum}, #{contentsPerPage};
+        </if>
+    </select>
+
+    <select id="getContentsByTabCnt" resultType="int" parameterType="String">
+        /* 각 탭의 컨텐츠 개수 */
+        SELECT
+            COUNT(1)
+        FROM
+            CONTENTS AS c
+        <where>
+            <if test="tabValue != 'all'">
+                c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__');
+            </if>
+        </where>
+    </select>
+
+    <select id="getStoreCategory" resultType="StoreCategory">
+        SELECT
+            sc.STORE_CATEGORY_NAME AS storeCategoryName,
+            sc.STORE_CATEGORY_CODE AS storeCategoryCode
+        FROM
+            STORE_CATEGORY AS sc;
+    </select>
+
+    <select id="getContentsCategory" resultType="ContentsCategory">
+        SELECT
+            cc.CONTENTS_CAT_NAME AS contentsCategoryName,
+            cc.CONTENTS_CAT_CODE AS contentsCategoryCode,
+            cc.STORE_CATEGORY_CODE AS storeCategoryCode
+        FROM
+            CONTENT_CATEGORY AS cc
+        WHERE
+            cc.STORE_CATEGORY_CODE='A01' AND
+            NOT cc.CONTENTS_CAT_NAME='공연';
+    </select>
+
+    <select id="getContentsInfoListByTabValue" resultType="map" parameterType="String">
+        /* 탭 컨텐츠 정보 */
+        SELECT
+            c.CONTENTS_NAME AS contentsName,
+            IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_END_DATE), 0) AS contentsSellDuration,
+            IF(si.STORE_CATEGORY_NAME = '도서', 'book',
+            IF(si.STORE_CATEGORY_NAME = '체육', 'exercise',
+            IF(c.CONTENTS_PG=0, '전체 관람가', CONCAT(c.CONTENTS_PG, '세 이상 관람가')))) AS contentsPg,
+            CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
+
+            si.STORE_NAME AS storeName,
+            c.AMOUNT_CONTENT_REMAINING AS amountContentsRemaining
+        FROM
+            CONTENTS AS c
+            INNER JOIN
+            STORE_INFO AS si
+            ON
+            si.STORE_ID=c.STORE_ID
+        <where>
+            <if test="tabValue != 'all'">
+                c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__')
+            </if>
+        </where>
+        ORDER BY c.CONTENTS_REG_DATE
+        <if test="startContentsNum > -1">
+            LIMIT #{startContentsNum}, #{contentsPerPage};
+        </if>
+    </select>
+
+
+</mapper>
