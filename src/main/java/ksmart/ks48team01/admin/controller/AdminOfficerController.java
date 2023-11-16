@@ -56,4 +56,12 @@ public class AdminOfficerController {
 
         return gson.toJson(officerList);
     }
+
+    @GetMapping("/officerInfoUpdate")
+    public String officerInfoUpdate(Model model, @RequestParam (name = "officerId") String officerId) {
+        Officer officerUpdateList = officerService.getOfficerUpdate(officerId);
+        model.addAttribute("officerUpdateList", officerUpdateList);
+
+        return "admin/officer/officerInfoUpdate";
+    }
 }

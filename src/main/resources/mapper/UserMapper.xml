@@ -68,6 +68,15 @@
         ${searchKey} LIKE CONCAT('%',#{searchValue},'%');
     </select>
 
+    <select id="getUserIdCheck" resultType="Boolean" parameterType="String">
+        SELECT
+        COUNT(UI.USER_ID) AS checkedValue
+        FROM
+        USER_INFO AS UI
+        WHERE
+        UI.USER_ID = #{userId};
+    </select>
+
 
     <!--  입력받은 관리자 Form 전송   -->
     <insert id="adminRegister" parameterType="User">
