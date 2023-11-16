@@ -16,17 +16,14 @@
 
     <resultMap type="BudgetRegion" id="budgetRegionResultMap">
         <id property="budgetRegionNum" column="BUDGET_REGION_NUM"/>
-        <result property="applyYear" column="APPLY_YEAR"/>
+        <result property="applyYearRegion" column="APPLY_YEAR"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="regionName" column="REGION_NAME"/>
         <result property="officerId" column="OFFICER_ID"/>
         <result property="budgetRegionAmount" column="BUDGET_REGION_AMOUNT"/>
         <result property="munhwaRegionNOP" column="MUNHWA_REGION_NOP"/>
         <result property="registDT" column="REGIST_DT"/>
         <result property="updateDT" column="UPDATE_DT"/>
-
-        <association property="region" javaType="Region">
-            <id property="regionCode" column="REGION_CODE"></id>
-            <result property="regionName" column="REGION_NAME"></result>
-        </association>
     </resultMap>
 
     <select id="getBudgetTotalList" resultMap="budgetTotalResultMap">
@@ -130,7 +127,7 @@
             UPDATE_DT
         )VALUES(
             #{budgetRegionNum},
-            #{applyYear},
+            #{applyYearRegion},
             #{regionCode},
             #{officerId},
             #{budgetRegionAmount},
@@ -160,6 +157,7 @@
 <!--            ON-->
 <!--            r.REGION_CODE = b.REGION_CODE;-->
 <!--    </select>-->
+
     <select id="yearCheck" parameterType="String" resultType="boolean">
         /* 연도 중복 여부 검색 */
         SELECT

@@ -6,8 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class BudgetRegion {
 
     private String budgetRegionNum;
-    private String applyYear;
-    private Region region;
+    private String applyYearRegion;
+    //private Region region;
     private int regionCode;
     private String regionName;
     private String officerId;
@@ -26,13 +26,21 @@ public class BudgetRegion {
         this.budgetRegionNum = budgetRegionNum;
     }
 
-    public String getApplyYear() {
-        return applyYear;
+    public String getApplyYearRegion() {
+        return applyYearRegion;
     }
 
-    public void setApplyYear(String applyYear) {
-        this.applyYear = applyYear;
+    public void setApplyYearRegion(String applyYearRegion) {
+        this.applyYearRegion = applyYearRegion;
     }
+
+//    public Region getRegion() {
+//        return region;
+//    }
+//
+//    public void setRegion(Region region) {
+//        this.region = region;
+//    }
 
     public int getRegionCode() {
         return regionCode;
@@ -90,20 +98,12 @@ public class BudgetRegion {
         this.updateDT = updateDT;
     }
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
     @Override
     public String toString() {
         return "BudgetRegion{" +
                 "budgetRegionNum='" + budgetRegionNum + '\'' +
-                ", applyYear='" + applyYear + '\'' +
-                ", region=" + region +
+                ", applyYearRegion='" + applyYearRegion + '\'' +
+                //", region=" + region +
                 ", regionCode=" + regionCode +
                 ", regionName='" + regionName + '\'' +
                 ", officerId='" + officerId + '\'' +

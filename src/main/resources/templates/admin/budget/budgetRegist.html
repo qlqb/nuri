@@ -48,8 +48,7 @@
             //연도 칸과 지역칸 ajax를 이용한 중복체크
             $("#checkbtn").click(function (){
               let $applyYearRegion = $("#applyYearRegion").val();
-              let $regionCode = 0;
-              $regionCode = $("#region").val()
+              let $regionCode = Number($("#regionCode").val());
 
               //연도가 유효한 범위 내인지 확인
               if($applyYearRegion <2014 || $applyYearRegion >2114){
@@ -91,14 +90,13 @@
             $("#addBudgetRegionBtn").click(function () {
               //버튼 눌렀을 때의 값을 받아 객체 생성하기
               const budgetRegion = {
-                "budgetRegionNum" : 'BUDREG' + $("#applyYearRegion").val() + $("#region").val(),
-                "applyYear" : $("#applyYearRegion").val(),
-                "regionCode" : $("#region").val(),
+                "budgetRegionNum" : 'BUDREG' + $("#applyYearRegion").val() + $("#regionCode").val(),
+                "applyYearRegion" : $("#applyYearRegion").val(),
+                "regionCode" : parseInt($("#regionCode").val()),
                 "officerId" : 'OFC231012001',
                 "budgetRegionAmount" : $("#budgetRegionAmount").val(),
                 "budgetRegionNOP" : $("#munhwaRegionNOP").val()
               }
-              console.log(budgetRegion);
 
               let isValid = validationCheck(budgetRegion);
 
@@ -108,7 +106,7 @@
 
               }else{
                 console.log("유효성 검사 : " + isValid);
-                console.log(budgetRegion.applyYear+", "+budgetRegion.regionCode);
+                console.log(budgetRegion);
                 if(confirm("등록하시겠습니까?")){
                   const addBudgetRegionForm = $("#addBudgetRegionForm");
                   const $budgetRegionNum = $('<input />', {'type': 'hidden', 'name': 'budgetRegionNum', 'value': budgetRegion.budgetRegionNum});
@@ -138,22 +136,21 @@
               
               <div class="clearfix"></div>
             </div>
-            <form id="addBudgetRegionForm" th:action="@{/admin/budget/budgetInfoRegion}"
-                  class="form-horizontal form-label-left" method="post">
               <div class="x_content" >
-
+                  <form id="addBudgetRegionForm" th:action="@{/admin/budget/budgetInfoRegion}"
+                        class="form-horizontal form-label-left" method="post">
 
                 <div class="form-group row">
                   <label for="applyYearRegion" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input name="applyYear" id="applyYearRegion" type="number"
+                    <input name="applyYearRegion" id="applyYearRegion" type="number"
                            class="form-control" placeholder="연도를 입력하세요 예)2023">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="region" class="control-label col-md-3 col-sm-3 col-xs-3">지역</label>
+                  <label for="regionCode" class="control-label col-md-3 col-sm-3 col-xs-3">지역</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                  	<select id="region" name="region" class="form-control">
+                  	<select id="regionCode" name="regionCode" class="form-control">
                   		<option value="">=====지역을 선택하세요=====</option>
                         <th:block th:unless="${regionList == null}" th:each="l : ${regionList}">
                           <option th:value="${l.regionCode}" th:text="${l.regionName}"></option>
@@ -190,9 +187,9 @@
                   </div>
                 </div>
 
+              </form>
+            </div>
 
-              </div>
-            </form>
           </div>
 		</div>	
 	</th:block>

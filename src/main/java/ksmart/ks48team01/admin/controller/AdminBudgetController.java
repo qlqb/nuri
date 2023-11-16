@@ -81,6 +81,8 @@ public class AdminBudgetController {
 	@PostMapping("/budgetInfoRegion")
 	public String addBudgetRegion(BudgetRegion budgetRegion){
 
+		log.info("budgetRegion : {}", budgetRegion);
+		List<Region> regionList = areaService.getRegionList();
 		budgetService.addBudgetRegion(budgetRegion);
 
 		return "redirect:/admin/budget/budgetInfoRegion";
