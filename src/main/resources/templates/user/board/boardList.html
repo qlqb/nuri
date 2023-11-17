@@ -13,16 +13,48 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 <!-- 사용자별 css file 추가 부분 -->
 <head>
-    <!--====== Style CSS ======-->
-    <link rel="stylesheet" th:href="@{/user/assets/css/style.css}">
-
     <style>
-        /*.table{
-            margin : 20px 20px 20px 20px;
-            padding: 20px 20px 0px 10px;
-        }*/
         .pb-110 {
             padding-bottom: 20px;
+        }
+        .col_w13{
+            width: 15%;
+        }
+        .col_w{
+            width: auto;
+        }
+        .col_w15{
+            width: 15%;
+        }
+        .ads-btn {
+
+        }
+
+        .ads-btn:hover {
+            background: #FF6B6B;
+            color: #fff;
+        }
+
+        /*js로 조절*/
+        .ads-btn.active {
+            background: #FF6B6B;
+            color: #fff;
+        }
+
+        .ads-btn {
+            padding: 8px 15px;
+            border: 1px solid rgba(124, 134, 154, 0.25);
+            border-radius: 5px;
+            color: #333F57;
+            margin-right: 5px;
+            margin-bottom: 5px;
+
+            flex: 1;
+            display: flex;
+            height: 60px;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center
         }
     </style>
 </head>
@@ -32,37 +64,49 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 </th:block>
 
-<th:block layout:fragment="customJs"></th:block>
 
 <!-- 사용자별 스크립트 작성 -->
 <th:block layout:fragment="customJsCode">
     <script>
-        //======== select js
-        new Selectr('#sort', {
-            searchable: false,
-            width: 300
-        });
 
-        var snapSlider = document.getElementById('slider-snap');
+        /*boardSearchCate를 반복문을 돌려서 boardCateCode가 같은 버튼을 클릭했을 때 해당 데이터들을 테이블로 재구성*/
+        const searchListUrl = 'http://localhost/user/board/boardSearchCate';
+        let $searchListTable = document.querySelector('#searchListTable');
+        let $cateBtns = document.querySelectorAll('.cateBtn');
 
-        noUiSlider.create(snapSlider, {
-            start: [199, 789],
-            // snap: true,
-            connect: true,
-            range: {
-                'min': 99,
-                'max': 999
-            }
-        });
+        $cateBtns.forEach($btn => {
+            $btn.addEventListener('click', () => {
+                let cateCode = $btn.getAttribute('#');
+                search(cateCode);
+            });
+        })
 
-        var snapValues = [
-            document.getElementById('slider-snap-value-lower'),
-            document.getElementById('slider-snap-value-upper')
-        ];
+        function search(cateCode) {
+            fetch(searchListUrl, {
+                method : "POST",
+                headers :{
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({
+                    cateCode : cateCode
+                })
+            })
+                .then((response) => response.json())
+                .then(result => {
+                    let searchRow = '';
+                    console.log(result)
+                    result.forEach((element) => {
+                        searchRow += `
+                    <tr>
+                        <td>${element.boardCateName}</td>
+                        <td><a href=/user/board/boardView?boardCode=${element.boardCode}>${element.boardWritingTitle}</td>
+                        <td>${element.boardRegDate}</td>
+                    </tr>`;
+                    });
+                    $searchListTable.innerHTML = searchRow;
+                });
+        }
 
-        snapSlider.noUiSlider.on('update', function (values, handle) {
-            snapValues[handle].innerHTML = values[handle]
-        });
     </script>
 </th:block>
 
@@ -96,38 +140,24 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
                     <div class="col-md-6">
                         <div class="left-wrapper">
-                            <div class="sorting">
-                                <label for="sort">게시판 선택</label>
-                                <select name="sort" id="sort">
-                                    <!--!!JS가 적용이 안됨-->
-                                    <option value="0">공지</option>
-                                    <option value="1">홍보</option>
-                                </select>
+                            <div class="section-inner">
+                                <div class="cards-wrapper pb-25 mb-15" id="searchKey" th:object="${boardCategoryList}">
+                                    <a href="javascript:void(0)" class="ads-btn" value>전체</a>
+                                    <a href="javascript:void(0)" class="ads-btn">공지</a>
+                                    <a href="javascript:void(0)" class="ads-btn">홍보</a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="right-wrapper">
-
-                            <ul class="nav product-view-btns" id="myTab" role="tablist">
-                                <li class="product-view-item" role="presentation">
-                                    <a class="product-view-btn active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
-                                       aria-selected="true"><i class="lni lni-list"></i></a>
-                                </li>
-                                <li class="product-view-item" role="presentation">
-                                    <a class="product-view-btn" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
-                                       aria-selected="false"><i class="lni lni-grid-alt"></i></a>
-                                </li>
-                            </ul>
-
                             <form action="#">
                                 <input type="text" name="search" id="search" placeholder="검색">
                                 <button><i class="lni lni-search-alt"></i></button>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -140,18 +170,17 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             <h2>게시판</h2>
         </div>
 
-        <div class="cards-wrapper pb-25 mb-15 border-bottom">
-            <a href="javascript:void(0)" class="ads-btn active">공지</a>
-            <a href="javascript:void(0)" class="ads-btn">홍보</a>
-        </div>
+        <div class="cards-wrapper pb-25 mb-15 border-bottom"></div>
 
         <div class="table-wrapper table-responsive">
             <table class="table">
+                <colgroup>
+                    <col class="col_w13">
+                    <col class="col_w">
+                    <col class="col_w15">
+                </colgroup>
                 <thead>
                 <tr>
-                    <th>
-                        선택
-                    </th>
                     <th>
                         분류
                     </th>
@@ -163,44 +192,19 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="searchListTable">
 
-                <tr>
-                    <td>
-                        <div class="image">
-                            <div class="form-check check-style">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="boardCate">공지</span>
-                    </td>
-                    <td>
-                        <a th:href="@{/user/board/boardView}"> <span class="title">누리컬쳐 사용안내</span></a>
-                    </td>
-                    <td>
-                        <span class="date">2023.11.04</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="checkbox">
-                            <div class="form-check check-style">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="boardCate">홍보</span>
-                    </td>
-                    <td>
-                        <a th:href="@{/user/board/boardView}"> <span class="title">전주 국제 영화제</span></a>
-                    </td>
-                    <td>
-                        <span class="date">2023.11.04</span>
-                    </td>
-                </tr>
+                    <tr th:if="${boardList == null}">
+                        <td colspan="3">게시글이 없습니다</td>
+                    </tr>
+                    <tr th:unless="${boardList == null}" th:each="l : ${boardList}">
+                        <input type="hidden" name="boardCode" th:value="${l.boardCode}">
+                        <td th:text="${l.boardCateName}"></td>
+                        <td><a th:href="@{/user/board/boardView(boardCode=${l.boardCode})}">
+                            <th:block th:text="${l.boardWritingTitle}"></th:block>
+                        </a> </td>
+                        <td th:text="${l.boardRegDate}"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

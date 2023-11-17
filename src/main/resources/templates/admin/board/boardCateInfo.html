@@ -24,7 +24,7 @@
 
 <th:block layout:fragment="customJsCode">
   <script>
-    $('.contents').each(function (){
+    $('.boardTitle').each(function (){
       if ($(this).text().length > 10) {
         $(this).text($(this).text().substring(0, 20) + '...');
       }
@@ -85,7 +85,7 @@
                 });
                 $searchListTable.innerHTML = searchRow;
               });
-    };
+    }
   </script>
 </th:block>
 
@@ -163,29 +163,50 @@
 
             <tbody id="searchListTable">
             <tr th:if="${boardList == null}">
-              <td colspan="9">게시글이 없습니다.</td>
+              <td colspan="7">게시글이 없습니다.</td>
             </tr>
             <tr th:unless="${boardList == null}" th:each="l : ${boardList}">
               <td><input type="checkbox" class="flat"></td>
               <td th:text="${l.boardCode}"></td>
-              <!--boardCateName 들고와야됨-->
-              <td th:text="${l.boardCateName}"></td>
+              <td th:utext="${l.boardCateName}"></td>
               <th:block th:object="${l.userInfo}">
                 <td th:text="*{userId}"></td>
               </th:block>
-              <td><a th:href="@{/admin/board/boardContentDetail(boardCode=${l.boardCode})}">
-                <th:block th:text="${l.boardWritingTitle}"></th:block>
-              </a></td>
+              <td>
+                <a th:href="@{/admin/board/boardContentDetail(boardCode=${l.boardCode})}">
+                <th:block th:class="boardTitle" th:text="${l.boardWritingTitle}">
+                </th:block>
+                </a>
+              </td>
               <td class="regDate" th:text="${l.boardRegDate}"></td>
               <td class="updateDate" th:text="${l.boardUpdateDate}"></td>
             </tr>
 
 
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7" >
+                  <div>
+                    <a th:href="@{/admin/board/boardCateInfo}">[처음으로]</a>
+                    <a th:if="${currentPage > 1}"
+                       th:href="@{/admin/board/boardCateInfo(currentPage=${currentPage -1})}">[이전]</a>
+                    <span th:unless="${currentPage > 1}">[이전]</span>
+                    <!--<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">-->
+                      <a th:if="${num != currentPage}"
+                         th:href="@{/admin/board/boardCateInfo(currentPage=${num})}">[[${'[' + num + ']'}]]</a>
+                      <span th:unless="${num != currentPage}" th:text="|[${num}]|"></span>
+                    <!--</th:block>-->
+
+                    <a th:if="${currentPage < lastPage}"
+                       th:href="@{/admin/board/boardCateInfo(currentPage=${currentPage +1})}">[다음]</a>
+                    <span th:unless="${currentPage < lastPage}">[다음]</span>
+                    <a th:href="@{/admin/board/boardCateInfo(currentPage=${lastPage})}">[마지막으로]</a>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
           </table>
-          <div class="pull-right">
-            <button type="button" class="btn btn-danger">삭제</button>
-          </div>
         </div>
       </div>
     </div>
