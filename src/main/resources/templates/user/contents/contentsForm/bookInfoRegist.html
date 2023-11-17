@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Album example for Bootstrap</title>
+
+    <link rel="canonical" th:href="@{https://getbootstrap.com/docs/4.0/examples/album/}">
+
+    <!--         Bootstrap core CSS -->
+    <!--        <link th:href="@{https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css}" rel="stylesheet">-->
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{https://getbootstrap.com/docs/4.0/examples/album/album.css}" rel="stylesheet">
+    
+    <style>
+
+    </style>
+</head>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!--====== PRELOADER PART START ======-->
+<th:block layout:fragment="customContents">
+    <section class="dashboard-area pb-110" style="margin-top: 150px;">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-9 col-lg-8 d-flex justify-content-center">
+                    <div class="post-ad-wrapper box-style" style="width: 700px;">
+                        <div class="d-flex justify-content-center">
+                            <div class="title">
+                                <h3>책 컨텐츠 등록</h3>
+                            </div>
+                        </div>
+
+                        <div class="post-ad-form-wrapper">
+
+                            <form action="#">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-7">
+                                        <div class="right-wrapper pt-50 ">
+                                            <input type="hidden" name="bookRegDate" value=""/>
+
+                                            <div class="single-form mb-15">
+                                                <label for="bookName" class="mb-1">책제목</label>
+                                                <input type="text" id="bookName" name="bookName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="bookPrice" class="mb-1">책 가격</label>
+                                                <input type="number" id="bookPrice" name="bookPrice" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="amountBookRemaining" class="mb-1">재고</label>
+                                                <input type="number" id="amountBookRemaining" name="amountBookRemaining" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="bookCategory" class="mb-1">카테고리</label>
+                                                <select name="bookCategory" id="bookCategory" class="px-3 py-2 border rounded w-100">
+                                                    <option value="none">카테고리를 선택하세요</option>
+                                                    <option value="A0401">총류</option>
+                                                    <option value="A0402">철학</option>
+                                                    <option value="A0403">종교</option>
+                                                    <option value="A0404">사회과학</option>
+                                                    <option value="A0405">자연과학</option>
+                                                    <option value="A0406">기술과학</option>
+                                                    <option value="A0407">예술</option>
+                                                    <option value="A0408">언어</option>
+                                                    <option value="A0409">문학</option>
+                                                    <option value="A0410">역사</option>
+                                                </select>
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <div class="mb-1">컨텐츠 파일</div>
+                                                <div class="upload-input">
+                                                    <input type="file" id="bookUpload" name="bookUpload">
+                                                    <label for="bookUpload" class="text-center content">
+														<span class="text">
+															<span class="d-block mb-15">컨텐츠 파일 업로드</span>
+															<span class="d-block mb-15">Or</span>
+															<span class="main-btn btn-hover">파일을 선택하세요</span>
+															<span class="d-block">파일 최대 사이즈 10MB</span>
+														</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="bookDescription" class="mb-1">컨텐츠 내용</label>
+                                                <textarea name="bookDescription" id="bookDescription" rows="7" placeholder="컨텐츠 내용을 입력하세요." class="px-3 py-2 mb-0 border rounded"></textarea>
+                                            </div>
+<!--                                            <div class="single-form mb-15">-->
+<!--                                                <label for="cast" class="mb-1">출연진</label>-->
+<!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+<!--                                            </div>-->
+                                            <!--                                                <div class="single-form mb-15">-->
+                                            <!--                                                    <label for="email" class="mb-1">Email</label>-->
+                                            <!--                                                    <input type="text" id="email" name="email" placeholder="Email" class="px-3 py-2 mb-0 border rounded">-->
+                                            <!--                                                </div>-->
+                                            <div class="d-flex justify-content-center" style="margin-top: 30px">
+                                                <button class="main-btn btn-hover">등록</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+<!--====== CATEGORY PART END ======-->
+</html>

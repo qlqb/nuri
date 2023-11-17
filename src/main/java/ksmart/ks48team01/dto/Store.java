@@ -29,38 +29,6 @@ public class Store {
 	private String userEmail;
 	private String userStat;
 
-
-	public String getUserLevelName() {
-		return userLevelName;
-	}
-
-	public void setUserLevelName(String userLevelName) {
-		this.userLevelName = userLevelName;
-	}
-
-	public String getUserStat() {
-		return userStat;
-	}
-
-	public void setUserStat(String userStat) {
-		this.userStat = userStat;
-	}
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
 	public String getStoreId() {
 		return storeId;
 	}
@@ -157,9 +125,41 @@ public class Store {
 		this.storeRegDate = storeRegDate;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserLevelName() {
+		return userLevelName;
+	}
+
+	public void setUserLevelName(String userLevelName) {
+		this.userLevelName = userLevelName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserStat() {
+		return userStat;
+	}
+
+	public void setUserStat(String userStat) {
+		this.userStat = userStat;
+	}
+
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("Store{");
+		final StringBuffer sb = new StringBuffer("Store{");
 		sb.append("storeId='").append(storeId).append('\'');
 		sb.append(", userId='").append(userId).append('\'');
 		sb.append(", storeCategoryCode='").append(storeCategoryCode).append('\'');

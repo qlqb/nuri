@@ -160,11 +160,11 @@
       </div>
     </div>
   </section>
-  <section class="product-details-area">
+  <section class="product-details-area" th:object="${contentsDetailInfo}">
     <div class="container">
       <div class="product-details-wrapper box-style">
         <div class="title_area">
-          <h3>[서울]연극＜조각＞</h3>
+          <h3 th:text="*{contentsName}"></h3>
         </div>
         <div class="info-wrapper">
           <div class="showcase-wrapper">
@@ -192,7 +192,7 @@
                 <div class="top_info">
                   <dl class="col-lg-7 col-xl-7">
                     <dt>공연 일시</dt>
-                    <dd>2023-01-04 ~ 2023-11-30</dd>
+                    <dd th:text="*{contentsDurationDate}"></dd>
                   </dl>
                   <dl class="col-lg-5 col-xl-5">
                     <dt >지역</dt>
@@ -200,7 +200,7 @@
                   </dl>
                   <dl class="col-lg-7 col-xl-7">
                     <dt >판매기간</dt>
-                    <dd >2023-01-03 ~ 2023-11-29</dd>
+                    <dd th:text="*{contentsSellDuration}"></dd>
                   </dl>
                   <dl class="col-lg-5 col-xl-5">
                     <dt>장소</dt>
@@ -210,11 +210,11 @@
                 <div class="info">
                   <dl class="col-lg-12 col-xl-12">
                     <dt>관람 시간</dt>
-                    <dd>약 70분</dd>
+                    <dd th:text="*{contentsDuration}"></dd>
                   </dl>
                   <dl class="col-lg-12 col-xl-12">
                     <dt>등급</dt>
-                    <dd>만 13세 이상 관람가</dd>
+                    <dd >만 13세 이상 관람가</dd>
                   </dl>
                   <dl class="col-lg-12 col-xl-12">
                     <dt>문의</dt>
