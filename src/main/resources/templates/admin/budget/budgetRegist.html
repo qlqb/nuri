@@ -34,6 +34,81 @@
               return isValid;
             }
 
+            //전국 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
+          $("#resetBtn1").click(function () {
+              $("#addBudgetTotalForm > div > div > input").val('');
+              $("#isDuplicate").text("");
+              //등록 버튼 비활성화
+              $("#addBudgetTotalBtn").prop("disabled", true);
+          });
+
+          //연도 칸의 입력 내용이 바뀔 때마다 ajax를 이용한 중복체크
+          $("#applyYear").change(function (){
+              let $applyYear = $("#applyYear").val();
+
+              //연도가 유효한 범위 내인지 확인
+              if($applyYear <2014 || $applyYear >2114){
+                  $("#isDuplicate").css("color", "red");
+                  $("#isDuplicate").text("2014~2114년 사이의 연도만 입력 가능합니다.");
+                  $("#addBudgetTotalBtn").prop("disabled", true);
+                  return;
+              }
+
+              //DB에 입력되어있는 연도 정보 받아오기
+              const request = $.ajax({
+                  url : '/admin/budget/yearCheck',
+                  method : 'POST',
+                  data : {'applyYear': $applyYear},
+                  dataType : 'json'
+              });
+
+              request.done(function(data){
+                  //사용자가 입력한 값과 DB의 값이 일치하는지 확인, p태그 안에 결과 입력
+                  if(data){
+                      $("#isDuplicate").css("color", "red");
+                      $("#isDuplicate").text("이미 해당 연도의 예산 정보가 등록되어있습니다.");
+                      $("#addBudgetTotalBtn").prop("disabled", true);
+                  }else{
+                      $("#isDuplicate").css("color", "blue");
+                      $("#isDuplicate").text("등록 가능한 연도입니다.");
+                      //입력 버튼 활성화
+                      $("#addBudgetTotalBtn").prop("disabled", false);
+                  }
+              });
+              request.fail(function(jqXHR, textStatus){
+                  console.log(`Request failed: ${textStatus}`);
+              });
+          });
+
+          //전국 단위 - 등록 버튼 눌렀을 시 유효성 검사 후 insert 실행
+          $("#addBudgetTotalBtn").click(function () {
+              //버튼 눌렀을 때의 값을 받아 객체 생성하기
+              const budget = {
+                  "budgetNum" : 'BUD' + $("#applyYear").val(),
+                  "officerId" : 'OFC231012001',
+                  "applyYear" : $("#applyYear").val(),
+                  "budgetByPerson" : $("#budgetByPerson").val(),
+                  "budgetTotalAmount" : $("#budgetTotalAmount").val()+'000000000'
+              }
+
+              let isValid = validationCheck(budget);
+              //유효성 검사 통과하고 연도가 중복되지 않는 경우에만 submit
+              if(!isValid){
+                  console.log("유효성 검사 : " + isValid);
+                  return false;
+              }else{
+                  console.log("유효성 검사 : " + isValid);
+                  console.log(budget);
+                  if(confirm("등록하시겠습니까?")){
+                      const addBudgetTotalForm = $("#addBudgetTotalForm");
+                      const $budgetNum = $('<input />', {'type': 'hidden', 'name': 'budgetNum', 'value': budget.budgetNum});
+                      const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
+                      addBudgetTotalForm.append($budgetNum);
+                      addBudgetTotalForm.append($officerId);
+                      addBudgetTotalForm.submit();
+                  }
+              }
+          });
 
 
             //지역 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
@@ -128,7 +203,49 @@
 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 	<th:block layout:fragment="customContents">
         <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>예산 등록</h2>
 
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content" >
+                    <form id="addBudgetTotalForm" class="form-horizontal form-label-left"
+                          th:action="@{/admin/budget/budgetInfo}" method="post">
+                        <div class="form-group row">
+                            <label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="number" class="form-control" id="applyYear" name="applyYear"
+                                       placeholder="연도를 입력하세요 예)2023" min="2014" max="2114">
+                                <p id="isDuplicate"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="number" class="form-control" id="budgetByPerson" name="budgetByPerson"
+                                       placeholder="1인 최대 지원금액을 입력하세요(단위 : 원)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="number" class="form-control" id="budgetTotalAmount" name="budgetTotalAmount"
+                                       placeholder="예산 금액을 입력하세요(단위 : 1억 원)">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <button id="resetBtn1" type="button" class="btn btn-primary">초기화</button>
+                                <button id="addBudgetTotalBtn" type="button" class="btn btn-success" disabled="disabled">등록</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
           
           <div class="x_panel">
             <div class="x_title">

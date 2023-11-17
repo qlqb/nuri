@@ -1,6 +1,7 @@
 package ksmart.ks48team01.admin.controller;
 
 
+import ksmart.ks48team01.dto.Board;
 import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.service.AreaService;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller("AdminBudgetController")
 @RequestMapping(value = "/admin/budget")
@@ -131,11 +133,18 @@ public class AdminBudgetController {
 	 * @return
 	 */
 	@GetMapping(value={"budgetInfoRegion"})
-	public String budgetInfoRegion(Model model) {
+	public String budgetInfoRegion(@RequestParam(name="searchKey", required = false) String searchKey,
+								   @RequestParam(name="searchValue", required = false, defaultValue = "") String searchValue,
+								   Model model) {
 
-		List<BudgetRegion> budgetRegionList = budgetService.getBudgetRegionList();
+		List<BudgetRegion> budgetRegionList = null;
+		if(searchKey != null){
+			budgetRegionList = budgetService.getBudgetRegionListBySearch(searchKey, searchValue);
+		}else{
+			budgetRegionList = budgetService.getBudgetRegionList();
+		}
+
 		List<Region> regionList = areaService.getRegionList();
-
 		model.addAttribute("budgetRegionList", budgetRegionList);
 		model.addAttribute("title", "지역 예산 조회");
 		model.addAttribute("regionList", regionList);
@@ -143,7 +152,7 @@ public class AdminBudgetController {
 	}
 
 	/**
-	 * 전국 단위 예산 수정
+	 * 전국 단위 예산 수정 화면
 	 * @param @RequestParam String applyYear
 	 * @return
 	 */
@@ -160,6 +169,22 @@ public class AdminBudgetController {
 	}
 
 	/**
+	 * 지역 단위 예산 수정 화면
+	 * @param @RequestParam String applyYear
+	 * @return
+	 */
+	@GetMapping(value={"budgetUpdateRegion"})
+	public String budgetUpdateRegion(@RequestParam(name="budgetRegionNum") String budgetRegionNum,
+									 Model model) {
+
+		BudgetRegion budgetRegion = budgetService.getBudgetRegionBySearch(budgetRegionNum);
+
+		model.addAttribute("title", "지역 예산 수정");
+		model.addAttribute("budgetRegion", budgetRegion);
+		return "admin/budget/budgetUpdateRegion";
+	}
+
+	/**
 	 * 전국 단위 예산 수정 처리
 	 */
 	@PostMapping("budgetUpdate")
@@ -169,16 +194,14 @@ public class AdminBudgetController {
 		return "redirect:/admin/budget/budgetInfo";
 	}
 
-
 	/**
-	 * 지역 단위 예산 수정
-	 * @param model
-	 * @return
+	 * 지역 단위 예산 수정 처리
 	 */
-	@GetMapping(value={"budgetUpdateRegion"})
-	public String budgetUpdateRegion(Model model) {
-
-		return "admin/budget/budgetUpdateRegion";
+	@PostMapping("budgetUpdateRegion")
+	public String updateBudgetRegion(BudgetRegion budgetRegion){
+		System.out.println(budgetRegion);
+		budgetService.updateBudgetRegion(budgetRegion);
+		return "redirect:/admin/budget/budgetInfoRegion";
 	}
 
 	/**
@@ -190,7 +213,7 @@ public class AdminBudgetController {
 	@GetMapping(value={"removeBudgetTotal"})
 	public String removeBudgetTotal(@RequestParam(name="applyYear") String applyYear, Model model){
 		budgetService.removeBudgetTotal(applyYear);
-		//나중에 사용률통계 테이블에서도 삭제하는 거 추가해야할듯?
+		//나중에 사용률 통계 테이블에서도 삭제하는 거 추가해야 할 듯?
 		return "redirect:/admin/budget/budgetInfo";
 	}
 

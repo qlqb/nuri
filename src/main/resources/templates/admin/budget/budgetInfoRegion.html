@@ -6,6 +6,54 @@
 	<th:block layout:fragment="customJs">
 		<script th:src="@{/js/jquery-3.7.1.js}"></script>
 	</th:block>
+
+	<th:block layout:fragment="customJsCode">
+		<script>
+			//유효성 검사
+			function validationCheck(data) {
+				let isValid = true;
+				if (typeof data == "object") {
+					$.each(budget, function (key, value) {
+						if (value == null || value == '' || typeof value == 'undefined') {
+							isValid = false;
+							let elementId = $(`label[for="${key}"]`).text();
+							alert(`${elementId} <-- 필수 입력 항목입니다.`);
+							$(`input[id="${key}"]`).focus();
+							console.log("유효성 검사 : "+isValid);
+							return isValid;
+						}
+					});
+				} else {
+					if (data == null || data == '' || typeof data == 'undefined') {
+						isValid = false;
+						let $elementId = $(`label[for="searchYear"]`).text();
+						alert(`${$elementId} <-- 필수 입력 항목입니다.`);
+						console.log("유효성 검사 : " + isValid);
+						return isValid;
+					}
+				}
+				return isValid;
+			}
+
+
+			$('#budgetRegionSearchBtn').click(function(){
+				//검색 버튼 클릭 시 입력한 연도,지역의 데이터 가져와서 콘솔창 출력
+				let $searchKey = $("#searchKey").val();
+				let $searchValue = $("#searchValue").val();
+				if($searchKey == ''){
+					alert("항목을 선택해주세요");
+					return;
+				}
+				// alert("searchKey : "+$searchKey+", searchValue : "+$searchValue);
+
+				$("#budgetRegionSearchForm").submit();
+
+
+
+			});
+
+		</script>
+	</th:block>
 	
   <body id="page-top">
 
@@ -25,28 +73,46 @@
 	       			<div class="x_content">
 						<br />
 						
-                    	<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-	                        <div class="form-group">
-	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12"> 연도 </label>
-	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                         	 <input type="number" id="" name="" class="form-control col-md-7 col-xs-12">
-	                        	</div>
-	                      	</div>
-						  
-		                      <div class="form-group">
-		                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 입력 </label>
-		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		                          <select id="inputRegion" class="form-control">
-				                  	<option value="">=====지역을 선택하세요=====</option>
-				                  </select>  
-		                        </div>
-		                      </div>
-		                      
+                    	<form id="budgetRegionSearchForm" th:action="@{/admin/budget/budgetInfoRegion}"
+							  method="get" data-parsley-validate class="form-horizontal form-label-left">
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12"> 항목 선택 </label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="searchKey" name="searchKey" class="form-control">
+										<option value="">==========선택==========</option>
+										<option value="APPLY_YEAR">연도</option>
+										<option value="REGION_NAME">지역</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="searchValue" class="control-label col-md-3 col-sm-3 col-xs-12"> 검색 내용 </label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="searchValue" name="searchValue" class="form-control col-md-7 col-xs-12">
+<!--									<th:block th:if="${searchKey == applyYearRegion}">-->
+<!--										<input type="number" id="applyYearRegion" name="applyYearRegion" class="form-control col-md-7 col-xs-12">-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${searchKey == regionCode}">-->
+<!--										<select id="searchValue" class="form-control">-->
+<!--											<option value="">========지역을 선택하세요=========</option>-->
+<!--											<th:block th:unless="${regionList == null}" th:each="l : ${regionList}">-->
+<!--												<option th:value="${l.regionCode}" th:text="${l.regionName}"></option>-->
+<!--											</th:block>-->
+<!--										</select>-->
+<!--									</th:block>-->
+								</div>
+							</div>
+
+
+
+
+
 		                      <div class="ln_solid"></div>
 		                      <div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-		                          <button type="button" class="btn btn-primary">초기화</button>
-		                          <button type="submit" class="btn btn-success">검색</button>
+		                          <button id="resetBtn" type="reset" class="btn btn-primary">초기화</button>
+		                          <button id="budgetRegionSearchBtn" type="button" class="btn btn-success">검색</button>
 		                        </div>
 		                      </div>
                     	</form>
@@ -82,7 +148,7 @@
 									 <td colspan="7"> 등록된 예산 정보가 없습니다.</td>
 								 </tr>
 								 <tr th:unless="${budgetRegionList == null}" th:each="l:${budgetRegionList}">
-				                     <td><a th:href="@{/admin/budget/budgetRegionUpdate(applyYear=${l.applyYearRegion})}">
+				                     <td><a th:href="@{/admin/budget/budgetUpdateRegion(budgetRegionNum=${l.budgetRegionNum})}">
 										 <th:block th:text="${l.applyYearRegion}"></th:block></a></td>
 									 <td th:text="${l.regionName}"></td>
 									 <td th:text="${l.officerId}"></td>
