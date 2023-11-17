@@ -13,4 +13,6 @@ public interface OfficerMapper {
     public List<Officer> officerSearchList(String searchKey, String searchValue);
 
     public Officer getOfficerUpdate(String officerId);
+
+    public List<Officer> getOfficerDepartmentList();
 }

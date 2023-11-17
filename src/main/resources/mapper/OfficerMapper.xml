@@ -64,4 +64,5 @@
         WHERE
         OI.OFFICER_ID = #{officerId};
     </select>
+
 </mapper>

@@ -52,20 +52,19 @@ public class RegisterController {
     @ResponseBody
     @PostMapping("/userIdCheck")
     public String getUserIdCheck(@RequestBody Map<String, String> userIdCheckMap) {
+        Gson gson = new Gson();
         String userId = userIdCheckMap.get("checkId");
         System.out.println(userId);
         Boolean checkedValue = userService.userIdCheck(userId);
         Map<String, Boolean> checkedMap = new HashMap<>();
-        if(checkedValue.equals(1)) {
-            checkedMap.put("checkedValue", checkedValue);
-            checkedMap.put("message", true);
+        if(checkedValue == false) {
+            checkedMap.put("checkedValue", true);
         } else {
-            checkedMap.put("checkedValue", checkedValue);
-            checkedMap.put("message", false);
+            checkedMap.put("checkedValue", false);
         }
         System.out.println(checkedMap);
 
-        return checkedMap.toString();
+        return gson.toJson(checkedMap);
     }
 
 
