@@ -90,21 +90,21 @@
 						<label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<input id="applyYear" type="number" name="applyYear" class="form-control"
-							readonly="readonly" th:field="*{applyYear}">
+							readonly="readonly" th:value="*{applyYear}">
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
+						<label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산(단위 : 원)</label>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<input id="budgetByPerson" type="number" class="form-control"
-								   name="budgetByPerson" th:field="*{budgetByPerson}">
+								   name="budgetByPerson" th:value="*{budgetByPerson}">
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+						<label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산(단위 : 원)</label>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<input id="budgetTotalAmount" type="number" class="form-control"
-								   name="budgetTotalAmount" th:field="*{budgetTotalAmount}">
+								   name="budgetTotalAmount" th:value="*{budgetTotalAmount}">
 						</div>
 					</div>
 
