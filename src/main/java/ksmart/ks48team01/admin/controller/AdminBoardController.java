@@ -26,6 +26,9 @@ public class AdminBoardController {
 		this.boardService = boardService;
 	}
 
+	//게시판 페이징 처리 미완
+
+
 	//게시글 탈퇴 처리
 	@PostMapping("/removeBoardContents")
 	public String removeBoardContents(Board board, RedirectAttributes reAttr) {
@@ -141,6 +144,9 @@ public class AdminBoardController {
 		model.addAttribute("title","게시글 목록");
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCategoryList", boardCategoryList);
+
+		model.addAttribute("startPageNum",1);
+		model.addAttribute("endPageNum",1);
 
 		return "admin/board/boardCateInfo";
 	}

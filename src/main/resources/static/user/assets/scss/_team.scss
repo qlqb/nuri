@@ -1,0 +1,82 @@
+/*============================
+team css
+============================= */
+
+.team-area {
+
+    .single-team {
+        border-radius: 10px;
+        margin-bottom: 30px;
+        background: $white;
+        overflow: hidden;
+        text-align: center;
+        @include box-shadow(0px 0px 50px rgba(229, 229, 229, 0.35));
+
+        &:hover {
+
+            .team-img {
+
+                .social-link {
+                    opacity: 1;
+                    visibility: visible;
+                    height: 145px;
+                }
+            }
+        }
+
+        .team-img {
+            position: relative;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+            }
+            .social-link {
+                position: absolute;
+                height: 0;
+                left: 0px;
+                bottom: 0px;
+                background: $white;
+                padding: 10px 5px;
+                border-left: 2px solid $theme-color;
+                opacity: 0;
+                visibility: hidden;
+                @include transition(.3s);
+
+                ul {
+                    li {
+                        margin-bottom: 10px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        a {
+                            width: 35px;
+                            height: 35px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: $heading-color;
+
+                            &:hover {
+                                color: $theme-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .team-info {
+            padding: 30px 10px;
+
+            h4 {
+                font-size: 22px;
+                font-weight: 500;
+                margin-bottom: 15px;
+            }
+
+        }
+    }
+}

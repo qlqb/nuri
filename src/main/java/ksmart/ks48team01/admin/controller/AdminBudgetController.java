@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ksmart.ks48team01.dto.Budget;
+import ksmart.ks48team01.dto.BudgetRegion;
 import ksmart.ks48team01.service.BudgetService;
-
 import java.util.List;
 
 @Controller("AdminBudgetController")
@@ -42,8 +42,6 @@ public class AdminBudgetController {
 	@PostMapping("/budgetInfo")
 	public String budgetRegist(Budget budget){
 
-		log.info("예산 등록 Budget : {}", budget);
-		System.out.println(budget);
 		budgetService.addBudgetTotal(budget);
 
 		return "redirect:/admin/budget/budgetInfo";
@@ -63,7 +61,7 @@ public class AdminBudgetController {
 	}
 
 	/**
-	 * 예산 등록 페이지(전국단위, 지역단위 포함)
+	 * 예산 등록 페이지(전국단위)
 	 * @param model
 	 * @return view -> budget/budgetRegist
 	 */
@@ -80,13 +78,13 @@ public class AdminBudgetController {
 	 */
 	@GetMapping(value={"budgetInfo"})
 	public String budgetInfo(Model model,
-							 @RequestParam(name="searchYear", required = false) String searchYear) {
+							 @RequestParam(name="applyYear", required = false) String applyYear) {
 
 		List<Budget> budgetTotalList = null;
-		log.info("searchYear : {}", searchYear);
+		log.info("applyYear : {}", applyYear);
 
-		if(searchYear != null) {
-			budgetTotalList = budgetService.getBudgetTotalSearch(searchYear);
+		if(applyYear != null) {
+			budgetTotalList = budgetService.getBudgetTotalSearch(applyYear);
 		}else{
 			budgetTotalList = budgetService.getBudgetTotalList();
 		}
@@ -105,20 +103,37 @@ public class AdminBudgetController {
 	@GetMapping(value={"budgetInfoRegion"})
 	public String budgetInfoRegion(Model model) {
 
-		List<Budget> budgetRegionList = budgetService.getBudgetRegionList();
+		List<BudgetRegion> budgetRegionList = budgetService.getBudgetRegionList();
 		return "admin/budget/budgetInfoRegion";
 	}
 
 	/**
 	 * 전국 단위 예산 수정
-	 * @param model
+	 * @param @RequestParam String applyYear
 	 * @return
 	 */
 	@GetMapping(value={"budgetUpdate"})
-	public String budgetUpdate(Model model) {
+	public String budgetUpdate(@RequestParam(name="applyYear") String applyYear, Model model) {
 
+		log.info("applyYear : {}", applyYear);
+
+		Budget budget = budgetService.getBudgetTotalByYear(applyYear);
+
+		model.addAttribute("title", "예산 수정");
+		model.addAttribute("budget", budget);
 		return "admin/budget/budgetUpdate";
 	}
+
+	/**
+	 * 전국 단위 예산 수정 처리
+	 */
+	@PostMapping("budgetUpdate")
+	public String updateBudgetTotal(Budget budget){
+		System.out.println(budget);
+		budgetService.updateBudgetTotal(budget);
+		return "redirect:/admin/budget/budgetInfo";
+	}
+
 
 	/**
 	 * 지역 단위 예산 수정
@@ -129,6 +144,19 @@ public class AdminBudgetController {
 	public String budgetUpdateRegion(Model model) {
 
 		return "admin/budget/budgetUpdateRegion";
+	}
+
+	/**
+	 * 전국 단위 예산 삭제
+	 * @param applyYear
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value={"removeBudgetTotal"})
+	public String removeBudgetTotal(@RequestParam(name="applyYear") String applyYear, Model model){
+		budgetService.removeBudgetTotal(applyYear);
+		//나중에 사용률통계 테이블에서도 삭제하는 거 추가해야할듯?
+		return "redirect:/admin/budget/budgetInfo";
 	}
 
 }

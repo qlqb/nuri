@@ -1,0 +1,59 @@
+
+.banner-area {
+  position: relative;
+  z-index: 1;
+  padding: 200px 0 130px;
+  background-image: url('../images/banner/banner-bg.jpg');
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 73%, 0% 100%);
+
+  @media #{$lg} {
+    clip-path: polygon(0 0, 100% 0, 100% 76%, 0% 95%);
+  }
+  @media #{$md} {
+    clip-path: polygon(0 0, 100% 0, 100% 78%, 0% 93%);
+  }
+  @media #{$xs} {
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 91%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-image: linear-gradient(rgba(51, 63, 87, 0.79) 0%, #333f57 100%);
+  }
+
+  .banner-content {
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .breadcrumb {
+      background : none;
+      padding: 0;
+
+      li {
+        color: $white;
+
+        &::before {
+          color: $white;
+        }
+
+        a {
+          color: $white;
+
+          &:hover {
+            color: $theme-color;
+          }
+        }
+      }
+    }
+  }
+
+
+}

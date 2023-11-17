@@ -1,0 +1,256 @@
+
+
+.single-product {
+  border-radius: 5px;
+  background: $white;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border: 1px solid rgba(124, 134, 154, 0.25);
+  @include transition(.3s);
+  @include box-shadow (0px 3px 35px rgba(218, 222, 228, 0.3));
+
+  &:hover {
+    @include box-shadow (0px 12px 35px rgba(218, 222, 228, 0.65));
+
+  }
+  .product-img {
+    position: relative;
+
+    a {
+      display: block;
+    }
+    img {
+      width: 100%;
+    }
+    .product-action {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+
+      a {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        background: $theme-color;
+        color: $white;
+        font-size: 14px;
+
+        &.share {
+          background:$white;
+          color: $theme-color;
+        }
+      }
+    }
+    a.badge {
+      font-size: 16px;
+      color: $white;
+      background: $theme-color;
+      padding: 5px 16px;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      font-weight: 400;
+      border-radius: 30px;
+
+      &.bottom {
+        bottom: 25px;
+        top: auto;
+      }
+    }
+  }
+
+  .product-content {
+    padding: 20px 30px 25px;
+
+    .name {
+      margin-bottom: 10px;
+
+      &:hover a {
+        color: $theme-color;
+      }
+    }
+
+    .update {
+      font-weight: 300;
+      margin-bottom: 15px;
+    }
+    .sort-des {
+      margin-bottom: 20px;
+    }
+
+    .address {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        width: 50%;
+        margin-bottom: 15px;
+
+        a {
+          color: $body-color;
+
+          &:hover {
+            color: $theme-color;
+          }
+        }
+      }
+    }
+
+    .product-bottom {
+      border-top: 1px dotted $border-color;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 20px;
+
+      .price {
+        font-weight: 600;
+        color: $theme-color;
+      }
+
+      a.link-ad {
+        padding: 7px 10px 5px;
+        display: inline-block;
+        border: 1px solid $border-color;
+        border-radius: 30px;
+        line-height: 1;
+        color: $body-color;
+
+        &:hover {
+          color: $white;
+          background-color: $theme-color;
+          border-color: $theme-color;
+        }
+      }
+      a.address-link {
+        color: $body-color;
+
+        &:hover {
+          color: $theme-color;
+        }
+      }
+
+    }
+
+    .rating-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      align-items: center;
+
+      .price {
+        font-size: 20px;
+        font-weight: 600;
+
+        del {
+          color: $body-color;
+        }
+      }
+
+      .rating {
+        span {
+          color: $heading-color;
+        }
+        i {
+          color: $theme-color;
+          font-size: 14px;
+        }
+      }
+    }
+
+
+  }
+
+  &.list-view {
+    display: flex;
+
+    @media #{$xs} {
+      flex-direction: column;
+    }
+
+    .product-img {
+      width: 100%;
+
+      &>a {
+        height: 100%;
+
+        img {
+          height: 100%;
+          object-position: center;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .product-content {
+      width: 100%;
+    }
+  }
+
+
+}
+
+.feature-product-area {
+  padding: 70px 0 40px;
+  background-image: url('../images/product/common-bg.svg');
+
+  @media #{$xs} {
+    padding-bottom: 90px;
+  }
+}
+
+.product-carousel-wrapper {
+  position: relative;
+
+  .tns-controls {
+    
+    button {
+      border: none;
+      background: none;
+
+      span {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $white;
+        color: $body-color;
+        border-radius: 50%;
+        position: absolute;
+        top: calc(50% - 28px);
+        left: -28px;
+        @include transform(translateY(-50%));
+        @include transition(.3s);
+        z-index: 99;
+        @include box-shadow(0px 3px 35px rgba(218, 222, 228, 0.3));
+
+
+        &:hover {
+          color: $white;
+          background: $theme-color;
+        }
+
+        &.next {
+          right: -28px;
+          left: auto;
+
+          @media #{$xs} {
+            left: calc(50% + 10px);
+            right: auto;
+          }
+        }
+
+        @media #{$xs} {
+          left: calc(50% - 65px);
+          top: auto;
+          bottom: -30px;
+          @include transform(translateY(0));
+        }
+      }
+    }
+  }
+}
