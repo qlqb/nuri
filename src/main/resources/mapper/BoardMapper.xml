@@ -133,6 +133,37 @@
         BOARD_CATEGORY AS bc
     </select>
 
+    <!--유저게시판 카테고리 목록 검색-->
+    <select id="getBoardCateBySearch" parameterType="String" resultMap="boardResultMap">
+        <!--userID와 게시글 작성자 일치한 게시글 조회-->
+        SELECT
+        b.BOARD_CODE,
+        c.BOARD_CATE_CODE,
+        c.BOARD_CATE_NAME,
+        u.USER_ID,
+        b.BOARD_WRITING_TITLE,
+        b.BOARD_WRITING_CONTENTS,
+        b.BOARD_FILE_LINK,
+        b.BOARD_REG_DATE,
+        b.BOARD_UPDATE_DATE
+        FROM
+        BOARD_MAIN AS b
+        INNER JOIN
+        USER_INFO AS u
+        on
+        u.USER_ID = b.USER_ID
+
+        INNER JOIN
+        BOARD_CATEGORY AS c
+        on
+        c.BOARD_CATE_CODE = b.BOARD_CATE_CODE
+        <where>
+            <if test="searchKey != null and searchKey != ''">
+                ${searchKey} LIKE CONCAT ('%', #{searchValue}, '%')
+            </if>
+        </where>
+    </select>
+
     <!--게시판 목록 검색-->
     <select id="getBoardListBySearch" parameterType="String" resultMap="boardResultMap">
         <!--userID와 게시글 작성자 일치한 게시글 조회-->
@@ -189,7 +220,7 @@
             on
             b.BOARD_CATE_CODE = c.BOARD_CATE_CODE
         order by
-            b.BOARD_CODE;
+            b.BOARD_CODE desc;
     </select>
 
 </mapper>

@@ -12,6 +12,9 @@ public interface BoardMapper {
     //게시글 삭제
     public int removeBoardContents(String boardCode);
 
+    //카테고리로 게시판 조회
+    public List<Board> getBoardCateBySearch(String searchKey);
+
     //검색조건에 따른 게시판목록 조회
     public List<Board> getBoardListBySearch(String searchKey, String searchValue);
 
