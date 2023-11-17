@@ -34,6 +34,12 @@ public class BoardService {
         boardMapper.removeBoardContents(boardCode);
     }
 
+    //user페이지 카테고리별 게시판 조회
+    public List<Board> boardSearchCate(String searchKey){
+        List<Board> boardSearchCate = boardMapper.getBoardCateBySearch(searchKey);
+        return boardSearchCate;
+    }
+
     //검색어에 따른 회원의 목록조회
     public List<Board> boardSearchList(String searchKey, String searchValue){
 
