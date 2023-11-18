@@ -11,7 +11,6 @@ public class Contents {
     private String contentsAddress;
     private String contentsDuration;
     private String contentsDurationDate;
-    private String contentsSellDuration;
     private String contentsPg;
     private int contentsPrice;
     private String contentsStartDate;
@@ -23,22 +22,6 @@ public class Contents {
     private int amountContentRemaining;
     private String contentsDetail;
     private Store storeInfo;
-
-    public String getContentsDurationDate() {
-        return contentsDurationDate;
-    }
-
-    public void setContentsDurationDate(String contentsDurationDate) {
-        this.contentsDurationDate = contentsDurationDate;
-    }
-
-    public String getContentsDetail() {
-        return contentsDetail;
-    }
-
-    public void setContentsDetail(String contentsDetail) {
-        this.contentsDetail = contentsDetail;
-    }
 
     public String getContentsId() {
         return contentsId;
@@ -104,12 +87,12 @@ public class Contents {
         this.contentsDuration = contentsDuration;
     }
 
-    public String getContentsSellDuration() {
-        return contentsSellDuration;
+    public String getContentsDurationDate() {
+        return contentsDurationDate;
     }
 
-    public void setContentsSellDuration(String contentsSellDuration) {
-        this.contentsSellDuration = contentsSellDuration;
+    public void setContentsDurationDate(String contentsDurationDate) {
+        this.contentsDurationDate = contentsDurationDate;
     }
 
     public String getContentsPg() {
@@ -184,6 +167,14 @@ public class Contents {
         this.amountContentRemaining = amountContentRemaining;
     }
 
+    public String getContentsDetail() {
+        return contentsDetail;
+    }
+
+    public void setContentsDetail(String contentsDetail) {
+        this.contentsDetail = contentsDetail;
+    }
+
     public Store getStoreInfo() {
         return storeInfo;
     }
@@ -204,7 +195,6 @@ public class Contents {
         sb.append(", contentsAddress='").append(contentsAddress).append('\'');
         sb.append(", contentsDuration='").append(contentsDuration).append('\'');
         sb.append(", contentsDurationDate='").append(contentsDurationDate).append('\'');
-        sb.append(", contentsSellDuration='").append(contentsSellDuration).append('\'');
         sb.append(", contentsPg='").append(contentsPg).append('\'');
         sb.append(", contentsPrice=").append(contentsPrice);
         sb.append(", contentsStartDate='").append(contentsStartDate).append('\'');

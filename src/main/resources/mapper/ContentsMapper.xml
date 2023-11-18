@@ -34,10 +34,10 @@
         SELECT
             c.CONTENTS_ID AS contentsId,
             c.CONTENTS_NAME AS contentsName,
-            IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_END_DATE), 0) AS contentsSellDuration,
-            IF(si.STORE_CATEGORY_NAME = '도서', 'book',
-            IF(si.STORE_CATEGORY_NAME = '체육', 'exercise',
-            IF(c.CONTENTS_PG=0, '전체 관람가', CONCAT(c.CONTENTS_PG, '세 이상 관람가')))) AS contentsPg,
+            c.CONTENTS_SELL_START_DATE AS contentsSellStartDate,
+            c.CONTENTS_END_DATE AS contentsSellEndDate,
+            si.STORE_CATEGORY_NAME AS contentsCategoryName,
+            c.CONTENTS_PG AS contentsPg,
             CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
 
             si.STORE_NAME AS storeName,

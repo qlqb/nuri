@@ -464,19 +464,19 @@
                                                             </h3>
 
                                                             <ul class="address">
-                                                                <li th:if="${cil.contentsSellDuration != 0}">
+                                                                <li>
                                                                     <a href="javascript:void(0)"><i class="lni lni-calendar"></i><th:block th:text="${cil.contentsSellDuration}"></th:block></a>
                                                                 </li>
-                                                                <th:block th:if="${cil.contentsPg == 'book'}">
+                                                                <th:block th:if="${cil.isBook == 1}">
                                                                     <li>
-                                                                        <a href="javascript:void(0)"><i class="lni lni-book"></i><th:block th:text="${cil.contentsPg}"></th:block></a>
+                                                                        <a href="javascript:void(0)"><i class="lni lni-book"></i><th:block>저자: 컬럼없음</th:block></a>
                                                                     </li>
                                                                 </th:block>
 
                                                                 <li>
                                                                     <a href="javascript:void(0)"><i class="lni lni-map-marker"></i><th:block th:text="${cil.storeName}"></th:block></a>
                                                                 </li>
-                                                                <th:block th:if="${cil.contentsPg != 'book' && cil.contentsPg != 'exercise'}">
+                                                                <th:block th:if="${cil.isBook == 0}">
                                                                     <li>
                                                                         <a href="javascript:void(0)"><i class="lni lni-user"></i><th:block th:text="${cil.contentsPg}"></th:block></a>
                                                                     </li>
@@ -825,7 +825,9 @@
                             contentsInfoList.forEach(function (ele) {
                                 let contentsName = ele.contentsName;
                                 let contentsSellDuration = ele.contentsSellDuration;
+                                console.log('3333333333333333', contentsSellDuration);
                                 let contentsPg = ele.contentsPg;
+                                let isBook = ele.isBook;
                                 let contentsPrice = ele.contentsPrice;
                                 let storeName = ele.storeName;
                                 let amountContentRemaining = ele.amountContentRemaining;
@@ -841,29 +843,28 @@
                                     '<h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->\n' +
                                     `<a href="product-details.html" class="name">${contentsName}</a>\n` +
                                     '</h3>\n' +
-                                    '<ul class="address">\n';
-                                if(contentsSellDuration !== '0') {
-                                    contentsEle +=  '<li>\n' +
-                                        '<a href="javascript:void(0)">' +
-                                        '<i class="lni lni-calendar"></i>' +
-                                        `${contentsSellDuration}</a>\n` +
-                                        '</li>\n';
-                                }
-                                if(contentsPg === 'book') {
-                                    contentsEle += '<li>\n' +
-                                        '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
-                                        `${contentsPg}</a>\n` +
-                                        '</li>\n'
-                                }
+                                    '<ul class="address">\n' +
+                                    '<li>\n' +
+                                    '<a href="javascript:void(0)">' +
+                                    '<i class="lni lni-calendar"></i>' +
+                                    `${contentsSellDuration}</a>\n` +
+                                    '</li>\n';
+
                                 contentsEle += '<li>\n' +
                                     `<a href="javascript:void(0)"><i class="lni lni-map-marker"></i>${storeName}</a>\n` +
                                     '</li>\n';
 
-                                if(contentsPg !== 'book' && contentsPg !== 'exercise') {
+                                if(isBook === 1) {
+                                    contentsEle += '<li>\n' +
+                                        '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                        `저자: 컬럼 없음</a>\n` +
+                                        '</li>\n'
+                                } else{
                                     contentsEle += '<li>\n' +
                                         `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
                                         '</li>\n';
                                 }
+                                
                                 contentsEle += '<li>\n' +
                                     `<a href="javascript:void(0)"><i class="lni lni-coin"></i>${contentsPrice}</a>\n` +
                                     '</li>\n' +
