@@ -19,6 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(sessionId != null) {
             String sessionLevel = (String) session.getAttribute("SLEVEL");
             String requestURI = request.getRequestURI();
+            response.sendRedirect("/");
 
             return true;
         }

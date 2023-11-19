@@ -22,11 +22,6 @@ public class AboutController {
         return "user/about/nuriService";
     }
 
-    @GetMapping("/nuriStore")
-    public String aboutNuriStore(Model model) {
-        return "user/about/nuriStore";
-    }
-
     @GetMapping("/nuriCard")
     public String aboutNuriCard(Model model) {
 

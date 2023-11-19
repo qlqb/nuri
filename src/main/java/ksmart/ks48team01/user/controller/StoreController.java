@@ -22,13 +22,11 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-
-    @GetMapping("/storeInfo")
-    public String storeInfoPage() {
-
+    @GetMapping("/nuriStore")
+    public String aboutNuriStore(Model model) {
 
 
-        return "user/store/storeInfo";
+        return "user/store/nuriStore";
     }
 
     /**
@@ -53,13 +51,5 @@ public class StoreController {
 
         return gson.toJson(keywordList);
     }
-
-    @GetMapping("/storeList")
-    public String storeListPage() {
-
-        return "user/store/storeList";
-    }
-
-
 
 }
