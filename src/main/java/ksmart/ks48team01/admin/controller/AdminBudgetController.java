@@ -176,8 +176,10 @@ public class AdminBudgetController {
 	@GetMapping(value={"budgetUpdateRegion"})
 	public String budgetUpdateRegion(@RequestParam(name="budgetRegionNum") String budgetRegionNum,
 									 Model model) {
+		log.info("budgetRegionNum : {}", budgetRegionNum);
 
 		BudgetRegion budgetRegion = budgetService.getBudgetRegionBySearch(budgetRegionNum);
+		log.info("budgetRegion : {}", budgetRegion);
 
 		model.addAttribute("title", "지역 예산 수정");
 		model.addAttribute("budgetRegion", budgetRegion);
@@ -189,7 +191,6 @@ public class AdminBudgetController {
 	 */
 	@PostMapping("budgetUpdate")
 	public String updateBudgetTotal(Budget budget){
-		System.out.println(budget);
 		budgetService.updateBudgetTotal(budget);
 		return "redirect:/admin/budget/budgetInfo";
 	}
@@ -199,22 +200,33 @@ public class AdminBudgetController {
 	 */
 	@PostMapping("budgetUpdateRegion")
 	public String updateBudgetRegion(BudgetRegion budgetRegion){
-		System.out.println(budgetRegion);
+		log.info("budgetRegion : {}", budgetRegion);
 		budgetService.updateBudgetRegion(budgetRegion);
 		return "redirect:/admin/budget/budgetInfoRegion";
 	}
 
 	/**
 	 * 전국 단위 예산 삭제
-	 * @param applyYear
-	 * @param model
+	 * @param applyYear, model
 	 * @return
 	 */
 	@GetMapping(value={"removeBudgetTotal"})
 	public String removeBudgetTotal(@RequestParam(name="applyYear") String applyYear, Model model){
 		budgetService.removeBudgetTotal(applyYear);
-		//나중에 사용률 통계 테이블에서도 삭제하는 거 추가해야 할 듯?
+		//나중에 사용률 통계 테이블에서도 삭제하는 거 추가
 		return "redirect:/admin/budget/budgetInfo";
+	}
+
+	/**
+	 * 지역 단위 예산 삭제
+	 * @param budgetRegionNum, model
+	 * @return
+	 */
+	@GetMapping(value={"removeBudgetRegion"})
+	public String removeBudgetRegion(@RequestParam(name="budgetRegionNum") String budgetRegionNum, Model model){
+		budgetService.removeBudgetRegion(budgetRegionNum);
+		//나중에 사용률 통계 테이블에서도 삭제하는 거 추가
+		return "redirect:/admin/budget/budgetInfoRegion";
 	}
 
 }

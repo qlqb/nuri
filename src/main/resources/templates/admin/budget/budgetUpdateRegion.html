@@ -35,38 +35,38 @@
 			if(confirm("수정하시겠습니까?")){
 				//값에 변동이 생긴 경우 객체 budget에 저장
 				const budgetRegion = {
-					budgetRegionNum : $("#budgetRegionNum").val(),
+					budgetRegionNum : 'BUDREG'+$("#applyYearRegion").val()+$("#regionCode").val(),
 					officerId: 'OFC231012002',
 					budgetRegionAmount: $("#budgetRegionAmount").val(),
 					munhwaRegionNOP : $("#munhwaRegionNOP").val(),
 				}
 				console.log(budgetRegion);
+
 				let isValid = validationCheck(budgetRegion);
-
-				if(!isValid){
-					//유효성 검사 통과하고 연도가 중복되지 않는 경우에만 submit
-					console.log("유효성 검사 : " + isValid);
-					return false;
-
-				}else{
+				if(isValid){
+					//유효성 검사 통과
 					console.log("유효성 검사 : " + isValid);
 					const updateBudgetForm = $("#updateBudgetForm");
 					const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budgetRegion.officerId});
+					const $budgetRegionNum = $('<input />', {'type': 'hidden', 'name': 'budgetRegionNum', 'value': budgetRegion.budgetRegionNum});
 					updateBudgetForm.append($officerId);
+					updateBudgetForm.append($budgetRegionNum);
 					updateBudgetForm.submit();
+				}else{
+					//유효성 검사 통과 실패
+					console.log("유효성 검사 : " + isValid);
+					return false;
 				}
 				alert("수정이 완료되었습니다.");
-
 			}else{
 				alert("수정 취소");
 			}
 		});
 
-		//체크한 항목 삭제(여러 행 한 번에 삭제)
+		//삭제
 		$('#budgetDelete').click(function () {
 			if(confirm("정말로 삭제하시겠습니까?")) {
 				alert("삭제되었습니다");
-				// $("#updateBudgetForm").submit();
 			}else{
 				alert("삭제 취소");
 			}
@@ -87,13 +87,15 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content" >
-				<form id="updateBudgetRegionForm" th:action="@{/admin/budget/budgetUpdateRegion} "
+				<form id="updateBudgetRegionForm" th:action="@{/admin/budget/budgetUpdateRegion}"
 					  th:object="${budgetRegion}" method="post" class="form-horizontal form-label-left">
-					<input hidden="hidden" id="budgetRegionNum" name="budgetRegionNum" th:value="*{budgetRegionNum}">
+
+					<input hidden="hidden" id="regionCode" name="regionCode" th:value="*{regionCode}">
+
 					<div class="form-group row">
 						<label for="applyYearRegion" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
 						<div class="col-md-6 col-sm-6 col-xs-6">
-							<input id="applyYearRegion" th:value="*{applyYearRegion}"  class="form-control" readonly="readonly">
+							<input id="applyYearRegion" th:value="*{applyYearRegion}" class="form-control" readonly="readonly">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -122,9 +124,9 @@
 					<div class="form-group row">
 						<div class="col-md-9 offset-md-3">
 							<button type="reset" class="btn btn-primary">초기화</button>
-							<button id="budgetUpdateBtn" class="btn btn-success">수정</button>
-							<a id="budgetDelete" type="button" class="btn btn-success">삭제</a>
-<!--							   th:href="@{/admin/budget/removeBudgetRegion(budgetRegionNum=*{budgetRegionNum})}"-->
+							<button id="budgetUpdateBtn" type="button" class="btn btn-success">수정</button>
+							<a id="budgetDelete" type="button" class="btn btn-success"
+							   th:href="@{/admin/budget/removeBudgetRegion(budgetRegionNum=*{budgetRegionNum})}">삭제</a>
 						</div>
 					</div>
 

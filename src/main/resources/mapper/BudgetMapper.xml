@@ -235,7 +235,15 @@
             BUDGET_TOTAL
         WHERE
             APPLY_YEAR=#{applyYear};
+    </delete>
 
+    <delete id="removeBudgetRegion" parameterType="String">
+        /* 지역 단위 예산 삭제 */
+        DELETE
+        FROM
+            BUDGET_REGION
+        WHERE
+            BUDGET_REGION_NUM=#{budgetRegionNum};
     </delete>
 
 </mapper>
