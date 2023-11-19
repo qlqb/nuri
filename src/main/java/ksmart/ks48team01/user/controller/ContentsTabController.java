@@ -47,7 +47,7 @@ public class ContentsTabController {
         int endPageNum = (int) resultMap.get("endPageNum");
         int contentsCnt = ((Double) resultMap.get("contentsCnt")).intValue();
 
-        Map<String, Object> contentsMap = new HashMap<String, Object>();
+        Map<String, Object> contentsMap = new HashMap<>();
 
         contentsMap.put("storeCategory", storeCategory);
         contentsMap.put("contentsCategory", contentsCategory);

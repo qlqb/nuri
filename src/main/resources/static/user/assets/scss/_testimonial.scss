@@ -1,0 +1,103 @@
+/*============================
+testimonial css
+============================= */
+
+.testimonial-area {
+
+    .testimonial-wrapper {
+        position: relative;
+        padding-bottom: 70px;
+
+        .single-testimonial {
+            padding: 30px 25px;
+            border-radius: 5px;
+            background: $white;
+            border: 1px solid rgba(124, 134, 154, 0.25);
+            @include box-shadow(0px 3px 35px rgba(218, 222, 228, 0.3));
+
+
+            .testimonial-top {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 25px;
+
+                .testimonial-info {
+                    display: flex;
+                    align-items: center;
+
+                    // @media #{$lg} {
+                    //     flex-direction: column;
+                    //     align-items: flex-start;
+                    // }
+
+                    .image {
+                        max-width: 55px;
+                        height: 55px;
+                        border-radius: 50%;
+                        width: 100%;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+
+                    .meta {
+                        margin-left: 15px;
+
+                        // @media #{$lg} {
+                        //     margin-left: 0;
+                        //     margin-top: 10px;
+                        // }
+
+                        h6 {
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+
+                .quote {
+                    width: 55px;
+                    height: 55px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .content {
+                p {
+                    font-size: 18px;
+                    line-height: 28px;
+                }
+            }
+        }
+
+        .tns-nav {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+
+            button {
+                width: 12px;
+                height: 12px;
+                border: none;
+                background: $theme-color;
+                opacity: .6;
+                border-radius: 50%;
+                margin: 0 7px;
+                @include transition(.3s);
+
+                &.tns-nav-active {
+                    opacity: 1;
+                    @include transform(scale(1.25));
+                }
+            }
+        }
+    }
+}
+
+

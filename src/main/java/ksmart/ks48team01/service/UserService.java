@@ -33,8 +33,8 @@ public class UserService {
         return userSearchList;
     }
 
-    public Boolean getUserIdCheck(String userId) {
-        Boolean checkedValue = userMapper.getUserIdCheck(userId);
+    public boolean userIdCheck(String userId) {
+        boolean checkedValue = userMapper.getUserIdCheck(userId);
 
         return checkedValue;
     }

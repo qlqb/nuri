@@ -9,7 +9,8 @@ public class Contents {
     private String contentsCategoryName;
     private String contentsName;
     private String contentsAddress;
-    private String contentsSellDuration;
+    private String contentsDuration;
+    private String contentsDurationDate;
     private String contentsPg;
     private int contentsPrice;
     private String contentsStartDate;
@@ -19,6 +20,8 @@ public class Contents {
     private String contentsSellEndDate;
     private int amountContentRegistered;
     private int amountContentRemaining;
+    private String contentsDetail;
+    private Store storeInfo;
 
     public String getContentsId() {
         return contentsId;
@@ -76,12 +79,20 @@ public class Contents {
         this.contentsAddress = contentsAddress;
     }
 
-    public String getContentsSellDuration() {
-        return contentsSellDuration;
+    public String getContentsDuration() {
+        return contentsDuration;
     }
 
-    public void setContentsSellDuration(String contentsSellDuration) {
-        this.contentsSellDuration = contentsSellDuration;
+    public void setContentsDuration(String contentsDuration) {
+        this.contentsDuration = contentsDuration;
+    }
+
+    public String getContentsDurationDate() {
+        return contentsDurationDate;
+    }
+
+    public void setContentsDurationDate(String contentsDurationDate) {
+        this.contentsDurationDate = contentsDurationDate;
     }
 
     public String getContentsPg() {
@@ -154,5 +165,48 @@ public class Contents {
 
     public void setAmountContentRemaining(int amountContentRemaining) {
         this.amountContentRemaining = amountContentRemaining;
+    }
+
+    public String getContentsDetail() {
+        return contentsDetail;
+    }
+
+    public void setContentsDetail(String contentsDetail) {
+        this.contentsDetail = contentsDetail;
+    }
+
+    public Store getStoreInfo() {
+        return storeInfo;
+    }
+
+    public void setStoreInfo(Store storeInfo) {
+        this.storeInfo = storeInfo;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Contents{");
+        sb.append("contentsId='").append(contentsId).append('\'');
+        sb.append(", contentsCategoryCode='").append(contentsCategoryCode).append('\'');
+        sb.append(", regionCode=").append(regionCode);
+        sb.append(", storeId='").append(storeId).append('\'');
+        sb.append(", contentsCategoryName='").append(contentsCategoryName).append('\'');
+        sb.append(", contentsName='").append(contentsName).append('\'');
+        sb.append(", contentsAddress='").append(contentsAddress).append('\'');
+        sb.append(", contentsDuration='").append(contentsDuration).append('\'');
+        sb.append(", contentsDurationDate='").append(contentsDurationDate).append('\'');
+        sb.append(", contentsPg='").append(contentsPg).append('\'');
+        sb.append(", contentsPrice=").append(contentsPrice);
+        sb.append(", contentsStartDate='").append(contentsStartDate).append('\'');
+        sb.append(", contentsEndDate='").append(contentsEndDate).append('\'');
+        sb.append(", contentsRegDate='").append(contentsRegDate).append('\'');
+        sb.append(", contentsSellStartDate='").append(contentsSellStartDate).append('\'');
+        sb.append(", contentsSellEndDate='").append(contentsSellEndDate).append('\'');
+        sb.append(", amountContentRegistered=").append(amountContentRegistered);
+        sb.append(", amountContentRemaining=").append(amountContentRemaining);
+        sb.append(", contentsDetail='").append(contentsDetail).append('\'');
+        sb.append(", storeInfo=").append(storeInfo);
+        sb.append('}');
+        return sb.toString();
     }
 }

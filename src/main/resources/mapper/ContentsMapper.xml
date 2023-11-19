@@ -7,6 +7,7 @@
     <select id="getContentsInfoList" resultType="map" parameterType="int">
         /* 컨텐츠 정보 */
         SELECT
+            c.CONTENTS_ID AS contentsId,
             c.CONTENTS_NAME AS contentsName,
             IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_END_DATE), 0) AS contentsSellDuration,
             IF(si.STORE_CATEGORY_NAME = '도서', 'book',
@@ -28,15 +29,94 @@
         </if>
     </select>
 
+    <select id="getContentsInfoListByTabValue" resultType="map" parameterType="String">
+        /* 탭 컨텐츠 정보 */
+        SELECT
+            c.CONTENTS_ID AS contentsId,
+            c.CONTENTS_NAME AS contentsName,
+            c.CONTENTS_SELL_START_DATE AS contentsSellStartDate,
+            c.CONTENTS_END_DATE AS contentsSellEndDate,
+            si.STORE_CATEGORY_NAME AS contentsCategoryName,
+            c.CONTENTS_PG AS contentsPg,
+            CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
+
+            si.STORE_NAME AS storeName,
+            c.AMOUNT_CONTENT_REMAINING AS amountContentRemaining
+        FROM
+            CONTENTS AS c
+            INNER JOIN
+            STORE_INFO AS si
+            ON
+            si.STORE_ID=c.STORE_ID
+        <where>
+            <if test="tabValue != 'all'">
+                c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__')
+            </if>
+        </where>
+        ORDER BY c.CONTENTS_REG_DATE
+        <if test="startContentsNum > -1">
+            LIMIT #{startContentsNum}, #{contentsPerPage};
+        </if>
+    </select>
+
+    <select id="getContentsInfoListByTabValueAndSearch" resultType="map" parameterType="String">
+        /* 탭과 검색 컨텐츠 정보 */
+        SELECT
+            c.CONTENTS_ID AS contentsId,
+            c.CONTENTS_NAME AS contentsName,
+            IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_END_DATE), 0) AS contentsSellDuration,
+            IF(si.STORE_CATEGORY_NAME = '도서', 'book',
+            IF(si.STORE_CATEGORY_NAME = '체육', 'exercise',
+            IF(c.CONTENTS_PG=0, '전체 관람가', CONCAT(c.CONTENTS_PG, '세 이상 관람가')))) AS contentsPg,
+            CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
+
+            si.STORE_NAME AS storeName,
+            c.AMOUNT_CONTENT_REMAINING AS amountContentRemaining
+        FROM
+            CONTENTS AS c
+            INNER JOIN
+            STORE_INFO AS si
+            ON
+            si.STORE_ID=c.STORE_ID
+        <where>
+            <if test="tabValue != 'all'">
+                c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__')
+            </if>
+            <if test="performanceGenre != 'allGenre'">
+                AND c.CONTENTS_CAT_CODE = #{performanceGenre}
+            </if>
+        </where>
+        ORDER BY c.CONTENTS_REG_DATE
+        <if test="startContentsNum > -1">
+            LIMIT #{startContentsNum}, #{contentsPerPage};
+        </if>
+    </select>
+
     <select id="getContentsByTabCnt" resultType="int" parameterType="String">
         /* 각 탭의 컨텐츠 개수 */
         SELECT
-            COUNT(1)
+        COUNT(1)
         FROM
-            CONTENTS AS c
+        CONTENTS AS c
         <where>
             <if test="tabValue != 'all'">
                 c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__');
+            </if>
+        </where>
+    </select>
+
+    <select id="getContentsByTabAndSearchCnt" resultType="int" parameterType="String">
+        /* 각 탭의 서칭 결과 컨텐츠 개수 */
+        SELECT
+        COUNT(1)
+        FROM
+        CONTENTS AS c
+        <where>
+            <if test="tabValue != 'all'">
+                c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__');
+            </if>
+            <if test="performanceGenre != 'allGenre'">
+                AND c.CONTENTS_CAT_CODE = #{performanceGenre}
             </if>
         </where>
     </select>
@@ -61,34 +141,51 @@
             NOT cc.CONTENTS_CAT_NAME='공연';
     </select>
 
-    <select id="getContentsInfoListByTabValue" resultType="map" parameterType="String">
-        /* 탭 컨텐츠 정보 */
+    <insert id="addBookContents" parameterType="Contents">
+
+        <selectKey keyProperty="contentsId" order="BEFORE" resultType="String">
+            /* 컨텐츠아이디 자동증가 */
+            SELECT
+                (CASE
+                WHEN c.CONTENTS_ID = CONCAT('CNT', DATE_FORMAT(CURDATE(), '%Y%m%d'), '0001')
+                THEN CONCAT('CNT', DATE_FORMAT(CURDATE(), '%Y%m%d'), '0001')
+                WHEN (MAX(CAST(SUBSTRING(CONTENTS_ID, 12) AS UNSIGNED))+1) > 999
+                THEN CONCAT(CONCAT('CNT', DATE_FORMAT(CURDATE(), '%Y%m%d')), MAX(CAST(SUBSTRING(CONTENTS_ID, 12) AS UNSIGNED))+1)
+                ELSE
+                CONCAT(CONCAT('CNT', DATE_FORMAT(CURDATE(), '%Y%m%d')), LPAD(MAX(CAST(SUBSTRING(CONTENTS_ID, 12) AS UNSIGNED))+1, 4, '0'))
+                END) AS contentsId
+            FROM
+                CONTENTS AS c
+        </selectKey>
+        INSERT INTO CONTENTS(CONTENTS_ID, CONTENTS_CAT_CODE, REGION_CODE, STORE_ID, CONTENTS_CAT_NAME, CONTENTS_NAME, CONTENT_ADDRESS,
+        CONTENTS_DURATION, CONTENTS_PG, CONTENTS_PRICE, CONTENTS_START_DATE, CONTENTS_END_DATE, CONTENTS_REG_DATE, CONTENTS_SELL_START_DATE,
+        CONTENTS_SELL_END_DATE, AMOUNT_CONTENT_REGISTERED, AMOUNT_CONTENT_REMAINING)
+
+        VALUES(#{contentsId}, #{contentsCategoryCode}, #{regionCode}, #{userId}, #{contentsCategoryName},
+        #{contentsName}, #{contentsAddress}, #{contentsDuration}, #{contentsSellDuration}, #{contentsPg}, #{contentsPrice},
+        #{contentsStartDate}, #{contentsEndDate}, CURDATE(), #{contentsSellStartDate}, #{contentsSellEndDate},
+        #{amountContentRegistered}, #{amountContentRemaining})
+    </insert>
+    
+    <select id="getContentsDetailInfo" resultType="map" parameterType="String">
         SELECT
             c.CONTENTS_NAME AS contentsName,
+            IFNULL(CONCAT(c.CONTENTS_START_DATE, ' ~ ', c.CONTENTS_END_DATE), 0) AS contentsDurationDate,
             IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_END_DATE), 0) AS contentsSellDuration,
-            IF(si.STORE_CATEGORY_NAME = '도서', 'book',
-            IF(si.STORE_CATEGORY_NAME = '체육', 'exercise',
-            IF(c.CONTENTS_PG=0, '전체 관람가', CONCAT(c.CONTENTS_PG, '세 이상 관람가')))) AS contentsPg,
-            CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
-
-            si.STORE_NAME AS storeName,
-            c.AMOUNT_CONTENT_REMAINING AS amountContentsRemaining
+            c.CONTENT_ADDRESS AS contentsAddress,
+            c.CONTENTS_DURATION AS contentsDuration,
+            c.CONTENTS_PG AS contentsPg,
+            c.CONTENTS_PRICE AS contentsPrice,
+            si.STORE_CONTACT AS storeContact,
+            c.CONTENTS_DETAIL AS contentsDetail
         FROM
             CONTENTS AS c
             INNER JOIN
-            STORE_INFO AS si
+            STORE_INFO si
             ON
-            si.STORE_ID=c.STORE_ID
-        <where>
-            <if test="tabValue != 'all'">
-                c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__')
-            </if>
-        </where>
-        ORDER BY c.CONTENTS_REG_DATE
-        <if test="startContentsNum > -1">
-            LIMIT #{startContentsNum}, #{contentsPerPage};
-        </if>
+            c.STORE_ID = si.STORE_ID
+        WHERE
+        c.CONTENTS_ID = #{contentsId};
     </select>
-
 
 </mapper>

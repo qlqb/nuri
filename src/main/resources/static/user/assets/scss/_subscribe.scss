@@ -1,0 +1,39 @@
+
+
+.subscribe-area {
+
+  .subscribe-wrapper {
+    background-image: url('../images/subscribe/subscribe-bg.svg');
+    padding: 65px 50px 35px;
+
+    .subscribe-content {
+      margin-bottom: 30px;
+      padding-right: 13px;
+    }
+
+    .subscribe-form-wrapper {
+      margin-bottom: 30px;
+
+      .subscribe-form {
+        position: relative;
+
+        input {
+          border-radius: 30px;
+          @include box-shadow(none);
+        }
+        button {
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background:$theme-color;
+          color: $white;
+          top: 0;
+          right: 0;
+          border: none;
+        }
+      }
+    }
+
+  }
+}
