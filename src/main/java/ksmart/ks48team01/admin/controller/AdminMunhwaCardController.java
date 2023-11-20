@@ -23,6 +23,12 @@ public class AdminMunhwaCardController {
 		this.munhwaCardService = munhwaCardService;
 	}
 
+	/**
+	 * 문화누리카드 목록 조회
+	 * @param model
+	 * @param munhwaCardNum
+	 * @return
+	 */
     @GetMapping("/munhwaCardList")
     public String getMunhwaCardList(Model model, @RequestParam(name="munhwaCardNum", required = false) String munhwaCardNum){
         List<MunhwaCard> munhwaCardList = null;
@@ -39,19 +45,42 @@ public class AdminMunhwaCardController {
         return "admin/user/munhwaCardList";
     }
 
-//	/**
-//	 * 연도 중복체크 (ajax 요청 응답)
-//	 * @param applyYear (입력받은 연도)
-//	 * @return @ResponseBody 응답시 body 영역에 응답한 데이터를 전달
-//	 */
-//	@PostMapping("/yearCheck")
-//	@ResponseBody
-//	public boolean yearCheck(@RequestParam(name="applyYear") String applyYear) {
-//
-//		log.info("applyYear : {}", applyYear);
-//        return budgetService.yearCheck(applyYear);
-//	}
-//
+	/**
+	 * 문화누리카드 등록 처리
+	 * @param munhwaCard
+	 * @return redirect:/admin/budget/budgetTotalList
+	 */
+	@PostMapping("/munhwaCardRegist")
+	public String munhwaCardRegist(MunhwaCard munhwaCard){
+		log.info("munhwaCard : {}", munhwaCard);
+		munhwaCardService.munhwaCardRegist(munhwaCard);
+		return "redirect:/admin/user/munhwaCardList";
+	}
+
+	/**
+	 * 문화누리카드 등록 페이지 이동
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/munhwaCardRegist")
+	public String munhwaCardRegist(Model model){
+		log.info("카드 등록 페이지 이동");
+		
+		return "admin/user/munhwaCardRegist";
+	}
+
+	/**
+	 * 문화누리카드 번호 중복 체크(ajax)
+	 * @param munhwaCardNum
+	 * @return
+	 */
+	@PostMapping("/cardCheck")
+	@ResponseBody
+	public boolean cardCheck(@RequestParam(name="munhwaCardNum") String munhwaCardNum){
+		log.info("munhwaCardNum : {}", munhwaCardNum);
+		return munhwaCardService.cardCheck(munhwaCardNum);
+	}
+
 //	/**
 //	 * 전국 단위 예산 등록 처리
 //	 * @param budget
