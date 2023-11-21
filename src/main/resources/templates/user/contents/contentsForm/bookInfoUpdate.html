@@ -16,10 +16,6 @@
 
     <!-- Custom styles for this template -->
     <link th:href="@{https://getbootstrap.com/docs/4.0/examples/album/album.css}" rel="stylesheet">
-    
-    <style>
-
-    </style>
 </head>
 <!--[if IE]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
@@ -34,52 +30,40 @@
                     <div class="post-ad-wrapper box-style" style="width: 700px;">
                         <div class="d-flex justify-content-center">
                             <div class="title">
-                                <h3>책 컨텐츠 등록</h3>
+                                <h3>책 컨텐츠 수정</h3>
                             </div>
                         </div>
 
                         <div class="post-ad-form-wrapper">
 
-                            <form id="addContentsForm" th:action="@{/user/contents/bookInfoRegist}" method="post">
+                            <form th:action="@{/user/contents/bookInfoUpdate}" method="post" th:object="${contentsInfo}" id="modifyContentsForm">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-7">
                                         <div class="right-wrapper pt-50 ">
-                                            <th:block th:if="${#lists.size(storeInfoList) == 1}">
-                                                <input type="hidden" th:value="${storeInfoList.get(0).storeId}" id="storeId" name="storeId"/>
-                                            </th:block>
-                                            <th:block th:unless="${#lists.size(storeInfoList) <= 1}">
-                                                <div class="single-form mb-15">
-                                                    <label for="storeIds" class="mb-1">가맹점명</label>
-                                                    <select name="storeIds" id="storeIds" class="px-3 py-2 border rounded w-100">
-                                                        <option th:each="sil: ${storeInfoList}" th:text="${sil.storeName}" th:value="${sil.storeId}"></option>
-                                                    </select>
-                                                </div>
-                                            </th:block>
+
                                             <div class="single-form mb-15">
                                                 <label for="contentsName" class="mb-1">책제목</label>
-                                                <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                                <input type="text" id="contentsName" name="contentsName" th:value="*{contentsName}" class="px-3 py-2 mb-0 border rounded">
                                             </div>
                                             <div class="single-form mb-15">
                                                 <label for="contentsPrice" class="mb-1">책 가격</label>
-                                                <input type="number" id="contentsPrice" name="contentsPrice" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                                <input type="number" id="contentsPrice" name="contentsPrice" th:value="*{contentsPrice}" class="px-3 py-2 mb-0 border rounded">
                                             </div>
                                             <div class="single-form mb-15">
                                                 <label for="contentsSellStartDate" class="mb-1">판매 시작 일자</label>
-                                                <input type="date" id="contentsSellStartDate" name="contentsSellStartDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                                <input type="date" id="contentsSellStartDate" name="contentsSellStartDate" th:value="*{contentsSellStartDate}" class="px-3 py-2 mb-0 border rounded">
                                             </div>
                                             <div class="single-form mb-15">
                                                 <label for="contentsSellEndDate" class="mb-1">판매 종료 일자</label>
-                                                <input type="date" id="contentsSellEndDate" name="contentsSellEndDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                                <input type="date" id="contentsSellEndDate" name="contentsSellEndDate" th:value="*{contentsSellEndDate}" class="px-3 py-2 mb-0 border rounded">
                                             </div>
-
                                             <div class="single-form mb-40">
                                                 <label for="sellEndNotApplicable">종료일자 해당없음</label>
                                                 <input type="checkbox" id="sellEndNotApplicable" name="sellEndNotApplicable" class="w-auto"/>
                                             </div>
-
                                             <div class="single-form mb-15">
                                                 <label for="amountContentRegistered" class="mb-1">재고</label>
-                                                <input type="number" id="amountContentRegistered" name="amountContentRegistered" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                                <input type="number" id="amountContentRegistered" name="amountContentRegistered" th:value="*{amountContentRemaining}" class="px-3 py-2 mb-0 border rounded">
                                             </div>
                                             <div class="single-form mb-15">
                                                 <label for="contentsCategoryCode" class="mb-1">카테고리</label>
@@ -113,22 +97,28 @@
                                             </div>
                                             <div class="single-form mb-40">
                                                 <label for="fileNotApplicable">파일 선택안함</label>
-                                                <input type="checkbox" id="fileNotApplicable" name="fileNotApplicable" class="w-auto">
+                                                <input type="checkbox" id="fileNotApplicable"
+                                                       name="fileNotApplicable" class="w-auto">
                                             </div>
                                             <div class="single-form mb-15">
                                                 <label for="contentsDetail" class="mb-1">컨텐츠 내용</label>
-                                                <textarea name="contentsDetail" id="contentsDetail" rows="7" placeholder="컨텐츠 내용을 입력하세요." class="px-3 py-2 mb-0 border rounded"></textarea>
+                                                <textarea name="contentsDetail" id="contentsDetail" rows="7"
+                                                          placeholder="컨텐츠 내용을 입력하세요."
+                                                          class="px-3 py-2 mb-0 border rounded"
+                                                          th:value="*{contentsDetail}">
+
+                                                </textarea>
                                             </div>
-<!--                                            <div class="single-form mb-15">-->
-<!--                                                <label for="cast" class="mb-1">출연진</label>-->
-<!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="single-form mb-15">-->
+                                            <!--                                                <label for="cast" class="mb-1">출연진</label>-->
+                                            <!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+                                            <!--                                            </div>-->
                                             <!--                                                <div class="single-form mb-15">-->
                                             <!--                                                    <label for="email" class="mb-1">Email</label>-->
                                             <!--                                                    <input type="text" id="email" name="email" placeholder="Email" class="px-3 py-2 mb-0 border rounded">-->
                                             <!--                                                </div>-->
-                                            <div  class="d-flex justify-content-center" style="margin-top: 30px">
-                                                <button id="addContentsBtn" class="main-btn btn-hover" type="button">등록</button>
+                                            <div class="d-flex justify-content-center" style="margin-top: 30px">
+                                                <button id="modifyContents" class="main-btn btn-hover">수정</button>
                                             </div>
                                         </div>
                                     </div>
@@ -140,64 +130,54 @@
             </div>
         </div>
     </section>
-    <th:block layout:fragment="customJsCode">
-        <script th:src="@{/js/jquery-3.7.1.js}"></script>
-        <script>
-            $(function () {
-                function validationCheck(data) {
-                    let isValid = true;
-                    if (typeof data == "object") {
-                        $.each(data, function () {
-                            let checkValue = $(this).val();
-                            if (checkValue == null || checkValue == '' || typeof checkValue == 'undefined' || checkValue == 'none') {
-                                isValid = false;
-                                let eleId = $(this).attr('id');
-                                let cate = $(`label[for="${eleId}"]`).text();
-
-                                if(eleId == 'contentsUpload') {
-                                    cate = $(this).closest('div').closest('div').prev().text();
-                                }
-
-                                alert(`${cate}을(를) 입력하세요.`);
-
-                                $(this).focus();
-
-                                return isValid;
-                            }
-                            return isValid;
-                        });
-                    } else {
-                        if (data == null || data == '' || typeof data == 'undefined' || checkValue == 'none') {
-                            isValid = false;
-                        }
-                    }
-                    return isValid;
-                }
-                $('#sellEndNotApplicable').click(function () {
-                    let sellEndDateInput = $('#contentsSellEndDate');
-                    let endDateInputDiv = sellEndDateInput.closest('div');
+    <th:block th:fragment="customJsCode">
+        <script th:src="@{/user/assets/js/jquery-3.7.1.min.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            $(function() {
+                let sellEndDateInput = $('#contentsSellEndDate');
+                let sellEndNone = $('#sellEndNotApplicable');
+                let contentsCategoryCode = /*[[${contentsInfo.contentsCategoryCode}]]*/;
+                let endDateInputDiv = sellEndDateInput.closest('div');
+                if(sellEndDateInput.val() == "9999-12-31") {
+                    sellEndNone.prop('checked', true);
                     sellEndDateInput.val('');
+                }
+                if(sellEndNone.prop('checked')) {
+                    endDateInputDiv.toggle('fast');
+                }
+                sellEndNone.change(function () {
+                    if(sellEndDateInput.val()) {
+                        sellEndDateInput.val('');
+                    }
                     endDateInputDiv.toggle('fast');
                 })
-                $('#fileNotApplicable').click(function () {
-                    let fileInput = $('#contentsUpload');
-                    // fileInput.closet('div').closet('div')는 상위요소의 상위요소가 반환 안됨
-                    let fileInputDiv = fileInput.parent().parent();
+                $('#contentsCategoryCode option').each(function (idx, ele) {
+                    let optionValue = $(ele).val()
+                    if(optionValue == contentsCategoryCode) {
+                        $(ele).prop('selected', true);
+                    }
+                })
+                let fileInput = $('#contentsUpload');
+                let fileNotApplicable = $('#fileNotApplicable');
+                let fileInputDiv = fileInput.parent().parent();
 
-                    fileInput.val(null);
+                fileNotApplicable.change(function () {
+                    console.log('fileInputDiv', fileInputDiv);
                     fileInputDiv.toggle('fast');
                 })
 
-                $('#addContentsBtn').click(function () {
+                $('#modifyContents').click(function () {
 
                     console.log($('#storeId').val());
 
-                    let formEles = $('#addContentsForm input, #addContentsForm select').
+                    let formEles = $('#modifyContentsForm input, #modifyContentsForm select').
                     not('#sellEndNotApplicable').
                     not('#fileNotApplicable').
                     not('#storeId').
                     not('#storeIds');
 
+                    //선택하지 않음 체크 하면 유효성 검사하지 않음
                     if($('#sellEndNotApplicable').prop('checked')) {
                         formEles = formEles.not('#contentsSellEndDate');
                     }
@@ -209,9 +189,10 @@
 
                     console.log('isValid: ', isValid);
 
-                    if (isValid) $('#addContentsForm').submit();
+                    if (isValid) $('#modifyContentsForm').submit();
                 })
             })
+            /*]]>*/
         </script>
     </th:block>
 </th:block>

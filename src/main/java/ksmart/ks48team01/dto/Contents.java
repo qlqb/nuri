@@ -4,20 +4,18 @@ public class Contents {
 
     private String contentsId;
     private String contentsCategoryCode;
-    private byte regionCode;
+    private byte regionCode = 0;
     private String storeId;
     private String contentsCategoryName;
     private String contentsName;
-    private String contentsAddress;
-    private String contentsDuration;
-    private String contentsDurationDate;
-    private String contentsPg;
+    private String contentsAddress = "alreadyInputOnJoin";
+    private String contentsDuration = "0";
+    private String contentsPg = "0";
     private int contentsPrice;
-    private String contentsStartDate;
-    private String contentsEndDate;
+    private String contentsReleaseDT = "1000-01-01 00:00:00";
     private String contentsRegDate;
-    private String contentsSellStartDate;
-    private String contentsSellEndDate;
+    private String contentsSellStartDate = "1000-01-01";
+    private String contentsSellEndDate = "9999-12-31";
     private int amountContentRegistered;
     private int amountContentRemaining;
     private String contentsDetail;
@@ -87,14 +85,6 @@ public class Contents {
         this.contentsDuration = contentsDuration;
     }
 
-    public String getContentsDurationDate() {
-        return contentsDurationDate;
-    }
-
-    public void setContentsDurationDate(String contentsDurationDate) {
-        this.contentsDurationDate = contentsDurationDate;
-    }
-
     public String getContentsPg() {
         return contentsPg;
     }
@@ -111,20 +101,12 @@ public class Contents {
         this.contentsPrice = contentsPrice;
     }
 
-    public String getContentsStartDate() {
-        return contentsStartDate;
+    public String getContentsReleaseDT() {
+        return contentsReleaseDT;
     }
 
-    public void setContentsStartDate(String contentsStartDate) {
-        this.contentsStartDate = contentsStartDate;
-    }
-
-    public String getContentsEndDate() {
-        return contentsEndDate;
-    }
-
-    public void setContentsEndDate(String contentsEndDate) {
-        this.contentsEndDate = contentsEndDate;
+    public void setContentsReleaseDT(String contentsReleaseDT) {
+        this.contentsReleaseDT = contentsReleaseDT;
     }
 
     public String getContentsRegDate() {
@@ -194,11 +176,9 @@ public class Contents {
         sb.append(", contentsName='").append(contentsName).append('\'');
         sb.append(", contentsAddress='").append(contentsAddress).append('\'');
         sb.append(", contentsDuration='").append(contentsDuration).append('\'');
-        sb.append(", contentsDurationDate='").append(contentsDurationDate).append('\'');
         sb.append(", contentsPg='").append(contentsPg).append('\'');
         sb.append(", contentsPrice=").append(contentsPrice);
-        sb.append(", contentsStartDate='").append(contentsStartDate).append('\'');
-        sb.append(", contentsEndDate='").append(contentsEndDate).append('\'');
+        sb.append(", contentsReleaseDT='").append(contentsReleaseDT).append('\'');
         sb.append(", contentsRegDate='").append(contentsRegDate).append('\'');
         sb.append(", contentsSellStartDate='").append(contentsSellStartDate).append('\'');
         sb.append(", contentsSellEndDate='").append(contentsSellEndDate).append('\'');
