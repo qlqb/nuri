@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<!-- 사용자별 css file 추가 부분 -->
+
+
+<!-- 사용자 페이지별 javascript file 추가-->
+<th:block layout:fragment="customJsFile">
+
+</th:block>
+
+<!-- 사용자별 스크립트 작성 -->
+<th:block layout:fragment="customJsCode">
+
+</th:block>
+
+<!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
+<th:block layout:fragment="customContents">
+
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white"> 마이 페이지 </h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+
+    <section class="dashboard-area pb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="dashboard-wrapper box-style">
+                        <div class="title">
+                            <h3>내 컨텐츠 목록</h3>
+                        </div>
+
+                        <div style="margin: 100px;"></div>
+
+                        <!--====== CATEGORY PART START ======-->
+                        <section class="category-area pb-110">
+                            <div class="container">
+                                <!-- category top -->
+                                <div class="category-top box-style">
+                                    <div class="row align-items-center">
+
+                                        <div class="col-md-3">
+                                            <div class="left-wrapper">
+                                                <div class="sorting">
+                                                    <label for="sort">정렬</label>
+                                                    <select name="sort" id="sort">
+                                                        <option value="0">인기순</option>
+                                                        <option value="1">이름순</option>
+                                                        <option value="2">등록일순</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <div class="right-wrapper">
+
+                                                <ul class="nav product-view-btns" id="myTab" role="tablist">
+                                                    <li class="product-view-item" role="presentation">
+                                                        <a class="product-view-btn" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
+                                                           aria-selected="true"><i class="lni lni-list"></i></a>
+                                                    </li>
+                                                    <li class="product-view-item" role="presentation">
+                                                        <a class="product-view-btn active" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
+                                                           aria-selected="false"><i class="lni lni-grid-alt"></i></a>
+                                                    </li>
+                                                </ul>
+
+                                                <form action="#">
+                                                    <input type="text" name="search" id="search" placeholder="검색">
+                                                    <button><i class="lni lni-search-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- category wrapper -->
+                                <div class="category-wrapper">
+                                    <div class="row">
+
+                                        <!-- left-wrapper  -->
+                                        <div class="col-lg-12">
+                                            <div class="left-wrapper">
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+
+                                                        <div class="row">
+
+                                                            <div class="col-lg-6 col-md-6">
+                                                                <div class="single-product">
+                                                                    <div class="product-img">
+                                                                        <a href="product-details.html">
+                                                                            <img src="assets/images/product/l-product-1.jpg" alt="">
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="product-content">
+                                                                        <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
+                                                                        <span class="update">Last Update: 5 hours ago</span>
+                                                                        <ul class="address">
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div class="product-bottom">
+                                                                            <h3 class="price">$120.99</h3>
+                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-md-6">
+                                                                <div class="single-product">
+                                                                    <div class="product-img">
+                                                                        <a href="product-details.html">
+                                                                            <img src="assets/images/product/l-product-2.jpg" alt="">
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="product-content">
+                                                                        <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
+                                                                        <span class="update">Last Update: 5 hours ago</span>
+                                                                        <ul class="address">
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div class="product-bottom">
+                                                                            <h3 class="price">$420.99</h3>
+                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+
+                                                        <div class="row">
+
+                                                            <div class="col-lg-12">
+                                                                <div class="single-product list-view">
+                                                                    <div class="product-img">
+                                                                        <a href="product-details.html">
+                                                                            <img src="assets/images/product/l-product-1.jpg" alt="">
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="product-content">
+                                                                        <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
+                                                                        <span class="update">Last Update: 5 hours ago</span>
+                                                                        <ul class="address">
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div class="product-bottom">
+                                                                            <h3 class="price">$120.99</h3>
+                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div class="single-product list-view">
+                                                                    <div class="product-img">
+                                                                        <a href="product-details.html">
+                                                                            <img src="assets/images/product/l-product-2.jpg" alt="">
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="product-content">
+                                                                        <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
+                                                                        <span class="update">Last Update: 5 hours ago</span>
+                                                                        <ul class="address">
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div class="product-bottom">
+                                                                            <h3 class="price">$420.99</h3>
+                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</th:block>
+</html>

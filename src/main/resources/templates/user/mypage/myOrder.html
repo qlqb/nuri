@@ -45,8 +45,8 @@
                 <div class="col-xl-3 col-lg-4">
                     <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
                 </div>
-                <div class="col-xl-9 col-lg-8">
-                    <div class="dashboard-wrapper box-style">
+                <div class="col-xl-9 col-lg-8" th:object="${paymentCnt}">
+                    <div class="dashboard-wrapper box-style" th:object="${paymentAmount}">
                         <div class="title">
                             <h3>내 주문 예약</h3>
                         </div>
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="text">
                                             <h5>총 구매 횟수</h5>
-                                            <p>3회</p>
+                                            <p th:text="${paymentCnt} + '회'"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="text">
                                             <h5>총 소비 가격</h5>
-                                            <p>123,000원</p>
+                                            <p th:text="${paymentAmount} +'원'"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -120,120 +120,35 @@
                                 </thead>
                                 <tbody>
 
-                                <tr>
-                                    <th>
-                                        <div class="image">
-                                            <div class="form-check check-style">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                                            </div>
-                                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
-                                        <span class="category">컨텐츠코드</span>
-                                    </td>
-                                    <td>
-                                        <span class="category">공연</span>
-                                    </td>
-                                    <td>
-                                        <span class="category">울산광역시 남구 신정동 789-123</span>
-                                    </td>
-                                    <td>
-                                        <p>2023-11-06</p>
-                                    </td>
-                                    <td>
-                                        <p>10000</p>
-                                    </td>
-                                    <td>
-                                        <span class="status-btn">결제완료</span>
-                                    </td>
+                                <tr th:if="${paymentList == null}">
+                                    <td colspan="7">게시글이 없습니다</td>
                                 </tr>
-                                <tr>
+                                <tr th:unless="${paymentList == null}" th:each="l : ${paymentList}">
                                     <th>
                                         <div class="image">
                                             <div class="form-check check-style">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
                                             </div>
-                                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
                                         </div>
                                     </th>
                                     <td>
-                                        <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
-                                        <span class="category">컨텐츠코드</span>
+                                        <a th:href="@{/user/viewDetail}"><h6 th:text="${l.contentsName}"></h6></a><br/>
+                                        <span class="" th:text="${l.contentsId}"></span>
                                     </td>
                                     <td>
-                                        <span class="category">공연</span>
+                                        <span class="" th:text="${l.contentsCategoryName}"></span>
                                     </td>
                                     <td>
-                                        <span class="category">울산광역시 남구 신정동 789-123</span>
+                                        <span class="" th:text="${l.contentAddress}"></span>
                                     </td>
                                     <td>
-                                        <p>2023-11-06</p>
+                                        <p th:text="${l.paymentDT}"></p>
                                     </td>
                                     <td>
-                                        <p>10000</p>
+                                        <p th:text="${l.paymentAmount} + '원'"></p>
                                     </td>
                                     <td>
-                                        <span class="status-btn bg-warning">환불신청</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <div class="image">
-                                            <div class="form-check check-style">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                                            </div>
-                                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
-                                        <span class="category">컨텐츠코드</span>
-                                    </td>
-                                    <td>
-                                        <span class="category">공연</span>
-                                    </td>
-                                    <td>
-                                        <span class="category">울산광역시 남구 신정동 789-123</span>
-                                    </td>
-                                    <td>
-                                        <p>2023-07-06</p>
-                                    </td>
-                                    <td>
-                                        <p>10000</p>
-                                    </td>
-                                    <td>
-                                        <span class="status-btn bg-secondary">환불완료</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <div class="image">
-                                            <div class="form-check check-style">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                                            </div>
-                                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <a th:href="@{/user/viewDetail}"><h6>평화의 노래</h6></a><br/>
-                                        <span class="category">컨텐츠코드</span>
-                                    </td>
-                                    <td>
-                                        <span class="category">공연</span>
-                                    </td>
-                                    <td>
-                                        <span class="category">울산광역시 남구 신정동 789-123</span>
-                                    </td>
-                                    <td>
-                                        <p>2023-07-06</p>
-                                    </td>
-                                    <td>
-                                        <p>10000</p>
-                                    </td>
-                                    <td>
-                                        <span class="status-btn bg-light text-dark">이용완료</span>
+                                        <span class="status-btn" th:text="${l.paymentStatus}"></span>
                                     </td>
                                 </tr>
 

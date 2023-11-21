@@ -5,6 +5,142 @@
 
 <!-- 사용자별 css file 추가 부분 -->
 
+<head>
+    <style>
+        body > section.dashboard-area.pb-110 > div > div > div.col-xl-9.col-lg-8 > div > section > div > table > tbody > tr > td > h6 {
+            display: block; /* or inline-block */
+            width: 100%; /* or any specific width, like 200px */
+            max-width: 250px; /* optional, if you want a maximum width */
+            height: 19px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        table tbody tr td .action-btns a.delete-btn:hover {
+            background: #FF6B6B;
+        }
+
+        table tbody tr td .action-btns a.edit-btn:hover {
+            background: #333F57;
+        }
+
+        table tbody tr td .status-btn {
+            width: 100px;
+            text-align: center;
+            font-size: 15px;
+            padding: 4px 18px;
+            font-weight: 400;
+            border-radius: 30px;
+            background: #FF6B6B;
+            color: #fff;
+        }
+
+        table tbody tr {
+            vertical-align: middle;
+            border-bottom: 8px solid #fff;
+            padding: 16px 20px;
+            border-radius: 5px;
+            position: relative;
+            transition: all 0.3s ease-out 0s;
+            box-shadow: 0px 3px 35px rgba(218, 222, 228, 0.3);
+        }
+
+        .table > :not(caption) > * > * {
+            padding: 1rem 0.5rem;
+            margin-bottom: 10px;
+        }
+
+        table tbody tr td .image {
+            display: flex;
+            align-items: center;
+        }
+
+        table tbody tr td .image .form-check {
+            width: auto;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+
+        table tbody tr td span.category {
+            color: #7C869A;
+        }
+
+        table tbody tr td h6 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        table tbody tr td span.ad-id {
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        table tbody tr td .action-btns a.eye-btn:hover {
+            background: lightseagreen;
+        }
+        table tbody tr td .action-btns a:hover {
+            color: #fff;
+        }
+
+        table tbody tr td .action-btns a {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #F5F7FC;
+            color: #7C869A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        table tbody tr td .image .form-check input {
+            padding: 0;
+            background-color: #FF6B6B;
+            outline: none;
+            border-color: transparent;
+            box-shadow: none;
+            margin-bottom: 0;
+        }
+
+        table tbody tr td .action-btns {
+            display: flex;
+        }
+
+        table tbody tr td .action-btns a {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #F5F7FC;
+            color: #7C869A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .edit-btn:hover {
+            background: #0f0f0f;
+        }
+
+        table tbody tr td .action-btns a {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #F5F7FC;
+            color: #7C869A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
@@ -25,7 +161,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="banner-content">
-                        <h1 class="text-white"> 마이페이지 </h1>
+                        <h1 class="text-white"> 마이 페이지 </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a th:href="@{/user/main}">Home</a></li>
@@ -96,170 +232,219 @@
 
                                     </div>
                                 </div>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            이미지
+                                        </th>
+                                        <th>
+                                            제목
+                                        </th>
+                                        <th>
+                                            카테고리
+                                        </th>
+                                        <th>
+                                            컨텐츠 상태
+                                        </th>
+                                        <th>
+                                            가격
+                                        </th>
+                                        <th>
+                                            조회/수정/삭제
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                                <!-- category wrapper -->
-                                <div class="category-wrapper">
-                                    <div class="row">
-
-                                        <!-- left-wrapper  -->
-                                        <div class="col-lg-12">
-                                            <div class="left-wrapper">
-
-
-                                                <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
-
-                                                        <div class="row">
-
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <div class="single-product">
-                                                                    <div class="product-img">
-                                                                        <a href="product-details.html">
-                                                                            <img src="assets/images/product/l-product-1.jpg" alt="">
-                                                                        </a>
-                                                                    </div>
-
-                                                                    <div class="product-content">
-                                                                        <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
-                                                                        <span class="update">Last Update: 5 hours ago</span>
-                                                                        <ul class="address">
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="product-bottom">
-                                                                            <h3 class="price">$120.99</h3>
-                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <div class="single-product">
-                                                                    <div class="product-img">
-                                                                        <a href="product-details.html">
-                                                                            <img src="assets/images/product/l-product-2.jpg" alt="">
-                                                                        </a>
-                                                                    </div>
-
-                                                                    <div class="product-content">
-                                                                        <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
-                                                                        <span class="update">Last Update: 5 hours ago</span>
-                                                                        <ul class="address">
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="product-bottom">
-                                                                            <h3 class="price">$420.99</h3>
-                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-
-                                                    </div>
-
-
-                                                    <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
-
-                                                        <div class="row">
-
-                                                            <div class="col-lg-12">
-                                                                <div class="single-product list-view">
-                                                                    <div class="product-img">
-                                                                        <a href="product-details.html">
-                                                                            <img src="assets/images/product/l-product-1.jpg" alt="">
-                                                                        </a>
-                                                                    </div>
-
-                                                                    <div class="product-content">
-                                                                        <h3 class="name"><a href="product-details.html">Apple iPhone x</a></h3>
-                                                                        <span class="update">Last Update: 5 hours ago</span>
-                                                                        <ul class="address">
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="product-bottom">
-                                                                            <h3 class="price">$120.99</h3>
-                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-12">
-                                                                <div class="single-product list-view">
-                                                                    <div class="product-img">
-                                                                        <a href="product-details.html">
-                                                                            <img src="assets/images/product/l-product-2.jpg" alt="">
-                                                                        </a>
-                                                                    </div>
-
-                                                                    <div class="product-content">
-                                                                        <h3 class="name"><a href="product-details.html">Apple MacBook Air</a></h3>
-                                                                        <span class="update">Last Update: 5 hours ago</span>
-                                                                        <ul class="address">
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 20 June, 2023</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Canada</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-user"></i> Stifen Jon</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"><i class="lni lni-package"></i> Used</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="product-bottom">
-                                                                            <h3 class="price">$420.99</h3>
-                                                                            <a href="javascript:void(0)" class="link-ad"><i class="lni lni-checkmark-circle"></i> Verified Ad</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
+                                    <tr th:each="cil: ${contentsInfoList}">
+                                        <td>
+                                            <div class="image">
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
                                                 </div>
+                                                <img th:src="@{/user/assets/images/product/product-thumb-1.jpg}" width="100" alt="">
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        </td>
+                                        <td>
+                                            <h6 th:text="${cil.contentsName}"></h6>
+                                            <span class="ad-id" th:text="${cil.contentsId}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="category" th:text="${cil.contentsCategoryName}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="status-btn">ACTIVE</span>
+                                        </td>
+                                        <td>
+                                            <p th:text="${cil.contentsPrice + '원'}"></p>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <a th:href="@{/user/contents/contentsDetail(contentsId=${cil.contentsId})}" class="eye-btn" ><i class="lni lni-eye"></i></a>
+                                                <a th:href="@{/user/contents/bookInfoUpdate(contentsId=${cil.contentsId})}" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                                                <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="image">
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                                </div>
+                                                <img th:src="@{/user/assets/images/product/product-thumb-1.jpg}" width="100" alt="">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                            <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                        </td>
+                                        <td>
+                                            <span class="category">Ram &amp; Laptop</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-btn">ACTIVE</span>
+                                        </td>
+                                        <td>
+                                            <p>$20.99</p>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                                                <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                                                <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="image">
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                                                </div>
+                                                <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                            <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                        </td>
+                                        <td>
+                                            <span class="category">Ram &amp; Laptop</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-btn bg-light text-dark">INACTIVE</span>
+                                        </td>
+                                        <td>
+                                            <p>$20.99</p>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                                                <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                                                <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="image">
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+                                                </div>
+                                                <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                            <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                        </td>
+                                        <td>
+                                            <span class="category">Ram &amp; Laptop</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-btn bg-secondary">SOLD</span>
+                                        </td>
+                                        <td>
+                                            <p>$20.99</p>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                                                <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                                                <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="image">
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
+                                                </div>
+                                                <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                            <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                        </td>
+                                        <td>
+                                            <span class="category">Ram &amp; Laptop</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-btn bg-warning">EXPIRED</span>
+                                        </td>
+                                        <td>
+                                            <p>$20.99</p>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                                                <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                                                <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="image">
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
+                                                </div>
+                                                <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>8 GB DDR4 Ram, 4th Gen</h6>
+                                            <span class="ad-id">Ad ID: ng3D5hAMHPajQrM</span>
+                                        </td>
+                                        <td>
+                                            <span class="category">Ram &amp; Laptop</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-btn bg-danger">DELETE</span>
+                                        </td>
+                                        <td>
+                                            <p>$20.99</p>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                                                <a href="javascript:void(0)" class="edit-btn"><i class="lni lni-pencil"></i></a>
+                                                <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </section>
 
