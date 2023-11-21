@@ -12,6 +12,8 @@ public class Payment {
     private String isClosing;
     private String closingCode;
 
+    private String reservationCode;
+
     //user Dto 에서 가져오는 정보
     private User userInfo;
     private String userId;
@@ -19,6 +21,9 @@ public class Payment {
     //contents Dto 에서 가져오는 정보
     private Contents contents;
     private String contentsId;
+    private String contentsName;
+    private String contentsCategoryName;
+    private String contentAddress;
 
     //munhwaCard Dto에서 가져오는 정보
     private MunhwaCard munhwacardInfo;
@@ -26,6 +31,22 @@ public class Payment {
     private String cvc;
     private String cardPw;
     private String cardExpiryDate;
+
+    public String getContentAddress() {
+        return contentAddress;
+    }
+
+    public void setContentAddress(String contentAddress) {
+        this.contentAddress = contentAddress;
+    }
+
+    public String getContentsCategoryName() {
+        return contentsCategoryName;
+    }
+
+    public void setContentsCategoryName(String contentsCategoryName) {
+        this.contentsCategoryName = contentsCategoryName;
+    }
 
     public String getPaymentCode() {
         return paymentCode;
@@ -179,6 +200,22 @@ public class Payment {
         this.cardExpiryDate = cardExpiryDate;
     }
 
+    public String getReservationCode() {
+        return reservationCode;
+    }
+
+    public void setReservationCode(String reservationCode) {
+        this.reservationCode = reservationCode;
+    }
+
+    public String getContentsName() {
+        return contentsName;
+    }
+
+    public void setContentsName(String contentsName) {
+        this.contentsName = contentsName;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Payment{");
@@ -192,10 +229,14 @@ public class Payment {
         sb.append(", isRefund='").append(isRefund).append('\'');
         sb.append(", isClosing='").append(isClosing).append('\'');
         sb.append(", closingCode='").append(closingCode).append('\'');
+        sb.append(", reservationCode='").append(reservationCode).append('\'');
         sb.append(", userInfo=").append(userInfo);
         sb.append(", userId='").append(userId).append('\'');
         sb.append(", contents=").append(contents);
         sb.append(", contentsId='").append(contentsId).append('\'');
+        sb.append(", contentsName='").append(contentsName).append('\'');
+        sb.append(", contentsCategoryName='").append(contentsCategoryName).append('\'');
+        sb.append(", contentAddress='").append(contentAddress).append('\'');
         sb.append(", munhwacardInfo=").append(munhwacardInfo);
         sb.append(", munhwacardNum='").append(munhwacardNum).append('\'');
         sb.append(", cvc='").append(cvc).append('\'');

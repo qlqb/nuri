@@ -1,13 +1,27 @@
 package ksmart.ks48team01.user.controller;
 
+import ksmart.ks48team01.dto.Payment;
+import ksmart.ks48team01.service.PaymentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller("myPageController")
 @RequestMapping("/user/mypage")
 public class MyPageController {
+
+	private static final Logger log = LoggerFactory.getLogger(MyPageController.class);
+
+	private final PaymentService paymentService;
+
+	public MyPageController(PaymentService paymentService){
+		this.paymentService = paymentService;
+	}
 
 	public String mypage = "마이페이지";
 
@@ -68,8 +82,19 @@ public class MyPageController {
 	@GetMapping("/myOrder")
 	public String myOrder(Model model) {
 
+		int paymentCnt = paymentService.getPaymentCount();
+		int paymentAmount = paymentService.getPaymentAmount();
+		List<Payment> paymentList = paymentService.getPaymentList();
+
+		log.info("PaymentList: {}", paymentList);
+
 		model.addAttribute("title", "나의 주문/예약 조회");
 		model.addAttribute("head", mypage);
+
+		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("paymentCnt", paymentCnt);
+		model.addAttribute("paymentAmount", paymentAmount);
+
 
 		return "user/mypage/myOrder";
 	}
