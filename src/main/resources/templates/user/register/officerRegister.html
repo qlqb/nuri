@@ -295,24 +295,24 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="single-form mb-20">
-                                            <label for="districtDep" class="mb-2"><small class="input-specific">*</small>행정기관 </label>
-                                            <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtDepCode" id="districtDep">
-                                                <option value="none" selected disabled>region dataset</option>
+                                            <label for="officerRegion" class="mb-2"><small class="input-specific">*</small>행정지역</label>
+                                            <select class="col-12 py-2 px-3 mb-0 rounded border" name="officerRegion" id="officerRegion">
+                                                <option th:each="regionCate : ${regionList}" th:value="${regionCate.regionCode}" th:text="${regionCate.regionName}"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="single-form mb-20">
-                                            <label for="division" class="mb-2"><small class="input-specific">*</small>부서 </label>
-                                            <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtCode" id="division">
-                                                <option value="none" selected disabled>district dataset</option>
+                                            <label for="department" class="mb-2"><small class="input-specific">*</small>부서 </label>
+                                            <select class="col-12 py-2 px-3 mb-0 rounded border" name="department" id="department">
+                                                <option value="none"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="single-form mb-20">
-                                            <label for="officer" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
-                                            <input type="text" id="officer" name="user_email" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
+                                            <label for="officerCert" class="mb-2"><small class="input-specific">*</small>공무원 등록 번호</label>
+                                            <input type="text" id="officerCert" name="officerCert" placeholder="공무원 등록 번호를 입력해주세요." class="py-2 px-3 mb-0 rounded border">
                                         </div>
                                     </div>
                                     <div class="single-form mb-20">
@@ -320,7 +320,7 @@
                                     </div>
                                     <div class="col-12 d-flex justify-content-center">
                                         <div class="single-form mb-30">
-                                            <button class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
+                                            <button id="submit-btn" class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
                                         </div>
                                     </div>
                                 </div>
@@ -337,6 +337,7 @@
 <body>
     <script src="/user/assets/js/district-list.js"></script>
     <script src="/user/assets/js/userValidate.js"></script>
+    <script src="/user/assets/js/officerForm.js"></script>
 </body>
 
 </html>

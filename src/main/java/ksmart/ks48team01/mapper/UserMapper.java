@@ -25,8 +25,6 @@ public interface UserMapper {
     // 사용자 등록
     public int memberRegister(User user);
 
-
-
     public List<User> userSearchList(String searchKey, String searchValue);
     
     

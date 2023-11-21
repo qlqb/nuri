@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import ksmart.ks48team01.dto.District;
-import ksmart.ks48team01.dto.MunhwaCard;
-import ksmart.ks48team01.dto.Region;
-import ksmart.ks48team01.dto.User;
+import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.OfficerService;
 import ksmart.ks48team01.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +23,8 @@ public class RegisterController {
     private final AreaService areaService;
     private final UserService userService;
 
-    public RegisterController (AreaService areaService, UserService userService) {
+    public RegisterController (AreaService areaService,
+                               UserService userService) {
         this.areaService = areaService;
         this.userService = userService;
     }
@@ -116,23 +115,22 @@ public class RegisterController {
     @GetMapping("/officerRegister")
     public String officerRegister(Model model) {
         List<Region> regionList = areaService.getRegionList();
+        List<DistrictDep> districtDepList = areaService.getDistrictDepList();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
+        model.addAttribute("districtDepList", districtDepList);
 
         return "user/register/officerRegister";
     }
 
+    @ResponseBody
+    @GetMapping("/departmentList")
+    public String getDepartmentList(@RequestParam(value = "regionCode") String regionCode) {
+        Gson gson = new Gson();
+        List<DistrictDep> departmentList = areaService.departmentListByRegion(regionCode);
 
-    /**
-     *
-     * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
-     * @return
-     */
-    @PostMapping("/officerRegister")
-    public String officerRegister(RedirectAttributes redirectAttributes) {
-
-        return "redirect:/user/register/registerConfirm";
+        return gson.toJson(departmentList);
     }
 
 

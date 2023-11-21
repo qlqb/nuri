@@ -29,6 +29,10 @@ public class OfficerService {
         return officerSearchList;
     }
 
+    public int officerRegister(Officer officer) {
+        return officerMapper.officerRegister(officer);
+    }
+
     public Officer getOfficerUpdate (String officerId) {
         Officer officerUpdateList = officerMapper.getOfficerUpdate(officerId);
 

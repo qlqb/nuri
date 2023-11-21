@@ -37,5 +37,6 @@ public interface AreaMapper {
      */
     public List<DistrictDep> getDistrictDepartmentList();
 
+    public List<DistrictDep> departmentListByRegion(String regionCode);
 
 }

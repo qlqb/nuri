@@ -42,4 +42,10 @@ public class AreaService {
         return districtDepList;
     }
 
+    public List<DistrictDep> departmentListByRegion(String regionCode) {
+        List<DistrictDep> departmentByRegion = areaMapper.departmentListByRegion(regionCode);
+
+        return departmentByRegion;
+    }
+
 }
