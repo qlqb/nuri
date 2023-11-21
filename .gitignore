@@ -36,3 +36,4 @@ build/
 /src/main/java/ksmart/ks48team01/service/ContentsService2.java
 /src/main/resources/templates/user/contents/contentsInfoList2.html
 /src/main/resources/templates/user/contents/contentsInfoList3.html
+!/src/main/resources/static/

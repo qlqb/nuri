@@ -1,7 +1,7 @@
 package ksmart.ks48team01.dto;
 
 public class MunhwaCard {
-    private String munhwacardNum;
+    private String munhwaCardNum;
     private String cvc;
     private String cardPw;
     private String cardExpiryDate;
@@ -16,12 +16,12 @@ public class MunhwaCard {
     private String userId;
     private String userName;
 
-    public String getMunhwacardNum() {
-        return munhwacardNum;
+    public String getMunhwaCardNum() {
+        return munhwaCardNum;
     }
 
-    public void setMunhwacardNum(String munhwacardNum) {
-        this.munhwacardNum = munhwacardNum;
+    public void setMunhwaCardNum(String munhwaCardNum) {
+        this.munhwaCardNum = munhwaCardNum;
     }
 
     public String getCvc() {
@@ -114,20 +114,19 @@ public class MunhwaCard {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("MunhwaCard{");
-        sb.append("munhwacardNum='").append(munhwacardNum).append('\'');
-        sb.append(", cvc='").append(cvc).append('\'');
-        sb.append(", cardPw='").append(cardPw).append('\'');
-        sb.append(", cardExpiryDate='").append(cardExpiryDate).append('\'');
-        sb.append(", cardComp='").append(cardComp).append('\'');
-        sb.append(", cardUsableCheck='").append(cardUsableCheck).append('\'');
-        sb.append(", firstUsageAmount=").append(firstUsageAmount);
-        sb.append(", lastUsageAmount=").append(lastUsageAmount);
-        sb.append(", cardIssueDate='").append(cardIssueDate).append('\'');
-        sb.append(", userInfo=").append(userInfo);
-        sb.append(", userId='").append(userId).append('\'');
-        sb.append(", userName='").append(userName).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "MunhwaCard{" +
+                "munhwaCardNum='" + munhwaCardNum + '\'' +
+                ", cvc='" + cvc + '\'' +
+                ", cardPw='" + cardPw + '\'' +
+                ", cardExpiryDate='" + cardExpiryDate + '\'' +
+                ", cardComp='" + cardComp + '\'' +
+                ", cardUsableCheck='" + cardUsableCheck + '\'' +
+                ", firstUsageAmount=" + firstUsageAmount +
+                ", lastUsageAmount=" + lastUsageAmount +
+                ", cardIssueDate='" + cardIssueDate + '\'' +
+                ", userInfo=" + userInfo +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
