@@ -187,7 +187,6 @@
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
                         <h3 class="mb-20">회원정보 입력</h3>
-                        <form th:action="@{/user/register/memberRegister}" method="post">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
@@ -276,14 +275,7 @@
                                 <div class="single-form mb-20">
                                     <span class="input-specific notice-hide"><small class="input-specific">*</small>는 필수 요소 항목입니다.</span>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="single-form mb-30">
-                                        <button id="submit-btn" class="main-btn btn-hover py-2 px-5 rounded">가입</button>
-                                    </div>
-                                </div>
-
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -301,50 +293,52 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="store-category-code" class="mb-2"><small class="input-specific">*</small>가맹점 카테고리</label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" id="store-category-code" name="store_category_code">
-                                            <option value="none" selected disabled>region dataset</option>
+                                        <label for="storeCategory" class="mb-2"><small class="input-specific">*</small>가맹점 카테고리</label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" id="storeCategory" name="storeCategory">
+                                            <option th:each="storeCategories : ${storeCategoryList}"
+                                                    th:value="${storeCategories.storeCategoryCode}"
+                                                    th:text="${storeCategories.storeCategoryName}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="store-name" class="mb-2"><small class="input-specific">*</small>상호명</label>
-                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="store-name" name="store_name" placeholder="가맹점의 상호명을 입력해주세요">
+                                        <label for="storeName" class="mb-2"><small class="input-specific">*</small>상호명</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="storeName" name="storeName" placeholder="가맹점의 상호명을 입력해주세요">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="store-contact" class="mb-2"><small class="input-specific">*</small>가맹점 연락처</label>
-                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="store-contact" name="store_contact" placeholder="가맹점 연락처를 입력해주세요">
+                                        <label for="storeContact" class="mb-2"><small class="input-specific">*</small>가맹점 연락처</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="storeContact" name="storeContact" placeholder="가맹점 연락처를 입력해주세요">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="store-region" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="store_region" id="store-region">
-                                            <option value="none" selected disabled>district dataset</option>
+                                        <label for="storeRegion" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="storeRegion" id="storeRegion">
+                                            <option th:each="area : ${regionList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="store-district" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="store_district" id="store-district">
-                                            <option value="none" selected disabled>district dataset</option>
+                                        <label for="storeDistrict" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
+                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="storeDistrict" id="storeDistrict">
+                                            <option value="none"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="business" class="mb-2"><small class="input-specific">*</small>법인 등록번호</label>
-                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="business" name="business_number" placeholder="법인 등록번호를 입력해주세요.">
+                                        <label for="businessNum" class="mb-2"><small class="input-specific">*</small>법인 등록번호</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="businessNum" name="businessNum" placeholder="법인 등록번호를 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="corporation" class="mb-2"><small class="input-specific">*</small>사업자 등록번호</label>
-                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="corporation" name="corporation_number" placeholder="사업자 등록번호를 입력해주세요.">
+                                        <label for="corporationNum" class="mb-2"><small class="input-specific">*</small>사업자 등록번호</label>
+                                        <input class="py-2 px-3 mb-0 rounded border" type="text" id="corporationNum" name="corporationNum" placeholder="사업자 등록번호를 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="single-form mb-20">
@@ -352,7 +346,7 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-center">
                                     <div class="single-form mb-30">
-                                        <button class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
+                                        <button id="submit-btn" class="main-btn btn-hover py-2 px-5 rounded">회원가입</button>
                                     </div>
                                 </div>
                             </div>
@@ -369,6 +363,7 @@
 <body>
     <script src="/user/assets/js/district-list.js"></script>
     <script src="/user/assets/js/userValidate.js"></script>
+    <script src="/user/assets/js/storeForm.js"></script>
 </body>
 
 

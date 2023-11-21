@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.ContentsService;
 import ksmart.ks48team01.service.OfficerService;
 import ksmart.ks48team01.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,14 @@ public class RegisterController {
 
     private final AreaService areaService;
     private final UserService userService;
+    private final ContentsService contentsService;
 
     public RegisterController (AreaService areaService,
-                               UserService userService) {
+                               UserService userService,
+                               ContentsService contentsService) {
         this.areaService = areaService;
         this.userService = userService;
+        this.contentsService = contentsService;
     }
 
     // 가입 할 회원 권한을 선택할 수 있는 페이지
@@ -97,19 +101,14 @@ public class RegisterController {
     public String storeRegister(Model model) {
         List<Region> regionList = areaService.getRegionList();
 
+        List<StoreCategory> storeCategoryList = contentsService.getStoreCategory();
+
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
+        model.addAttribute("storeCategoryList", storeCategoryList);
 
         return "user/register/storeRegister";
     }
-
-
-    @PostMapping("/storeRegister")
-    public String storeRegister() {
-
-        return "redirect:/user/register/registerConfirm";
-    }
-
 
     // Nuriculture 웹 애플리케이션을 이용, 관리하는 공무원(officer) 권한의 가입 Form
     @GetMapping("/officerRegister")

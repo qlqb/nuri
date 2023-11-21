@@ -1,6 +1,7 @@
 package ksmart.ks48team01.service;
 
 import ksmart.ks48team01.dto.Store;
+import ksmart.ks48team01.mapper.ContentsMapper;
 import ksmart.ks48team01.mapper.StoreMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +51,12 @@ public class StoreService {
         Store specificStoreInfo = storeMapper.getSpecificStoreInfo(storeId);
 
         return specificStoreInfo;
+    }
+
+    public int storeRegister(Store store) {
+        int registerResult = storeRegister(store);
+
+        return registerResult;
     }
 
     /**

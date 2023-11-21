@@ -5,10 +5,7 @@ import ksmart.ks48team01.dto.Store;
 import ksmart.ks48team01.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +25,15 @@ public class StoreController {
         List<Store> storeKeywordAll = storeService.getStoreKeyword();
 
         return "admin/store/nuriStore";
+    }
+
+    @ResponseBody
+    @PostMapping("/storeRegister")
+    public int storeRegister(@RequestBody Store store) {
+
+        int registerResult = storeService.storeRegister(store);
+
+        return registerResult;
     }
 
     /**
