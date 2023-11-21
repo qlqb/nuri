@@ -30,7 +30,7 @@ public class MunhwaCardService {
     }
 
     // 문화누리카드 등록
-    public void munhwaCardRegist(MunhwaCard munhwaCard) {
-        munhwaCardMapper.munhwaCardRegist(munhwaCard);
+    public int munhwaCardRegist(MunhwaCard munhwaCard) {
+        return munhwaCardMapper.munhwaCardRegist(munhwaCard);
     }
 }

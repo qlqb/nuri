@@ -45,8 +45,8 @@ public class UserService {
     }
     
     // 사용자 가입
-    public void memberRegister(User user) {
-        userMapper.memberRegister(user);
+    public int memberRegister(User user) {
+        return userMapper.memberRegister(user);
     }
     
     

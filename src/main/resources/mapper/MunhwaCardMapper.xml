@@ -57,7 +57,7 @@
         CARD_COMP, CARD_USABLE_CHECK, FIRST_USAGE_AMOUNT, LAST_USAGE_AMOUNT, CARD_ISSUE_DATE
         )VALUES(
         #{munhwaCardNum}, #{userId}, #{cvc}, #{cardPw}, #{cardExpiryDate},
-        #{cardComp}, #{cardUsableCheck}, #{firstUsageAmount}, #{firstUsageAmount}, CURDATE()
+        #{cardComp}, #{cardUsableCheck}, #{firstUsageAmount}, #{lastUsageAmount}, CURDATE()
         )
     </insert>
 </mapper>

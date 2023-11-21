@@ -50,11 +50,13 @@ public class AdminMunhwaCardController {
 	 * @param munhwaCard
 	 * @return redirect:/admin/budget/budgetTotalList
 	 */
+	@ResponseBody
 	@PostMapping("/munhwaCardRegist")
-	public String munhwaCardRegist(MunhwaCard munhwaCard){
+	public int munhwaCardRegist(@RequestBody MunhwaCard munhwaCard){
 		log.info("munhwaCard : {}", munhwaCard);
-		munhwaCardService.munhwaCardRegist(munhwaCard);
-		return "redirect:/admin/user/munhwaCardList";
+		int insertResult = munhwaCardService.munhwaCardRegist(munhwaCard);
+		System.out.println(insertResult);
+		return insertResult;
 	}
 
 	/**
