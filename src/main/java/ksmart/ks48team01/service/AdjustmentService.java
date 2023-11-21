@@ -23,9 +23,29 @@ public class AdjustmentService {
         this.areaMapper = areaMapper;
     }
 
-    // 전국 단위 예산 전체 조회
+    // 일별 정산 전체 목록 조회
     public List<DayAdjustment> getDayAdjustmentList() {
         return adjustmentMapper.getDayAdjustmentList();
+    }
+
+    // 일별 정산 검색 - 1)지역별
+    public List<DayAdjustment> getDayAdjListByRegion(HashMap<String, Object> map) {
+        return adjustmentMapper.getDayAdjListByRegion(map);
+    }
+
+    // 일별 정산 검색 - 2)업종별
+    public List<DayAdjustment> getDayAdjListByCate(HashMap<String, Object> map) {
+        return adjustmentMapper.getDayAdjListByCate(map);
+    }
+
+    // 일별 정산 검색 - 3)지역+업종별
+    public List<DayAdjustment> getDayAdjListByRegionCate(HashMap<String, Object> map) {
+        return adjustmentMapper.getDayAdjListByRegionCate(map);
+    }
+
+    // 일별 정산 검색 - 4)가맹점별
+    public List<DayAdjustment> getDayAdjListByStoreId(HashMap<String, Object> map) {
+        return adjustmentMapper.getDayAdjListByStoreId(map);
     }
 
 }
