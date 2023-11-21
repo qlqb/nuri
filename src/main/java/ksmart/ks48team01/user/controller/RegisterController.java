@@ -85,9 +85,11 @@ public class RegisterController {
     // JavaScript에서 비동기처리로, user를 insert를 먼저 해야 제약조건에 위배가 되지 않는다.
     @ResponseBody
     @PostMapping("/memberRegister")
-    public void memberRegister(User user) {
-        userService.memberRegister(user);
+    public int memberRegister(@RequestBody User user) {
+        int registerResult = userService.memberRegister(user);
+        System.out.println(registerResult);
 
+        return registerResult;
     }
 
 

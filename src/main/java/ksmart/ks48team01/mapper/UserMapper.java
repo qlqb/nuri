@@ -23,7 +23,7 @@ public interface UserMapper {
     public void updateUserByAdmin(User user);
     
     // 사용자 등록
-    public void memberRegister(User user);
+    public int memberRegister(User user);
 
 
 
