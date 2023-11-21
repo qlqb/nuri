@@ -92,7 +92,7 @@
     </insert>
 
     <!--  입력받은 공무원 회원 Form 전송  -->
-    <insert id="officerRegister" parameterType="User">
+    <insert id="officerUserRegister" parameterType="User">
         INSERT INTO USER_INFO
         (USER_ID, LEVEL_ID, USER_LEVEL_NAME, DISTRICT_CODE, REGION_CODE,
         USER_PW, USER_NAME, USER_BIRTH, USER_ADDRESS, USER_CONTACT,
@@ -104,7 +104,7 @@
     </insert>
 
     <!--  입력받은 가맹점 회원 Form 전송  -->
-    <insert id="storeRegister" parameterType="User">
+    <insert id="storeUserRegister" parameterType="User">
         INSERT INTO USER_INFO
         (USER_ID, LEVEL_ID, USER_LEVEL_NAME, DISTRICT_CODE, REGION_CODE,
         USER_PW, USER_NAME, USER_BIRTH, USER_ADDRESS, USER_CONTACT,

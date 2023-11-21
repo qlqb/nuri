@@ -48,7 +48,14 @@ public class UserService {
     public int memberRegister(User user) {
         return userMapper.memberRegister(user);
     }
-    
+
+    public int officerUserRegister(User user) {
+        return userMapper.officerUserRegister(user);
+    }
+
+    public int storeUserRegister(User user) {
+        return userMapper.storeUserRegister(user);
+    }
     
     public Map<String, Object> checkUserInfo(String userId, String userPw) {
         Map<String, Object> loginMap = new HashMap<String, Object>();

@@ -31,8 +31,6 @@
     </resultMap>
 
 
-
-
     <!--  가맹점 페이지에서 가맹점 정보 전체조회 쿼리  -->
     <select id="getStoreListForAdmin" resultType="Store">
         SELECT
@@ -109,6 +107,39 @@
         WHERE
             SI.STORE_ID = #{storeId};
     </select>
+
+    <insert id="storeRegister" parameterType="Store">
+        <selectKey keyProperty="storeId" resultType="String" order="BEFORE">
+            SELECT
+                CONCAT('OFC', DATE_FORMAT(NOW(6), '%y%m%d%i%f'));
+        </selectKey>
+        INSERT INTO STORE_INFO
+            (STORE_ID,
+            USER_ID,
+            STORE_CATEGORY_CODE,
+            DISTRICT_CODE,
+            STORE_CATEGORY_NAME,
+            BUSINESS_NUMBER,
+            CORPORATION_NUMBER,
+            STORE_NAME,
+            STORE_CONTACT,
+            STORE_ADDRESS,
+            OPENING_TIME,
+            STORE_REG_DATE)
+        VALUES
+            (#{storeId},
+            #{userId},
+            #{storeCategoryCode},
+            #{districtCode},
+            #{storeCategoryName},
+            #{businessNumber},
+            #{corporationNumber},
+            #{storeName},
+            #{storeContact},
+            #{storeAddress},
+            '월~금',
+            NOW());
+    </insert>
 
 
     <!--  유저 페이지에서 가맹점 키워드 전체조회 쿼리  -->

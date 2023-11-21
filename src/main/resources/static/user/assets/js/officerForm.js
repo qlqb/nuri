@@ -30,7 +30,7 @@ $submitBtn.addEventListener('click', () => {
 
 // 회원 입력 정보 전송
 function sendMemberInfo () {
-    fetch("/user/register/memberRegister", {
+    fetch("/user/register/officerUserRegister", {
         method: 'POST',
         headers: {
             "Content-Type": "application/json; charset=UTF-8",

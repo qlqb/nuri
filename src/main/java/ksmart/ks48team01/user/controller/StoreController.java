@@ -24,13 +24,12 @@ public class StoreController {
     public String nuriStoreList(Model model) {
         List<Store> storeKeywordAll = storeService.getStoreKeyword();
 
-        return "admin/store/nuriStore";
+        return "user/store/nuriStore";
     }
 
     @ResponseBody
     @PostMapping("/storeRegister")
     public int storeRegister(@RequestBody Store store) {
-
         int registerResult = storeService.storeRegister(store);
 
         return registerResult;

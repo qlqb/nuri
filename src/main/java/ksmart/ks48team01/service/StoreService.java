@@ -54,7 +54,7 @@ public class StoreService {
     }
 
     public int storeRegister(Store store) {
-        int registerResult = storeRegister(store);
+        int registerResult = storeMapper.storeRegister(store);
 
         return registerResult;
     }

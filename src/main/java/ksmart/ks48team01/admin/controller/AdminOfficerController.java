@@ -60,9 +60,7 @@ public class AdminOfficerController {
     @ResponseBody
     @PostMapping("/officerRegister")
     public int officerRegister(@RequestBody Officer officer) {
-        System.out.println(officer);
         int registerResult = officerService.officerRegister(officer);
-        System.out.println(registerResult);
 
         return registerResult;
     }

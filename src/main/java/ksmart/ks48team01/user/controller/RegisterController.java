@@ -100,7 +100,6 @@ public class RegisterController {
     @GetMapping("/storeRegister")
     public String storeRegister(Model model) {
         List<Region> regionList = areaService.getRegionList();
-
         List<StoreCategory> storeCategoryList = contentsService.getStoreCategory();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
@@ -108,6 +107,16 @@ public class RegisterController {
         model.addAttribute("storeCategoryList", storeCategoryList);
 
         return "user/register/storeRegister";
+    }
+
+    // JavaScript에서 비동기처리로, user를 insert를 먼저 해야 제약조건에 위배가 되지 않는다.
+    @ResponseBody
+    @PostMapping("/storeUserRegister")
+    public int storeUserRegister(@RequestBody User user) {
+        int registerResult = userService.storeUserRegister(user);
+        System.out.println(registerResult);
+
+        return registerResult;
     }
 
     // Nuriculture 웹 애플리케이션을 이용, 관리하는 공무원(officer) 권한의 가입 Form
@@ -122,6 +131,17 @@ public class RegisterController {
 
         return "user/register/officerRegister";
     }
+
+    @ResponseBody
+    @PostMapping("/officerUserRegister")
+    public int officerUserRegister(@RequestBody User user) {
+        int registerResult = userService.officerUserRegister(user);
+        System.out.println(registerResult);
+
+        return registerResult;
+    }
+
+
 
     @ResponseBody
     @GetMapping("/departmentList")

@@ -6,22 +6,15 @@ const $storeRegion = document.querySelector('#storeRegion');
 const $storeDistrict = document.querySelector('#storeDistrict');
 const $businessNum = document.querySelector('#businessNum');
 const $corporationNum = document.querySelector('#corporationNum');
+const $storeAddress1 = document.querySelector('#storeAddress1');
+const $storeAddress2 = document.querySelector('#storeAddress2');
 
 $storeCategory.addEventListener('change', () => {
-    console.log($storeCategory.text);
+    console.log($storeCategory.value);
 })
 
 $submitBtn.addEventListener('click', () => {
-    // sendMemberInfo();
-    console.log(
-        $storeCategory.value,
-        $storeName.value,
-        $storeContact.value,
-        $storeRegion.value,
-        $storeDistrict.value,
-        $businessNum.value,
-        $corporationNum.value
-    )
+    sendMemberInfo();
 })
 
 $storeRegion.addEventListener('change', () => {
@@ -48,7 +41,7 @@ function getStoreDistrictList(requestDistrictListUrl) {
 
 
 function sendMemberInfo () {
-    fetch("/user/register/memberRegister", {
+    fetch("/user/register/storeUserRegister", {
         method: 'POST',
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
@@ -68,24 +61,28 @@ function sendMemberInfo () {
         .then((resp) => resp.text())
         .then(result => {
             if(result == 1) {
-                sendOfficerInfo();
+                sendStoreInfo();
             }
         })
 }
 
 // 공무원  필수 입력 정보 전송
 function sendStoreInfo()  {
-    fetch("/admin/store/storeRegister", {
+    fetch("/user/store/storeRegister", {
         method: 'POST',
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify({
-                "userId": $userId.value,
-
-                "officerUserName": $userName.value,
-                "districtDepCode": $department.value,
-                "officerCert": $officerCert.value,
+            "userId": $userId.value,
+            "storeCategoryCode": $storeCategory.value,
+            "districtCode": $storeDistrict.value,
+            "storeCategoryName": $storeCategory.options[$storeCategory.selectedIndex].text,
+            "businessNumber": $businessNum.value,
+            "corporationNumber": $corporationNum.value,
+            "storeName": $storeName.value,
+            "storeContact": $storeContact.value,
+            "storeAddress": `${$storeAddress1.value} ${$storeAddress2.value}`,
             }
         )
     }).then((resp) => resp.text())
