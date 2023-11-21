@@ -12,14 +12,33 @@ import java.io.IOException;
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
         HttpSession session = request.getSession();
         String sessionId = (String) session.getAttribute("SID");
 
         if(sessionId != null) {
-            String sessionLevel = (String) session.getAttribute("SLEVEL");
+            int sessionLevel = (int) session.getAttribute("SLEVEL");
             String requestURI = request.getRequestURI();
 
+            if(sessionLevel == 2) {
+                if(     requestURI.indexOf("/admin/user") > -1 ||
+                        requestURI.indexOf("/admin/officer") > -1 ||
+                        requestURI.indexOf("/admin/store/storeList") > -1) {
+                    response.sendRedirect("/admin");
+                    return false;
+                }
+            } else if (sessionLevel == 3) {
+                if(     requestURI.indexOf("/admin/adminRegister") > -1) {
+                    response.sendRedirect("/");
+                    return false;
+                }
+            } else if (sessionLevel == 4) {
+                if(     requestURI.indexOf("/admin") > -1) {
+                    response.sendRedirect("/");
+                    return false;
+                }
+            }
             return true;
         }
 

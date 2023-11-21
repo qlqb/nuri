@@ -45,6 +45,7 @@
             USER_INFO AS U;
     </select>
 
+    <!-- 회원 검색 -->
     <select id="userSearchList" resultType="User" parameterType="String">
     SELECT
         U.USER_ID AS userId,
@@ -86,6 +87,30 @@
         USER_EMAIL, USER_RECENT_LOGIN, USER_REGDATE, USER_STAT, SSO_TYPE)
         VALUES
         (#{userId}, 1, '관리자', #{districtCode}, #{regionCode}, #{userPw}, #{userName},
+        #{userBirth}, #{userAddress}, #{userContact}, #{userEmail}, NOW(),
+        NOW(), '활동', 'general')
+    </insert>
+
+    <!--  입력받은 공무원 회원 Form 전송  -->
+    <insert id="officerRegister" parameterType="User">
+        INSERT INTO USER_INFO
+        (USER_ID, LEVEL_ID, USER_LEVEL_NAME, DISTRICT_CODE, REGION_CODE,
+        USER_PW, USER_NAME, USER_BIRTH, USER_ADDRESS, USER_CONTACT,
+        USER_EMAIL, USER_RECENT_LOGIN, USER_REGDATE, USER_STAT, SSO_TYPE)
+        VALUES
+        (#{userId}, 2, '공무원', #{districtCode}, #{regionCode}, #{userPw}, #{userName},
+        #{userBirth}, #{userAddress}, #{userContact}, #{userEmail}, NOW(),
+        NOW(), '활동', 'general')
+    </insert>
+
+    <!--  입력받은 가맹점 회원 Form 전송  -->
+    <insert id="storeRegister" parameterType="User">
+        INSERT INTO USER_INFO
+        (USER_ID, LEVEL_ID, USER_LEVEL_NAME, DISTRICT_CODE, REGION_CODE,
+        USER_PW, USER_NAME, USER_BIRTH, USER_ADDRESS, USER_CONTACT,
+        USER_EMAIL, USER_RECENT_LOGIN, USER_REGDATE, USER_STAT, SSO_TYPE)
+        VALUES
+        (#{userId}, 3, '가맹점', #{districtCode}, #{regionCode}, #{userPw}, #{userName},
         #{userBirth}, #{userAddress}, #{userContact}, #{userEmail}, NOW(),
         NOW(), '활동', 'general')
     </insert>

@@ -81,6 +81,17 @@
                     </div>
                 </div>
 
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
+                    <div class="single-service">
+                        <div class="icon">
+                            <strong>3</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>문화누리카드 정보입력</h3>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -269,11 +280,6 @@
                                 <div class="single-form mb-20">
                                     <span class="input-specific notice-hide"><small class="input-specific">*</small>는 필수 요소 항목입니다.</span>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="single-form mb-30">
-                                        <button id="submit-btn" class="main-btn btn-hover py-2 px-5 rounded">가입</button>
-                                    </div>
-                                </div>
 
                             </div>
                         </form>
@@ -293,96 +299,52 @@
                         <!--<form th:action="@{/user/register/memberRegister}" method="post">-->
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="single-form mb-20">
+                                    <div class="single-form mb-30">
                                         <label for="userId" class="mb-2"><small class="input-specific">*</small>문화누리카드번호</label>
-                                        <span class="ml-1 input-specific notice-hide" id="id-alert1">이미 등록되어 있는 아이디입니다</span>
-                                        <span class="ml-1 input-specific notice-hide" id="id-alert2">아이디를 6자리 이상 입력해주세요</span>
-                                        <span class="ml-1 input-specific notice-hide" id="id-alert3">아이디는 영문과 숫자로 작성해주세요</span>
-                                        <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                        <input type="text" id="cardNum" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
+
                                 <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="userPw" class="mb-2"><small class="input-specific">*</small>비밀번호</label>
-                                        <span class="ml-1 input-specific notice-hide">비밀번호를 6자리 이상 입력해주세요</span>
-                                        <input type="password" id="userPw" name="userPw" placeholder="비밀번호를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    <div class="single-form mb-30">
+                                        <label for="userId" class="mb-2"><small class="input-specific">*</small>CVC번호</label>
+                                        <input type="text" id="cvcNum" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
-                                <p id="pwValidation"></p>
+
                                 <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="userPwCheck" class="mb-2"><small class="input-specific">*</small>비밀번호 확인</label>
-                                        <span class="ml-1 input-specific notice-hide">비밀번호가 일치하지 않습니다</span>
-                                        <input type="password" id="userPwCheck" placeholder="확인을 위해 다시 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    <div class="single-form mb-30">
+                                        <label for="userId" class="mb-2"><small class="input-specific">*</small>비밀번호</label>
+                                        <input type="text" id="cardPw" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
+
                                 <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="userName" class="mb-2"><small class="input-specific">*</small>이름</label>
-                                        <span class="ml-1 input-specific notice-hide">이름을 입력해주세요</span>
-                                        <input type="text" id="userName" name="userName" placeholder="이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    <div class="single-form mb-30">
+                                        <label for="userId" class="mb-2"><small class="input-specific">*</small>만료일</label>
+                                        <input type="text" id="expiryDate" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
+
                                 <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="userBirth" class="mb-2"><small class="input-specific">*</small>생년월일</label>
-                                        <span class="ml-1 input-specific notice-hide">7세 미만은 가입하실 수 없습니다</span>
-                                        <input type="date" id="userBirth" name="userBirth" class="py-2 px-3 mb-0 rounded border">
+                                    <div class="single-form mb-30">
+                                        <label for="userId" class="mb-2"><small class="input-specific">*</small>카드사</label>
+                                        <input type="text" id="cardComp" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
+
                                 <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="userContact" class="mb-2"><small class="input-specific">*</small>연락처</label>
-                                        <span class="ml-1 input-specific notice-hide">연락처를 입력해주세요</span>
-                                        <input type="text" id="userContact" name="userContact" placeholder="연락처(휴대폰)을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    <div class="single-form mb-30">
+                                        <label for="userId" class="mb-2"><small class="input-specific">*</small>사용가능여부</label>
+                                        <input type="text" id="cardUsableCheck" name="userId" placeholder="아이디를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="userEmail" class="mb-2"><small class="input-specific">*</small>이메일</label>
-                                        <span class="ml-1 input-specific notice-hide">올바른 이메일 주소인지 확인해주세요</span>
-                                        <input type="text" id="userEmail" name="userEmail" placeholder="이메일을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <!-- 주소 API 이용할 수 있을 경우, 주소 API를 통한 값을 Parsing(구문분석)하여 자동완성 -->
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="regionCode" class="mb-2"><small class="input-specific">*</small>지역 1 <small class="input-specific">도, 특별시, 광역시</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="regionCode" id="regionCode">
-                                            <option value="none" selected disabled style="color: grey">지역을 입력해주세요</option>
-                                            <option th:each="area : ${regionList}"  th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="districtCode" class="mb-2"><small class="input-specific">*</small>지역 2 <small class="input-specific">시, 군, 구</small></label>
-                                        <select class="col-12 py-2 px-3 mb-0 rounded border" name="districtCode" id="districtCode">
-                                            <option value="none" selected disabled>지역을 입력해주세요</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="address-1" class="mb-2"><small class="input-specific">*</small>상세주소 1 </label>
-                                        <input type="text" id="address-1" name="userAddress" placeholder="상세주소를 입력해주세요" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="address-2" class="mb-2 px-1">상세주소 2 </label>
-                                        <input type="text" id="address-2" placeholder="" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="single-form mb-20">
-                                    <span class="input-specific notice-hide"><small class="input-specific">*</small>는 필수 요소 항목입니다.</span>
-                                </div>
+
                                 <div class="col-12 d-flex justify-content-center">
                                     <div class="single-form mb-30">
                                         <button id="submit-btn" class="main-btn btn-hover py-2 px-5 rounded">가입</button>
                                     </div>
                                 </div>
-
                             </div>
                         <!--</form>-->
                     </div>
@@ -394,8 +356,8 @@
 </th:block>
 
 <body>
-    <!--<script src="/user/assets/js/district-list.js"></script>
-    <script src="/user/assets/js/userValidate.js"></script>-->
+    <script src="/user/assets/js/district-list.js"></script>
+    <script src="/user/assets/js/userValidate.js"></script>
 </body>
 
 

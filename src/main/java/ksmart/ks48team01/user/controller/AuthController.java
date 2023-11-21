@@ -41,7 +41,7 @@ public class AuthController {
             session.setAttribute("SID", userId);
             session.setAttribute("SLEVEL", userLevel);
 
-            return "redirect:/user/";
+            return "redirect:/user";
         }
 
         reAttr.addFlashAttribute("msg", "일치하는 회원의 정보가 없습니다.");

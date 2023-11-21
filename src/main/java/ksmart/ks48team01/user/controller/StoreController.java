@@ -23,12 +23,11 @@ public class StoreController {
     }
 
 
-    @GetMapping("/storeInfo")
-    public String storeInfoPage() {
+    @GetMapping("/nuriStore")
+    public String nuriStoreList(Model model) {
+        List<Store> storeKeywordAll = storeService.getStoreKeyword();
 
-
-
-        return "user/store/storeInfo";
+        return "admin/store/nuriStore";
     }
 
     /**
@@ -52,12 +51,6 @@ public class StoreController {
         }
 
         return gson.toJson(keywordList);
-    }
-
-    @GetMapping("/storeList")
-    public String storeListPage() {
-
-        return "user/store/storeList";
     }
 
 
