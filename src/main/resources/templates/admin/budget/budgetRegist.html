@@ -11,21 +11,6 @@
 		<script>
           $(function() {
 
-            //전국 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
-            $("#resetBtn1").click(function () {
-              $("#addBudgetTotalForm > div > div > input").val('');
-              $("#isDuplicate").text("");
-              //등록 버튼 비활성화
-              $("#addBudgetTotalBtn").prop("disabled", true);
-            });
-
-            //지역 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
-            $("#resetBtn2").click(function () {
-              $("#addBudgetRegionForm > div > div > input").val('');
-              $("#addBudgetRegionForm > div > div > select").val('');
-              $("#isDuplicate").text("");
-            });
-
             //유효성 검사
             const validationCheck = function(data) {
               let isValid = true;
@@ -49,80 +34,167 @@
               return isValid;
             }
 
+            //전국 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
+          $("#resetBtn1").click(function () {
+              $("#addBudgetTotalForm > div > div > input").val('');
+              $("#isDuplicate").text("");
+              //등록 버튼 비활성화
+              $("#addBudgetTotalBtn").prop("disabled", true);
+          });
 
-
-            //연도 칸의 입력 내용이 바뀔 때마다 ajax를 이용한 중복체크
-            $("#applyYear").change(function (){
+          //연도 칸의 입력 내용이 바뀔 때마다 ajax를 이용한 중복체크
+          $("#applyYear").change(function (){
               let $applyYear = $("#applyYear").val();
 
               //연도가 유효한 범위 내인지 확인
               if($applyYear <2014 || $applyYear >2114){
-                $("#isDuplicate").css("color", "red");
-                $("#isDuplicate").text("2014~2114년 사이의 연도만 입력 가능합니다.");
-                $("#addBudgetTotalBtn").prop("disabled", true);
+                  $("#isDuplicate").css("color", "red");
+                  $("#isDuplicate").text("2014~2114년 사이의 연도만 입력 가능합니다.");
+                  $("#addBudgetTotalBtn").prop("disabled", true);
+                  return;
+              }
+
+              //DB에 입력되어있는 연도 정보 받아오기
+              const request = $.ajax({
+                  url : '/admin/budget/yearCheck',
+                  method : 'POST',
+                  data : {'applyYear': $applyYear},
+                  dataType : 'json'
+              });
+
+              request.done(function(data){
+                  //사용자가 입력한 값과 DB의 값이 일치하는지 확인, p태그 안에 결과 입력
+                  if(data){
+                      $("#isDuplicate").css("color", "red");
+                      $("#isDuplicate").text("이미 해당 연도의 예산 정보가 등록되어있습니다.");
+                      $("#addBudgetTotalBtn").prop("disabled", true);
+                  }else{
+                      $("#isDuplicate").css("color", "blue");
+                      $("#isDuplicate").text("등록 가능한 연도입니다.");
+                      //입력 버튼 활성화
+                      $("#addBudgetTotalBtn").prop("disabled", false);
+                  }
+              });
+              request.fail(function(jqXHR, textStatus){
+                  console.log(`Request failed: ${textStatus}`);
+              });
+          });
+
+          //전국 단위 - 등록 버튼 눌렀을 시 유효성 검사 후 insert 실행
+          $("#addBudgetTotalBtn").click(function () {
+              //버튼 눌렀을 때의 값을 받아 객체 생성하기
+              const budget = {
+                  "budgetNum" : 'BUD' + $("#applyYear").val(),
+                  "officerId" : 'OFC231012001',
+                  "applyYear" : $("#applyYear").val(),
+                  "budgetByPerson" : $("#budgetByPerson").val(),
+                  "budgetTotalAmount" : $("#budgetTotalAmount").val()+'000000000'
+              }
+
+              let isValid = validationCheck(budget);
+              //유효성 검사 통과하고 연도가 중복되지 않는 경우에만 submit
+              if(!isValid){
+                  console.log("유효성 검사 : " + isValid);
+                  return false;
+              }else{
+                  console.log("유효성 검사 : " + isValid);
+                  console.log(budget);
+                  if(confirm("등록하시겠습니까?")){
+                      const addBudgetTotalForm = $("#addBudgetTotalForm");
+                      const $budgetNum = $('<input />', {'type': 'hidden', 'name': 'budgetNum', 'value': budget.budgetNum});
+                      const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
+                      addBudgetTotalForm.append($budgetNum);
+                      addBudgetTotalForm.append($officerId);
+                      addBudgetTotalForm.submit();
+                  }
+              }
+          });
+
+
+            //지역 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
+            $("#resetBtn2").click(function () {
+              $("#addBudgetRegionForm > div > div > input").val('');
+              $("#addBudgetRegionForm > div > div > select").val('');
+              $("#isDuplicateRegion").text("");
+              //등록 버튼 비활성화
+              $("#addBudgetRegionBtn").prop("disabled", true);
+            });
+
+            //연도 칸과 지역칸 ajax를 이용한 중복체크
+            $("#checkbtn").click(function (){
+              let $applyYearRegion = $("#applyYearRegion").val();
+              let $regionCode = Number($("#regionCode").val());
+
+              //연도가 유효한 범위 내인지 확인
+              if($applyYearRegion <2014 || $applyYearRegion >2114){
+                $("#isDuplicateRegion").css("color", "red");
+                $("#isDuplicateRegion").text("2014~2114년 사이의 연도만 입력 가능합니다.");
+                $("#addBudgetRegionBtnBtn").prop("disabled", true);
                 return;
               }
 
               //DB에 입력되어있는 연도 정보 받아오기
               const request = $.ajax({
-                url : '/admin/budget/yearCheck',
+                url : '/admin/budget/yearRegionCheck',
                 method : 'POST',
-                data : {'applyYear': $applyYear},
+                data : {'applyYear': $applyYearRegion,
+                  'regionCode' : $regionCode},
                 dataType : 'json'
               });
 
               request.done(function(data){
                 //사용자가 입력한 값과 DB의 값이 일치하는지 확인, p태그 안에 결과 입력
                 if(data){
-                  $("#isDuplicate").css("color", "red");
-                  $("#isDuplicate").text("이미 해당 연도의 예산 정보가 등록되어있습니다.");
-                  $("#addBudgetTotalBtn").prop("disabled", true);
+                  $("#isDuplicateRegion").css("color", "red");
+                  $("#isDuplicateRegion").text("이미 예산 정보가 등록되어있습니다.");
+                  $("#addBudgetRegionBtn").prop("disabled", true);
                 }else{
-                  $("#isDuplicate").css("color", "blue");
-                  $("#isDuplicate").text("등록 가능한 연도입니다.");
+                  $("#isDuplicateRegion").css("color", "blue");
+                  $("#isDuplicateRegion").text("등록 가능한 연도,지역입니다.");
                   //입력 버튼 활성화
-                  $("#addBudgetTotalBtn").prop("disabled", false);
+                  $("#addBudgetRegionBtn").prop("disabled", false);
                 }
               });
               request.fail(function(jqXHR, textStatus){
                 console.log(`Request failed: ${textStatus}`);
               });
-            });
+            })
 
 
-            //전국 단위 - 등록 버튼 눌렀을 시 유효성 검사 후 insert 실행
-            $("#addBudgetTotalBtn").click(function () {
+            //지역 단위 예산 등록
+            $("#addBudgetRegionBtn").click(function () {
               //버튼 눌렀을 때의 값을 받아 객체 생성하기
-              console.log(budgetAmount);
-              const budget = {
-                budgetNum: 'BUD' + $("#applyYear").val(),
-                officerId: 'OFC231012001',
-                applyYear: $("#applyYear").val(),
-                budgetByPerson: $("#budgetByPerson").val(),
-                budgetTotalAmount: $("#budgetTotalAmount").val()
+              const budgetRegion = {
+                "budgetRegionNum" : 'BUDREG' + $("#applyYearRegion").val() + $("#regionCode").val(),
+                "applyYearRegion" : $("#applyYearRegion").val(),
+                "regionCode" : parseInt($("#regionCode").val()),
+                "officerId" : 'OFC231012001',
+                "budgetRegionAmount" : $("#budgetRegionAmount").val(),
+                "budgetRegionNOP" : $("#munhwaRegionNOP").val()
               }
-              console.log(budget);
-              let isValid = validationCheck(budget);
+
+              let isValid = validationCheck(budgetRegion);
 
               if(!isValid){
                 //유효성 검사 통과하고 연도가 중복되지 않는 경우에만 submit
                 console.log("유효성 검사 : " + isValid);
-                return false;
 
               }else{
                 console.log("유효성 검사 : " + isValid);
-                const addBudgetTotalForm = $("#addBudgetTotalForm");
-                const $budgetNum = $('<input />', {'type': 'hidden', 'name': 'budgetNum', 'value': budget.budgetNum});
-                const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budget.officerId});
-                addBudgetTotalForm.append($budgetNum);
-                addBudgetTotalForm.append($officerId);
-                addBudgetTotalForm.submit();
+                console.log(budgetRegion);
+                if(confirm("등록하시겠습니까?")){
+                  const addBudgetRegionForm = $("#addBudgetRegionForm");
+                  const $budgetRegionNum = $('<input />', {'type': 'hidden', 'name': 'budgetRegionNum', 'value': budgetRegion.budgetRegionNum});
+                  const $officerId = $('<input />', {'type': 'hidden', 'name': 'officerId', 'value': budgetRegion.officerId});
+                  addBudgetRegionForm.append($budgetRegionNum);
+                  addBudgetRegionForm.append($officerId);
+                  addBudgetRegionForm.submit();
+
+
+                }
               }
-            })
+            });
           });
-
-
-
 		</script>
 	</th:block>
 	
@@ -131,49 +203,49 @@
 	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 	<th:block layout:fragment="customContents">
         <div class="col-md-12 col-sm-12 ">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>예산 등록</h2>
-              
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content" >
-              <form id="addBudgetTotalForm" class="form-horizontal form-label-left"
-                    th:action="@{/admin/budget/budgetInfo}" method="post">
-                <div class="form-group row">
-                  <label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input type="number" class="form-control" id="applyYear" name="applyYear"
-                           placeholder="연도를 입력하세요 예)2023" min="2014" max="2114">
-                    <p id="isDuplicate"></p>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input type="number" class="form-control" id="budgetByPerson" name="budgetByPerson"
-                           placeholder="1인 최대 지원금액을 입력하세요(단위 : 원)">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input type="number" class="form-control" id="budgetTotalAmount" name="budgetTotalAmount"
-                           placeholder="예산 금액을 입력하세요(단위 : 원)" min="100000000">
-                  </div>
-                </div>
-                <div class="ln_solid"></div>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>예산 등록</h2>
 
-                <div class="form-group row">
-                  <div class="col-md-9 offset-md-3">
-                    <button id="resetBtn1" type="button" class="btn btn-primary">초기화</button>
-                    <button id="addBudgetTotalBtn" type="button" class="btn btn-success" disabled="disabled">등록</button>
-                  </div>
+                    <div class="clearfix"></div>
                 </div>
+                <div class="x_content" >
+                    <form id="addBudgetTotalForm" class="form-horizontal form-label-left"
+                          th:action="@{/admin/budget/budgetInfo}" method="post">
+                        <div class="form-group row">
+                            <label for="applyYear" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="number" class="form-control" id="applyYear" name="applyYear"
+                                       placeholder="연도를 입력하세요 예)2023" min="2014" max="2114">
+                                <p id="isDuplicate"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="budgetByPerson" class="control-label col-md-3 col-sm-3 col-xs-3">1인당 지원 예산</label>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="number" class="form-control" id="budgetByPerson" name="budgetByPerson"
+                                       placeholder="1인 최대 지원금액을 입력하세요(단위 : 원)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="budgetTotalAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <input type="number" class="form-control" id="budgetTotalAmount" name="budgetTotalAmount"
+                                       placeholder="예산 금액을 입력하세요(단위 : 1억 원)">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
 
-              </form>
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <button id="resetBtn1" type="button" class="btn btn-primary">초기화</button>
+                                <button id="addBudgetTotalBtn" type="button" class="btn btn-success" disabled="disabled">등록</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-          </div>
           
           <div class="x_panel">
             <div class="x_title">
@@ -181,36 +253,45 @@
               
               <div class="clearfix"></div>
             </div>
-            <div class="x_content" >
-              <form id="addBugetRegionForm" class="form-horizontal form-label-left">
+              <div class="x_content" >
+                  <form id="addBudgetRegionForm" th:action="@{/admin/budget/budgetInfoRegion}"
+                        class="form-horizontal form-label-left" method="post">
 
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
+                  <label for="applyYearRegion" class="control-label col-md-3 col-sm-3 col-xs-3">연도</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputYear" type="number" class="form-control" placeholder="연도를 입력하세요 예)2023">
+                    <input name="applyYearRegion" id="applyYearRegion" type="number"
+                           class="form-control" placeholder="연도를 입력하세요 예)2023">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">지역</label>
+                  <label for="regionCode" class="control-label col-md-3 col-sm-3 col-xs-3">지역</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                  	<select id="inputRegion" class="form-control">
+                  	<select id="regionCode" name="regionCode" class="form-control">
                   		<option value="">=====지역을 선택하세요=====</option>
-                  		<option value="11">서울특별시</option>
-                  		<option value="21">부산광역시</option>
-                  		<option value="24">광주광역시</option>
-                  	</select>  
+                        <th:block th:unless="${regionList == null}" th:each="l : ${regionList}">
+                          <option th:value="${l.regionCode}" th:text="${l.regionName}"></option>
+                        </th:block>
+                  	</select>
+
+                  </div>
+                </div>
+
+                <button id="checkbtn" type="button" class="btn btn-primary">중복체크</button>
+                <p id="isDuplicateRegion"></p>
+
+                <div class="form-group row">
+                  <label for="budgetRegionAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <input name="budgetRegionAmount" id="budgetRegionAmount"
+                           type="number" class="form-control" placeholder="지역 예산을 입력하세요(단위 : 원)">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
+                  <label for="munhwaRegionNOP" class="control-label col-md-3 col-sm-3 col-xs-3">지원 대상 인원</label>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputBudget" type="number" class="form-control" placeholder="지역 예산을 입력하세요(단위 : 1억 원)">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">지원 대상 인원</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputNOP" type="number" class="form-control" placeholder="해당 지역의 발급 대상 인원 수를 입력하세요">
+                    <input id="munhwaRegionNOP" name="munhwaRegionNOP" type="number"
+                           class="form-control" placeholder="해당 지역의 발급 대상 인원 수를 입력하세요">
                   </div>
                 </div>
 
@@ -219,12 +300,13 @@
                 <div class="form-group row">
                   <div class="col-md-9 offset-md-3">
                     <button id="resetBtn2" type="button" class="btn btn-primary">초기화</button>
-                    <button type="button" class="btn btn-success">등록</button>
+                    <button id="addBudgetRegionBtn" type="button" class="btn btn-success">등록</button>
                   </div>
                 </div>
 
               </form>
             </div>
+
           </div>
 		</div>	
 	</th:block>

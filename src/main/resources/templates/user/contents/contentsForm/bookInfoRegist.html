@@ -1,0 +1,219 @@
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Album example for Bootstrap</title>
+
+    <link rel="canonical" th:href="@{https://getbootstrap.com/docs/4.0/examples/album/}">
+
+    <!--         Bootstrap core CSS -->
+    <!--        <link th:href="@{https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css}" rel="stylesheet">-->
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{https://getbootstrap.com/docs/4.0/examples/album/album.css}" rel="stylesheet">
+    
+    <style>
+
+    </style>
+</head>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!--====== PRELOADER PART START ======-->
+<th:block layout:fragment="customContents">
+    <section class="dashboard-area pb-110" style="margin-top: 150px;">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-9 col-lg-8 d-flex justify-content-center">
+                    <div class="post-ad-wrapper box-style" style="width: 700px;">
+                        <div class="d-flex justify-content-center">
+                            <div class="title">
+                                <h3>책 컨텐츠 등록</h3>
+                            </div>
+                        </div>
+
+                        <div class="post-ad-form-wrapper">
+
+                            <form id="addContentsForm" th:action="@{/user/contents/bookInfoRegist}" method="post">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-7">
+                                        <div class="right-wrapper pt-50 ">
+                                            <th:block th:if="${#lists.size(storeInfoList) == 1}">
+                                                <input type="hidden" th:value="${storeInfoList.get(0).storeId}" id="storeId" name="storeId"/>
+                                            </th:block>
+                                            <th:block th:unless="${#lists.size(storeInfoList) <= 1}">
+                                                <div class="single-form mb-15">
+                                                    <label for="storeIds" class="mb-1">가맹점명</label>
+                                                    <select name="storeIds" id="storeIds" class="px-3 py-2 border rounded w-100">
+                                                        <option th:each="sil: ${storeInfoList}" th:text="${sil.storeName}" th:value="${sil.storeId}"></option>
+                                                    </select>
+                                                </div>
+                                            </th:block>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsName" class="mb-1">책제목</label>
+                                                <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsPrice" class="mb-1">책 가격</label>
+                                                <input type="number" id="contentsPrice" name="contentsPrice" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsSellStartDate" class="mb-1">판매 시작 일자</label>
+                                                <input type="date" id="contentsSellStartDate" name="contentsSellStartDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsSellEndDate" class="mb-1">판매 종료 일자</label>
+                                                <input type="date" id="contentsSellEndDate" name="contentsSellEndDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+
+                                            <div class="single-form mb-40">
+                                                <label for="sellEndNotApplicable">종료일자 해당없음</label>
+                                                <input type="checkbox" id="sellEndNotApplicable" name="sellEndNotApplicable" class="w-auto"/>
+                                            </div>
+
+                                            <div class="single-form mb-15">
+                                                <label for="amountContentRegistered" class="mb-1">재고</label>
+                                                <input type="number" id="amountContentRegistered" name="amountContentRegistered" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsCategoryCode" class="mb-1">카테고리</label>
+                                                <select name="contentsCategoryCode" id="contentsCategoryCode" class="px-3 py-2 border rounded w-100">
+                                                    <option value="none">카테고리를 선택하세요</option>
+                                                    <option value="A0401">총류</option>
+                                                    <option value="A0402">철학</option>
+                                                    <option value="A0403">종교</option>
+                                                    <option value="A0404">사회과학</option>
+                                                    <option value="A0405">자연과학</option>
+                                                    <option value="A0406">기술과학</option>
+                                                    <option value="A0407">예술</option>
+                                                    <option value="A0408">언어</option>
+                                                    <option value="A0409">문학</option>
+                                                    <option value="A0410">역사</option>
+                                                </select>
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <div class="mb-1">컨텐츠 파일</div>
+                                                <div class="upload-input">
+                                                    <input type="file" id="contentsUpload" name="contentsUpload">
+                                                    <label for="contentsUpload" class="text-center content">
+														<span class="text">
+															<span class="d-block mb-15">컨텐츠 파일 업로드</span>
+															<span class="d-block mb-15">Or</span>
+															<span class="main-btn btn-hover">파일을 선택하세요</span>
+															<span class="d-block">파일 최대 사이즈 10MB</span>
+														</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="single-form mb-40">
+                                                <label for="fileNotApplicable">파일 선택안함</label>
+                                                <input type="checkbox" id="fileNotApplicable" name="fileNotApplicable" class="w-auto">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsDetail" class="mb-1">컨텐츠 내용</label>
+                                                <textarea name="contentsDetail" id="contentsDetail" rows="7" placeholder="컨텐츠 내용을 입력하세요." class="px-3 py-2 mb-0 border rounded"></textarea>
+                                            </div>
+<!--                                            <div class="single-form mb-15">-->
+<!--                                                <label for="cast" class="mb-1">출연진</label>-->
+<!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+<!--                                            </div>-->
+                                            <!--                                                <div class="single-form mb-15">-->
+                                            <!--                                                    <label for="email" class="mb-1">Email</label>-->
+                                            <!--                                                    <input type="text" id="email" name="email" placeholder="Email" class="px-3 py-2 mb-0 border rounded">-->
+                                            <!--                                                </div>-->
+                                            <div  class="d-flex justify-content-center" style="margin-top: 30px">
+                                                <button id="addContentsBtn" class="main-btn btn-hover" type="button">등록</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <th:block layout:fragment="customJsCode">
+        <script th:src="@{/js/jquery-3.7.1.js}"></script>
+        <script>
+            $(function () {
+                function validationCheck(data) {
+                    let isValid = true;
+                    if (typeof data == "object") {
+                        $.each(data, function () {
+                            let checkValue = $(this).val();
+                            if (checkValue == null || checkValue == '' || typeof checkValue == 'undefined' || checkValue == 'none') {
+                                isValid = false;
+                                let eleId = $(this).attr('id');
+                                let cate = $(`label[for="${eleId}"]`).text();
+
+                                if(eleId == 'contentsUpload') {
+                                    cate = $(this).closest('div').closest('div').prev().text();
+                                }
+
+                                alert(`${cate}을(를) 입력하세요.`);
+
+                                $(this).focus();
+
+                                return isValid;
+                            }
+                            return isValid;
+                        });
+                    } else {
+                        if (data == null || data == '' || typeof data == 'undefined' || checkValue == 'none') {
+                            isValid = false;
+                        }
+                    }
+                    return isValid;
+                }
+                $('#sellEndNotApplicable').click(function () {
+                    let sellEndDateInput = $('#contentsSellEndDate');
+                    let endDateInputDiv = sellEndDateInput.closest('div');
+                    sellEndDateInput.val('');
+                    endDateInputDiv.toggle('fast');
+                })
+                $('#fileNotApplicable').click(function () {
+                    let fileInput = $('#contentsUpload');
+                    // fileInput.closet('div').closet('div')는 상위요소의 상위요소가 반환 안됨
+                    let fileInputDiv = fileInput.parent().parent();
+
+                    fileInput.val(null);
+                    fileInputDiv.toggle('fast');
+                })
+
+                $('#addContentsBtn').click(function () {
+
+                    console.log($('#storeId').val());
+
+                    let formEles = $('#addContentsForm input, #addContentsForm select').
+                    not('#sellEndNotApplicable').
+                    not('#fileNotApplicable').
+                    not('#storeId').
+                    not('#storeIds');
+
+                    if($('#sellEndNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsSellEndDate');
+                    }
+                    if($('#fileNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsUpload')
+                    }
+
+                    let isValid = validationCheck(formEles);
+
+                    console.log('isValid: ', isValid);
+
+                    if (isValid) $('#addContentsForm').submit();
+                })
+            })
+        </script>
+    </th:block>
+</th:block>
+<!--====== CATEGORY PART END ======-->
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/admin/layout/default}">
+
+<head>
+	<!-- bootstrap-wysiwyg -->
+	<link th:href="@{/admin/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- starrr -->
+	<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+</head>
+
+<th:block layout:fragment="customJsFile">
+	<!-- bootstrap-wysiwyg -->
+	<script th:src="@{/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js}"></script>
+	<script th:src="@{/admin/vendors/jquery.hotkeys/jquery.hotkeys.js}"></script>
+	<script th:src="@{/admin/vendors/google-code-prettify/src/prettify.js}"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+</th:block>
+
+<th:block layout:fragment="customJsCode">
+<!--	<script th:src="@{/js/jquery-3.7.1.js}"></script>-->
+
+	<script>
+		jQuery(document).ready(function(){
+			$('#boardWritingContents').summernote({
+				placeholder: '내용을 입력하세요',
+				lang: 'ko-KR',
+				tabsize: 2,
+				height: 300
+
+			});
+
+		});
+
+
+			//유효성 검사
+			$(document).on('click','#boardContentRegistBtn',function(){
+				const value = $('#boardWritingContents').summernote('code');
+				let titleValue = $('#boardWritingTitle').val();
+				let selectValue = $('#boardCateCode').val();
+
+				console.log(selectValue);
+				console.log(titleValue);
+				console.log(value);
+
+				if(selectValue == null || selectValue == '' || typeof selectValue == 'undefined') {
+					alert('분류를 선택하세요');
+				}else if(titleValue == null || titleValue == '' || typeof titleValue == 'undefined'){
+					alert('제목을 입력하세요');
+				}else if($('#boardWritingContents').summernote('isEmpty')) {
+					alert('내용을 입력하세요');
+				}else{
+					$('#boardContentRegist').submit();
+				}
+			})
+
+	</script>
+</th:block>
+
+<body id="page-top">
+
+<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+<th:block layout:fragment="customContents">
+	<form id="boardContentRegist" th:action="@{/admin/board/boardCateInfo}" method="post">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>게시판 카테고리 선택</h2>
+					<a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="x_content">
+					<br />
+
+					<div class="form-group">
+						<label class="control-label col-md-6 col-sm-6 col-xs-12"> 사용자 아이디 </label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" id="userId" name="userId" class="form-control col-md-7 col-xs-12">
+						</div>
+					</div><br/><br/>
+
+					<div class="form-group">
+						<label class="control-label col-md-6 col-sm-6 col-xs-12"> 컨텐츠 카테고리 </label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<select id="boardCateCode" name="boardCateCode" class="form-control">
+								<option value="">=====분류를 선택하세요=====</option>
+								<th:block th:unless="${boardCategoryList == null}" th:each="l : ${boardCategoryList}">
+									<option th:value="${l.getBoardCateCode}" th:text="${l.getBoardCateName}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+
+					<h1><input type="text" id='boardWritingTitle' class="boardWritingTitle" name="boardWritingTitle" style="border:none" placeholder="제목을 입력하세요"/></h1>
+
+
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<div id="alerts"></div>
+
+
+					<textarea id="boardWritingContents" name="boardWritingContents" ></textarea>
+
+<!--					<textarea id="boardWritingContents" name="boardWritingContents" style="display:none;"></textarea>-->
+
+
+
+					<br/>
+					<div class="form-group">
+						<div class="col-md-6 col-sm-6 col-xs-12" >
+							<button type="button" class="btn btn-primary">취소</button>
+							<button type="button" class="btn btn-success" id="boardContentRegistBtn">등록</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</th:block>
+
+</body>
+
+</html>

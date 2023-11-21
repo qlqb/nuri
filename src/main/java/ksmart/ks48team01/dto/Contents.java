@@ -4,21 +4,22 @@ public class Contents {
 
     private String contentsId;
     private String contentsCategoryCode;
-    private byte regionCode;
+    private byte regionCode = 0;
     private String storeId;
     private String contentsCategoryName;
     private String contentsName;
-    private String contentsAddress;
-    private String contentsSellDuration;
-    private String contentsPg;
+    private String contentsAddress = "alreadyInputOnJoin";
+    private String contentsDuration = "0";
+    private String contentsPg = "0";
     private int contentsPrice;
-    private String contentsStartDate;
-    private String contentsEndDate;
+    private String contentsReleaseDT = "1000-01-01 00:00:00";
     private String contentsRegDate;
-    private String contentsSellStartDate;
-    private String contentsSellEndDate;
+    private String contentsSellStartDate = "1000-01-01";
+    private String contentsSellEndDate = "9999-12-31";
     private int amountContentRegistered;
     private int amountContentRemaining;
+    private String contentsDetail;
+    private Store storeInfo;
 
     public String getContentsId() {
         return contentsId;
@@ -76,12 +77,12 @@ public class Contents {
         this.contentsAddress = contentsAddress;
     }
 
-    public String getContentsSellDuration() {
-        return contentsSellDuration;
+    public String getContentsDuration() {
+        return contentsDuration;
     }
 
-    public void setContentsSellDuration(String contentsSellDuration) {
-        this.contentsSellDuration = contentsSellDuration;
+    public void setContentsDuration(String contentsDuration) {
+        this.contentsDuration = contentsDuration;
     }
 
     public String getContentsPg() {
@@ -100,20 +101,12 @@ public class Contents {
         this.contentsPrice = contentsPrice;
     }
 
-    public String getContentsStartDate() {
-        return contentsStartDate;
+    public String getContentsReleaseDT() {
+        return contentsReleaseDT;
     }
 
-    public void setContentsStartDate(String contentsStartDate) {
-        this.contentsStartDate = contentsStartDate;
-    }
-
-    public String getContentsEndDate() {
-        return contentsEndDate;
-    }
-
-    public void setContentsEndDate(String contentsEndDate) {
-        this.contentsEndDate = contentsEndDate;
+    public void setContentsReleaseDT(String contentsReleaseDT) {
+        this.contentsReleaseDT = contentsReleaseDT;
     }
 
     public String getContentsRegDate() {
@@ -154,5 +147,46 @@ public class Contents {
 
     public void setAmountContentRemaining(int amountContentRemaining) {
         this.amountContentRemaining = amountContentRemaining;
+    }
+
+    public String getContentsDetail() {
+        return contentsDetail;
+    }
+
+    public void setContentsDetail(String contentsDetail) {
+        this.contentsDetail = contentsDetail;
+    }
+
+    public Store getStoreInfo() {
+        return storeInfo;
+    }
+
+    public void setStoreInfo(Store storeInfo) {
+        this.storeInfo = storeInfo;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Contents{");
+        sb.append("contentsId='").append(contentsId).append('\'');
+        sb.append(", contentsCategoryCode='").append(contentsCategoryCode).append('\'');
+        sb.append(", regionCode=").append(regionCode);
+        sb.append(", storeId='").append(storeId).append('\'');
+        sb.append(", contentsCategoryName='").append(contentsCategoryName).append('\'');
+        sb.append(", contentsName='").append(contentsName).append('\'');
+        sb.append(", contentsAddress='").append(contentsAddress).append('\'');
+        sb.append(", contentsDuration='").append(contentsDuration).append('\'');
+        sb.append(", contentsPg='").append(contentsPg).append('\'');
+        sb.append(", contentsPrice=").append(contentsPrice);
+        sb.append(", contentsReleaseDT='").append(contentsReleaseDT).append('\'');
+        sb.append(", contentsRegDate='").append(contentsRegDate).append('\'');
+        sb.append(", contentsSellStartDate='").append(contentsSellStartDate).append('\'');
+        sb.append(", contentsSellEndDate='").append(contentsSellEndDate).append('\'');
+        sb.append(", amountContentRegistered=").append(amountContentRegistered);
+        sb.append(", amountContentRemaining=").append(amountContentRemaining);
+        sb.append(", contentsDetail='").append(contentsDetail).append('\'');
+        sb.append(", storeInfo=").append(storeInfo);
+        sb.append('}');
+        return sb.toString();
     }
 }

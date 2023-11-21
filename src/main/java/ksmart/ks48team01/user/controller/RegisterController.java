@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import ksmart.ks48team01.dto.District;
+import ksmart.ks48team01.dto.MunhwaCard;
 import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.dto.User;
 import ksmart.ks48team01.service.AreaService;
@@ -51,20 +52,20 @@ public class RegisterController {
 
     @ResponseBody
     @PostMapping("/userIdCheck")
-    public String getUserIdCheck(@RequestBody Map<String, String> userCheckMap) {
-        String userId = userCheckMap.get("userId");
+    public String getUserIdCheck(@RequestBody Map<String, String> userIdCheckMap) {
+        Gson gson = new Gson();
+        String userId = userIdCheckMap.get("checkId");
         System.out.println(userId);
-        Boolean checkedValue = userService.getUserIdCheck(userId);
-        Map<String, Object> checkedMap = new HashMap<>();
-        if(checkedValue) {
-            checkedMap.put("checkedValue", checkedValue);
-            checkedMap.put("message", "이미 가입된 아이디입니다.");
+        Boolean checkedValue = userService.userIdCheck(userId);
+        Map<String, Boolean> checkedMap = new HashMap<>();
+        if(checkedValue == false) {
+            checkedMap.put("checkedValue", true);
         } else {
-            checkedMap.put("checkedValue", checkedValue);
-            checkedMap.put("message", "가입할 수 있는 아이디입니다.");
+            checkedMap.put("checkedValue", false);
         }
+        System.out.println(checkedMap);
 
-        return checkedMap.toString();
+        return gson.toJson(checkedMap);
     }
 
 
@@ -80,12 +81,15 @@ public class RegisterController {
         return "user/register/memberRegister";
     }
 
+
+    // JavaScript에서 비동기처리로, user를 insert를 먼저 해야 제약조건에 위배가 되지 않는다.
+    @ResponseBody
     @PostMapping("/memberRegister")
-    public String memberRegister(User user) {
+    public void memberRegister(User user) {
         userService.memberRegister(user);
 
-        return "redirect:/user/register/registerConfirm";
     }
+
 
     // Nuriculture 웹 애플리케이션에서 상품을 판매, 게시하는 가맹점(store) 권한의 가입 Form
     @GetMapping("/storeRegister")

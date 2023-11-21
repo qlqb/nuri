@@ -1,6 +1,7 @@
 package ksmart.ks48team01.user.controller;
 
 import com.sun.source.tree.MemberSelectTree;
+import ksmart.ks48team01.dto.Contents;
 import ksmart.ks48team01.dto.ContentsCategory;
 import ksmart.ks48team01.dto.Region;
 import ksmart.ks48team01.dto.StoreCategory;
@@ -11,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.RedirectViewControllerRegistration;
 
 import javax.management.modelmbean.RequiredModelMBean;
@@ -53,49 +51,89 @@ public class ContentsController {
 		model.addAttribute("title", "컨텐츠 등록");
 		return "user/contents/contentsInfoRegist";
 	}
+
+	@GetMapping(value = {"/bookInfoRegist"})
+	public String bookRegPage(Model model){
+		model.addAttribute("title", "책 컨텐츠 등록");
+		return "/user/contents/contentsForm/bookInfoRegist";
+	}
+
+	@PostMapping(value = {"/bookInfoRegist"})
+	public String bookRegPage(Contents contents) {
+
+		contentsService.addBookContents(contents);
+		return "redirect:/user/contents/contentsForm/bookInfoRegist";
+	}
+
 	
 	//컨텐츠 상세설명 -> view에서 클릭하면 들어가는 경로로
 	@GetMapping(value={"/contentsDetail"})
-	public String contentsDetail(Model model) {
-		
-		model.addAttribute("title", "컨텐츠 상세설명");
-		
+	public String contentsDetail(Model model,
+								 @RequestParam(name="contentsId") String contentsId) {
+		Map<String, Object> contentsDetailInfo = contentsService.getContentsDetailInfo(contentsId);
+
+		log.info("contentsDetailInfo: {}", contentsDetailInfo);
+		model.addAttribute("title", "컨텐츠 상세설명 페이지");
+		model.addAttribute("contentsDetailInfo", contentsDetailInfo);
+
 		return "user/contents/contentsDetail";
 	}
-	
+
+
 	//컨텐츠 전체 목록 조회
 		@GetMapping("/contentsInfoList")
 		public String contentsListPage(Model model,
 									   @RequestParam(name="currentPage", required=false, defaultValue = "1") int currentPage,
-									   @RequestParam(name="tabValue", defaultValue = "all") String tabValue) {
+									   @RequestParam(name="tabValue", defaultValue = "all") String tabValue,
+									   @RequestParam(name="performanceGenre", defaultValue = "allGenre") String performanceGenre,
+									   @RequestParam(name="area", defaultValue = "allArea") String area,
+									   @RequestParam(name="startDate", defaultValue = "allDate") String startDate,
+									   @RequestParam(name="endDate", defaultValue = "allDate") String endDate,
+									   @RequestParam(name="searchValue", defaultValue = "searchAll") String searchValue) {
 
 			log.info("tabValue: {}", tabValue);
+			log.info("performanceGenre: {}", performanceGenre);
+			log.info("area: {}", area);
+			log.info("startDate: {}", startDate);
+			log.info("endDate: {}", endDate);
+			log.info("searchValue: {}", searchValue);
 
 			List<StoreCategory> storeCategory = contentsService.getStoreCategory();
 
 			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
 
-			Map<String, Object> resultMap = contentsService.getContentsInfoListByTabValue(currentPage, tabValue);
+			Map<String, Object> resultMap = null;
 
-			List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
+			if(performanceGenre.equals("allGenre")) {
+				resultMap = contentsService.getContentsInfoListByTabValue(currentPage, tabValue);
+				List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
+				model.addAttribute("contentsInfoList", contentsInfoList);
+			} else {
+				resultMap = contentsService.getContentsInfoListByTabValueAndSearch(currentPage, tabValue, performanceGenre, area, startDate, endDate, searchValue);
+				List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
+				model.addAttribute("contentsInfoList", contentsInfoList);
+			}
 
 			int lastPage = (int) resultMap.get("lastPage");
 			int startPageNum = (int) resultMap.get("startPageNum");
 			int endPageNum = (int) resultMap.get("endPageNum");
 			int contentsCnt = ((Double) resultMap.get("contentsCnt")).intValue();
 
+			model.addAttribute("contentsCnt", contentsCnt);
+
 			model.addAttribute("storeCategory", storeCategory);
 
 			model.addAttribute("contentsCategory", contentsCategory);
 
 			model.addAttribute("title", "컨텐츠 조회");
+			model.addAttribute("tabValue", tabValue);
 			model.addAttribute("currentPage", currentPage);
+
 			model.addAttribute("lastPage", lastPage);
 			model.addAttribute("startPageNum", startPageNum);
 			model.addAttribute("endPageNum", endPageNum);
-			model.addAttribute("contentsInfoList", contentsInfoList);
-			model.addAttribute("contentsCnt", contentsCnt);
-			model.addAttribute("tabValue", tabValue);
+
+			model.addAttribute("performanceGenre", performanceGenre);
 
 			return "user/contents/contentsInfoList";
 		}

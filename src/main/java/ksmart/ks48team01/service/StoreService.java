@@ -4,6 +4,8 @@ import ksmart.ks48team01.dto.Store;
 import ksmart.ks48team01.mapper.StoreMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -71,7 +73,5 @@ public class StoreService {
 
         return keywordList;
     }
-
-
 
 }

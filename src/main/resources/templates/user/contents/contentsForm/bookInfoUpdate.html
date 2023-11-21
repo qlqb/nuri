@@ -1,0 +1,200 @@
+<!doctype html>
+<html class="no-js" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Album example for Bootstrap</title>
+
+    <link rel="canonical" th:href="@{https://getbootstrap.com/docs/4.0/examples/album/}">
+
+    <!--         Bootstrap core CSS -->
+    <!--        <link th:href="@{https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css}" rel="stylesheet">-->
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{https://getbootstrap.com/docs/4.0/examples/album/album.css}" rel="stylesheet">
+</head>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!--====== PRELOADER PART START ======-->
+<th:block layout:fragment="customContents">
+    <section class="dashboard-area pb-110" style="margin-top: 150px;">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-9 col-lg-8 d-flex justify-content-center">
+                    <div class="post-ad-wrapper box-style" style="width: 700px;">
+                        <div class="d-flex justify-content-center">
+                            <div class="title">
+                                <h3>책 컨텐츠 수정</h3>
+                            </div>
+                        </div>
+
+                        <div class="post-ad-form-wrapper">
+
+                            <form th:action="@{/user/contents/bookInfoUpdate}" method="post" th:object="${contentsInfo}" id="modifyContentsForm">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-7">
+                                        <div class="right-wrapper pt-50 ">
+
+                                            <div class="single-form mb-15">
+                                                <label for="contentsName" class="mb-1">책제목</label>
+                                                <input type="text" id="contentsName" name="contentsName" th:value="*{contentsName}" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsPrice" class="mb-1">책 가격</label>
+                                                <input type="number" id="contentsPrice" name="contentsPrice" th:value="*{contentsPrice}" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsSellStartDate" class="mb-1">판매 시작 일자</label>
+                                                <input type="date" id="contentsSellStartDate" name="contentsSellStartDate" th:value="*{contentsSellStartDate}" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsSellEndDate" class="mb-1">판매 종료 일자</label>
+                                                <input type="date" id="contentsSellEndDate" name="contentsSellEndDate" th:value="*{contentsSellEndDate}" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-40">
+                                                <label for="sellEndNotApplicable">종료일자 해당없음</label>
+                                                <input type="checkbox" id="sellEndNotApplicable" name="sellEndNotApplicable" class="w-auto"/>
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="amountContentRegistered" class="mb-1">재고</label>
+                                                <input type="number" id="amountContentRegistered" name="amountContentRegistered" th:value="*{amountContentRemaining}" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsCategoryCode" class="mb-1">카테고리</label>
+                                                <select name="contentsCategoryCode" id="contentsCategoryCode" class="px-3 py-2 border rounded w-100">
+                                                    <option value="none">카테고리를 선택하세요</option>
+                                                    <option value="A0401">총류</option>
+                                                    <option value="A0402">철학</option>
+                                                    <option value="A0403">종교</option>
+                                                    <option value="A0404">사회과학</option>
+                                                    <option value="A0405">자연과학</option>
+                                                    <option value="A0406">기술과학</option>
+                                                    <option value="A0407">예술</option>
+                                                    <option value="A0408">언어</option>
+                                                    <option value="A0409">문학</option>
+                                                    <option value="A0410">역사</option>
+                                                </select>
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <div class="mb-1">컨텐츠 파일</div>
+                                                <div class="upload-input">
+                                                    <input type="file" id="contentsUpload" name="contentsUpload">
+                                                    <label for="contentsUpload" class="text-center content">
+														<span class="text">
+															<span class="d-block mb-15">컨텐츠 파일 업로드</span>
+															<span class="d-block mb-15">Or</span>
+															<span class="main-btn btn-hover">파일을 선택하세요</span>
+															<span class="d-block">파일 최대 사이즈 10MB</span>
+														</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="single-form mb-40">
+                                                <label for="fileNotApplicable">파일 선택안함</label>
+                                                <input type="checkbox" id="fileNotApplicable"
+                                                       name="fileNotApplicable" class="w-auto">
+                                            </div>
+                                            <div class="single-form mb-15">
+                                                <label for="contentsDetail" class="mb-1">컨텐츠 내용</label>
+                                                <textarea name="contentsDetail" id="contentsDetail" rows="7"
+                                                          placeholder="컨텐츠 내용을 입력하세요."
+                                                          class="px-3 py-2 mb-0 border rounded"
+                                                          th:value="*{contentsDetail}">
+
+                                                </textarea>
+                                            </div>
+                                            <!--                                            <div class="single-form mb-15">-->
+                                            <!--                                                <label for="cast" class="mb-1">출연진</label>-->
+                                            <!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+                                            <!--                                            </div>-->
+                                            <!--                                                <div class="single-form mb-15">-->
+                                            <!--                                                    <label for="email" class="mb-1">Email</label>-->
+                                            <!--                                                    <input type="text" id="email" name="email" placeholder="Email" class="px-3 py-2 mb-0 border rounded">-->
+                                            <!--                                                </div>-->
+                                            <div class="d-flex justify-content-center" style="margin-top: 30px">
+                                                <button id="modifyContents" class="main-btn btn-hover">수정</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <th:block th:fragment="customJsCode">
+        <script th:src="@{/user/assets/js/jquery-3.7.1.min.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            $(function() {
+                let sellEndDateInput = $('#contentsSellEndDate');
+                let sellEndNone = $('#sellEndNotApplicable');
+                let contentsCategoryCode = /*[[${contentsInfo.contentsCategoryCode}]]*/;
+                let endDateInputDiv = sellEndDateInput.closest('div');
+                if(sellEndDateInput.val() == "9999-12-31") {
+                    sellEndNone.prop('checked', true);
+                    sellEndDateInput.val('');
+                }
+                if(sellEndNone.prop('checked')) {
+                    endDateInputDiv.toggle('fast');
+                }
+                sellEndNone.change(function () {
+                    if(sellEndDateInput.val()) {
+                        sellEndDateInput.val('');
+                    }
+                    endDateInputDiv.toggle('fast');
+                })
+                $('#contentsCategoryCode option').each(function (idx, ele) {
+                    let optionValue = $(ele).val()
+                    if(optionValue == contentsCategoryCode) {
+                        $(ele).prop('selected', true);
+                    }
+                })
+                let fileInput = $('#contentsUpload');
+                let fileNotApplicable = $('#fileNotApplicable');
+                let fileInputDiv = fileInput.parent().parent();
+
+                fileNotApplicable.change(function () {
+                    console.log('fileInputDiv', fileInputDiv);
+                    fileInputDiv.toggle('fast');
+                })
+
+                $('#modifyContents').click(function () {
+
+                    console.log($('#storeId').val());
+
+                    let formEles = $('#modifyContentsForm input, #modifyContentsForm select').
+                    not('#sellEndNotApplicable').
+                    not('#fileNotApplicable').
+                    not('#storeId').
+                    not('#storeIds');
+
+                    //선택하지 않음 체크 하면 유효성 검사하지 않음
+                    if($('#sellEndNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsSellEndDate');
+                    }
+                    if($('#fileNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsUpload')
+                    }
+
+                    let isValid = validationCheck(formEles);
+
+                    console.log('isValid: ', isValid);
+
+                    if (isValid) $('#modifyContentsForm').submit();
+                })
+            })
+            /*]]>*/
+        </script>
+    </th:block>
+</th:block>
+<!--====== CATEGORY PART END ======-->
+</html>
