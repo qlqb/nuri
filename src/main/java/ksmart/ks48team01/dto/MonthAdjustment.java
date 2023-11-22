@@ -5,9 +5,13 @@ public class MonthAdjustment {
 
     private String monthAdjustmentNum;
     private String storeId;
+    private String storeName;
     private String storeCategoryCode;
+    private String storeCategoryName;
     private int regionCode;
+    private String regionName;
     private int districtCode;
+    private String districtName;
     private long monthTotalSales;
     private String monthClosingCode;
     private String adjustmentMonth;
@@ -30,12 +34,28 @@ public class MonthAdjustment {
         this.storeId = storeId;
     }
 
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     public String getStoreCategoryCode() {
         return storeCategoryCode;
     }
 
     public void setStoreCategoryCode(String storeCategoryCode) {
         this.storeCategoryCode = storeCategoryCode;
+    }
+
+    public String getStoreCategoryName() {
+        return storeCategoryName;
+    }
+
+    public void setStoreCategoryName(String storeCategoryName) {
+        this.storeCategoryName = storeCategoryName;
     }
 
     public int getRegionCode() {
@@ -46,12 +66,28 @@ public class MonthAdjustment {
         this.regionCode = regionCode;
     }
 
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
     public int getDistrictCode() {
         return districtCode;
     }
 
     public void setDistrictCode(int districtCode) {
         this.districtCode = districtCode;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
     }
 
     public long getMonthTotalSales() {
@@ -99,9 +135,13 @@ public class MonthAdjustment {
         return "MonthAdjustment{" +
                 "monthAdjustmentNum='" + monthAdjustmentNum + '\'' +
                 ", storeId='" + storeId + '\'' +
+                ", storeName='" + storeName + '\'' +
                 ", storeCategoryCode='" + storeCategoryCode + '\'' +
+                ", storeCategoryName='" + storeCategoryName + '\'' +
                 ", regionCode=" + regionCode +
+                ", regionName='" + regionName + '\'' +
                 ", districtCode=" + districtCode +
+                ", districtName='" + districtName + '\'' +
                 ", monthTotalSales=" + monthTotalSales +
                 ", monthClosingCode='" + monthClosingCode + '\'' +
                 ", adjustmentMonth='" + adjustmentMonth + '\'' +
