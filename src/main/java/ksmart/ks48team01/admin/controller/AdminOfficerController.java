@@ -57,6 +57,14 @@ public class AdminOfficerController {
         return gson.toJson(officerList);
     }
 
+    @ResponseBody
+    @PostMapping("/officerRegister")
+    public int officerRegister(@RequestBody Officer officer) {
+        int registerResult = officerService.officerRegister(officer);
+
+        return registerResult;
+    }
+
     @GetMapping("/officerInfoUpdate")
     public String officerInfoUpdate(Model model, @RequestParam (name = "officerId") String officerId) {
         Officer officerUpdateList = officerService.getOfficerUpdate(officerId);

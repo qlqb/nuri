@@ -65,4 +65,28 @@
             OI.OFFICER_ID = #{officerId};
     </select>
 
+    <insert id="officerRegister" parameterType="Officer">
+        <selectKey keyProperty="officerId" resultType="String" order="BEFORE">
+            SELECT CONCAT('OFC', DATE_FORMAT(NOW(6), '%y%m%d%i%f'))
+        </selectKey>
+            INSERT INTO OFFICER_INFO
+                (OFFICER_ID,
+                USER_ID,
+                OFFICE_USER_NAME,
+                DISTRICT_DEP_CODE,
+                OFFICER_CERT,
+                WORK_START_DATE,
+                OFFICER_ACCOUNT_STAT,
+                OFFICER_RECENT_LOGIN)
+            VALUES
+                (#{officerId},
+                #{userId},
+                #{officerUserName},
+                #{districtDepCode},
+                #{officerCert},
+                NOW(),
+                '사용중',
+                NOW())
+    </insert>
+
 </mapper>

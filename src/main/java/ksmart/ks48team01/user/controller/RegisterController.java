@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import ksmart.ks48team01.dto.District;
-import ksmart.ks48team01.dto.MunhwaCard;
-import ksmart.ks48team01.dto.Region;
-import ksmart.ks48team01.dto.User;
+import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.service.AreaService;
+import ksmart.ks48team01.service.ContentsService;
+import ksmart.ks48team01.service.OfficerService;
 import ksmart.ks48team01.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +23,14 @@ public class RegisterController {
 
     private final AreaService areaService;
     private final UserService userService;
+    private final ContentsService contentsService;
 
-    public RegisterController (AreaService areaService, UserService userService) {
+    public RegisterController (AreaService areaService,
+                               UserService userService,
+                               ContentsService contentsService) {
         this.areaService = areaService;
         this.userService = userService;
+        this.contentsService = contentsService;
     }
 
     // 가입 할 회원 권한을 선택할 수 있는 페이지
@@ -97,42 +100,56 @@ public class RegisterController {
     @GetMapping("/storeRegister")
     public String storeRegister(Model model) {
         List<Region> regionList = areaService.getRegionList();
+        List<StoreCategory> storeCategoryList = contentsService.getStoreCategory();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
+        model.addAttribute("storeCategoryList", storeCategoryList);
 
         return "user/register/storeRegister";
     }
 
+    // JavaScript에서 비동기처리로, user를 insert를 먼저 해야 제약조건에 위배가 되지 않는다.
+    @ResponseBody
+    @PostMapping("/storeUserRegister")
+    public int storeUserRegister(@RequestBody User user) {
+        int registerResult = userService.storeUserRegister(user);
+        System.out.println(registerResult);
 
-    @PostMapping("/storeRegister")
-    public String storeRegister() {
-
-        return "redirect:/user/register/registerConfirm";
+        return registerResult;
     }
-
 
     // Nuriculture 웹 애플리케이션을 이용, 관리하는 공무원(officer) 권한의 가입 Form
     @GetMapping("/officerRegister")
     public String officerRegister(Model model) {
         List<Region> regionList = areaService.getRegionList();
+        List<DistrictDep> districtDepList = areaService.getDistrictDepList();
 
         model.addAttribute("title", "회원가입 - 누리컬쳐");
         model.addAttribute("regionList", regionList);
+        model.addAttribute("districtDepList", districtDepList);
 
         return "user/register/officerRegister";
     }
 
+    @ResponseBody
+    @PostMapping("/officerUserRegister")
+    public int officerUserRegister(@RequestBody User user) {
+        int registerResult = userService.officerUserRegister(user);
+        System.out.println(registerResult);
 
-    /**
-     *
-     * @param redirectAttributes redirect시, 권한에 따라 회원가입 페이지의 출력을 다르게 함
-     * @return
-     */
-    @PostMapping("/officerRegister")
-    public String officerRegister(RedirectAttributes redirectAttributes) {
+        return registerResult;
+    }
 
-        return "redirect:/user/register/registerConfirm";
+
+
+    @ResponseBody
+    @GetMapping("/departmentList")
+    public String getDepartmentList(@RequestParam(value = "regionCode") String regionCode) {
+        Gson gson = new Gson();
+        List<DistrictDep> departmentList = areaService.departmentListByRegion(regionCode);
+
+        return gson.toJson(departmentList);
     }
 
 

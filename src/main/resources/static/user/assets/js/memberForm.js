@@ -59,5 +59,10 @@ function sendMunhwaCardInfo()  {
                 "lastUsageAmount" : 110000,
             }
         )
-    })
+    }).then((resp) => resp.text())
+        .then(result => {
+            if(result == 1) {
+                window.location.href="/user/register/registerConfirm";
+            }
+        })
 }
