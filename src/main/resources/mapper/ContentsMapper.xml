@@ -208,6 +208,7 @@
     <select id="getContentsDetailInfo" resultType="map" parameterType="String">
         /* 컨텐츠 상세정보 */
         SELECT
+            c.CONTENTS_ID as contentsId,
             c.CONTENTS_NAME AS contentsName,
             c.CONTENTS_RELEASE_DT AS contentsReleaseDT,
             IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_SELL_END_DATE), 0) AS contentsSellDuration,
