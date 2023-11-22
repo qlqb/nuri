@@ -110,6 +110,10 @@ public class UserService {
     }
 
 
+    public void resetMyPw (String userId, String resetPw) {
+        userMapper.resetMyPw(userId, resetPw);
+    }
+
 
     /**
      * 수정을 위해 특정 회원의 정보 조회

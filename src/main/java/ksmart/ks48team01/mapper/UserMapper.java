@@ -24,7 +24,7 @@ public interface UserMapper {
     public int isExistingPw (String userId, String userPw);
 
     // 회원의 비밀번호 초기화
-    public User reserMyPw(String userPw);
+    public void resetMyPw(String userId, String resetPw);
 
     // 관리자 페이지 특정 회원 상세 조회
     public User getSpecificUserList(String userId);
@@ -37,9 +37,14 @@ public interface UserMapper {
     
     // 사용자 등록
     public int memberRegister(User user);
+
+    // 공무원 등록
     public int officerUserRegister(User user);
+
+    // 가맹점 등록
     public int storeUserRegister(User user);
 
+    // 유저 검색
     public List<User> userSearchList(String searchKey, String searchValue);
     
     

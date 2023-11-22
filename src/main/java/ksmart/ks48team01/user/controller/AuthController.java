@@ -105,6 +105,13 @@ public class AuthController {
         return "user/auth/resetMyPw";
     }
 
+    @PostMapping("/resetMyPw")
+    public String resetMyPw(@RequestParam String userId, String resetPw) {
+        userService.resetMyPw(userId, resetPw);
+
+        return "redirect:/user/auth/login";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
 
