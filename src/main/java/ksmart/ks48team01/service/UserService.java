@@ -84,10 +84,32 @@ public class UserService {
      * @return findResult  = userId 반환
      */
     public String findMyId(String userName, String userEmail) {
-        String findResult = userMapper.findMyId(userName, userEmail);
 
-        return findResult;
+        return userMapper.findMyId(userName, userEmail);
     }
+
+    /**
+     * findMyPw 페이지에서 Ajax로 전송된 값으로 회원확인
+     * @param userId 회원의 아이디
+     * @param userContact 회원의 연락처
+     * @return 조회 후 값 반환
+     */
+    public int findMyPw(String userId, String userContact) {
+
+        return userMapper.findMyPw(userId, userContact);
+    }
+
+    /**
+     * 비밀번호 초기화 등록 시에 회원의 비밀번호 중복유무 체크
+     * @param userPw 입력된 회원의 비밀번호
+     * @return 조회 후 중복여부를 int로 반환
+     */
+    public int isExistingPw (String userId ,String userPw) {
+
+        return userMapper.isExistingPw(userId, userPw);
+    }
+
+
 
     /**
      * 수정을 위해 특정 회원의 정보 조회
@@ -95,9 +117,8 @@ public class UserService {
      * @return specificUserList User DTO의 특정 회원 정보
      */
     public User getSpecificUserList(String userId) {
-        User specificUserList = userMapper.getSpecificUserList(userId);
 
-        return specificUserList;
+        return userMapper.getSpecificUserList(userId);
     }
 
     public void updateUserByAdmin(User user) {

@@ -138,6 +138,29 @@
             USER_NAME = #{userName} AND USER_EMAIL = #{userEmail};
     </select>
 
+    <!-- 유저의 아이디와 연락처를 입력받아 조회 후 반환 -->
+    <select id="findMyPw" parameterType="String" resultType="int">
+        SELECT
+            COUNT(USER_ID)
+        FROM
+            USER_INFO
+        WHERE
+            USER_ID = #{userId} AND USER_CONTACT = #{userContact};
+    </select>
+
+    <select id="isExistingPw" parameterType="String" resultType="int">
+        SELECT
+            COUNT(USER_PW)
+        FROM
+            USER_INFO
+        WHERE
+            USER_ID = #{userId} AND USER_PW= #{userPw};
+    </select>
+
+<!--    <update id="reserMyPw" parameterType="User">-->
+<!--        -->
+<!--    </update>-->
+
 
     <!--  관리자 화면에서 특정 회원 상세정보 조회  -->
     <select id="getSpecificUserList" parameterType="String" resultMap="userResultMap">

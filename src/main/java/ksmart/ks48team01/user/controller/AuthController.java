@@ -73,16 +73,30 @@ public class AuthController {
         return resultMap;
     }
 
+    /**
+     * 비밀번호 찾기 페이지 요청
+     * @return 비밀번호 찾기 페이지
+     */
     @GetMapping("/findMyPw")
-    public String findMyPw(Model model) {
+    public String findMyPw() {
 
         return "user/auth/findMyPw";
     }
 
+    @ResponseBody
     @PostMapping("/findMyPw")
-    public String findMyPw() {
+    public int findMyPw(@RequestBody Map<String, String> findRequest) {
+        String userId = findRequest.get("userId");
+        String userContact = findRequest.get("userContact");
+        return userService.findMyPw(userId, userContact);
+    }
 
-        return "redirect:/user/auth/resetMyId";
+    @PostMapping("/resetPage")
+    public String resetPage(@RequestParam(name = "resetUserId") String resetUserId, RedirectAttributes reAttr) {
+
+        reAttr.addFlashAttribute("identifier", resetUserId);
+
+        return "redirect:/user/auth/resetMyPw";
     }
 
     @GetMapping("/resetMyPw")

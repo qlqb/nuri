@@ -1,7 +1,9 @@
 const $userEmail = document.querySelector('#userEmail');
 const $userName = document.querySelector('#userName');
 const $submitBtn = document.querySelector('#submit-btn');
-const $printPlace = document.querySelector('#printPlace')
+const $printPlace = document.querySelector('#printPlace');
+const $emailAlert = document.querySelector('#email-alert');
+const $nameAlert = document.querySelector('#name-alert');
 
 $submitBtn.addEventListener('click', () => {
     if($printPlace.childElementCount > 0) {
@@ -9,6 +11,34 @@ $submitBtn.addEventListener('click', () => {
     }
     findMyId();
 })
+
+$userName.addEventListener('input', () => {
+    if(!nameCheck($userName.value)) {
+        $nameAlert.classList.remove('notice-hide')
+        $nameAlert.classList.add('notice-show')
+    } else {
+        $nameAlert.classList.add('notice-hide')
+    }
+})
+
+function nameCheck (nameParam) {
+    const nameRegexp = /[가-힣]/;
+    return nameRegexp.test(nameParam);
+}
+
+$userEmail.addEventListener('input', () => {
+    if(!emailCheck($userEmail.value)) {
+        $emailAlert.classList.remove('notice-hide')
+        $emailAlert.classList.add('notice-show')
+    } else {
+        $emailAlert.classList.add('notice-hide')
+    }
+})
+
+function emailCheck (emailParam) {
+    const userMailRegexp = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+    return userMailRegexp.test(emailParam);
+}
 
 function findMyId () {
     fetch("/user/auth/findMyId", {

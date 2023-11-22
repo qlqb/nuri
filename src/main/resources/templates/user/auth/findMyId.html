@@ -6,6 +6,19 @@
 <!-- 사용자별 css file 추가 부분 -->
 <head>
 
+    <style>
+        .input-specific {
+            color: #FF6B6B;
+        }
+
+        .notice-show {
+            display: block;
+        }
+
+        .notice-hide {
+            display: none;
+        }
+    </style>
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -50,13 +63,15 @@
                             <div class="col-12">
                                 <div class="single-form mb-20">
                                     <label for="userEmail" class="mb-2">이메일</label>
+                                    <span class="ml-1 input-specific notice-hide" id="email-alert">이메일을 다시 확인해주세요</span>
                                     <input type="text" id="userEmail" name="userEmail" placeholder="이메일을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
                                     <label for="userName" class="mb-2">회원이름</label>
-                                    <input type="text" id="userName" name="userName" placeholder="회원이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                    <span class="ml-1 input-specific notice-hide" id="name-alert">이름을 다시 확인해주세요</span>
+                                    <input type="text" id="userName" name="userName" placeholder="이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-center">
