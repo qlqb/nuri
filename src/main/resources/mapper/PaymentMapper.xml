@@ -37,6 +37,10 @@
         </association>
     </resultMap>
 
+    <!--문화 카드 정보 가져오기-->
+    <!--<select id="getMunhwaCardInfo"-->
+
+
     <!--총구매 가격(아이디별로 작업 해야함)-->
     <select id="getPaymentAmount" resultType="int">
         /*총 구매 금액(아이디 별로 작업 아직 안됨)*/

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.mapper.AdjustmentMapper">
+
+    <resultMap type="DayAdjustment" id="dayAdjResultMap">
+        <id property="dateAdjustmentNum" column="DATE_ADJUSTMENT_NUM"/>
+        <result property="storeId" column="STORE_ID"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="regionName" column="REGION_NAME"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="districtName" column="DISTRICT_NAME"/>
+        <result property="dateTotalSales" column="DATE_TOTAL_SALES"/>
+        <result property="amountDate" column="AMOUNT_DATE"/>
+        <result property="dayClosingCode" column="DAY_CLOSING_CODE"/>
+        <result property="monthClosingCode" column="MONTH_CLOSING_CODE"/>
+        <result property="approvalDate" column="APPROVAL_DATE"/>
+    </resultMap>
+
+    <resultMap type="MonthAdjustment" id="monthAdjResultMap">
+        <id property="monthAdjustmentNum" column="MONTH_ADJUSTMENT_NUM"/>
+        <result property="storeId" column="STORE_ID"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="regionName" column="REGION_NAME"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="districtName" column="DISTRICT_NAME"/>
+        <result property="monthTotalSales" column="MONTH_TOTAL_SALES"/>
+        <result property="monthClosingCode" column="MONTH_CLOSING_CODE"/>
+        <result property="adjustmentMonth" column="ADJUSTMENT_MONTH"/>
+        <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
+        <result property="resistDT" column="RESIST_DATE"/>
+    </resultMap>
+
+    <select id="getDayAdjustmentList" resultMap="dayAdjResultMap">
+        /* 일별 정산 목록 조회 */
+        SELECT
+            adj.DATE_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.DATE_TOTAL_SALES,
+            adj.AMOUNT_DATE,
+            adj.DAY_CLOSING_CODE,
+            adj.MONTH_CLOSING_CODE,
+            adj.APPROVAL_DATE
+        FROM
+            DAY_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+    </select>
+
+    <select id="getDayAdjListByRegion" parameterType="hashmap" resultMap="dayAdjResultMap">
+        /* 일별 정산 목록 검색 - 1)지역별 */
+        SELECT
+            adj.DATE_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.DATE_TOTAL_SALES,
+            adj.AMOUNT_DATE,
+            adj.DAY_CLOSING_CODE,
+            adj.MONTH_CLOSING_CODE,
+            adj.APPROVAL_DATE
+        FROM
+            DAY_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            adj.REGION_CODE = #{regionCode}
+            AND adj.DISTRICT_CODE=#{districtCode}
+            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate};
+    </select>
+
+    <select id="getDayAdjListByCate" parameterType="hashmap" resultMap="dayAdjResultMap">
+        /* 일별 정산 목록 검색 - 2)업종별 */
+        SELECT
+            adj.DATE_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.DATE_TOTAL_SALES,
+            adj.AMOUNT_DATE,
+            adj.DAY_CLOSING_CODE,
+            adj.MONTH_CLOSING_CODE,
+            adj.APPROVAL_DATE
+        FROM
+            DAY_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            adj.STORE_CATEGORY_CODE=#{storeCategoryCode}
+            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate};
+    </select>
+
+    <select id="getDayAdjListByRegionCate" parameterType="hashmap" resultMap="dayAdjResultMap">
+        /* 일별 정산 목록 검색 - 3)지역+업종별 */
+        SELECT
+            adj.DATE_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.DATE_TOTAL_SALES,
+            adj.AMOUNT_DATE,
+            adj.DAY_CLOSING_CODE,
+            adj.MONTH_CLOSING_CODE,
+            adj.APPROVAL_DATE
+        FROM
+            DAY_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            adj.REGION_CODE = #{regionCode}
+            AND adj.DISTRICT_CODE=#{districtCode}
+            AND adj.STORE_CATEGORY_CODE=#{storeCategoryCode}
+            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate};
+    </select>
+
+
+    <select id="getDayAdjListByStoreName" parameterType="hashmap" resultMap="dayAdjResultMap">
+        /* 일별 정산 목록 검색 - 4)가맹점별 */
+        SELECT
+            adj.DATE_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.DATE_TOTAL_SALES,
+            adj.AMOUNT_DATE,
+            adj.DAY_CLOSING_CODE,
+            adj.MONTH_CLOSING_CODE,
+            adj.APPROVAL_DATE
+        FROM
+            DAY_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            s.STORE_NAME = #{storeName};
+    </select>
+
+    <select id="getMonthAdjustmentList" resultMap="monthAdjResultMap">
+        /* 월별 정산 조회 */
+        SELECT
+            adj.MONTH_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.MONTH_TOTAL_SALES,
+            adj.MONTH_CLOSING_CODE,
+            adj.ADJUSTMENT_MONTH,
+            adj.ADJUSTMENT_YEAR,
+            adj.RESIST_DT
+        FROM
+            MONTH_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+    </select>
+
+    <select id="getMonthAdjListByRegion" parameterType="hashmap" resultMap="monthAdjResultMap">
+        /* 월별 정산 목록 검색 - 1)지역별 */
+        SELECT
+            adj.MONTH_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.MONTH_TOTAL_SALES,
+            adj.MONTH_CLOSING_CODE,
+            adj.ADJUSTMENT_MONTH,
+            adj.ADJUSTMENT_YEAR,
+            adj.RESIST_DT
+        FROM
+            MONTH_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            adj.REGION_CODE = #{regionCode} AND adj.DISTRICT_CODE= #{districtCode} AND
+            SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+    </select>
+
+    <select id="getMonthAdjListByCate" parameterType="hashmap" resultMap="monthAdjResultMap">
+        /* 월별 정산 목록 검색 - 2)업종별 */
+        SELECT
+            adj.MONTH_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.MONTH_TOTAL_SALES,
+            adj.MONTH_CLOSING_CODE,
+            adj.ADJUSTMENT_MONTH,
+            adj.ADJUSTMENT_YEAR,
+            adj.RESIST_DT
+        FROM
+            MONTH_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            adj.STORE_CATEGORY_CODE = #{storeCategoryCode} AND
+            SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+    </select>
+
+    <select id="getMonthAdjListByRegionCate" parameterType="hashmap" resultMap="monthAdjResultMap">
+        /* 월별 정산 목록 검색 - 3)지역,업종별 */
+        SELECT
+            adj.MONTH_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.MONTH_TOTAL_SALES,
+            adj.MONTH_CLOSING_CODE,
+            adj.ADJUSTMENT_MONTH,
+            adj.ADJUSTMENT_YEAR,
+            adj.RESIST_DT
+        FROM
+            MONTH_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            adj.REGION_CODE = #{regionCode} AND
+            adj.DISTRICT_CODE=#{districtCode} AND
+            adj.STORE_CATEGORY_CODE=#{storeCategoryCode} AND
+            SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+    </select>
+
+    <select id="getMonthAdjListByStoreName" parameterType="hashmap" resultMap="monthAdjResultMap">
+        /* 월별 정산 목록 검색 - 4)가맹점별 */
+        SELECT
+            adj.MONTH_ADJUSTMENT_NUM,
+            adj.STORE_ID,
+            s.STORE_NAME,
+            adj.STORE_CATEGORY_CODE,
+            sc.STORE_CATEGORY_NAME,
+            adj.REGION_CODE,
+            r.REGION_NAME,
+            adj.DISTRICT_CODE,
+            d.DISTRICT_NAME,
+            adj.MONTH_TOTAL_SALES,
+            adj.MONTH_CLOSING_CODE,
+            adj.ADJUSTMENT_MONTH,
+            adj.ADJUSTMENT_YEAR,
+            adj.RESIST_DT
+        FROM
+            MONTH_ADJUSTMENT AS adj
+            INNER JOIN
+            REGION AS r
+            ON
+            adj.REGION_CODE = r.REGION_CODE
+            INNER JOIN
+            DISTRICT AS d
+            ON
+            adj.DISTRICT_CODE = d.DISTRICT_CODE
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            adj.STORE_ID = s.STORE_ID
+            INNER JOIN
+            STORE_CATEGORY AS sc
+            ON
+            adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        WHERE
+            s.STORE_NAME = #{storeName} AND
+            SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+    </select>
+</mapper>

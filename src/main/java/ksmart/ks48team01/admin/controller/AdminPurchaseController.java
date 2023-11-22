@@ -88,12 +88,12 @@ public class AdminPurchaseController {
 		return "admin/purchase/adjInfoRegionCate";
 	}
 	
-	@GetMapping(value={"/adjInfoStore"})
+	/*@GetMapping(value={"/adjInfoStore"})
 	public String adjInfoStore(Model model) {
 
 		return "admin/purchase/adjInfoStore";
 	}
-
+*/
 	@GetMapping("/reservationInfoModify")
 	public String reservationInfoModify(Model model) {
 
