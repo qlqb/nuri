@@ -44,8 +44,33 @@ public class AdjustmentService {
     }
 
     // 일별 정산 검색 - 4)가맹점별
-    public List<DayAdjustment> getDayAdjListByStoreId(HashMap<String, Object> map) {
-        return adjustmentMapper.getDayAdjListByStoreId(map);
+    public List<DayAdjustment> getDayAdjListByStoreName(HashMap<String, Object> map) {
+        return adjustmentMapper.getDayAdjListByStoreName(map);
+    }
+
+    //월별 정산 전체 목록 조회
+    public List<MonthAdjustment> getMonthAdjustmentList(){
+        return adjustmentMapper.getMonthAdjustmentList();
+    }
+
+    // 월별 정산 검색 - 1)지역별
+    public List<MonthAdjustment> getMonthAdjListByRegion(HashMap<String, Object> map) {
+        return adjustmentMapper.getMonthAdjListByRegion(map);
+    }
+
+    // 월별 정산 검색 - 2)업종별
+    public List<MonthAdjustment> getMonthAdjListByCate(HashMap<String, Object> map) {
+        return adjustmentMapper.getMonthAdjListByCate(map);
+    }
+
+    // 월별 정산 검색 - 3)지역+업종별
+    public List<MonthAdjustment> getMonthAdjListByRegionCate(HashMap<String, Object> map) {
+        return adjustmentMapper.getMonthAdjListByRegionCate(map);
+    }
+
+    // 월별 정산 검색 - 4)가맹점별
+    public List<MonthAdjustment> getMonthAdjListByStoreName(HashMap<String, Object> map) {
+        return adjustmentMapper.getMonthAdjListByStoreName(map);
     }
 
 }

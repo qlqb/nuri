@@ -10,6 +10,29 @@
 	<th:block layout:fragment="customJsCode">
 		<script>
 
+			//유효성 검사
+			const validationCheck = function(data) {
+				let isValid = true;
+				if(typeof data == 'object'){
+					$.each(data, function (key, value) {
+						if (value == null || value == '' || typeof value == 'undefined') {
+							//입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
+							isValid = false;
+							//유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
+							let $elementId = $(`label[for="${key}"]`).text();
+							alert(`${$elementId} <-- 필수 입력 항목입니다.`);
+							$(`input[id="${key}"]`).focus();
+							return isValid;
+						}
+					});
+				}else {
+					if (data == null || data == '' || typeof data == 'undefined') {
+						isValid = false;
+					}
+				}
+				return isValid;
+			}
+
 			//각 행마다의 금액이 들어있는 배열 만들기
 			const totalAmount = [];
 			$.each($("td.adjTotalAmount"), function (idx, obj){
@@ -20,7 +43,7 @@
 				amount += elem;
 			}
 			//테이블 오른쪽 아래 총합 정산금액에 입력
-			$("#totalAmount").text(amount);
+			$("#totalAmount").text(amount.toLocaleString('ko-kr'));
 
 
 			//사용자가 항목선택의 값을 바꿀 때마다 활성화되는 입력 창이 다름
@@ -32,26 +55,26 @@
 					case 'region':
 						$("#regionCode").prop("disabled", false);
 						$("#districtCode").prop("disabled", false);
-						$("#categoryCode").prop("disabled", true);
-						$("#categoryCode").val('');
-						$("#storeId").prop("disabled", true);
-						$("#storeId").val('');
+						$("#storeCategoryCode").prop("disabled", true);
+						$("#storeCategoryCode").val('');
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
 						break;
 					case 'category':
 						$("#regionCode").prop("disabled", true);
 						$("#regionCode").val('');
 						$("#districtCode").prop("disabled", true);
 						$("#districtCode").val('');
-						$("#categoryCode").prop("disabled", false);
-						$("#store").prop("disabled", true);
-						$("#storeId").val('');
+						$("#storeCategoryCode").prop("disabled", false);
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
 						break;
 					case 'regionCategory':
 						$("#regionCode").prop("disabled", false);
 						$("#districtCode").prop("disabled", false);
-						$("#categoryCode").prop("disabled", false);
-						$("#store").prop("disabled", true);
-						$("#storeId").val('');
+						$("#storeCategoryCode").prop("disabled", false);
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
 						break;
 					case 'store':
 						$("#regionCode").prop("disabled", true);
@@ -59,12 +82,19 @@
 						$("#districtCode").prop("disabled", true);
 						$("#districtCode").val('');
 						$("#categoryCode").prop("disabled", true);
-						$("#categoryCode").val('');
-						$("#storeId").prop("disabled", false);
+						$("#storeCategoryCode").val('');
+						$("#storeName").prop("disabled", false);
 						break;
 					default:
 						console.log("선택X");
-						alert("검색 항목을 선택한 후 값을 입력해주세요");
+						$("#regionCode").prop("disabled", true);
+						$("#regionCode").val('');
+						$("#districtCode").prop("disabled", true);
+						$("#districtCode").val('');
+						$("#categoryCode").prop("disabled", true);
+						$("#storeCategoryCode").val('');
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
 						break;
 				}
 
@@ -72,8 +102,55 @@
 
 			$("#searchBtn").click(function () {
 				//1. 검색 버튼을 눌렀을 때 입력된 값 유효성 검사(입력이 활성화 됐을 때만)
-				$adjSearchForm = $("#adjSearchForm");
-				console.log($adjSearchForm);
+				const $adjSearchForm = $("#adjSearchForm");
+				const search = {
+					'searchKey' : $("#searchKey").val(),
+					'regionCode' : $("#regionCode").val(),
+					'districtCode' : $("#districtCode").val(),
+					'storeCategoryCode' : $("#storeCategoryCode").val(),
+					'storeId' : $("#storeName").val(),
+					'startDate' : $("#startDate").val(),
+					'endDate' : $("#endDate").val()
+				}
+				console.log(search);
+
+				switch (search.searchKey) {
+					case 'region' :
+						delete search.storeCategoryCode;
+						delete search.storeId;
+						$("#storeCategoryCode").removeAttr('name');
+						$("#storeName").removeAttr('name');
+						break;
+					case 'category' :
+						delete search.regionCode;
+						delete search.districtCode;
+						delete search.storeId;
+						$("#regionCode").removeAttr('name');
+						$("#districtCode").removeAttr('name');
+						$("#storeName").removeAttr('name');
+						break;
+					case 'regionCategory':
+						delete search.storeId;
+						$("#storeName").removeAttr('name');
+						break;
+					case 'store':
+						delete search.regionCode;
+						delete search.districtCode;
+						delete search.storeCategoryCode;
+						$("#regionCode").removeAttr('name');
+						$("#districtCode").removeAttr('name');
+						$("#storeCategoryCode").removeAttr('name');
+						break;
+					default :
+						alert("항목을 선택해주세요");
+						break;
+				}
+
+				console.log(search);
+				console.log("유효성 검사 결과 : " + validationCheck(search));
+				if(validationCheck(search)){
+					$("#adjSearchForm").submit();
+				}
 
 				//2.
 
@@ -103,7 +180,7 @@
 						<br />
                     	<form id="adjSearchForm" data-parsley-validate class="form-horizontal form-label-left">
 							<div class="form-group">
-								<label class="control-label col-md-3 col-sm-3 col-xs-12"> 항목 선택 </label>
+								<label for="searchKey" class="control-label col-md-3 col-sm-3 col-xs-12"> 항목 선택 </label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<select id="searchKey" name="searchKey" class="form-control">
 										<option value="">==========선택==========</option>
@@ -130,7 +207,6 @@
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<select id="districtCode" name="districtCode" class="form-control" disabled="disabled">
 										<option value="">==========지역 상세를 선택하세요==========</option>
-										<option value="00">전체</option>
 										<th:block th:unless="${districtList == null}" th:each="d:${districtList}">
 											<option th:value="${d.districtCode}" th:text="${d.districtName}"></option>
 										</th:block>
@@ -138,9 +214,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="categoryCode" class="control-label col-md-3 col-sm-3 col-xs-12"> 업종</label>
+								<label for="storeCategoryCode" class="control-label col-md-3 col-sm-3 col-xs-12"> 업종</label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<select id="categoryCode" name="categoryCode" class="form-control" disabled="disabled">
+									<select id="storeCategoryCode" name="storeCategoryCode" class="form-control" disabled="disabled">
 										<option value="">==========업종을 선택하세요==========</option>
 										<th:block th:unless="${storeList == null}" th:each="s:${storeList}">
 											<option th:value="${s.storeCategoryCode}" th:text="${s.storeCategoryName}"></option>
@@ -149,16 +225,18 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="storeId" class="control-label col-md-3 col-sm-3 col-xs-12"> 가맹점명</label>
+								<label for="storeName" class="control-label col-md-3 col-sm-3 col-xs-12"> 가맹점명</label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
-								  <input type="text" id="storeId" class="form-control col-md-7 col-xs-12" disabled="disabled">
+								  <input type="text" id="storeName" name="storeName" class="form-control col-md-7 col-xs-12" disabled="disabled">
 								</div>
 							</div>
 	                      
 	                      <div class="form-group">
 	                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">검색 기간</label>
 	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style="justify-content: center; display: flex;">
+								<label type="hidden" for="startDate">시작 날짜</label>
 								<input type="date" name="startDate" id="startDate" class="form-control" style="width: 250px;"> ~
+								<label type="hidden" for="endDate">종료 날짜</label>
 								<input type="date" name="endDate" id="endDate" class="form-control" style="width: 250px;">
 	                        </div>
 	                      </div>
@@ -187,11 +265,11 @@
 						   <thead>
 							 <tr>
 								 <th>정산코드</th>
+								 <th>정산 일자</th>
 								 <th>가맹점명</th>
 								 <th>지역</th>
 								 <th>업종</th>
 								 <th>정산 금액</th>
-								 <th>정산 일자</th>
 							 </tr>
 						   </thead>
 
@@ -201,11 +279,11 @@
 							 </tr>
 							 <tr th:unless="${dayAdjustmentList == null}" th:each="l:${dayAdjustmentList}">
 								 <td th:text="${l.dateAdjustmentNum}"></td>
+								 <td th:text="${l.amountDate}"></td>
 							   	 <td th:text="${l.storeName}"></td>
 								 <td th:text="${l.regionName}+' '+${l.districtName}"></td>
 								 <td th:text="${l.storeCategoryName}"></td>
 								 <td class="adjTotalAmount" th:text="${l.dateTotalSales}"></td>
-							     <td th:text="${l.amountDate}"></td>
 							 </tr>
 							</tbody>
 						</table>
