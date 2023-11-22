@@ -127,6 +127,18 @@
         NOW(), '활동', 'general')
     </insert>
 
+
+    <!--  유저의 이름과 이메일을 입력받아 아이디를 조회 후 반환  -->
+    <select id="findMyId" parameterType="String" resultType="String">
+        SELECT
+            USER_ID
+        FROM
+            USER_INFO
+        WHERE
+            USER_NAME = #{userName} AND USER_EMAIL = #{userEmail};
+    </select>
+
+
     <!--  관리자 화면에서 특정 회원 상세정보 조회  -->
     <select id="getSpecificUserList" parameterType="String" resultMap="userResultMap">
         SELECT

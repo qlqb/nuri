@@ -57,6 +57,7 @@ public class UserService {
         return userMapper.storeUserRegister(user);
     }
     
+    // 로그인을 하기 위한 메소드
     public Map<String, Object> checkUserInfo(String userId, String userPw) {
         Map<String, Object> loginMap = new HashMap<String, Object>();
         boolean isChecked = false;
@@ -75,9 +76,24 @@ public class UserService {
 
         return loginMap;
     }
-    
 
-    // 특정 회원 조회 및 수정
+    /**
+     * 유저가 아이디를 찾기 위한 메소드
+     * @param userName 유저 이름
+     * @param userEmail 유저 이메일
+     * @return findResult  = userId 반환
+     */
+    public String findMyId(String userName, String userEmail) {
+        String findResult = userMapper.findMyId(userName, userEmail);
+
+        return findResult;
+    }
+
+    /**
+     * 수정을 위해 특정 회원의 정보 조회
+     * @param userId 특정 회원의 아이디
+     * @return specificUserList User DTO의 특정 회원 정보
+     */
     public User getSpecificUserList(String userId) {
         User specificUserList = userMapper.getSpecificUserList(userId);
 

@@ -11,7 +11,11 @@ public interface UserMapper {
     // 관리자 페이지 전체 회원 조회
     public List<User> getUserList();
 
+    // 회원의 로그인
     public Boolean getUserIdCheck(String userId);
+
+    // 회원의 아이디 찾기
+    public String findMyId(String userName, String userEmail);
 
     // 관리자 페이지 특정 회원 상세 조회
     public User getSpecificUserList(String userId);

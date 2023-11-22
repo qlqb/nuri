@@ -46,36 +46,33 @@
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
                         <h3 class="mb-20">내 아이디 찾기</h3>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="email" class="mb-2">이메일</label>
-                                        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="single-form mb-20">
+                                    <label for="userEmail" class="mb-2">이메일</label>
+                                    <input type="text" id="userEmail" name="userEmail" placeholder="이메일을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
                                 </div>
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <label for="password" class="mb-2">회원이름</label>
-                                        <input type="password" id="password" name="password" placeholder="회원이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="single-form mb-30">
-                                        <button class="main-btn btn-hover py-2 rounded">아이디 찾기</button>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="single-form mb-20">
-                                        <p><a th:href="@{/user/auth/login}">로그인</a></p>
-                                        <p><a th:href="@{/user/register/registerType}">회원가입</a></p>
-                                        <p><a th:href="@{/user/auth/findMyPw}">비밀번호 찾기</a></p>
-                                    </div>
-                                </div>
-
                             </div>
-                        </form>
+                            <div class="col-12">
+                                <div class="single-form mb-20">
+                                    <label for="userName" class="mb-2">회원이름</label>
+                                    <input type="text" id="userName" name="userName" placeholder="회원이름을 입력해주세요" class="py-2 px-3 mb-0 rounded border">
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <div class="single-form mb-30">
+                                    <button id="submit-btn" class="main-btn btn-hover py-2 rounded">아이디 찾기</button>
+                                </div>
+                            </div>
+                            <div id="printPlace"></div>
+                            <div class="col-12">
+                                <div class="single-form mb-20">
+                                    <p><a th:href="@{/user/auth/login}">로그인</a></p>
+                                    <p><a th:href="@{/user/register/registerType}">회원가입</a></p>
+                                    <p><a th:href="@{/user/auth/findMyPw}">비밀번호 찾기</a></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,4 +80,9 @@
     </section>
     <!--====== 404 PRODUCT PART ENDS ======-->
 </th:block>
+
+<body>
+<script src="/user/assets/js/findMyId.js"></script>
+</body>
+
 </html>
