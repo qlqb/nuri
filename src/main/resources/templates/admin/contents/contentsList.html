@@ -44,12 +44,12 @@
 
           <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
             <label style="width: 80px; margin-top: 9px;"> 컨텐츠명 </label>
-            <input type="text" id="" name="" class="form-control" style="width: 300px;">
+            <input type="text"  name="" class="form-control" style="width: 300px;">
           </div>
 
           <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; display: flex;  justify-content: center; gap: 10px">
             <label style="width: 80px; margin-top: 9px;"> 컨텐츠 장르 </label>
-            <select id="" name="" class="form-control">
+            <select  name="" class="form-control">
               <option>=== 장르를 선택하세요 ===</option>
               <option>도서</option>
               <option>전시</option>
@@ -62,18 +62,18 @@
 
           <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
             <label style="width: 80px; margin-top: 9px;"> 가맹점명 </label>
-            <input type="text" id="" name="" class="form-control" style="width: 300px;">
+            <input type="text" name="" class="form-control" style="width: 300px;">
           </div>
 
           <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
             <label style="width: 80px; margin-top: 9px;"> 연령제한 </label>
-            <input type="text" id="" name="" class="form-control" style="width: 300px;">
+            <input type="text" name="" class="form-control" style="width: 300px;">
           </div>
 
           <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
             <label style="width: 80px; margin-top: 9px;"> 검색기간 </label>
-            <input type="date" id="" name="" class="form-control" style="width: 140px;"> <span style="margin-top: 9px">~</span>
-            <input type="date" id="" name="" class="form-control" style="width: 140px;">
+            <input type="date" name="" class="form-control" style="width: 140px;"> <span style="margin-top: 9px">~</span>
+            <input type="date" name="" class="form-control" style="width: 140px;">
           </div>
 
           <div class="ln_solid"></div>
@@ -185,140 +185,24 @@
                 </thead>
                 <!-- 3333333333333333333333333333333333333333333 -->
                 <tbody>
-                <tr> <!-- class="odd" or class="even" -->
-                  <td>
-                  </td>
-                  <th class="sorting_1">
-                    <div class="icheckbox_flat-green" style="position: relative;">
-                      <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px;
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                    </div>
-                  </th>
-                  <td class=" ">CT202310191</td>
-                  <td class=" ">늑대아이</td>
-                  <td class=" ">OTT</td>
-                  <td class=" ">2023.10.20 ~ 2023.10.30</td>
-                  <td class=" ">-</td>
-                  <td class=" ">-</td>
-                  <td class="a-right a-right ">만7세이상</td>
-                  <td class=" last"><a href="#">5000원</a></td>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoUpdate}">
-                      <button class="btn btn-info" type="button">수정</button>
-                    </a>
-                  </td>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoList}">
-                      <button class="btn btn-info" type="Button" id="deleteButton">삭제</button>
-                    </a>
-                  </td>
-                </tr>
                 <tr th:each="cl: ${contentsList}"> <!-- class="odd" or class="even" -->
                   <td>
                   </td>
                   <th class="sorting_1">
                     <div class="icheckbox_flat-green" style="position: relative;">
-                      <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
+                      <input type="checkbox" id="check" class="flat" style="position: absolute; opacity: 0;">
                       <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px;
 											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                     </div>
                   </th>
-                  <td th:text="${cl.contentsId}">CT202310201</td>
-                  <td th:text="${cl.contentsName}">엘리멘탈</td>
-                  <td th:text="${cl.contentsCategoryName}">영화</td>
-                  <td th:>2023.10.15 ~ 2023.10.30</td>
-                  <td >천안 CGV 펜타포트점</td>
+                  <td th:text="${cl.contentsId}"></td>
+                  <td th:text="${cl.contentsName}"></td>
+                  <td th:text="${cl.storeInfo.storeCategoryName}"></td>
+                  <td><th:block th:text="${cl.contentsSellStartDate}"></th:block>~<th:block th:text="${cl.contentsSellEndDate}"></th:block></td>
+                  <td th:text="${cl.contentsAddress}"></td>
                   <td >-</td>
-                  <td >만7세이상</td>
-                  <td ><a href="#">5000원</a></td>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoUpdate}">
-                      <button class="btn btn-info" type="button">수정</button>
-                    </a>
-                  </td>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoList}">
-                      <button class="btn btn-info" type="Button" id="deleteButton">삭제</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr> <!-- class="odd" or class="even" -->
-                  <td>
-                  </td>
-                  <th class="sorting_1">
-                    <div class="icheckbox_flat-green" style="position: relative;">
-                      <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px;
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                    </div>
-                  </th>
-                  <td class=" ">CT202310202</td>
-                  <td class=" ">한옥대여</td>
-                  <td class=" ">관광</td>
-                  <td class=" ">2023.01.01 ~ 2023.12.31</td>
-                  <td class=" ">한옥마을 한복 대여점</td>
-                  <td class=" ">09:00~21:00</td>
-                  <td class="a-right a-right ">만 7세이상</td>
-                  <td class=" last"><a href="#">10,000원</a>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoUpdate}">
-                      <button class="btn btn-info" type="button">수정</button>
-                    </a>
-                  </td>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoList}">
-                      <button class="btn btn-info" type="Button" id="deleteButton">삭제</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr> <!-- class="odd" or class="even" -->
-                  <td>
-                  </td>
-                  <th class="sorting_1">
-                    <div class="icheckbox_flat-green" style="position: relative;">
-                      <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px;
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                    </div>
-                  </th>
-                  <td class=" ">CT202310211</td>
-                  <td class=" ">누가 내 치즈를 훔쳐갔나?</td>
-                  <td class=" ">도서</td>
-                  <td class=" ">2023.01.01 ~ 2023.12.15</td>
-                  <td class=" ">전주도서관</td>
-                  <td class=" ">09:00~18:00</td>
-                  <td class="a-right a-right ">만 10세이상</td>
-                  <td class=" last"><a href="#">회원무료</a>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoUpdate}">
-                      <button class="btn btn-info" type="button">수정</button>
-                    </a>
-                  </td>
-                  <td>
-                    <a th:href="@{/admin/contents/contentsInfoList}">
-                      <button class="btn btn-info" type="Button" id="deleteButton">삭제</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr> <!-- class="odd" or class="even" -->
-                  <td>
-                  </td>
-                  <th class="sorting_1">
-                    <div class="icheckbox_flat-green" style="position: relative;">
-                      <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px;
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                    </div>
-                  </th>
-                  <td class=" ">CT202310212</td>
-                  <td class=" ">미성년자에겐 술 안팔아요</td>
-                  <td class=" ">숙박</td>
-                  <td class=" ">2023.01.01~2023.12.31</td>
-                  <td class=" ">영업정지</td>
-                  <td class=" ">09:00~20:00</td>
-                  <td class="a-right a-right ">만 20세이상</td>
-                  <td class=" last"><a href="#">150,000원</a>
+                  <td th:text="${cl.contentsPg}"></td>
+                  <td th:text="${cl.contentsPrice}"></a></td>
                   <td>
                     <a th:href="@{/admin/contents/contentsInfoUpdate}">
                       <button class="btn btn-info" type="button">수정</button>

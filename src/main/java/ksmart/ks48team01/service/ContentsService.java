@@ -614,6 +614,7 @@ public class ContentsService {
     }
 
     public List<Contents> getAdminContentsList() {
-        return contentsMapper.getAdminContentsList();
+        List<Contents> contentsList = contentsMapper.getAdminContentsList();
+        return contentsList;
     }
 }

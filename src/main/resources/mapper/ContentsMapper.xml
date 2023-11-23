@@ -316,7 +316,6 @@
             c.CONTENTS_NAME,
             c.CONTENT_ADDRESS,
             c.CONTENTS_DURATION,
-            c.CONTENTS_DURATION,
             c.CONTENTS_PG,
             c.CONTENTS_PRICE,
             c.CONTENTS_RELEASE_DT,
@@ -325,9 +324,14 @@
             c.CONTENTS_SELL_END_DATE,
             c.AMOUNT_CONTENT_REGISTERED,
             c.AMOUNT_CONTENT_REMAINING,
-            c.CONTENTS_DETAIL
+            c.CONTENTS_DETAIL,
+            si.STORE_CATEGORY_NAME
         FROM
             CONTENTS AS c
+            INNER JOIN
+            STORE_INFO AS si
+            ON
+            c.STORE_ID = si.STORE_ID
     </select>
 
 
