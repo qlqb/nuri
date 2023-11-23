@@ -152,14 +152,6 @@ public class MyPageController {
 		return "user/mypage/myStoreSaleHistory";
 	}
 
-	@GetMapping("/myContentsList")
-	public String myContentsList(Model model) {
-
-		model.addAttribute("title", "내 컨텐츠 목록");
-		model.addAttribute("head", mypage);
-
-		return "user/mypage/myContentsList";
-	}
 
 	@GetMapping("/myContentsRegist")
 	public String myContentsRegist(Model model) {
