@@ -105,6 +105,16 @@ public class AuthController {
         return "user/auth/resetMyPw";
     }
 
+    @ResponseBody
+    @PostMapping("/isExistringPw")
+    public int isExistringPw (@RequestBody Map<String, String> existCheck) {
+        String userId = existCheck.get("userId");
+        String resetPw = existCheck.get("resetPw");
+        int existResult = userService.isExistingPw(userId, resetPw);
+
+        return existResult;
+    }
+
     @PostMapping("/resetMyPw")
     public String resetMyPw(@RequestParam String userId, String resetPw) {
         userService.resetMyPw(userId, resetPw);

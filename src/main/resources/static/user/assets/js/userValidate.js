@@ -50,7 +50,7 @@ function idDuplicationCheck (value) {
                 $idAlert1.classList.remove('notice-hide')
             }
         })
-};
+}
 
 const $pwAlert = document.querySelector('#pw-alert');
 
