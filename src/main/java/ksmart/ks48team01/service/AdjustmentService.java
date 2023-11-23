@@ -4,7 +4,6 @@ import ksmart.ks48team01.dto.DayAdjustment;
 import ksmart.ks48team01.dto.MonthAdjustment;
 import ksmart.ks48team01.mapper.AdjustmentMapper;
 import ksmart.ks48team01.mapper.AreaMapper;
-import ksmart.ks48team01.mapper.BudgetMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +15,9 @@ import java.util.List;
 public class AdjustmentService {
 
     private final AdjustmentMapper adjustmentMapper;
-    private final AreaMapper areaMapper;
 
-    public AdjustmentService(AdjustmentMapper adjustmentMapper, AreaMapper areaMapper) {
+    public AdjustmentService(AdjustmentMapper adjustmentMapper) {
         this.adjustmentMapper = adjustmentMapper;
-        this.areaMapper = areaMapper;
     }
 
     // 일별 정산 전체 목록 조회
