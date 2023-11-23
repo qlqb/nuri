@@ -56,31 +56,24 @@
             USER_ID,
             CONTENTS_ID,
             MUNHWACARD_NUM,
-            RESERVATION_CODE,
-            DELIVERY_COSTS,
             CONTENTS_PRICE,
             PAYMENT_QUANTITY,
             PAYMENT_AMOUNT,
             PAYMENT_STATUS,
             PAYMENT_DT,
-            IS_REFUND,
-            IS_CLOSING,
-            CLOSING_CODE)
+            IS_REFUND
+            )
         VALUES
             (#{paymentCode},
             #{userId},
             #{contentsId},
             #{munhwaCardNum},
-            #{reservationCode},
-            #{deliveryCode},
             #{contentsPrice},
             #{paymentQuantity},
             #{paymentAmount},
             '완료',
             CURDATE(),
-            'N',
-            '마감전',
-            '')
+            )
     </insert>
 
     <!--총구매 가격(아이디별로 작업 해야함)-->

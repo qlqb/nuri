@@ -25,17 +25,24 @@ public class PaymentController {
 
 	public static final Logger log = LoggerFactory.getLogger(PaymentController.class);
 
-	private final PaymentService paymentService;
-	private final ContentsService contentsService;
-	private final MunhwaCardService munhwaCardService;
-	public PaymentController(PaymentService paymentService, ContentsService contentsService, MunhwaCardService munhwaCardService){
+		private final PaymentService paymentService;
+		private final ContentsService contentsService;
+		private final MunhwaCardService munhwaCardService;
+
+		public PaymentController(PaymentService paymentService, ContentsService contentsService, MunhwaCardService munhwaCardService){
 		this.paymentService = paymentService;
 		this.contentsService = contentsService;
 		this.munhwaCardService = munhwaCardService;
 	}
 
 	//결제 등록 처리
-	/*@PostMapping("/my")*/
+	@PostMapping("/user/mypage/myOrder")
+	public String paymentRegist(Payment payment){
+
+		paymentService.paymentRegist(payment);
+
+		return "redirect:/user/mypage/myOrder";
+	}
 
 
 	//DB 카드 비밀번호 확인
