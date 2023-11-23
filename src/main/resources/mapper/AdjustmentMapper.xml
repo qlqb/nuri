@@ -436,4 +436,19 @@
             s.STORE_NAME = #{storeName} AND
             SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
     </select>
+
+    <select id="dayAdjCheck" parameterType="String" resultType="boolean">
+        /* 정산 등록된 일자 중복 조회 */
+        SELECT
+            COUNT(DATE_ADJUSTMENT_NUM) > 0
+        FROM
+            DAY_ADJUSTMENT
+        WHERE
+            AMOUNT_DATE = #{adjDate}
+    </select>
+    
+    <update id="dajAdjRegist" parameterType="String" statementType="CALLABLE">
+        /* 프로시저 실행 : 정산 테이블에 뷰 내용 insert */
+        CALL AddDayAdj(#{adjDate});
+    </update>
 </mapper>

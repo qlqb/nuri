@@ -73,4 +73,9 @@ public class AdjustmentService {
         return adjustmentMapper.getMonthAdjListByStoreName(map);
     }
 
+    public boolean dayAdjCheck(String adjDate) { return adjustmentMapper.dayAdjCheck(adjDate);}
+
+    public void dajAdjRegist(String adjDate){
+        adjustmentMapper.dajAdjRegist(adjDate);
+    }
 }
