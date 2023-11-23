@@ -1,6 +1,9 @@
 package ksmart.ks48team01.user.controller;
 
+import jakarta.servlet.http.HttpSession;
+import ksmart.ks48team01.dto.Contents;
 import ksmart.ks48team01.dto.Payment;
+import ksmart.ks48team01.service.ContentsService;
 import ksmart.ks48team01.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +21,26 @@ public class MyPageController {
 	private static final Logger log = LoggerFactory.getLogger(MyPageController.class);
 
 	private final PaymentService paymentService;
+	private final ContentsService contentsService;
 
-	public MyPageController(PaymentService paymentService){
+	public MyPageController(PaymentService paymentService, ContentsService contentsService){
 		this.paymentService = paymentService;
+		this.contentsService = contentsService;
 	}
 
 	public String mypage = "마이페이지";
+
+	@GetMapping("/myContentsList")
+	public String myContentsList(Model model,
+								 HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+		if(userId != null) {
+			List<Contents> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
+			model.addAttribute("contentsInfoList", contentsInfoList);
+		}
+		return "user/mypage/myContentsList";
+	}
 
 	@GetMapping("/mypageMain")
 	public String myPageMain(Model model) {
