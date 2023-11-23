@@ -154,7 +154,7 @@
         FROM
             USER_INFO
         WHERE
-            USER_ID = #{userId} AND USER_PW= #{userPw};
+            USER_ID = #{userId} AND USER_PW= #{resetPw};
     </select>
 
     <update id="resetMyPw" parameterType="String">

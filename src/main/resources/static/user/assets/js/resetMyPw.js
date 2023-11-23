@@ -17,13 +17,20 @@ function pwRegexpCheck (value) {
     return pwRegexp.test(value);
 }
 
-function printExistingMsg () {
+const $existingAlert = document.querySelector('#existing-alert');
 
+function printExistingMsg () {
+    if(existResult == 1) {
+        $existingAlert.classList.add('notice-hide');
+    } else {
+        $existingAlert.classList.remove('notice-hide');
+        $existingAlert.classList.add('notice-show');
+    }
 }
 
 // 변경 전 기존 DB의 비밀번호와 대조하여 중복되는지 검사
 function isPwExisting () {
-    fetch("/user/auth/isExistringPw", {
+    fetch("/user/auth/isExistingPw", {
         method : "POST",
         headers : {
             "Content-Type": "application/json; charset=UTF-8",
@@ -35,13 +42,13 @@ function isPwExisting () {
     })
         .then((response) => response.text())
         .then(existResult => {
-            if(existResult != 1) {
-
-            } else {
-
-            }
+            printExistingMsg(existResult)
         })
 }
+
+$resetPw.addEventListener('focusout', () => {
+    isPwExisting();
+})
 
 $resetPw.onkeyup = function () {
     if(pwRegexpCheck($resetPw.value)) {

@@ -21,7 +21,7 @@ public interface UserMapper {
     int findMyPw(String userId, String userContact);
 
     // 등록하는 비밀번호의 중복검사
-    int isExistingPw (String userId, String userPw);
+    int isExistingPw (String userId, String resetPw);
 
     // 회원의 비밀번호 초기화
     void resetMyPw(String userId, String resetPw);

@@ -106,8 +106,8 @@ public class AuthController {
     }
 
     @ResponseBody
-    @PostMapping("/isExistringPw")
-    public int isExistringPw (@RequestBody Map<String, String> existCheck) {
+    @PostMapping("/isExistingPw")
+    public int isExistingPw (@RequestBody Map<String, String> existCheck) {
         String userId = existCheck.get("userId");
         String resetPw = existCheck.get("resetPw");
         int existResult = userService.isExistingPw(userId, resetPw);
