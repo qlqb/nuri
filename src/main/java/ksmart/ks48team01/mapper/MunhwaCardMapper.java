@@ -10,6 +10,12 @@ import java.util.List;
 @Mapper
 public interface MunhwaCardMapper {
 
+    //문화카드 비밀번호 유효성 검사(payment)
+    public boolean cardPwCheck(String userId, String cardPw);
+
+    //문화카드 개별 조회(payment)
+    public MunhwaCard getMunhwaCardInfoById(String userId);
+
     //전체 문화누리카드 목록 조회
     public List<MunhwaCard> getMunhwaCardList();
 

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user/munhwa")
 public class MunhwaInfoController {
 
+
+
 	/**
 	 * aboutMunhwa -> 문화누리카드 소개 및 문화누리카드 공식 페이지로 이동
 	 * @param model
