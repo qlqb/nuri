@@ -2,10 +2,10 @@ const $regionCode = document.querySelector('#regionCode');
 const $districtCode = document.querySelector('#districtCode');
 
 // Ajax를 호출할 URL과 Query 스트링
-let districtListUrl = 'http://localhost/user/register/districtList?regionCode=';
+let districtListUrl = '/user/register/districtList?regionCode=';
 
 $regionCode.addEventListener('change', function () {
-    if($districtCode.childElementCount > 1) {
+    if($districtCode.childElementCount > 0) {
         $districtCode.replaceChildren();
     }
     const regionValue = $regionCode.value;
