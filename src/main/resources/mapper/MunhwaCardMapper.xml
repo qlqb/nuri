@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.mapper.MunhwaCardMapper">
+
+    <resultMap type="MunhwaCard" id="MunhwaCardResultMap">
+        <id property="munhwaCardNum"        column="MUNHWACARD_NUM"/>
+        <result property="userId"           column="USER_ID"/>
+        <result property="userName"         column="USER_NAME"/>
+        <result property="cvc"              column="CVC"/>
+        <result property="cardPw"           column="CARD_PW"/>
+        <result property="cardExpiryDate"   column="CARD_EXPIRYDATE"/>
+        <result property="cardComp"         column="CARD_COMP"/>
+        <result property="cardUsableCheck"  column="CARD_USABLE_CHECK"/>
+        <result property="firstUsageAmount" column="FIRST_USAGE_AMOUNT"/>
+        <result property="lastUsageAmount"  column="LAST_USAGE_AMOUNT"/>
+        <result property="cardIssueDate"    column="CARD_ISSUE_DATE"/>
+    </resultMap>
+
+    <!--문화 카드 비밀번호 확인 -->
+    <select id="cardPwCheck" parameterType="String" resultType="boolean">
+        SELECT
+            COUNT(m.MUNHWACARD_NUM)
+        FROM
+            MUNHWACARD AS m
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            u.USER_ID = m.USER_ID
+        WHERE
+            u.USER_ID = #{userId} AND m.CARD_PW = #{cardPw}
+    </select>
+
+    <!--문화카드 개별 조회-->
+    <select id="getMunhwaCardInfoById" resultMap="MunhwaCardResultMap" parameterType="String">
+        /*문화카드 개별 조회*/
+        SELECT
+            m.MUNHWACARD_NUM,
+            u.USER_ID,
+            u.USER_NAME,
+            m.CVC,
+            m.CARD_PW,
+            m.CARD_EXPIRYDATE,
+            m.CARD_COMP,
+            m.CARD_USABLE_CHECK,
+            m.FIRST_USAGE_AMOUNT,
+            m.LAST_USAGE_AMOUNT
+        FROM
+            MUNHWACARD AS m
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            u.USER_ID = m.USER_ID
+        WHERE
+            u.USER_ID = #{userId};
+    </select>
+
+    <select id="getMunhwaCardList" resultMap="MunhwaCardResultMap">
+        /* 문화누리카드 전체 조회 */
+        SELECT
+            m.MUNHWACARD_NUM,
+            m.USER_ID,
+            u.USER_NAME,
+            m.CVC,
+            m.CARD_PW,
+            m.CARD_EXPIRYDATE,
+            m.CARD_COMP,
+            m.CARD_USABLE_CHECK,
+            m.FIRST_USAGE_AMOUNT,
+            m.LAST_USAGE_AMOUNT,
+            m.CARD_ISSUE_DATE
+        FROM
+            MUNHWACARD AS m
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            m.USER_ID = u.USER_ID;
+    </select>
+
+    <select id="cardCheck" parameterType="String" resultType="boolean">
+        /* 카드 번호 중복 여부 검색 */
+        SELECT
+            COUNT(MUNHWACARD_NUM)
+        FROM
+            MUNHWACARD
+        WHERE
+            MUNHWACARD_NUM = #{munhwaCardNum};
+    </select>
+
+    <insert id="munhwaCardRegist" parameterType="MunhwaCard">
+        /* 문화누리카드 등록 */
+        INSERT INTO MUNHWACARD(
+        MUNHWACARD_NUM, USER_ID, CVC, CARD_PW, CARD_EXPIRYDATE,
+        CARD_COMP, CARD_USABLE_CHECK, FIRST_USAGE_AMOUNT, LAST_USAGE_AMOUNT, CARD_ISSUE_DATE
+        )VALUES(
+        #{munhwaCardNum}, #{userId}, #{cvc}, #{cardPw}, #{cardExpiryDate},
+        #{cardComp}, #{cardUsableCheck}, #{firstUsageAmount}, #{lastUsageAmount}, CURDATE()
+        )
+    </insert>
+</mapper>

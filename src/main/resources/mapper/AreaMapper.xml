@@ -67,5 +67,21 @@
             D.DISTRICT_CODE = P.DISTRICT_CODE;
     </select>
 
+    <select id="departmentListByRegion" resultType="DistrictDep" parameterType="String">
+        SELECT
+            RG.REGION_CODE AS regionCode,
+            RG.REGION_NAME AS regionName,
+            DD.DISTRICT_DEP_CODE AS districtDepCode,
+            DD.DISTRICT_DEP_NAME AS districtDepName
+        FROM
+            REGION AS RG
+        INNER JOIN
+            DISTRICT_DEP AS DD
+        ON
+            RG.REGION_CODE = DD.REGION_CODE
+        WHERE
+            DD.REGION_CODE = #{regionCode}
+    </select>
+
 
 </mapper>

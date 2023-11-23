@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.mapper.PaymentMapper">
+
+    <resultMap id="paymentTotalResultMap" type="Payment">
+        <id property="paymentCode" column="PAYMENT_CODE"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="contentsId" column="CONTENTS_ID"/>
+        <result property="contentsName" column="CONTENTS_NAME"/>
+        <result property="contentsCategoryName" column="CONTENTS_CAT_NAME"/>
+        <result property="contentAddress" column="CONTENT_ADDRESS"/>
+        <result property="munhwaCardNum" column="MUNHWACARD_NUM"/>
+        <result property="reservationCode" column="RESERVATION_CODE"/>
+        <result property="deliveryCosts" column="DELIVERY_COSTS"/>
+        <result property="contentsPrice" column="CONTENTS_PRICE"/>
+        <result property="paymentQuantity" column="PAYMENT_QUANTITY"/>
+        <result property="paymentAmount" column="PAYMENT_AMOUNT"/>
+        <result property="paymentStatus" column="PAYMENT_STATUS"/>
+        <result property="paymentDT" column="PAYMENT_DT"/>
+        <result property="isRefund" column="IS_REFUND"/>
+        <result property="isClosing" column="IS_CLOSING"/>
+        <result property="closingCode" column="CLOSING_CODE"/>
+        
+        <association property="munhwacardInfo" javaType="MunhwaCard">
+            <id property="munhwaCardNum" column="MUNHWACARD_NUM"/>
+            <result property="userId" 		column="USER_ID"/>
+            <result property="cvc" 		column="CVC"/>
+            <result property="cardPw" 		column="CARD_PW"/>
+            <result property="cardExpirydate" 		column="CARD_EXPIRYDATE"/>
+            <result property="cardComp" 		column="CARD_COMP"/>
+            <result property="cardUsableCheck" 		column="CARD_USABLE_CHECK"/>
+            <result property="firstUsageAmount" 		column="FIRST_USAGE_AMOUNT"/>
+            <result property="lastUsageAmount" 		column="LAST_USAGE_AMOUNT"/>
+            <result property="cardIssueDate" 		column="CARD_ISSUE_DATE"/>
+        </association>
+    </resultMap>
+
+    <!--결제 등록-->
+    <insert id="paymentRegist" parameterType="payment">
+        <selectKey keyProperty="paymentCode" resultType="String" order="BEFORE">
+        /*게시판 코드 자동증가*/
+        SELECT
+            (CASE
+            WHEN COUNT(p.PAYMENT_CODE) = 0 THEN 'PAYMENT001'
+            WHEN (max(cast(SUBSTRING_INDEX(p.PAYMENT_CODE, 'PAYMENT', -1) AS UNSIGNED))+1) > 999
+            THEN CONCAT('PAYMENT', MAX(CAST(SUBSTRING_INDEX(p.PAYMENT_CODE, 'PAYMENT', -1) AS UNSIGNED))+1)
+            ELSE CONCAT('PAYMENT', LPAD(max(cast(SUBSTRING_INDEX(p.PAYMENT_CODE, 'PAYMENT', -1) AS UNSIGNED))+1,3,'0'))
+            END) AS boardCode
+        FROM
+            PAYMENT AS p
+        </selectKey>
+        INSERT INTO PAYMENT
+            (PAYMENT_CODE,
+            USER_ID,
+            CONTENTS_ID,
+            MUNHWACARD_NUM,
+            CONTENTS_PRICE,
+            PAYMENT_QUANTITY,
+            PAYMENT_AMOUNT,
+            PAYMENT_STATUS,
+            PAYMENT_DT,
+            IS_REFUND
+            )
+        VALUES
+            (#{paymentCode},
+            #{userId},
+            #{contentsId},
+            #{munhwaCardNum},
+            #{contentsPrice},
+            #{paymentQuantity},
+            #{paymentAmount},
+            '완료',
+            CURDATE(),
+            )
+    </insert>
+
+    <!--총구매 가격(아이디별로 작업 해야함)-->
+    <select id="getPaymentAmount" resultType="int">
+        /*총 구매 금액(아이디 별로 작업 아직 안됨)*/
+        SELECT
+        SUM(p.PAYMENT_AMOUNT)
+        FROM
+        PAYMENT AS p
+    </select>
+
+
+    <!--총구매 횟수 (아이디별로 작업 해야함)-->
+    <select id="getPaymentCount" resultType="int">
+        /*총 구매 횟수 (아이디 별로 작업 아직 안됨)*/
+        SELECT
+        COUNT(p.PAYMENT_CODE)
+        FROM
+        PAYMENT AS p
+    </select>
+
+    <!--결제 내역 조회-->
+    <select id="getPaymentList" resultMap="paymentTotalResultMap">
+        <!--결제 내역 조회-->
+        SELECT
+        p.PAYMENT_CODE,
+        p.USER_ID,
+        p.CONTENTS_ID,
+        c.CONTENTS_NAME,
+        c.CONTENTS_CAT_NAME,
+        c.CONTENT_ADDRESS,
+        p.MUNHWACARD_NUM,
+        p.RESERVATION_CODE,
+        p.DELIVERY_COSTS,
+        p.CONTENTS_PRICE,
+        p.PAYMENT_QUANTITY,
+        p.PAYMENT_AMOUNT,
+        p.PAYMENT_STATUS,
+        p.PAYMENT_DT,
+        p.IS_REFUND,
+        p.IS_CLOSING,
+        p.CLOSING_CODE
+        FROM
+        PAYMENT AS p
+        INNER JOIN
+        USER_INFO AS u
+        ON
+        u.USER_ID = p.USER_ID
+
+        INNER JOIN
+        MUNHWACARD AS m
+        ON
+        m.MUNHWACARD_NUM = p.MUNHWACARD_NUM
+
+        INNER JOIN
+        CONTENTS AS c
+        ON
+        c.CONTENTS_ID = p.CONTENTS_ID
+    </select>
+
+    <!--결제 내역 조회-->
+    <select id="getSearchPaymentList" parameterType="list" resultMap="paymentTotalResultMap">
+        <!--결제 내역 조회-->
+
+        SELECT
+            p.PAYMENT_CODE,
+            p.USER_ID,
+            p.CONTENTS_ID,
+            c.CONTENTS_NAME,
+            c.CONTENTS_CAT_NAME,
+            c.CONTENT_ADDRESS,
+            p.MUNHWACARD_NUM,
+            p.RESERVATION_CODE,
+            p.DELIVERY_COSTS,
+            p.CONTENTS_PRICE,
+            p.PAYMENT_QUANTITY,
+            p.PAYMENT_AMOUNT,
+            p.PAYMENT_STATUS,
+            p.PAYMENT_DT,
+            p.IS_REFUND,
+            p.IS_CLOSING,
+            p.CLOSING_CODE
+        FROM
+            PAYMENT AS p
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            u.USER_ID = p.USER_ID
+            INNER JOIN
+            MUNHWACARD AS m
+            ON
+            m.MUNHWACARD_NUM = p.MUNHWACARD_NUM
+            INNER JOIN
+            CONTENTS AS c
+            ON
+            c.CONTENTS_ID = p.CONTENTS_ID
+
+        <where>
+            <foreach collection="list" item="item" separator="AND">
+                <choose>
+                    <when test="item.searchKey != null and item.searchKey == 'startPaymentDt' and item.searchValue != null and item.searchValue != ''">
+                        PAYMENT_DT >= #{item.searchValue}
+                    </when>
+                    <when test="item.searchKey != null and item.searchKey == 'endPaymentDt' and item.searchValue != null and item.searchValue != ''">
+                        PAYMENT_DT<![CDATA[ <= ]]>#{item.searchValue}
+                    </when>
+                    <otherwise>
+                        <if test="item.searchKey != null and item.searchValue != null and item.searchValue != ''">
+                            ${item.searchKey} = #{item.searchValue}
+                        </if>
+                    </otherwise>
+                </choose>
+            </foreach>
+        </where>
+
+    </select>
+
+    
+
+</mapper>

@@ -46,10 +46,11 @@
                 <div class="col-lg-6 col-md-10">
                     <div class="login-wrapper box-style">
                         <h3 class="mb-20">비밀번호 재설정</h3>
-                        <form action="#">
+                        <form th:action="@{/user/auth/resetMyPw}" method="post">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="single-form mb-20">
+                                        <input type="hidden" id="userId" name="userId" th:value="${identifier}">
                                         <label for="password" class="mb-2">비밀번호</label>
                                         <input type="password" id="password" name="password" class="py-2 px-3 mb-0 rounded border">
                                     </div>
@@ -62,7 +63,7 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-center">
                                     <div class="single-form mb-30">
-                                        <button class="main-btn btn-hover py-2 rounded">재설정</button>
+                                        <button type="submit" class="main-btn btn-hover py-2 rounded">비밀번호 재설정</button>
                                     </div>
                                 </div>
                             </div>

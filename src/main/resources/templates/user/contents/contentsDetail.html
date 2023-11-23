@@ -172,6 +172,26 @@
     }
   </style>
 </head>
+<th:block layout:fragment="customJsFile">
+  <script th:src="@{/user/assets/js/jquery-3.7.1.min.js}"></script>
+</th:block>
+<th:block layout:fragment="customJsCode">
+  <script>
+    $("#paymentBtn").click(function (){
+      //객체 만들어서 확인용
+      const paymentInfo = {
+        "contentsId" : $("#contentsId").val(),
+        "contentsPrice" : $("#contentsPrice").val(),
+        "ticketNum" : $("#ticketNum").val(),
+        "contentsReleaseDt" : $("#contentsReleaseDt").val(),
+      }
+      console.log(paymentInfo);
+      const paymentInfoForm = $("#paymentInfoForm");
+
+      paymentInfoForm.submit();
+    });
+</script>
+</th:block>
 
 <!--[if IE]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
@@ -333,25 +353,26 @@
                 </div>
               </div>
             </div>
-            <form style="all: unset" method="post" action="#">
-              <input type="hidden" th:value="*{contentsPrice}"/>
+            <form id="paymentInfoForm" style="all: unset" method="POST" th:action="@{/user/payment/payment}">
+              <input name="contentsId" id="contentsId" type="hidden" th:value="*{contentsId}"/>
+              <input name="contentsPrice" id="contentsPrice" type="hidden" th:value="*{contentsPrice}"/>
               <div class="btn_wrap">
                 <ul class="header-btn d-md-flex" style="float: right;">
                   <li>
-                    <a href="#" class="main-btn btn-hover d-none d-md-block">예매하기</a>
+                    <button type="button" id="paymentBtn"  class="main-btn btn-hover d-none d-md-block">예매하기</button>
                   </li>
                 </ul>
 
                 <span style="float: right; padding: 10px 0; margin-right: 9px" class="align-content-center">
-                  <select>
-                    <option th:text="*{contentsReleaseDT}"></option>
+                  <select id="contentsReleaseDt" name="contentsReleaseDt">
+                    <option th:value="*{contentsReleaseDT}" th:text="*{contentsReleaseDT}"></option>
                   </select>
                 </span>
                 <span style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
                   일시
                 </span>
                 <span style="float: right; margin-right: 9px; margin-top: 8px; border: 1px solid black;">
-                  <input type="number" name="ticketNum" id="ticketNum" style="all: unset; width: 50px"/>
+                  <input type="number" name="paymentQuantity" id="paymentQuantity" style="all: unset; width: 50px"/>
                 </span>
                 <span style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
                   매수

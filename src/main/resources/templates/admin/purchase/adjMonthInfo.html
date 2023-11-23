@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/default}">
+
+	<th:block layout:fragment="customJs">
+		<script th:src="@{/admin/js/jquery-3.7.1.js}"></script>
+	</th:block>
+	
+	<th:block layout:fragment="customJsCode">
+		<script>
+
+			//유효성 검사
+			const validationCheck = function(data) {
+				let isValid = true;
+				if(typeof data == 'object'){
+					$.each(data, function (key, value) {
+						if (value == null || value == '' || typeof value == 'undefined') {
+							//입력된 값이 유효성 검사를 통과하지 못할 경우 isValid를 false로 변경
+							isValid = false;
+							//유효성 검사에 실패한 값을 alert로 알려준 후 해당 input으로 커서 이동
+							let $elementId = $(`label[for="${key}"]`).text();
+							alert(`${$elementId} <-- 필수 입력 항목입니다.`);
+							$(`input[id="${key}"]`).focus();
+							return isValid;
+						}
+					});
+				}else {
+					if (data == null || data == '' || typeof data == 'undefined') {
+						isValid = false;
+					}
+				}
+				return isValid;
+			}
+
+			//각 행마다의 금액이 들어있는 배열 만들기
+			const totalAmount = [];
+			$.each($("td.adjTotalAmount"), function (idx, obj){
+				totalAmount.push(Number($(obj).text()));
+			});
+			let amount = 0
+			for(let elem of totalAmount){
+				amount += elem;
+			}
+			//테이블 오른쪽 아래 총합 정산금액에 입력
+			$("#totalAmount").text(amount.toLocaleString('ko-kr'));
+
+			//날짜 입력 받는 칸 정규화
+			$(document).ready(function() {
+				$("#startDate, #endDate").on('keyup', function () {
+					let inputVal = $(this).val();
+					//숫자 이외의 문자가 입력된 경우 삭제하고 0000 00형태로 끊어서 보여주기
+					inputVal = inputVal.replace(/[^0-9]/g, "").replace(/(\d{4})(\d{2})/, "$1 $2");
+					$(this).val(inputVal);
+				})
+			});
+
+
+			//사용자가 항목선택의 값을 바꿀 때마다 활성화되는 입력 창이 다름
+			$("#searchKey").change(function () {
+				let $searchKey = $("#searchKey").val();
+
+				console.log("선택한 옵션 : "+$searchKey);
+				switch($searchKey){
+					case 'region':
+						$("#regionCode").prop("disabled", false);
+						$("#districtCode").prop("disabled", false);
+						$("#storeCategoryCode").prop("disabled", true);
+						$("#storeCategoryCode").val('');
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
+						break;
+					case 'category':
+						$("#regionCode").prop("disabled", true);
+						$("#regionCode").val('');
+						$("#districtCode").prop("disabled", true);
+						$("#districtCode").val('');
+						$("#storeCategoryCode").prop("disabled", false);
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
+						break;
+					case 'regionCategory':
+						$("#regionCode").prop("disabled", false);
+						$("#districtCode").prop("disabled", false);
+						$("#storeCategoryCode").prop("disabled", false);
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
+						break;
+					case 'store':
+						$("#regionCode").prop("disabled", true);
+						$("#regionCode").val('');
+						$("#districtCode").prop("disabled", true);
+						$("#districtCode").val('');
+						$("#categoryCode").prop("disabled", true);
+						$("#storeCategoryCode").val('');
+						$("#storeName").prop("disabled", false);
+						break;
+					default:
+						console.log("선택X");
+						$("#regionCode").prop("disabled", true);
+						$("#regionCode").val('');
+						$("#districtCode").prop("disabled", true);
+						$("#districtCode").val('');
+						$("#categoryCode").prop("disabled", true);
+						$("#storeCategoryCode").val('');
+						$("#storeName").prop("disabled", true);
+						$("#storeName").val('');
+						break;
+				}
+
+			})
+
+			$("#searchBtn").click(function () {
+				//1. 검색 버튼을 눌렀을 때 입력된 값 유효성 검사(입력이 활성화 됐을 때만)
+				const $adjSearchForm = $("#adjSearchForm");
+				const search = {
+					'searchKey' : $("#searchKey").val(),
+					'regionCode' : $("#regionCode").val(),
+					'districtCode' : $("#districtCode").val(),
+					'storeCategoryCode' : $("#storeCategoryCode").val(),
+					'storeId' : $("#storeName").val(),
+				}
+				console.log(search);
+
+				switch (search.searchKey) {
+					case 'region' :
+						delete search.storeCategoryCode;
+						delete search.storeId;
+						$("#storeCategoryCode").removeAttr('name');
+						$("#storeName").removeAttr('name');
+						break;
+					case 'category' :
+						delete search.regionCode;
+						delete search.districtCode;
+						delete search.storeId;
+						$("#regionCode").removeAttr('name');
+						$("#districtCode").removeAttr('name');
+						$("#storeName").removeAttr('name');
+						break;
+					case 'regionCategory':
+						delete search.storeId;
+						$("#storeName").removeAttr('name');
+						break;
+					case 'store':
+						delete search.regionCode;
+						delete search.districtCode;
+						delete search.storeCategoryCode;
+						$("#regionCode").removeAttr('name');
+						$("#districtCode").removeAttr('name');
+						$("#storeCategoryCode").removeAttr('name');
+						break;
+					default :
+						alert("항목을 선택해주세요");
+						break;
+				}
+
+				console.log(search);
+				console.log("유효성 검사 결과 : " + validationCheck(search));
+				if(validationCheck(search)){
+
+					$startDate =  ($("#startDate").val()).replace(/ /g, "");
+					$endDate =  ($("#endDate").val()).replace(/ /g, "");
+
+
+					const $adjSearchForm = $("#adjSearchForm");
+					$adjSearchForm.append( $('<input />', {'type': 'hidden', 'name': 'startDate', 'value': $startDate}) );
+					$adjSearchForm.append( $('<input />', {'type': 'hidden', 'name': 'endDate', 'value': $endDate}) );
+					$adjSearchForm.submit();
+				}
+			})
+
+		</script>
+	</th:block>
+	
+  <body id="page-top">
+
+	<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+	<th:block layout:fragment="customContents">
+	
+		
+		<div class="" role="main">
+
+			<div class="clearfix"></div>
+  
+   			<div class="col-md-12 col-sm-12 col-xs-12">
+     			<div class="x_panel">
+       				<div class="x_title">
+         				<h2>검색 조건</h2>
+	                      <a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
+         				<div class="clearfix"></div>
+       				</div>
+	       			<div class="x_content">
+						<br />
+                    	<form id="adjSearchForm" data-parsley-validate class="form-horizontal form-label-left">
+							<div class="form-group">
+								<label for="searchKey" class="control-label col-md-3 col-sm-3 col-xs-12"> 항목 선택 </label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="searchKey" name="searchKey" class="form-control">
+										<option value="">==========선택==========</option>
+										<option value="region">지역</option>
+										<option value="category">업종</option>
+										<option value="regionCategory">지역 + 업종</option>
+										<option value="store">가맹점</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="regionCode" class="control-label col-md-3 col-sm-3 col-xs-12"> 지역</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="regionCode" name="regionCode" class="form-control" disabled="disabled">
+										<option value="">==========지역을 선택하세요==========</option>
+										<th:block th:unless="${regionList == null}" th:each="r:${regionList}">
+											<option th:value="${r.regionCode}" th:text="${r.regionName}"></option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="districtCode" class="control-label col-md-3 col-sm-3 col-xs-12"> 지역 상세</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="districtCode" name="districtCode" class="form-control" disabled="disabled">
+										<option value="">==========지역 상세를 선택하세요==========</option>
+										<th:block th:unless="${districtList == null}" th:each="d:${districtList}">
+											<option th:value="${d.districtCode}" th:text="${d.districtName}"></option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="storeCategoryCode" class="control-label col-md-3 col-sm-3 col-xs-12"> 업종</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="storeCategoryCode" name="storeCategoryCode" class="form-control" disabled="disabled">
+										<option value="">==========업종을 선택하세요==========</option>
+										<th:block th:unless="${storeList == null}" th:each="s:${storeList}">
+											<option th:value="${s.storeCategoryCode}" th:text="${s.storeCategoryName}"></option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="storeName" class="control-label col-md-3 col-sm-3 col-xs-12"> 가맹점명</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+								  <input type="text" id="storeName" name="storeName" class="form-control col-md-7 col-xs-12" disabled="disabled">
+								</div>
+							</div>
+	                      
+	                      <div class="form-group">
+	                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">검색 기간</label>
+	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style="justify-content: center; display: flex;">
+								<label for="startDate">시작 날짜</label>
+								<input type="text" id="startDate" class="form-control" style="width: 150px;"
+									   placeholder="0000년 00월" minlength="6" maxlength="6">
+								<label for="endDate">종료 날짜</label>
+								<input type="text" id="endDate" class="form-control" style="width: 150px;"
+									   placeholder="0000년 00월" minlength="6" maxlength="6">
+	                        </div>
+	                      </div>
+	                      
+	                      <div class="ln_solid"></div>
+	                      <div class="form-group">
+	                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
+	                          <button type="reset" class="btn btn-primary" id="resetBtn">초기화</button>
+	                          <button type="button" class="btn btn-success" id="searchBtn">검색</button>
+	                        </div>
+	                      </div>
+                    	</form>
+			        </div>
+			     </div>
+			     
+			     <div class="clearfix"></div>
+
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>검색 결과</h2>
+						  <a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
+						<div class="clearfix"></div>
+					</div>
+				  <div class="x_content">
+						<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+						   <thead>
+							 <tr>
+								 <th>정산코드</th>
+								 <th>정산 연도</th>
+								 <th>정산 월</th>
+								 <th>가맹점명</th>
+								 <th>지역</th>
+								 <th>업종</th>
+								 <th>정산 금액</th>
+							 </tr>
+						   </thead>
+
+						   <tbody>
+						   	 <tr th:if="${monthAdjustmentList == null}">
+								 <td colspan="6">등록된 정산 정보가 없습니다.</td>
+							 </tr>
+							 <tr th:unless="${monthAdjustmentList == null}" th:each="l:${monthAdjustmentList}">
+								 <td th:text="${l.monthAdjustmentNum}"></td>
+								 <td th:text="${l.adjustmentYear}"></td>
+								 <td th:text="${l.adjustmentMonth}"></td>
+							   	 <td th:text="${l.storeName}"></td>
+								 <td th:text="${l.regionName}+' '+${l.districtName}"></td>
+								 <td th:text="${l.storeCategoryName}"></td>
+								 <td class="adjTotalAmount" th:text="${l.monthTotalSales}"></td>
+							 </tr>
+							</tbody>
+						</table>
+						<div class="pull-right">
+							<h5>총 정산 금액 : <b id="totalAmount"></b>원</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="/admin/js/customjs/district-list.js"></script>
+	</th:block>
+  </body>
+</html>

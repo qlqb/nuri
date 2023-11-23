@@ -24,6 +24,73 @@
 			}
 		</style>
 	</head>
+
+	<th:block layout:fragment="customJsCode">
+		<script>
+			$(function(){
+				//초기화 버튼
+				$("#reset").click(function () {
+					$("#searchPayment input").val('');
+					$("#searchPayment select").val('');
+				})
+			});
+
+			const $searchBtn = document.querySelector('#searchBtn');
+			const $searchKey = document.querySelector('#searchKey');
+			const $searchValue = document.querySelector('#searchValue');
+			let key = "";
+			let value = "";
+
+			$searchBtn.addEventListener('click', function(){
+				const $formData = document.querySelectorAll('#searchPayment select, #searchPayment input');
+				const searchPayment = [...$formData].reduce((acc, item) => {
+											const paramObj = {}
+											let data = '';
+											if(item.value) data = item.value;
+											paramObj['searchKey'] = item.id;
+											paramObj['searchValue'] = data;
+											acc.push(paramObj);
+											return acc;
+										},[]);
+				fetch("/admin/purchase/searchPurchases", {
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					method: "POST",
+					body: JSON.stringify(searchPayment),
+				})
+				.then((response) => response.json())
+				.then((result) => {
+					let searchRow = '';
+					result.forEach((item, idx) => {
+						console.log(item)
+						searchRow += `
+						<tr>
+							<td>${item.paymentCode}</td>
+							<td>${item.contentsName}</td>
+							<td>${item.contentsId}</td>
+							<td>${item.contentsCategoryName}</td>
+							<td>${item.userId}</td>
+							<td>${item.munhwaCardNum}</td>
+							<td>${item.paymentAmount}</td>
+							<td>${item.paymentStatus}</td>
+							<td>${item.isRefund}</td>
+							<td>${item.isClosing}</td>
+							<td>${item.paymentDT}</td>
+							<td><a href=/admin/purchase/purchaseInfoModify?paymentCode=${item.paymentCode}>수정</a></td>
+						</tr>`;
+					});
+					console.log(searchRow)
+					const $searchRow = document.querySelector('#searchRow');
+					$searchRow.innerHTML = searchRow;
+				});
+
+
+			})
+
+		</script>
+	</th:block>
 	
   
 
@@ -39,75 +106,60 @@
        				</div>
 	       			<div class="x_content">
 						
-                    	<form id="demo-form2" data-parsley-validate="" style="text-align: center;" class="form-horizontal form-label-left">
+                    	<form id="searchPayment" data-parsley-validate="" style="text-align: center;" class="form-horizontal form-label-left">
 	                    
 	                        	
                         	<div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
-								<label style="width: 80px; margin-top: 9px;"> 결제일 </label>
-                         	 	<input type="date" id="" name="" class="form-control" style="width: 150px;"> ~
-                         	 	<input type="date" id="" name="" class="form-control" style="width: 150px;">
+								<label style="width: 80px; margin-top: 9px;" > 결제일 </label>
+                         	 	<input type="date" name="" id="startPaymentDt" class="form-control" style="width: 150px;"> ~
+                         	 	<input type="date" name="" id="endPaymentDt" class="form-control" style="width: 150px;">
                         	</div>
-                        	
+
 	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 취소일 </label>
-	                          	<input type="date" id="" name="" class="form-control" style="width: 150px;"> ~
-                         	 	<input type="date" id="" name="" class="form-control" style="width: 150px;">
-	                        </div>
-	                        
-	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 거래 상태 </label>
-	                          	<select id="" name="" class="form-control">
-									  <option>=== 거래 상태 ===</option>
-									  <option>결제 완료</option>
-									  <option>결제 실패</option>
-									  <option>결제 취소</option>
+								<label style="width: 80px; margin-top: 9px;"> 결제 상태 </label>
+	                          	<select id="paymentStatus" name="" class="form-control">
+									  <option value="">=== 결제 상태 ===</option>
+									  <option value="완료">결제 완료</option>
+									  <option value="실패">결제 실패</option>
+									  <option value="취소">결제 취소</option>
 								</select>
-	                        </div>
-	                        
-	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 주문번호 </label>
-	                          	<input type="text" id="" name="" class="form-control">
 	                        </div>
 	                        
 	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
 								<label style="width: 80px; margin-top: 9px;"> 아이디 </label>
-	                          	<input type="text" id="" name="" class="form-control">
+	                          	<input type="text" id="userId" name="" class="form-control">
 	                        </div>
 	                        
 	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 배송여부 </label>
-	                          	<select id="" name="" class="form-control">
-									  <option>=== 배송 여부 ===</option>
-									  <option>Y</option>
-									  <option>N</option>
+								<label style="width: 80px; margin-top: 9px;"> 문화누리카드번호 </label>
+	                          	<input type="text" id="munhwaCardNum" name="" class="form-control">
+	                        </div>
+
+							<div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
+								<label style="width: 80px; margin-top: 9px;"> 환불 여부 </label>
+								<select id="isRefund" name="" class="form-control">
+									<option value="">=== 환불 여부 ===</option>
+									<option value="Y">Y</option>
+									<option value="N">N</option>
 								</select>
-	                        </div>
-	                        
-	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 컨텐츠 가격 </label>
-	                          	<input type="text" id="" name="" class="form-control">
-	                        </div>
-	                        
-	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 결제 금액 </label>
-	                          	<input type="text" id="" name="" class="form-control">
-	                        </div>
-	                        
-	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 승인 번호 </label>
-	                          	<input type="text" id="" name="" class="form-control">
-	                        </div>
-	                        
-	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
-								<label style="width: 80px; margin-top: 9px;"> 상품명 </label>
-	                          	<input type="text" id="" name="" class="form-control">
-	                        </div>
+							</div>
+
+							<div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
+								<label style="width: 80px; margin-top: 9px;"> 정산 여부 </label>
+								<select id="isClosing" name="" class="form-control">
+									<option value="">=== 정산 여부 ===</option>
+									<option value="마감전">마감전</option>
+									<option value="마감후">마감후</option>
+								</select>
+							</div>
+
+
 		           
 		                      <div class="ln_solid"></div>
 		                      <div class="form-group">
 		                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-		                          <button type="button" class="btn btn-primary">초기화</button>
-		                          <button type="submit" class="btn btn-success">검색</button>
+		                          <button type="button" id="reset" class="btn btn-primary">초기화</button>
+		                          <button type="button" id="searchBtn" class="btn btn-success">검색</button>
 		                        </div>
 		                      </div>
                     	</form>
@@ -143,881 +195,62 @@
                     		<div class="col-sm-12">
                     			<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action dataTable no-footer"
                     			role="grid" aria-describedby="datatable-checkbox_info">
-			                      <thead>
-			                        <tr role="row">
-			                        	<th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-										 " style="width: 11.2px;">
-										 </th>
-										 <th class="sorting_asc" tabindex="0" aria-controls="datatable-checkbox"
-										  rowspan="1" colspan="1" aria-sort="ascending" 
-										  aria-label=": activate to sort column descending" style="width: 46.2px;">
-											  <div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; 
-											  	display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); 
-											  	border: 0px; opacity: 0;"></ins>
-											  </div>
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" 
-										  style="width: 168.2px;">
-										  	결제일
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" 
-										  style="width: 277.2px;">
-										  	취소일
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" 
-										  style="width: 126.2px;">
-										  	거래 상태
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" 
-										  style="width: 65.2px;">
-										  	주문번호
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" 
-										  style="width: 124.2px;">
-										  	구매자
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										  style="width: 96px;">
-										  	배송비
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
-										  	컨텐츠 가격
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
-										  	컨텐츠 수량
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
-										  	결제금액
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
-										  	취소금액
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox" 
-										  rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										  style="width: 96px;">
-										  	승인번호
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" 
-										   style="width: 96px;">
-										  	상품명
-										  </th>
-										  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
-										   rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending"
-										    style="width: 96px;">
-										    수정
-										  </th>
-									</tr>
-			                      </thead>
+									<thead>
+										<tr>
+											<th>결제번호</th>
+											<th>컨텐츠제목</th>
+											<th>컨텐츠번호</th>
+											<th>컨텐츠카테고리</th>
+											<th>회원아이디</th>
+											<th>문화누리카드번호</th>
+											<th>결제금액</th>
+											<th>결제상태</th>
+											<th>환불여부</th>
+											<th>정산여부</th>
+											<th>결제일자</th>
+											<th>수정</th>
+										</tr>
+									</thead>
 			                      <!-- 3333333333333333333333333333333333333333333 -->
-			                      <tbody>
-			                      	<tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
+			                      <tbody id="searchRow">
+									  <tr th:if="${paymentList == null}">
+										  <td colspan="7">게시글이 없습니다</td>
+									  </tr> <!-- class="odd" or class="even" -->
+									  <tr th:unless="${paymentList == null}" th:each="l : ${paymentList}">
+										  <td>
+											  <span th:text="${l.paymentCode}"></span>
+										  </td>
+										  <td>
+											  <a th:href="@{/user/viewDetail}"><h6 th:text="${l.contentsName}"></h6></a><br/>
+										  </td>
+										  <td>
+											  <span class="" th:text="${l.contentsId}"></span>
+										  </td>
+										  <td>
+											  <span class="" th:text="${l.contentsCategoryName}"></span>
+										  </td>
+										  <td>
+											  <span class="" th:text="${l.userId}"></span>
+										  </td>
+										  <td>
+											  <span class="" th:text="${l.munhwaCardNum}"></span>
+										  </td>
+										  <td>
+											  <p th:text="${l.paymentAmount} + '원'"></p>
+										  </td>
+										  <td>
+											  <span class="status-btn" th:text="${l.paymentStatus}"></span>
+										  </td>
+										  <td>
+											  <span class="status-btn" th:text="${l.isRefund}"></span>
+										  </td>
+										  <td>
+											  <span class="status-btn" th:text="${l.isClosing}"></span>
+										  </td>
+										  <td>
+											  <p th:text="${l.paymentDT}"></p>
+										  </td>
 					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td><a th:href="@{/admin/purchase/purchaseInfoModify}">수정</a></td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-			                        </tr>
-			                        <tr> <!-- class="odd" or class="even" -->
-			                        	<td>
-										</td>
-									  	<th class="sorting_1">
-										  	<div class="icheckbox_flat-green" style="position: relative;">
-											  	<input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
-											  	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
-											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-										  	</div>
-									  	</th>
-			                          	<td>Tiger Nixon</td>
-					                    <td>Tiger Nixon</td>
-					                    <td>System Architect</td>
-					                    <td>Edinburgh</td>
-					                    <td>61</td>
-					                    <td>$320,800</td>
-					                    <td>2011/04/25</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
-					                    <td>$320,800</td>
 			                        </tr>
 			                      </tbody>
 			                    </table>

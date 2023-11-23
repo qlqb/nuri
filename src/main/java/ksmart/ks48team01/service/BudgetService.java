@@ -74,13 +74,18 @@ public class BudgetService {
        return budgetMapper.updateBudgetTotal(budget);
     }
 
+    //지역 단위 예산 수정
+    public int updateBudgetRegion(BudgetRegion budgetRegion){
+        return budgetMapper.updateBudgetRegion(budgetRegion);
+    }
+
     // 전국 단위 예산 삭제
     public void removeBudgetTotal(String applyYear){
         budgetMapper.removeBudgetTotal(applyYear);
     }
 
-    //지역 단위 예산 수정
-    public int updateBudgetRegion(BudgetRegion budgetRegion){
-        return budgetMapper.updateBudgetRegion(budgetRegion);
+    // 지역 단위 예산 삭제
+    public void removeBudgetRegion(String budgetRegionNum){
+        budgetMapper.removeBudgetRegion(budgetRegionNum);
     }
 }

@@ -2,14 +2,15 @@ package ksmart.ks48team01.user.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ksmart.ks48team01.dto.Contents;
+import ksmart.ks48team01.dto.Payment;
 import ksmart.ks48team01.service.ContentsService;
+import ksmart.ks48team01.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,13 +18,28 @@ import java.util.List;
 @RequestMapping("/user/mypage")
 public class MyPageController {
 
-	public String mypage = "마이페이지";
+	private static final Logger log = LoggerFactory.getLogger(MyPageController.class);
 
-	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
+	private final PaymentService paymentService;
 	private final ContentsService contentsService;
 
-	public MyPageController(ContentsService contentsService) {
+	public MyPageController(PaymentService paymentService, ContentsService contentsService){
+		this.paymentService = paymentService;
 		this.contentsService = contentsService;
+	}
+
+	public String mypage = "마이페이지";
+
+	@GetMapping("/myContentsList")
+	public String myContentsList(Model model,
+								 HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+		if(userId != null) {
+			List<Contents> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
+			model.addAttribute("contentsInfoList", contentsInfoList);
+		}
+		return "user/mypage/myContentsList";
 	}
 
 	@GetMapping("/mypageMain")
@@ -83,8 +99,19 @@ public class MyPageController {
 	@GetMapping("/myOrder")
 	public String myOrder(Model model) {
 
+		int paymentCnt = paymentService.getPaymentCount();
+		int paymentAmount = paymentService.getPaymentAmount();
+		List<Payment> paymentList = paymentService.getPaymentList();
+
+		log.info("PaymentList: {}", paymentList);
+
 		model.addAttribute("title", "나의 주문/예약 조회");
 		model.addAttribute("head", mypage);
+
+		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("paymentCnt", paymentCnt);
+		model.addAttribute("paymentAmount", paymentAmount);
+
 
 		return "user/mypage/myOrder";
 	}
@@ -125,21 +152,6 @@ public class MyPageController {
 		return "user/mypage/myStoreSaleHistory";
 	}
 
-	@GetMapping("/myContentsList")
-	public String myContentsList(Model model,
-								 HttpSession session) {
-
-		String userId = (String) session.getAttribute("SID");
-		if(userId != null) {
-			List<Contents> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
-			model.addAttribute("contentsInfoList", contentsInfoList);
-		}
-
-		model.addAttribute("title", "내 컨텐츠 목록");
-		model.addAttribute("head", mypage);
-
-		return "user/mypage/myContentsList";
-	}
 
 	@GetMapping("/myContentsRegist")
 	public String myContentsRegist(Model model) {

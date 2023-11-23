@@ -48,6 +48,7 @@
 						<a><i class="fa fa-home"></i>회원 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/user/userInfoList}">회원</a></li>
+							<li><a th:href="@{/admin/user/munhwaCardList}">문화누리카드</a></li>
 							<li><a th:href="@{/admin/store/storeInfoList}">가맹점</a></li>
 							<li><a th:href="@{/admin/officer/officerInfoList}">공무원</a></li>
 						</ul>
@@ -66,8 +67,8 @@
 					</li>
 					<li><a><i class="fa fa-table"></i> 컨텐츠 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/contents/contentsInfoList}">컨텐츠 목록</a></li>
-							<li><a th:href="@{/admin/contents/contentsInfoSpecific}">컨텐츠 검색</a></li>
+							<li><a th:href="@{#}">컨텐츠 목록</a></li>
+							<li><a th:href="@{#}">컨텐츠 검색</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-bar-chart-o"></i> 게시판 관리 <span class="fa fa-chevron-down"></span></a>
@@ -80,10 +81,8 @@
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/purchase/reservationInfo}">예약내역 조회</a></li>
 							<li><a th:href="@{/admin/purchase/purchaseInfo}">결제내역 조회</a></li>
-							<li><a th:href="@{/admin/purchase/adjInfoRegion}">정산내역 조회(지역별)</a></li>
-							<li><a th:href="@{/admin/purchase/adjInfoCate}">정산내역 조회(업종별)</a></li>
-							<li><a th:href="@{/admin/purchase/adjInfoRegionCate}">정산내역 조회(지역+업종별)</a></li>
-							<li><a th:href="@{/admin/purchase/adjInfoStore}">정산내역 조회(가맹점)</a></li>
+							<li><a th:href="@{/admin/purchase/adjDayInfo}">일별 정산 내역 조회</a></li>
+							<li><a th:href="@{/admin/purchase/adjMonthInfo}">월별 정산 내역 조회</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-clone"></i> 통계 관리 <span class="fa fa-chevron-down"></span></a>

@@ -11,7 +11,20 @@ public interface UserMapper {
     // 관리자 페이지 전체 회원 조회
     public List<User> getUserList();
 
+    // 회원의 로그인
     public Boolean getUserIdCheck(String userId);
+
+    // 회원의 아이디 찾기
+    public String findMyId(String userName, String userEmail);
+
+    // 회원의 비밀번호 초기화를 위한 회원확인
+    public int findMyPw(String userId, String userContact);
+
+    // 등록하는 비밀번호의 중복검사
+    public int isExistingPw (String userId, String userPw);
+
+    // 회원의 비밀번호 초기화
+    public User reserMyPw(String userPw);
 
     // 관리자 페이지 특정 회원 상세 조회
     public User getSpecificUserList(String userId);
@@ -23,9 +36,9 @@ public interface UserMapper {
     public void updateUserByAdmin(User user);
     
     // 사용자 등록
-    public void memberRegister(User user);
-
-
+    public int memberRegister(User user);
+    public int officerUserRegister(User user);
+    public int storeUserRegister(User user);
 
     public List<User> userSearchList(String searchKey, String searchValue);
     

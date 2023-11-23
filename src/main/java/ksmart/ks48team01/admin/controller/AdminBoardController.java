@@ -29,7 +29,7 @@ public class AdminBoardController {
 	//게시판 페이징 처리 미완
 
 
-	//게시글 탈퇴 처리
+	//게시글 삭제 처리
 	@PostMapping("/removeBoardContents")
 	public String removeBoardContents(Board board, RedirectAttributes reAttr) {
 		String boardCode = board.getBoardCode();

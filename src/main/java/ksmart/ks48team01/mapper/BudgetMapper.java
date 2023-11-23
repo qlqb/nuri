@@ -50,5 +50,9 @@ public interface BudgetMapper {
     //전국 단위 예산 삭제
     public int removeBudgetTotal(String applyYear);
 
+    //지역 단위 예산 삭제
+    public int removeBudgetRegion(String applyYear);
+
+
 
 }

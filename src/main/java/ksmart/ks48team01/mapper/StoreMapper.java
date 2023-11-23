@@ -31,7 +31,7 @@ public interface StoreMapper {
      * 가맹점 회원가입 입력 Form
      * @param store 가맹점 회원가입 입력 Form
      */
-    public void adminRegisterStore(Store store);
+    public int storeRegister(Store store);
 
 
     /**
