@@ -11,7 +11,7 @@
         <result property="contentsName" column="CONTENTS_NAME"/>
         <result property="contentsCategoryName" column="CONTENTS_CAT_NAME"/>
         <result property="contentAddress" column="CONTENT_ADDRESS"/>
-        <result property="munhwacardNum" column="MUNHWACARD_NUM"/>
+        <result property="munhwaCardNum" column="MUNHWACARD_NUM"/>
         <result property="reservationCode" column="RESERVATION_CODE"/>
         <result property="deliveryCosts" column="DELIVERY_COSTS"/>
         <result property="contentsPrice" column="CONTENTS_PRICE"/>
@@ -24,7 +24,7 @@
         <result property="closingCode" column="CLOSING_CODE"/>
         
         <association property="munhwacardInfo" javaType="MunhwaCard">
-            <id property="munhwacardNum" column="MUNHWACARD_NUM"/>
+            <id property="munhwaCardNum" column="MUNHWACARD_NUM"/>
             <result property="userId" 		column="USER_ID"/>
             <result property="cvc" 		column="CVC"/>
             <result property="cardPw" 		column="CARD_PW"/>
