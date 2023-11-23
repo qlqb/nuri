@@ -305,5 +305,29 @@
             c.STORE_CATEGORY_CODE = #{storeCategoryCode};
     </select>
 
+    <select id="getAdminContentsList" resultMap="contentsResultMap">
+        SELECT
+            c.CONTENTS_ID,
+            c.CONTENTS_CAT_CODE,
+            c.REGION_CODE,
+            c.STORE_ID,
+            c.CONTENTS_CAT_NAME,
+            c.CONTENTS_NAME,
+            c.CONTENT_ADDRESS,
+            c.CONTENTS_DURATION,
+            c.CONTENTS_DURATION,
+            c.CONTENTS_PG,
+            c.CONTENTS_PRICE,
+            c.CONTENTS_RELEASE_DT,
+            c.CONTENTS_REG_DATE,
+            c.CONTENTS_SELL_START_DATE,
+            c.CONTENTS_SELL_END_DATE,
+            c.AMOUNT_CONTENT_REGISTERED,
+            c.AMOUNT_CONTENT_REMAINING,
+            c.CONTENTS_DETAIL
+        FROM
+            CONTENTS AS c
+    </select>
+
 
 </mapper>

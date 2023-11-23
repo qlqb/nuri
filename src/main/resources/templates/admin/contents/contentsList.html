@@ -214,7 +214,7 @@
                     </a>
                   </td>
                 </tr>
-                <tr> <!-- class="odd" or class="even" -->
+                <tr th:each="cl: ${contentsList}"> <!-- class="odd" or class="even" -->
                   <td>
                   </td>
                   <th class="sorting_1">
@@ -224,14 +224,14 @@
 											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                     </div>
                   </th>
-                  <td class=" ">CT202310201</td>
-                  <td class=" ">엘리멘탈</td>
-                  <td class=" ">영화</td>
-                  <td class=" ">2023.10.15 ~ 2023.10.30</td>
-                  <td class=" ">천안 CGV 펜타포트점</td>
-                  <td class=" ">-</td>
-                  <td class="a-right a-right ">만7세이상</td>
-                  <td class=" last"><a href="#">5000원</a></td>
+                  <td th:text="${cl.contentsId}">CT202310201</td>
+                  <td th:text="${cl.contentsName}">엘리멘탈</td>
+                  <td th:text="${cl.contentsCategoryName}">영화</td>
+                  <td th:>2023.10.15 ~ 2023.10.30</td>
+                  <td >천안 CGV 펜타포트점</td>
+                  <td >-</td>
+                  <td >만7세이상</td>
+                  <td ><a href="#">5000원</a></td>
                   <td>
                     <a th:href="@{/admin/contents/contentsInfoUpdate}">
                       <button class="btn btn-info" type="button">수정</button>
@@ -334,8 +334,6 @@
               </table>
             </div>
           </div>
-          <!-- 33333333333333333333333333333333333333333333333333333333 -->
-
         </div>
       </div>
     </div>

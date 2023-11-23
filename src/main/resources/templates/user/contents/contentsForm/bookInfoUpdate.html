@@ -42,9 +42,7 @@
                             <h3>컨텐츠 수정</h3>
                         </div>
                     </div>
-
                     <div class="post-ad-form-wrapper">
-
                         <form th:action="@{/user/contents/bookInfoUpdate}" method="post" th:object="${contentsInfo}" id="modifyContentsForm">
                             <div class="row justify-content-center">
                                 <div class="col-xl-7">
@@ -300,10 +298,6 @@
                     }
                     return isValid;
                 }
-
-
-
-
 
                 $('#modifyContents').click(function () {
 

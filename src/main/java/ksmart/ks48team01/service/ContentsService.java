@@ -132,6 +132,8 @@ public class ContentsService {
     }
 
 
+
+
     public List<StoreCategory> getStoreCategory() {
         return contentsMapper.getStoreCategory();
     }
@@ -609,5 +611,9 @@ public class ContentsService {
         contentsCategoryList = contentsCategoryList.stream().filter(cc -> !cc.getContentsCategoryCode().endsWith("00")).collect(Collectors.toList());
 
         return contentsCategoryList;
+    }
+
+    public List<Contents> getAdminContentsList() {
+        return contentsMapper.getAdminContentsList();
     }
 }

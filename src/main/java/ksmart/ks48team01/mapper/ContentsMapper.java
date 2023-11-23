@@ -60,4 +60,10 @@ public interface ContentsMapper {
      * @return
      */
     public List<ContentsCategory> getAjaxContentsCategory(String storeCategoryCode);
+
+    /**
+     * 어드민 페이지에서 보여지는 컨텐츠 리스트
+     * @return
+     */
+    public List<Contents> getAdminContentsList();
 }
