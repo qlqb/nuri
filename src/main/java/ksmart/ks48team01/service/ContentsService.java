@@ -1,8 +1,6 @@
 package ksmart.ks48team01.service;
 
-import ksmart.ks48team01.dto.Contents;
-import ksmart.ks48team01.dto.ContentsCategory;
-import ksmart.ks48team01.dto.StoreCategory;
+import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.mapper.ContentsMapper;
 import ksmart.ks48team01.user.controller.ContentsController;
 import org.slf4j.Logger;
@@ -10,10 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ContentsService {
@@ -141,6 +137,8 @@ public class ContentsService {
     }
 
     public List<ContentsCategory> getContentsCategory() {
+        List<ContentsCategory> contentsCategoryList = contentsMapper.getContentsCategory();
+
         return contentsMapper.getContentsCategory();
     }
 
@@ -370,8 +368,10 @@ public class ContentsService {
      * @param contents
      */
     public void addBookContents(Contents contents) {
-        String ContentsCategoryCode = contents.getContentsCategoryCode();
-        switch (ContentsCategoryCode) {
+        String contentsCategoryCode = contents.getContentsCategoryCode();
+        String contentsAddress = contents.getContentsAddress();
+
+        switch (contentsCategoryCode) {
             case "A0101":
                 contents.setContentsCategoryName("연주회");
                 break;
@@ -549,11 +549,21 @@ public class ContentsService {
             case "D0104":
                     contents.setContentsCategoryName("OTT");
                     break;
-            }
-            contents.setAmountContentRemaining(contents.getAmountContentRegistered());
-            if(contents.getContentsSellEndDate().isEmpty()) {
-                contents.setContentsSellEndDate("9999-12-31");
-            }
+        }
+
+        contents.setAmountContentRemaining(contents.getAmountContentRegistered());
+        if(contents.getContentsSellEndDate().isEmpty()) {
+            contents.setContentsSellEndDate("9999-12-31");
+        }
+        if(contents.getContentsDuration().isEmpty()) {
+            contents.setContentsDuration("0");
+        }
+        if(contents.getContentsPg().isEmpty()) {
+            contents.setContentsPg("0");
+        }
+        if(contents.getContentsReleaseDT().isEmpty()) {
+            contents.setContentsReleaseDT("1000-01-01 00:00:00");
+        }
 
         contentsMapper.addBookContents(contents);
     }
@@ -579,7 +589,7 @@ public class ContentsService {
         return contentsDetailInfo;
     }
 
-    public List<Map<String, Object>> getSessionStoreInfo(String userId) {
+    public Store getSessionStoreInfo(String userId) {
         return contentsMapper.getSessionStoreInfo(userId);
     }
 
@@ -591,5 +601,13 @@ public class ContentsService {
     public List<Contents> getContentsInfoByUserId(String userId) {
         List<Contents> contentsInfoList = contentsMapper.getContentsInfoByUserId(userId);
         return contentsInfoList;
+    }
+
+    public List<ContentsCategory> getAjaxContentsCategory(String storeCategoryCode) {
+        List<ContentsCategory> contentsCategoryList = contentsMapper.getAjaxContentsCategory(storeCategoryCode);
+
+        contentsCategoryList = contentsCategoryList.stream().filter(cc -> !cc.getContentsCategoryCode().endsWith("00")).collect(Collectors.toList());
+
+        return contentsCategoryList;
     }
 }

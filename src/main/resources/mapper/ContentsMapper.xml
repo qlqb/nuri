@@ -228,7 +228,7 @@
             c.CONTENTS_ID = #{contentsId};
     </select>
 
-    <select id="getSessionStoreInfo" resultType="map" parameterType="String">
+    <select id="getSessionStoreInfo" resultType="Store" parameterType="String">
         SELECT
             si.STORE_ID AS storeId,
             si.STORE_NAME AS storeName
@@ -244,13 +244,23 @@
 
     <select id="getContentsInfoByContentsId" resultMap="contentsResultMap" parameterType="String">
         SELECT
+            c.CONTENTS_CAT_CODE,
+            c.REGION_CODE,
+            c.STORE_ID,
+            c.CONTENTS_CAT_NAME,
             c.CONTENTS_NAME,
+            c.CONTENT_ADDRESS,
+            c.CONTENTS_DURATION,
+            c.CONTENTS_DURATION,
+            c.CONTENTS_PG,
             c.CONTENTS_PRICE,
+            c.CONTENTS_RELEASE_DT,
+            c.CONTENTS_REG_DATE,
             c.CONTENTS_SELL_START_DATE,
             c.CONTENTS_SELL_END_DATE,
+            c.AMOUNT_CONTENT_REGISTERED,
             c.AMOUNT_CONTENT_REMAINING,
-            c.CONTENTS_DETAIL,
-            c.CONTENTS_CAT_CODE
+            c.CONTENTS_DETAIL
         FROM
             CONTENTS AS c
         WHERE
@@ -282,5 +292,18 @@
         WHERE
             ui.USER_ID = #{userId};
     </select>
+
+    <select id="getAjaxContentsCategory" resultType="ContentsCategory" parameterType="String">
+        /* 대분류 선택시 ajax로 호출로 화면에 보내질 소분류 정보 */
+        SELECT
+            c.CONTENTS_CAT_CODE AS contentsCategoryCode,
+            c.STORE_CATEGORY_CODE AS storeCategoryCode,
+            c.CONTENTS_CAT_NAME AS contentsCategoryName
+        FROM
+            CONTENT_CATEGORY AS c
+        WHERE
+            c.STORE_CATEGORY_CODE = #{storeCategoryCode};
+    </select>
+
 
 </mapper>
