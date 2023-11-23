@@ -59,6 +59,10 @@ public class StoreService {
         return registerResult;
     }
 
+    public void storeInfoUpdate(Store store) {
+        storeMapper.storeInfoUpdate(store);
+    }
+
     /**
      * GET 방식으로 유저 가맹점 설명 페이지에서 호출 및 입력 값이 없을 경우
      * 출력되는 전체 결과

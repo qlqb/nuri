@@ -67,9 +67,16 @@ public class AdminOfficerController {
 
     @GetMapping("/officerInfoUpdate")
     public String officerInfoUpdate(Model model, @RequestParam (name = "officerId") String officerId) {
-        Officer officerUpdateList = officerService.getOfficerUpdate(officerId);
-        model.addAttribute("officerUpdateList", officerUpdateList);
+        Officer specificOfficerList = officerService.getSpecificOfficerList(officerId);
+        model.addAttribute("officerUpdateList", specificOfficerList);
 
         return "admin/officer/officerInfoUpdate";
+    }
+
+    @PostMapping("/officerInfoUpdate")
+    public String officerInfoUpdate(Officer officer) {
+        officerService.getOfficerUpdate(officer);
+
+        return "redirect:/admin/officer/officerInfoList";
     }
 }

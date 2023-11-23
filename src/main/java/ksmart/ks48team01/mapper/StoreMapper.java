@@ -49,7 +49,7 @@ public interface StoreMapper {
     List<Store> getStoreKeyword(String storeKeyword);
 
     
-
+    void storeInfoUpdate(Store store);
 
 
 }

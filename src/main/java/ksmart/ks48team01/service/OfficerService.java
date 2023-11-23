@@ -29,14 +29,18 @@ public class OfficerService {
         return officerSearchList;
     }
 
+    public Officer getSpecificOfficerList(String officerId) {
+        Officer specificOfficerList = officerMapper.getSpecificOfficerList(officerId);
+
+        return specificOfficerList;
+    }
+
     public int officerRegister(Officer officer) {
         return officerMapper.officerRegister(officer);
     }
 
-    public Officer getOfficerUpdate (String officerId) {
-        Officer officerUpdateList = officerMapper.getOfficerUpdate(officerId);
-
-        return officerUpdateList;
+    public void getOfficerUpdate (Officer officer) {
+        officerMapper.getOfficerUpdate(officer);
     }
 
 }

@@ -22,6 +22,24 @@
         <result property="ssoType" column="SSO_TYPE"/>
     </resultMap>
 
+    <resultMap type="User" id="specificUserResultMap">
+        <id property="userId" column="USER_ID"/>
+        <result property="levelId" column="LEVEL_ID"/>
+        <result property="userLevelName" column="USER_LEVEL_NAME"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="userPw" column="USER_PW"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userBirth" column="USER_BIRTH"/>
+        <result property="userAddress" column="USER_ADDRESS"/>
+        <result property="userContact" column="USER_CONTACT"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="userRecentLogin" column="USER_RECENT_LOGIN"/>
+        <result property="userRegDate" column="USER_REGDATE"/>
+        <result property="userStat" column="USER_STAT"/>
+        <result property="ssoType" column="SSO_TYPE"/>
+    </resultMap>
+
 
     <!--  회원 전체조회  -->
     <select id="getUserList" resultType="User">

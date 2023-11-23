@@ -25,7 +25,9 @@
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
-
+    <script src="/user/assets/js/district-list.js"></script>
+    <script src="/user/assets/js/userValidate.js"></script>
+    <script src="/user/assets/js/memberForm.js"></script>
 </th:block>
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
@@ -354,12 +356,5 @@
     </section>
 
 </th:block>
-
-<body>
-    <script src="/user/assets/js/district-list.js"></script>
-    <script src="/user/assets/js/userValidate.js"></script>
-    <script src="/user/assets/js/memberForm.js"></script>
-</body>
-
 
 </html>

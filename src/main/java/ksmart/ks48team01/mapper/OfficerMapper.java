@@ -14,6 +14,8 @@ public interface OfficerMapper {
 
     int officerRegister(Officer officer);
 
-    Officer getOfficerUpdate(String officerId);
+    Officer getSpecificOfficerList (String officerId);
+
+    int getOfficerUpdate(Officer officer);
 
 }

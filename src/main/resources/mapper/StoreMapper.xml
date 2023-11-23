@@ -141,6 +141,23 @@
             NOW());
     </insert>
 
+    <update id="storeInfoUpdate" parameterType="Store">
+        UPDATE STORE_INFO AS SI
+        <set>
+            <if test="storeName != null and storeName != ''">
+                SI.STORE_NAME = #{storeName},
+            </if>
+            <if test="userId != null and userId != ''">
+                SI.USER_ID = #{userId},
+            </if>
+            <if test="storeAddress != null and storeAddress != ''">
+                SI.STORE_ADDRESS = #{storeAddress}
+            </if>
+        </set>
+        WHERE
+        SI.STORE_ID = #{storeId};
+    </update>
+
 
     <!--  유저 페이지에서 가맹점 키워드 전체조회 쿼리  -->
     <select id="getStoreKeywordAll" resultMap="userStoreResultMap">

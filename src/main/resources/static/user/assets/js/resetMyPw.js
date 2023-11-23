@@ -19,8 +19,8 @@ function pwRegexpCheck (value) {
 
 const $existingAlert = document.querySelector('#existing-alert');
 
-function printExistingMsg () {
-    if(existResult == 1) {
+function printExistingMsg (existResult) {
+    if(existResult) {
         $existingAlert.classList.add('notice-hide');
     } else {
         $existingAlert.classList.remove('notice-hide');
@@ -35,13 +35,14 @@ function isPwExisting () {
         headers : {
             "Content-Type": "application/json; charset=UTF-8",
         },
-        body : {
+        body : JSON.stringify({
             "userId" : $userId.value,
             "resetPw" : $resetPw.value
-        }
+        }),
     })
-        .then((response) => response.text())
+        .then((response) => (response))
         .then(existResult => {
+            console.log(existResult)
             printExistingMsg(existResult)
         })
 }
@@ -54,6 +55,7 @@ $resetPw.onkeyup = function () {
     if(pwRegexpCheck($resetPw.value)) {
         $pwAlert.classList.add('notice-hide');
     } else {
+        $pwAlert.focus();
         $pwAlert.classList.remove('notice-hide');
         $pwAlert.classList.add('notice-show');
     }
@@ -63,6 +65,7 @@ $resetPwCheck.onkeyup = function () {
     if(pwMatching($resetPw.value, $resetPwCheck.value)) {
         $pwCheckAlert.classList.add('notice-hide');
     } else {
+        $pwCheckAlert.focus();
         $pwCheckAlert.classList.remove('notice-hide');
         $pwCheckAlert.classList.add('notice-show');
     }
@@ -70,6 +73,8 @@ $resetPwCheck.onkeyup = function () {
 
 $submitBtn.addEventListener('click', () => {
     if(pwMatching($resetPw.value, $resetPwCheck.value) && pwRegexpCheck($resetPw.value)) {
-
+        isPwExisting()
+    } else {
+        event.preventDefault();
     }
 })
