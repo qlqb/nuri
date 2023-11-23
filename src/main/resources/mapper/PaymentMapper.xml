@@ -24,7 +24,7 @@
         <result property="closingCode" column="CLOSING_CODE"/>
         
         <association property="munhwacardInfo" javaType="MunhwaCard">
-            <id property="munhwacardNum" column="MUNHWACARD_NUM"></id>
+            <id property="munhwacardNum" column="MUNHWACARD_NUM"/>
             <result property="userId" 		column="USER_ID"/>
             <result property="cvc" 		column="CVC"/>
             <result property="cardPw" 		column="CARD_PW"/>
@@ -37,9 +37,51 @@
         </association>
     </resultMap>
 
-    <!--문화 카드 정보 가져오기-->
-    <!--<select id="getMunhwaCardInfo"-->
-
+    <!--결제 등록-->
+    <insert id="paymentRegist" parameterType="payment">
+        <selectKey keyProperty="paymentCode" resultType="String" order="BEFORE">
+        /*게시판 코드 자동증가*/
+        SELECT
+            (CASE
+            WHEN COUNT(p.PAYMENT_CODE) = 0 THEN 'PAYMENT001'
+            WHEN (max(cast(SUBSTRING_INDEX(p.PAYMENT_CODE, 'PAYMENT', -1) AS UNSIGNED))+1) > 999
+            THEN CONCAT('PAYMENT', MAX(CAST(SUBSTRING_INDEX(p.PAYMENT_CODE, 'PAYMENT', -1) AS UNSIGNED))+1)
+            ELSE CONCAT('PAYMENT', LPAD(max(cast(SUBSTRING_INDEX(p.PAYMENT_CODE, 'PAYMENT', -1) AS UNSIGNED))+1,3,'0'))
+            END) AS boardCode
+        FROM
+            PAYMENT AS p
+        </selectKey>
+        INSERT INTO PAYMENT
+            (PAYMENT_CODE,
+            USER_ID,
+            CONTENTS_ID,
+            MUNHWACARD_NUM,
+            RESERVATION_CODE,
+            DELIVERY_COSTS,
+            CONTENTS_PRICE,
+            PAYMENT_QUANTITY,
+            PAYMENT_AMOUNT,
+            PAYMENT_STATUS,
+            PAYMENT_DT,
+            IS_REFUND,
+            IS_CLOSING,
+            CLOSING_CODE)
+        VALUES
+            (#{paymentCode},
+            #{userId},
+            #{contentsId},
+            #{munhwaCardNum},
+            #{reservationCode},
+            #{deliveryCode},
+            #{contentsPrice},
+            #{paymentQuantity},
+            #{paymentAmount},
+            '완료',
+            CURDATE(),
+            'N',
+            '마감전',
+            '')
+    </insert>
 
     <!--총구매 가격(아이디별로 작업 해야함)-->
     <select id="getPaymentAmount" resultType="int">

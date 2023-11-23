@@ -9,6 +9,9 @@ import java.util.Map;
 @Mapper
 public interface PaymentMapper {
 
+    //결제 등록
+    public int paymentRegist(Payment payment);
+
     // 결제 내역 조회 검색
     public List<Payment> getSearchPaymentList(List<Map<String, Object>> searchList);
 

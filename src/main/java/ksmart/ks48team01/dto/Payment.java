@@ -27,7 +27,7 @@ public class Payment {
 
     //munhwaCard Dto에서 가져오는 정보
     private MunhwaCard munhwacardInfo;
-    private String munhwacardNum;
+    private String munhwaCardNum;
     private String cvc;
     private String cardPw;
     private String cardExpiryDate;
@@ -168,12 +168,12 @@ public class Payment {
         this.munhwacardInfo = munhwacardInfo;
     }
 
-    public String getMunhwacardNum() {
-        return munhwacardNum;
+    public String getMunhwaCardNum() {
+        return munhwaCardNum;
     }
 
-    public void setMunhwacardNum(String munhwacardNum) {
-        this.munhwacardNum = munhwacardNum;
+    public void setMunhwacardNum(String munhwaCardNum) {
+        this.munhwaCardNum = munhwaCardNum;
     }
 
     public String getCvc() {
@@ -238,7 +238,7 @@ public class Payment {
         sb.append(", contentsCategoryName='").append(contentsCategoryName).append('\'');
         sb.append(", contentAddress='").append(contentAddress).append('\'');
         sb.append(", munhwacardInfo=").append(munhwacardInfo);
-        sb.append(", munhwacardNum='").append(munhwacardNum).append('\'');
+        sb.append(", munhwacardNum='").append(munhwaCardNum).append('\'');
         sb.append(", cvc='").append(cvc).append('\'');
         sb.append(", cardPw='").append(cardPw).append('\'');
         sb.append(", cardExpiryDate='").append(cardExpiryDate).append('\'');

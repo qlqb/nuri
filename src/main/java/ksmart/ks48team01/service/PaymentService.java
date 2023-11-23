@@ -22,6 +22,11 @@ public class PaymentService {
         this.paymentMapper = paymentmapper;
     }
 
+    //결제 등록
+    public int paymentRegist(Payment payment){
+        return paymentMapper.paymentRegist(payment);
+    }
+
     //검색어에 따른 결제 목록 조회
     public List<Payment> getPaymentList(List<Map<String, Object>> searchList) {
 
