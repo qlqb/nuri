@@ -13,21 +13,23 @@ const $address2 = document.querySelector('#address2');
 const $idAlert1 = document.querySelector('#id-alert1');
 const $idAlert2 = document.querySelector('#id-alert2');
 
+const $additionalBtn = document.querySelector('#additional-btn');
+
 // 아이디 입력 EventListener
 $userId.addEventListener('focusout', () => {
-    if(idRegexpCheck($userId.value)) {
+    idRegexpCheck()
+})
+
+// 아이디 유효성 정규식
+function idRegexpCheck () {
+    const idRegexp = /^[a-zA-Z][0-9a-zA-Z]{5,19}$/;
+    if(idRegexp.test($userId.value)) {
         $idAlert2.classList.add('notice-hide')
         idDuplicationCheck($userId.value)
     } else {
         $idAlert2.classList.add('notice-show')
         $idAlert2.classList.remove('notice-hide')
     }
-})
-
-// 아이디 유효성 정규식
-function idRegexpCheck (value) {
-    const idRegexp = /^[a-zA-Z][0-9a-zA-Z]{5,19}$/;
-    return idRegexp.test(value);
 }
 
 // 아이디 ajax 중복검사
@@ -50,16 +52,21 @@ function idDuplicationCheck (value) {
                 $idAlert1.classList.remove('notice-hide')
             }
         })
-};
+}
 
 const $pwAlert = document.querySelector('#pw-alert');
 
 
 
 // 비밀번호 유효성 검사
-function pwRegexpCheck (value) {
+function pwRegexpCheck () {
     const pwRegexp = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
-    return pwRegexp.test(value);
+    if(pwRegexp.test($userPw.value)) {
+        $pwAlert.classList.add('notice-hide')
+    } else {
+        $pwAlert.classList.add('notice-hide')
+        $pwAlert.classList.remove('notice-hide')
+    }
 }
 
 // 비밀번호 확인 검사
@@ -71,12 +78,7 @@ function pwMatching (password1, password2) {
 }
 
 $userPw.onkeyup = function () {
-    if(pwRegexpCheck($userPw.value)) {
-        $pwAlert.classList.add('notice-hide')
-    } else {
-        $pwAlert.classList.add('notice-hide')
-        $pwAlert.classList.remove('notice-hide')
-    }
+    pwRegexpCheck()
 }
 
 const $pwCheckAlert = document.querySelector('#pw-checkAlert');
@@ -135,6 +137,8 @@ function getToday(distract) {
 }
 
 const $contactAlert = document.querySelector('#contact-alert');
+const $mailAlert = document.querySelector('#mail-alert');
+
 
 $userContact.addEventListener('focusout', () => {
     if(contactCheck($userContact.value)) {
@@ -151,7 +155,6 @@ function contactCheck (value) {
     return userContactRegexp.test(value);
 }
 
-const $mailAlert = document.querySelector('#mail-alert');
 
 $userEmail.addEventListener('focusout', () => {
     if(mailCheck($userEmail.value)) {
@@ -169,34 +172,38 @@ function mailCheck (value) {
 }
 
 const $regionAlert = document.querySelector('#region-alert');
-
-$regionInput.addEventListener('focusout', () => {
-    if($regionInput.value == null || $regionInput.value == "" || $regionInput.value == undefined) {
-        $regionAlert.classList.add('notice-hide')
-        $regionAlert.classList.remove('notice-hide')
-    } else {
-        $regionAlert.classList.add('notice-hide')
-    }
-})
-
 const $districtAlert = document.querySelector('#district-alert');
-
-$districtInput.addEventListener('focusout', () => {
-    if($districtInput.value == null || $districtInput.value == "" || $districtInput.value == undefined) {
-        $districtAlert.classList.add('notice-hide')
-        $districtAlert.classList.remove('notice-hide')
-    } else {
-        $districtAlert.classList.add('notice-hide')
-    }
-})
-
 const $addrAlert = document.querySelector('#address1Alert');
 
+$regionInput.addEventListener('focusout', () => {
+    blankCheck($regionInput, $regionAlert);
+})
+
+$districtInput.addEventListener('focusout', () => {
+    blankCheck($districtInput, $districtAlert);
+})
+
 $address1.addEventListener('focusout', () => {
-    if($address1.value == null || $address1.value == "") {
-        $addrAlert.classList.add('notice-hide')
-        $addrAlert.classList.remove('notice-hide')
+    blankCheck($address1, $addrAlert);
+})
+
+function blankCheck (query, alert) {
+    if(query.value == null || query.value === "" || query.value === undefined) {
+        alert.classList.add('notice-hide')
+        alert.query.classList.remove('notice-hide')
     } else {
-        $addrAlert.classList.add('notice-hide')
+        alert.query.classList.add('notice-hide')
+    }
+}
+
+$additionalBtn.addEventListener('click', (e) => {
+    if(idRegexpCheck($userId.value) &&
+        pwRegexpCheck($userPwCheck) &&
+        pwMatching($userPw.value, $userPwCheck.value) &&
+        nameCheck($userName.value) &&
+        mailCheck($userEmail.value)) {
+        console.log('다음으로')
+    } else {
+        e.preventDefault();
     }
 })

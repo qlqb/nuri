@@ -22,7 +22,10 @@ public class StoreController {
 
     @GetMapping("/nuriStore")
     public String nuriStoreList(Model model) {
-        List<Store> storeKeywordAll = storeService.getStoreKeyword();
+        List<Store> storeOfContentList = storeService.storeOfContentInfo();
+        List<Store> categoryList = storeService.storeCategoryList();
+        model.addAttribute("storeOfContentList", storeOfContentList);
+        model.addAttribute("categoryList", categoryList);
 
         return "user/store/nuriStore";
     }
@@ -57,7 +60,5 @@ public class StoreController {
 
         return gson.toJson(keywordList);
     }
-
-
 
 }

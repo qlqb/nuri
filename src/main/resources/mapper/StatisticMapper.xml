@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.ks48team01.mapper.StatisticMapper">
+    <resultMap type="MonthAdjustment" id="monthAdjResultMap">
+        <id property="monthAdjustmentNum" column="MONTH_ADJUSTMENT_NUM"/>
+        <result property="storeId" column="STORE_ID"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="regionName" column="REGION_NAME"/>
+        <result property="districtCode" column="DISTRICT_CODE"/>
+        <result property="districtName" column="DISTRICT_NAME"/>
+        <result property="monthTotalSales" column="MONTH_TOTAL_SALES"/>
+        <result property="monthClosingCode" column="MONTH_CLOSING_CODE"/>
+        <result property="adjustmentMonth" column="ADJUSTMENT_MONTH"/>
+        <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
+        <result property="resistDT" column="RESIST_DATE"/>
+    </resultMap>
+
+    <!--<resultMap id="statistic" type="statisticResultMap">
+
+    </resultMap>-->
+
+  <!--  <select id="getStoreStt" resultMap="dayAdjResultMap">
+        SELECT
+            madj.STORE_ID,
+            s.STORE_NAME,
+            madj.MONTH_TOTAL_SALES,
+            madj.ADJUSTMENT_MONTH,
+            madj.ADJUSTMENT_YEAR
+            FROM
+            MONTH_ADJUSTMENT AS madj
+        INNER JOIN
+        STORE_INFO AS s
+        ON
+            s.STORE_ID = madj.STORE_ID
+        WHERE
+            madj.ADJUSTMENT_YEAR = #{adjustmentYear}
+    </select>
+-->
+
+</mapper>

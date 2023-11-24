@@ -5,12 +5,24 @@
 
 <!-- 사용자별 css file 추가 부분 -->
 <head>
+    <style>
+        .input-specific {
+            color: #FF6B6B;
+        }
 
+        .notice-show {
+            display: block;
+        }
+
+        .notice-hide {
+            display: none;
+        }
+    </style>
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
-
+    <script src="/user/assets/js/resetMyPw.js"></script>
 </th:block>
 
 <!-- 사용자별 스크립트 작성 -->
@@ -51,19 +63,22 @@
                                 <div class="col-12">
                                     <div class="single-form mb-20">
                                         <input type="hidden" id="userId" name="userId" th:value="${identifier}">
-                                        <label for="password" class="mb-2">비밀번호</label>
-                                        <input type="password" id="password" name="password" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="resetPw" class="mb-2">비밀번호</label>
+                                        <span class="ml-1 input-specific notice-hide" id="pw-alert">특수문자를 포함하여 비밀번호를 6자리 이상 입력해주세요.</span>
+                                        <span class="ml-1 input-specific notice-hide" id="existing-alert">기존 비밀번호와 동일합니다. 새로운 비밀번호를 입력해주세요.</span>
+                                        <input type="password" id="resetPw" name="resetPw" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="single-form mb-20">
-                                        <label for="password-check" class="mb-2">비밀번호 확인</label>
-                                        <input type="password" id="password-check" name="password-check" class="py-2 px-3 mb-0 rounded border">
+                                        <label for="resetPwCheck" class="mb-2">비밀번호 확인</label>
+                                        <span class="ml-1 input-specific notice-hide" id="pwCheck-alert">비밀번호와 일치하지 않습니다.</span>
+                                        <input type="password" id="resetPwCheck" class="py-2 px-3 mb-0 rounded border">
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-center">
                                     <div class="single-form mb-30">
-                                        <button type="submit" class="main-btn btn-hover py-2 rounded">비밀번호 재설정</button>
+                                        <button type="submit" id="submit-btn" class="main-btn btn-hover py-2 rounded">비밀번호 재설정</button>
                                     </div>
                                 </div>
                             </div>
@@ -75,9 +90,5 @@
     </section>
     <!--====== 404 PRODUCT PART ENDS ======-->
 </th:block>
-
-
-
-
 
 </html>

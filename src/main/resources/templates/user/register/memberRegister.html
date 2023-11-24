@@ -25,7 +25,9 @@
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
-
+    <script src="/user/assets/js/district-list.js"></script>
+    <script src="/user/assets/js/userValidate.js"></script>
+    <script src="/user/assets/js/memberForm.js"></script>
 </th:block>
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
@@ -280,7 +282,11 @@
                                 <div class="single-form mb-20">
                                     <span class="input-specific notice-hide"><small class="input-specific">*</small>는 필수 요소 항목입니다.</span>
                                 </div>
-
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="single-form mb-30">
+                                        <button id="additional-btn" class="main-btn btn-hover py-2 px-5 rounded">다음</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -354,12 +360,5 @@
     </section>
 
 </th:block>
-
-<body>
-    <script src="/user/assets/js/district-list.js"></script>
-    <script src="/user/assets/js/userValidate.js"></script>
-    <script src="/user/assets/js/memberForm.js"></script>
-</body>
-
 
 </html>

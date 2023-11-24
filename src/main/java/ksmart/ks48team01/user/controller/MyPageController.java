@@ -96,19 +96,23 @@ public class MyPageController {
 		return "user/mypage/myCardCharge";
 	}
 
+	//결제내역 조회
 	@GetMapping("/myOrder")
-	public String myOrder(Model model) {
+	public String myOrder(HttpSession session,
+						  Model model) {
+		//세션 가져오기
+		String userId = (String) session.getAttribute("SID");
 
 		int paymentCnt = paymentService.getPaymentCount();
 		int paymentAmount = paymentService.getPaymentAmount();
-		List<Payment> paymentList = paymentService.getPaymentList();
+		List<Payment> paymentListById = paymentService.paymentListById(userId);
 
-		log.info("PaymentList: {}", paymentList);
+		log.info("paymentListById: {}", paymentListById);
 
 		model.addAttribute("title", "나의 주문/예약 조회");
 		model.addAttribute("head", mypage);
 
-		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("paymentListById", paymentListById);
 		model.addAttribute("paymentCnt", paymentCnt);
 		model.addAttribute("paymentAmount", paymentAmount);
 
@@ -151,7 +155,6 @@ public class MyPageController {
 
 		return "user/mypage/myStoreSaleHistory";
 	}
-
 
 	@GetMapping("/myContentsRegist")
 	public String myContentsRegist(Model model) {

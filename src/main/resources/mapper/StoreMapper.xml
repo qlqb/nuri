@@ -30,6 +30,112 @@
         <result property="storeRegDate" column="STORE_REG_DATE"/>
     </resultMap>
 
+    <!--  특정 가맹점과 가맹점의 컨텐츠, 지역 정보를 출력하는 ResultMap  -->
+    <resultMap id="storeContentsResultMap" type="Store">
+        <id property="storeId" column="STORE_ID"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeContact" column="STORE_CONTACT"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="openingTime" column="OPENING_TIME"/>
+        <result property="storeRegDate" column="STORE_REG_DATE"/>
+        <association property="region" javaType="Region">
+            <id property="regionCode" column="region_code"/>
+            <result property="regionName" column="region_name"/>
+        </association>
+        <association property="district" javaType="District">
+            <id property="districtCode" column="district_code"/>
+            <result property="districtName" column="district_name"/>
+        </association>
+        <association property="user" javaType="User">
+                <id property="userId" column="USER_ID"/>
+                <result property="levelId" column="LEVEL_ID"/>
+                <result property="userLevelName" column="USER_LEVEL_NAME"/>
+                <result property="userName" column="USER_NAME"/>
+                <result property="userBirth" column="USER_BIRTH"/>
+                <result property="userAddress" column="USER_ADDRESS"/>
+                <result property="userContact" column="USER_CONTACT"/>
+        </association>
+        <association property="contents" javaType="Contents">
+                <id property="contentsId" column="CONTENTS_ID"/>
+                <result property="contentsCategoryCode" column="CONTENTS_CAT_CODE"/>
+                <result property="contentsCategoryName" column="CONTENTS_CAT_NAME"/>
+                <result property="contentsName" column="CONTENTS_NAME"/>
+                <result property="contentsAddress" column="CONTENT_ADDRESS"/>
+                <result property="contentsDuration" column="CONTENTS_DURATION"/>
+                <result property="contentsPg" column="CONTENTS_PG"/>
+                <result property="contentsPrice" column="CONTENTS_PRICE"/>
+                <result property="contentsRegDate" column="CONTENTS_REG_DATE"/>
+        </association>
+    </resultMap>
+
+    <select id="storeOfContentInfo" resultMap="storeContentsResultMap">
+        SELECT
+            SI.STORE_ID,
+            SI.USER_ID,
+            UI.USER_NAME,
+            UI.LEVEL_ID,
+            UI.USER_LEVEL_NAME,
+            UI.USER_CONTACT,
+            SI.STORE_CATEGORY_CODE,
+            SI.STORE_CATEGORY_NAME,
+            SI.STORE_NAME,
+            SI.STORE_CONTACT,
+            SI.STORE_ADDRESS,
+            SI.OPENING_TIME,
+            SI.STORE_REG_DATE,
+            RG.REGION_CODE,
+            RG.REGION_NAME,
+            DT.DISTRICT_CODE,
+            DT.DISTRICT_NAME,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        INNER JOIN
+            DISTRICT AS DT
+        ON
+            SI.DISTRICT_CODE = DT.DISTRICT_CODE
+        INNER JOIN
+            REGION AS RG
+        ON
+            DT.REGION_CODE = RG.REGION_CODE
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        GROUP BY
+            SI.STORE_ID;
+    </select>
+
+
+    <select id="storeCategoryList" resultType="Store">
+        SELECT
+            SI.STORE_CATEGORY_CODE AS storeCategoryCode,
+            SI.STORE_CATEGORY_NAME AS storeCategoryName,
+            COUNT(SI.STORE_ID) AS storeCount
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            STORE_CATEGORY AS SC
+        ON
+            SI.STORE_CATEGORY_CODE = SC.STORE_CATEGORY_CODE
+        GROUP BY
+            SC.STORE_CATEGORY_CODE;
+    </select>
+
 
     <!--  가맹점 페이지에서 가맹점 정보 전체조회 쿼리  -->
     <select id="getStoreListForAdmin" resultType="Store">
@@ -140,6 +246,23 @@
             '월~금',
             NOW());
     </insert>
+
+    <update id="storeInfoUpdate" parameterType="Store">
+        UPDATE STORE_INFO AS SI
+        <set>
+            <if test="storeName != null and storeName != ''">
+                SI.STORE_NAME = #{storeName},
+            </if>
+            <if test="userId != null and userId != ''">
+                SI.USER_ID = #{userId},
+            </if>
+            <if test="storeAddress != null and storeAddress != ''">
+                SI.STORE_ADDRESS = #{storeAddress}
+            </if>
+        </set>
+        WHERE
+        SI.STORE_ID = #{storeId};
+    </update>
 
 
     <!--  유저 페이지에서 가맹점 키워드 전체조회 쿼리  -->

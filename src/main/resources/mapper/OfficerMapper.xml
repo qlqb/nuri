@@ -23,6 +23,27 @@
             OI.DISTRICT_DEP_CODE = DD.DISTRICT_DEP_CODE;
     </select>
 
+    <select id="getSpecificOfficerList" parameterType="String" resultType="Officer">
+        SELECT
+            OI.OFFICER_ID AS officerId,
+            OI.USER_ID AS userId,
+            OI.OFFICE_USER_NAME AS officerUserName,
+            OI.DISTRICT_DEP_CODE AS districtDepCode,
+            DD.DISTRICT_DEP_NAME AS districtDepName,
+            OI.OFFICER_CERT AS officerCert,
+            OI.WORK_START_DATE AS workStartDate,
+            OI.OFFICER_ACCOUNT_STAT AS officerAccountStat,
+            OI.OFFICER_RECENT_LOGIN AS officerRecentLogin
+        FROM
+            OFFICER_INFO AS OI
+        INNER JOIN
+            DISTRICT_DEP AS DD
+        ON
+            OI.DISTRICT_DEP_CODE = DD.DISTRICT_DEP_CODE
+        WHERE
+            OFFICER_ID = #{officerId};
+    </select>
+
     <select id="officerSearchList" resultType="Officer" parameterType="String">
         SELECT
             OI.OFFICER_ID AS officerId,
@@ -44,26 +65,19 @@
             ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
     </select>
 
-    <select id="getOfficerUpdate" resultType="Officer" parameterType="String">
-        SELECT
-            OI.OFFICER_ID AS officerId,
-            OI.USER_ID AS userId,
-            OI.OFFICE_USER_NAME AS officerUserName,
-            OI.DISTRICT_DEP_CODE AS districtDepCode,
-            DD.DISTRICT_DEP_NAME AS districtDepName,
-            OI.OFFICER_CERT AS officerCert,
-            OI.WORK_START_DATE AS workStartDate,
-            OI.OFFICER_ACCOUNT_STAT AS officerAccountStat,
-            OI.OFFICER_RECENT_LOGIN AS officerRecentLogin
-        FROM
-            OFFICER_INFO AS OI
-        INNER JOIN
-            DISTRICT_DEP AS DD
-        ON
-            OI.DISTRICT_DEP_CODE = DD.DISTRICT_DEP_CODE
+    <update id="getOfficerUpdate" parameterType="Officer">
+        UPDATE OFFICER_INFO
+        <set>
+            <if test="districtDepCode != null and districtDepCode != ''">
+                DISTRICT_DEP_CODE = #{districtDepCode},
+            </if>
+            <if test="officerAccountStat != null and officerAccountStat != ''">
+                OFFICER_ACCOUNT_STAT = #{officerAccountStat}
+            </if>
+        </set>
         WHERE
-            OI.OFFICER_ID = #{officerId};
-    </select>
+            OFFICER_ID = #{officerId};
+    </update>
 
     <insert id="officerRegister" parameterType="Officer">
         <selectKey keyProperty="officerId" resultType="String" order="BEFORE">

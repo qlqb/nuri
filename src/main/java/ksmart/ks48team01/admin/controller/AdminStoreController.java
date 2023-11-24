@@ -2,6 +2,7 @@ package ksmart.ks48team01.admin.controller;
 
 import com.google.gson.Gson;
 import ksmart.ks48team01.dto.Store;
+import ksmart.ks48team01.dto.User;
 import ksmart.ks48team01.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,4 +86,10 @@ public class AdminStoreController {
         return "admin/store/storeInfoUpdate";
     }
 
+    @PostMapping("/storeInfoUpdate")
+    public String storeInfoUpdate(Store store) {
+        storeService.storeInfoUpdate(store);
+
+        return "redirect:/admin/store/storeInfoList";
+    }
 }

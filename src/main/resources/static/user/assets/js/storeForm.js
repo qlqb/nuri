@@ -18,7 +18,7 @@ $submitBtn.addEventListener('click', () => {
 })
 
 $storeRegion.addEventListener('change', () => {
-    if($storeDistrict.childElementCount > 0) {
+    if($storeDistrict.childElementCount > 1) {
         $storeDistrict.replaceChildren();
     }
 

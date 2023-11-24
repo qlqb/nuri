@@ -28,6 +28,30 @@ public class Store {
 	private String userLevelName;
 	private String userEmail;
 	private String userStat;
+	private Region region;
+	private District district;
+	private User user;
+	private Contents contents;
+	private StoreCategory storeCategory;
+
+	// 가맹점 수 합계
+	private int storeCount;
+
+	public int getStoreCount() {
+		return storeCount;
+	}
+
+	public void setStoreCount(int storeCount) {
+		this.storeCount = storeCount;
+	}
+
+	public StoreCategory getStoreCategory() {
+		return storeCategory;
+	}
+
+	public void setStoreCategory(StoreCategory storeCategory) {
+		this.storeCategory = storeCategory;
+	}
 
 	public String getStoreId() {
 		return storeId;
@@ -157,9 +181,41 @@ public class Store {
 		this.userStat = userStat;
 	}
 
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Contents getContents() {
+		return contents;
+	}
+
+	public void setContents(Contents contents) {
+		this.contents = contents;
+	}
+
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("Store{");
+		final StringBuilder sb = new StringBuilder("Store{");
 		sb.append("storeId='").append(storeId).append('\'');
 		sb.append(", userId='").append(userId).append('\'');
 		sb.append(", storeCategoryCode='").append(storeCategoryCode).append('\'');
@@ -176,6 +232,12 @@ public class Store {
 		sb.append(", userLevelName='").append(userLevelName).append('\'');
 		sb.append(", userEmail='").append(userEmail).append('\'');
 		sb.append(", userStat='").append(userStat).append('\'');
+		sb.append(", region=").append(region);
+		sb.append(", district=").append(district);
+		sb.append(", user=").append(user);
+		sb.append(", contents=").append(contents);
+		sb.append(", storeCategory=").append(storeCategory);
+		sb.append(", storeCount=").append(storeCount);
 		sb.append('}');
 		return sb.toString();
 	}
