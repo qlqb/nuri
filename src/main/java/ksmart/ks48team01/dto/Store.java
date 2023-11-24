@@ -32,6 +32,26 @@ public class Store {
 	private District district;
 	private User user;
 	private Contents contents;
+	private StoreCategory storeCategory;
+
+	// 가맹점 수 합계
+	private int storeCount;
+
+	public int getStoreCount() {
+		return storeCount;
+	}
+
+	public void setStoreCount(int storeCount) {
+		this.storeCount = storeCount;
+	}
+
+	public StoreCategory getStoreCategory() {
+		return storeCategory;
+	}
+
+	public void setStoreCategory(StoreCategory storeCategory) {
+		this.storeCategory = storeCategory;
+	}
 
 	public String getStoreId() {
 		return storeId;
@@ -216,6 +236,8 @@ public class Store {
 		sb.append(", district=").append(district);
 		sb.append(", user=").append(user);
 		sb.append(", contents=").append(contents);
+		sb.append(", storeCategory=").append(storeCategory);
+		sb.append(", storeCount=").append(storeCount);
 		sb.append('}');
 		return sb.toString();
 	}

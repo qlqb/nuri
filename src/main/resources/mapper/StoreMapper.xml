@@ -115,7 +115,25 @@
         INNER JOIN
             CONTENTS AS CT
         ON
-            SI.STORE_ID = CT.STORE_ID;
+            SI.STORE_ID = CT.STORE_ID
+        GROUP BY
+            SI.STORE_ID;
+    </select>
+
+
+    <select id="storeCategoryList" resultType="Store">
+        SELECT
+            SI.STORE_CATEGORY_CODE AS storeCategoryCode,
+            SI.STORE_CATEGORY_NAME AS storeCategoryName,
+            COUNT(SI.STORE_ID) AS storeCount
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            STORE_CATEGORY AS SC
+        ON
+            SI.STORE_CATEGORY_CODE = SC.STORE_CATEGORY_CODE
+        GROUP BY
+            SC.STORE_CATEGORY_CODE;
     </select>
 
 

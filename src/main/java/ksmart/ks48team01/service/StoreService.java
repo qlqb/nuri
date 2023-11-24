@@ -91,4 +91,10 @@ public class StoreService {
         return storeOfContentList;
     }
 
+    public List<Store> storeCategoryList() {
+        List<Store> categoryList = storeMapper.storeCategoryList();
+
+        return categoryList;
+    }
+
 }

@@ -28,7 +28,7 @@
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
-
+    <script src="/user/assets/js/storeList.js"></script>
 </th:block>
 
 <!-- 사용자별 스크립트 작성 -->
@@ -60,112 +60,186 @@
     <!--====== BANNER PART END ======-->
 
     <!--====== 키워드를 통한 가맹점 조회 페이지 ======-->
-    <section class="client-logo-area pt-140 pb-110">
+    <section class="category-area pb-110">
         <div class="container">
-            <div class="row">
-                <div class="mx-auto col-xl-6 col-lg-7 col-md-10">
-                    <div class="text-center section-title mb-60">
-                        <h1>누리컬처의 가맹점 그리고 컨텐츠</a></h1>
-                        <p class="text-center font-weight-bold">키워드를 클릭하면 해당 키워드의 가맹점을 확인할 수 있습니다.</p>
+            <!-- category top -->
+            <div class="category-top box-style">
+                <div class="row align-items-center">
+
+                    <div class="col-md-6">
+                        <div class="left-wrapper">
+                            <div class="sorting">
+                                <label for="sort">Show items</label>
+                                <select name="sort" id="sort">
+                                    <option value="0">Popular Items</option>
+                                    <option value="1">By Default</option>
+                                    <option value="2">Newest Items</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="right-wrapper">
+
+                            <ul class="nav product-view-btns" id="myTab" role="tablist">
+                                <li class="product-view-item" role="presentation">
+                                    <a class="product-view-btn" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
+                                       aria-selected="true"><i class="lni lni-list"></i></a>
+                                </li>
+                                <li class="product-view-item" role="presentation">
+                                    <a class="product-view-btn active" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
+                                       aria-selected="false"><i class="lni lni-grid-alt"></i></a>
+                                </li>
+                            </ul>
+
+                            <form action="#">
+                                <input type="text" name="search" id="search" placeholder="Search">
+                                <button><i class="lni lni-search-alt"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="client-logo-wrapper pb-20">
+            <!-- category wrapper -->
+            <div class="category-wrapper">
                 <div class="row">
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="single-logo">
-                           <strong style="font-size: 100px">연극</strong>
+
+                    <!-- left-wrapper  -->
+                    <div class="col-8">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+
+                                        <div class="text-wrapper" style="height: auto">
+                                            <table class="table">
+                                                <thead>
+                                                <tr class="text-center">
+                                                    <th>
+                                                        분류
+                                                    </th>
+                                                    <th>
+                                                        상호명
+                                                    </th>
+                                                    <th>
+                                                        연락처
+                                                    </th>
+                                                    <th>
+                                                        영업일
+                                                    </th>
+                                                    <th>
+                                                        가맹점 등록일
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="store : ${storeOfContentList}" class="text-center">
+                                                    <td>
+                                                        <p class="category-text" th:text="${store.storeCategoryName}"></p>
+                                                        <p th:text="${store.contents.contentsCategoryName}"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="title-text" th:text="${store.storeName}"></p>
+                                                        <p th:text="|${store.region.regionName} ${store.district.districtName}|"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p th:text="${store.storeContact}"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p th:text="${store.openingTime}"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p th:text="${store.storeRegDate}"></p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="single-logo">
-                            <strong style="font-size: 100px">운동</strong>
+
+                    <!-- sidebar wrapper  -->
+                    <div class="col-4">
+                        <div class="sidebar-wrapper">
+
+                            <!-- sidebar category  -->
+                            <div class="box-style sidebar-category">
+                                <h3 class="mb-30">가맹점 카테고리</h3>
+                                <ul>
+                                    <li th:each="cate : ${categoryList}">
+                                        <a th:href="|javascript:searchByStoreCategory('${cate.storeCategoryCode}')|">
+                                            <span th:text="${cate.storeCategoryName}"></span>
+                                            <span class="right" th:text="${cate.storeCount}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="single-logo">
-                            <strong style="font-size: 100px">도서</strong>
+
+                    <div class="col-8">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+
+                                        <div class="text-wrapper">
+                                            <div class="mb-20 meta-top">
+                                                <a href="javascript:void(0)" class="mr-3 date"><i class="mr-2 lni lni-calendar"></i> 20 June, 2023</a>
+                                                <a href="javascript:void(0)" class="address"><i class="mr-2 lni lni-map-marker"></i> New York</a>
+                                            </div>
+                                            <h3 class="title mb-25">iMac Pro 2018 with 256 SSD and 8GB RAM</h3>
+                                            <p class="description mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                                                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                                                elitr.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                                dolore magna aliquyam erat.</p>
+
+                                            <h5 class="subtitle">Specification:</h5>
+                                            <div class="specification">
+                                                <ul>
+                                                    <li><i class="lni lni-checkmark-circle"></i>256GB PCIe flash storage</li>
+                                                    <li><i class="lni lni-checkmark-circle"></i>Turbo Boost up to 3.1GHz Intel</li>
+                                                    <li><i class="lni lni-checkmark-circle"></i>10 hour battery life</li>
+                                                    <li><i class="lni lni-checkmark-circle"></i>13.3" Retina Display</li>
+                                                </ul>
+                                                <ul>
+                                                    <li><i class="lni lni-checkmark-circle"></i>2.7 GHz dual-core Intel Core i5</li>
+                                                    <li><i class="lni lni-checkmark-circle"></i>Iris Graphics 6100 8GB memory</li>
+                                                    <li><i class="lni lni-checkmark-circle"></i>8GB memory</li>
+                                                    <li><i class="lni lni-checkmark-circle"></i>1 Year international warranty</li>
+                                                </ul>
+                                            </div>
+                                            <div class="meta-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <i class="lni lni-folder"></i> <span>Categories: </span> <a href="javascript:void(0)">Electronics</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-link"></i> <span>Categories: </span> <a href="javascript:void(0)">Electronics</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="single-logo">
-                            <strong style="font-size: 100px">전시</strong>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="single-logo">
-                            <strong style="font-size: 100px">관광</strong>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="single-logo">
-                            <strong style="font-size: 100px">교육</strong>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
-            <div class="client-logo-wrapper pt-20 pb-40">
-                <div class="row">
-                    <div class="table-wrapper table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>
-                                        분류
-                                    </th>
-                                    <th>
-                                        상호명
-                                    </th>
-                                    <th>
-                                        지역
-                                    </th>
-                                    <th>
-                                        연락처
-                                    </th>
-                                    <th>
-                                        영업일
-                                    </th>
-                                    <th>
-                                        컨텐츠
-                                    </th>
-                                    <th>
-                                        가맹점 등록일
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="store : ${storeOfContentList}" class="text-center">
-                                    <td>
-                                        <p class="category-text" th:text="${store.storeCategoryName}"></p>
-                                        <p th:text="${store.contents.contentsCategoryName}"></p>
-                                    </td>
-                                    <td>
-                                        <p class="title-text" th:text="${store.storeName}"></p>
-                                    </td>
-                                    <td>
-                                        <h6 th:text="|${store.region.regionName} ${store.district.districtName}|"></h6>
-                                    </td>
-                                    <td>
-                                        <p th:text="${store.storeContact}"></p>
-                                    </td>
-                                    <td>
-                                        <p th:text="${store.openingTime}"></p>
-                                    </td>
-                                    <td>
-                                        <a th:href="@{/user/contents/contentsDetail(contentsId=${store.contents.contentsId})}"><h5 th:text="${store.contents.contentsName}"></h5></a>
-                                        <p th:text="${store.contents.contentsPg} + '세 관람가'"></p>
-                                    </td>
-                                    <td>
-                                        <p th:text="${store.storeRegDate}">$20.99</p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!--====== TESTIMONIAL PART ENDS ======-->

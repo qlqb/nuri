@@ -50,7 +50,13 @@ public interface StoreMapper {
      */
     List<Store> getStoreKeyword(String storeKeyword);
 
+    /**
+     * 유저페이지와 가맹점의 정보
+     * @return 유저, 가맹점 Join 정보
+     */
     List<Store> storeOfContentInfo();
+
+    List<Store> storeCategoryList();
 
     void storeInfoUpdate(Store store);
 
