@@ -111,15 +111,6 @@
           });
 
 
-            //지역 단위 예산 등록 Form에서 초기화 버튼 누르면 내용 초기화
-            $("#resetBtn2").click(function () {
-              $("#addBudgetRegionForm > div > div > input").val('');
-              $("#addBudgetRegionForm > div > div > select").val('');
-              $("#isDuplicateRegion").text("");
-              //등록 버튼 비활성화
-              $("#addBudgetRegionBtn").prop("disabled", true);
-            });
-
             //연도 칸과 지역칸 ajax를 이용한 중복체크
             $("#checkbtn").click(function (){
               let $applyYearRegion = $("#applyYearRegion").val();
@@ -189,8 +180,6 @@
                   addBudgetRegionForm.append($budgetRegionNum);
                   addBudgetRegionForm.append($officerId);
                   addBudgetRegionForm.submit();
-
-
                 }
               }
             });
@@ -238,7 +227,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-9 offset-md-3">
-                                <button id="resetBtn1" type="button" class="btn btn-primary">초기화</button>
+                                <button type="reset" class="btn btn-primary">초기화</button>
                                 <button id="addBudgetTotalBtn" type="button" class="btn btn-success" disabled="disabled">등록</button>
                             </div>
                         </div>
@@ -276,9 +265,11 @@
 
                   </div>
                 </div>
+                <div style="display: flex">
+                    <button id="checkbtn" type="button" class="btn btn-primary">중복체크</button>
+                    <p id="isDuplicateRegion"></p>
+                </div>
 
-                <button id="checkbtn" type="button" class="btn btn-primary">중복체크</button>
-                <p id="isDuplicateRegion"></p>
 
                 <div class="form-group row">
                   <label for="budgetRegionAmount" class="control-label col-md-3 col-sm-3 col-xs-3">예산</label>
@@ -299,8 +290,8 @@
 
                 <div class="form-group row">
                   <div class="col-md-9 offset-md-3">
-                    <button id="resetBtn2" type="button" class="btn btn-primary">초기화</button>
-                    <button id="addBudgetRegionBtn" type="button" class="btn btn-success">등록</button>
+                    <button type="reset" class="btn btn-primary">초기화</button>
+                    <button id="addBudgetRegionBtn" type="button" class="btn btn-success" disabled="disabled">등록</button>
                   </div>
                 </div>
 

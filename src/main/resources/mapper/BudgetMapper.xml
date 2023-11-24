@@ -116,9 +116,10 @@
         ORDER BY b.APPLY_YEAR, b.REGION_CODE;
     </select>
 
-    <select id="getBudgetRegionBySearch" resultMap="budgetRegionResultMap" resultType="BudgetRegion">
+    <select id="getBudgetRegionBySearch" resultMap="budgetRegionResultMap" parameterType="String">
         /* 특정 연도 and 지역의 예산 조회 */
         SELECT
+            b.BUDGET_REGION_NUM,
             b.APPLY_YEAR,
             b.REGION_CODE,
             r.REGION_NAME,
