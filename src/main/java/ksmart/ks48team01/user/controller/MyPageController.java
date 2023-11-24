@@ -1,6 +1,9 @@
 package ksmart.ks48team01.user.controller;
 
+import jakarta.servlet.http.HttpSession;
+import ksmart.ks48team01.dto.Contents;
 import ksmart.ks48team01.dto.Payment;
+import ksmart.ks48team01.service.ContentsService;
 import ksmart.ks48team01.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +21,26 @@ public class MyPageController {
 	private static final Logger log = LoggerFactory.getLogger(MyPageController.class);
 
 	private final PaymentService paymentService;
+	private final ContentsService contentsService;
 
-	public MyPageController(PaymentService paymentService){
+	public MyPageController(PaymentService paymentService, ContentsService contentsService){
 		this.paymentService = paymentService;
+		this.contentsService = contentsService;
 	}
 
 	public String mypage = "마이페이지";
+
+	@GetMapping("/myContentsList")
+	public String myContentsList(Model model,
+								 HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+		if(userId != null) {
+			List<Contents> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
+			model.addAttribute("contentsInfoList", contentsInfoList);
+		}
+		return "user/mypage/myContentsList";
+	}
 
 	@GetMapping("/mypageMain")
 	public String myPageMain(Model model) {
@@ -79,19 +96,23 @@ public class MyPageController {
 		return "user/mypage/myCardCharge";
 	}
 
+	//결제내역 조회
 	@GetMapping("/myOrder")
-	public String myOrder(Model model) {
+	public String myOrder(HttpSession session,
+						  Model model) {
+		//세션 가져오기
+		String userId = (String) session.getAttribute("SID");
 
 		int paymentCnt = paymentService.getPaymentCount();
 		int paymentAmount = paymentService.getPaymentAmount();
-		List<Payment> paymentList = paymentService.getPaymentList();
+		List<Payment> paymentListById = paymentService.paymentListById(userId);
 
-		log.info("PaymentList: {}", paymentList);
+		log.info("paymentListById: {}", paymentListById);
 
 		model.addAttribute("title", "나의 주문/예약 조회");
 		model.addAttribute("head", mypage);
 
-		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("paymentListById", paymentListById);
 		model.addAttribute("paymentCnt", paymentCnt);
 		model.addAttribute("paymentAmount", paymentAmount);
 
@@ -133,15 +154,6 @@ public class MyPageController {
 		model.addAttribute("head", mypage);
 
 		return "user/mypage/myStoreSaleHistory";
-	}
-
-	@GetMapping("/myContentsList")
-	public String myContentsList(Model model) {
-
-		model.addAttribute("title", "내 컨텐츠 목록");
-		model.addAttribute("head", mypage);
-
-		return "user/mypage/myContentsList";
 	}
 
 	@GetMapping("/myContentsRegist")

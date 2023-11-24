@@ -1,10 +1,8 @@
 package ksmart.ks48team01.user.controller;
 
 import com.sun.source.tree.MemberSelectTree;
-import ksmart.ks48team01.dto.Contents;
-import ksmart.ks48team01.dto.ContentsCategory;
-import ksmart.ks48team01.dto.Region;
-import ksmart.ks48team01.dto.StoreCategory;
+import jakarta.servlet.http.HttpSession;
+import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.service.AreaService;
 import ksmart.ks48team01.service.ContentsService;
 import org.slf4j.Logger;
@@ -27,8 +25,11 @@ public class ContentsController {
 	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
 
 	private final ContentsService contentsService;
-	public ContentsController(ContentsService contentsService) {
+	private final AreaService areaService;
+
+	public ContentsController(ContentsService contentsService, AreaService areaService) {
 		this.contentsService = contentsService;
+		this.areaService = areaService;
 	}
 
 	//컨텐츠 검색
@@ -40,9 +41,33 @@ public class ContentsController {
 	
 	//컨텐츠 수정
 	@GetMapping(value = {"/contentsInfoUpdate"})
-	public String modifyContentsPage(Model model) {
+	public String modifyContentsPage(Model model,
+									 @RequestParam(name="contentsId") String contentsId,
+									 HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+
+		List<StoreCategory> storeCategory = contentsService.getStoreCategory();
+		List<Region> regionList = areaService.getRegionList();
+
+		if(userId != null) {
+			int intUserLevel = Integer.parseInt((String) session.getAttribute("SLEVEL")) ;
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+
 		model.addAttribute("title", "컨텐츠 수정");
-		return "user/contents/contentsInfoUpdate";
+
+		Contents contentsInfo = contentsService.getContentsInfoByContentsId(contentsId);
+
+		model.addAttribute("contentsInfo", contentsInfo);
+		model.addAttribute("title", "컨텐츠 수정");
+		model.addAttribute("storeCategory", storeCategory);
+		model.addAttribute("regionList", regionList);
+
+		return "user/contents/contentsForm/bookInfoUpdate";
 	}
 	
 	//컨텐츠 등록
@@ -53,8 +78,25 @@ public class ContentsController {
 	}
 
 	@GetMapping(value = {"/bookInfoRegist"})
-	public String bookRegPage(Model model){
+	public String bookRegPage(Model model,
+							  HttpSession session){
+
+		String userId = (String) session.getAttribute("SID");
+		List<StoreCategory> storeCategory = contentsService.getStoreCategory();
+		List<Region> regionList = areaService.getRegionList();
+
+		if(userId != null) {
+			int intUserLevel = Integer.parseInt((String) session.getAttribute("SLEVEL")) ;
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+
 		model.addAttribute("title", "책 컨텐츠 등록");
+		model.addAttribute("storeCategory", storeCategory);
+		model.addAttribute("regionList", regionList);
+
 		return "/user/contents/contentsForm/bookInfoRegist";
 	}
 
@@ -62,7 +104,13 @@ public class ContentsController {
 	public String bookRegPage(Contents contents) {
 
 		contentsService.addBookContents(contents);
-		return "redirect:/user/contents/contentsForm/bookInfoRegist";
+		return "redirect:/user";
+	}
+
+	@ResponseBody
+	@GetMapping("/ajaxContentsCategoryList")
+	public List<ContentsCategory> ajaxContentsSubCategoryList(@RequestParam(name="storeCategoryCode") String storeCategoryCode) {
+		return contentsService.getAjaxContentsCategory(storeCategoryCode);
 	}
 
 	

@@ -2,6 +2,7 @@ package ksmart.ks48team01.mapper;
 
 import ksmart.ks48team01.dto.Contents;
 import ksmart.ks48team01.dto.ContentsCategory;
+import ksmart.ks48team01.dto.Store;
 import ksmart.ks48team01.dto.StoreCategory;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -42,7 +43,7 @@ public interface ContentsMapper {
     public Map<String, Object> getContentsDetailInfo(String contentsId);
 
 
-    public List<Map<String, Object>> getSessionStoreInfo(String userId);
+    public Store getSessionStoreInfo(String userId);
 
     public Contents getContentsInfoByContentsId(String contentsId);
 
@@ -52,4 +53,17 @@ public interface ContentsMapper {
      * @return
      */
     public List<Contents> getContentsInfoByUserId(String userId);
+
+    /**
+     * 컨텐츠 등록할 때 컨텐츠 대분류 선택 시 컨텐츠 소분류 호출하기 위해 선언 된 메서드
+     * @param storeCategoryCode
+     * @return
+     */
+    public List<ContentsCategory> getAjaxContentsCategory(String storeCategoryCode);
+
+    /**
+     * 어드민 페이지에서 보여지는 컨텐츠 리스트
+     * @return
+     */
+    public List<Contents> getAdminContentsList();
 }

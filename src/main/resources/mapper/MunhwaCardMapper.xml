@@ -18,6 +18,44 @@
         <result property="cardIssueDate"    column="CARD_ISSUE_DATE"/>
     </resultMap>
 
+    <!--문화 카드 비밀번호 확인 -->
+    <select id="cardPwCheck" parameterType="String" resultType="boolean">
+        SELECT
+            COUNT(m.MUNHWACARD_NUM)
+        FROM
+            MUNHWACARD AS m
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            u.USER_ID = m.USER_ID
+        WHERE
+            u.USER_ID = #{userId} AND m.CARD_PW = #{cardPw}
+    </select>
+
+    <!--문화카드 개별 조회-->
+    <select id="getMunhwaCardInfoById" resultMap="MunhwaCardResultMap" parameterType="String">
+        /*문화카드 개별 조회*/
+        SELECT
+            m.MUNHWACARD_NUM,
+            u.USER_ID,
+            u.USER_NAME,
+            m.CVC,
+            m.CARD_PW,
+            m.CARD_EXPIRYDATE,
+            m.CARD_COMP,
+            m.CARD_USABLE_CHECK,
+            m.FIRST_USAGE_AMOUNT,
+            m.LAST_USAGE_AMOUNT
+        FROM
+            MUNHWACARD AS m
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            u.USER_ID = m.USER_ID
+        WHERE
+            u.USER_ID = #{userId};
+    </select>
+
     <select id="getMunhwaCardList" resultMap="MunhwaCardResultMap">
         /* 문화누리카드 전체 조회 */
         SELECT
