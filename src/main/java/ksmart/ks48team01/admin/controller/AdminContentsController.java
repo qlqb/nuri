@@ -1,14 +1,25 @@
 package ksmart.ks48team01.admin.controller;
 
+import ksmart.ks48team01.dto.Contents;
+import ksmart.ks48team01.service.ContentsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller("AdminContentsController")
 @RequestMapping("/admin/contents")
 public class AdminContentsController {
-	
+
+	private final ContentsService contentsService;
+
+	public AdminContentsController(ContentsService contentsService) {
+		this.contentsService = contentsService;
+	}
+
 	@GetMapping(value={"/contentsInfoUpdate"})
 	public String contentsUpdatePage(Model model) {
 		model.addAttribute("title", "컨텐츠 수정");
@@ -37,8 +48,10 @@ public class AdminContentsController {
 	
 	
 	@GetMapping(value={"/contentsInfoList"})
-	public String storeListPage(Model model) {
+	public String contentsListPage(Model model) {
+		List<Contents> contentsList = contentsService.getAdminContentsList();
 		model.addAttribute("title", "컨텐츠 목록");
-		return "admin/contents/contentsInfoList";
+		model.addAttribute("contentsList", contentsList);
+		return "admin/contents/contentsList";
 	}
 }

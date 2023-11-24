@@ -16,10 +16,17 @@
 
     <!-- Custom styles for this template -->
     <link th:href="@{https://getbootstrap.com/docs/4.0/examples/album/album.css}" rel="stylesheet">
-    
-    <style>
 
-    </style>
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{https://code.jquery.com/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+
+    <!-- include summernote css/js -->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css}" rel="stylesheet">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js}"></script>
+
+    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 </head>
 <!--[if IE]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
@@ -30,136 +37,214 @@
     <section class="dashboard-area pb-110" style="margin-top: 150px;">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <div class="col-xl-9 col-lg-8 d-flex justify-content-center">
-                    <div class="post-ad-wrapper box-style" style="width: 700px;">
-                        <div class="d-flex justify-content-center">
-                            <div class="title">
-                                <h3>책 컨텐츠 등록</h3>
-                            </div>
+                <div class="post-ad-wrapper box-style" style="width: 1500px;">
+                    <div class="d-flex justify-content-center">
+                        <div class="title">
+                            <h3>컨텐츠 등록</h3>
                         </div>
+                    </div>
 
-                        <div class="post-ad-form-wrapper">
+                    <div class="post-ad-form-wrapper">
 
-                            <form id="addContentsForm" th:action="@{/user/contents/bookInfoRegist}" method="post">
-                                <div class="row justify-content-center">
-                                    <div class="col-xl-7">
-                                        <div class="right-wrapper pt-50 ">
-                                            <th:block th:if="${#lists.size(storeInfoList) == 1}">
-                                                <input type="hidden" th:value="${storeInfoList.get(0).storeId}" id="storeId" name="storeId"/>
-                                            </th:block>
-                                            <th:block th:unless="${#lists.size(storeInfoList) <= 1}">
-                                                <div class="single-form mb-15">
-                                                    <label for="storeIds" class="mb-1">가맹점명</label>
-                                                    <select name="storeIds" id="storeIds" class="px-3 py-2 border rounded w-100">
-                                                        <option th:each="sil: ${storeInfoList}" th:text="${sil.storeName}" th:value="${sil.storeId}"></option>
-                                                    </select>
-                                                </div>
-                                            </th:block>
-                                            <div class="single-form mb-15">
-                                                <label for="contentsName" class="mb-1">책제목</label>
-                                                <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
-                                            </div>
-                                            <div class="single-form mb-15">
-                                                <label for="contentsPrice" class="mb-1">책 가격</label>
-                                                <input type="number" id="contentsPrice" name="contentsPrice" placeholder="" class="px-3 py-2 mb-0 border rounded">
-                                            </div>
-                                            <div class="single-form mb-15">
-                                                <label for="contentsSellStartDate" class="mb-1">판매 시작 일자</label>
-                                                <input type="date" id="contentsSellStartDate" name="contentsSellStartDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
-                                            </div>
-                                            <div class="single-form mb-15">
-                                                <label for="contentsSellEndDate" class="mb-1">판매 종료 일자</label>
-                                                <input type="date" id="contentsSellEndDate" name="contentsSellEndDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
-                                            </div>
+                        <form id="addContentsForm" th:action="@{/user/contents/bookInfoRegist}" method="post">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-7">
+                                    <div class="right-wrapper pt-50 ">
+                                        <th:block th:if="storeInfo.storeId!=null">
+                                            <input type="hidden" th:value="${storeInfo.storeId}" id="storeId" name="storeId"/>
+                                        </th:block>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsName" class="mb-1">제목</label>
+                                            <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsPrice" class="mb-1">가격</label>
+                                            <input type="number" id="contentsPrice" name="contentsPrice" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsSellStartDate" class="mb-1">판매 시작 일자</label>
+                                            <input type="date" id="contentsSellStartDate" name="contentsSellStartDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsSellEndDate" class="mb-1">판매 종료 일자</label>
+                                            <input type="date" id="contentsSellEndDate" name="contentsSellEndDate" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
 
-                                            <div class="single-form mb-40">
-                                                <label for="sellEndNotApplicable">종료일자 해당없음</label>
-                                                <input type="checkbox" id="sellEndNotApplicable" name="sellEndNotApplicable" class="w-auto"/>
-                                            </div>
+                                        <div class="single-form mb-40">
+                                            <label for="sellEndNotApplicable">종료일자 해당없음</label>
+                                            <input type="checkbox" id="sellEndNotApplicable" name="sellEndNotApplicable" class="w-auto"/>
+                                        </div>
 
-                                            <div class="single-form mb-15">
-                                                <label for="amountContentRegistered" class="mb-1">재고</label>
-                                                <input type="number" id="amountContentRegistered" name="amountContentRegistered" placeholder="" class="px-3 py-2 mb-0 border rounded">
-                                            </div>
-                                            <div class="single-form mb-15">
-                                                <label for="contentsCategoryCode" class="mb-1">카테고리</label>
-                                                <select name="contentsCategoryCode" id="contentsCategoryCode" class="px-3 py-2 border rounded w-100">
-                                                    <option value="none">카테고리를 선택하세요</option>
-                                                    <option value="A0401">총류</option>
-                                                    <option value="A0402">철학</option>
-                                                    <option value="A0403">종교</option>
-                                                    <option value="A0404">사회과학</option>
-                                                    <option value="A0405">자연과학</option>
-                                                    <option value="A0406">기술과학</option>
-                                                    <option value="A0407">예술</option>
-                                                    <option value="A0408">언어</option>
-                                                    <option value="A0409">문학</option>
-                                                    <option value="A0410">역사</option>
-                                                </select>
-                                            </div>
-                                            <div class="single-form mb-15">
-                                                <div class="mb-1">컨텐츠 파일</div>
-                                                <div class="upload-input">
-                                                    <input type="file" id="contentsUpload" name="contentsUpload">
-                                                    <label for="contentsUpload" class="text-center content">
-														<span class="text">
-															<span class="d-block mb-15">컨텐츠 파일 업로드</span>
-															<span class="d-block mb-15">Or</span>
-															<span class="main-btn btn-hover">파일을 선택하세요</span>
-															<span class="d-block">파일 최대 사이즈 10MB</span>
-														</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="single-form mb-40">
-                                                <label for="fileNotApplicable">파일 선택안함</label>
-                                                <input type="checkbox" id="fileNotApplicable" name="fileNotApplicable" class="w-auto">
-                                            </div>
-                                            <div class="single-form mb-15">
-                                                <label for="contentsDetail" class="mb-1">컨텐츠 내용</label>
-                                                <textarea name="contentsDetail" id="contentsDetail" rows="7" placeholder="컨텐츠 내용을 입력하세요." class="px-3 py-2 mb-0 border rounded"></textarea>
-                                            </div>
-<!--                                            <div class="single-form mb-15">-->
-<!--                                                <label for="cast" class="mb-1">출연진</label>-->
-<!--                                                <input type="text" id="cast" name="cast" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+                                        <div id="contentsAreaDiv" style="all: unset">
+<!--                                            <div class="single-form mb-30">-->
+<!--                                                <label for="contentsRegion" class="mb-1">지역1</label>-->
+<!--                                                <select name="contentsRegion" id="contentsRegion" class="px-3 py-2 border rounded w-100">-->
+<!--                                                    <option value="none">지역 대분류</option>-->
+<!--                                                    <option th:each="rl: ${regionList}" th:text="${rl.regionName}" th:value="${rl.regionCode}"></option>-->
+<!--                                                </select>-->
 <!--                                            </div>-->
-                                            <!--                                                <div class="single-form mb-15">-->
-                                            <!--                                                    <label for="email" class="mb-1">Email</label>-->
-                                            <!--                                                    <input type="text" id="email" name="email" placeholder="Email" class="px-3 py-2 mb-0 border rounded">-->
-                                            <!--                                                </div>-->
-                                            <div  class="d-flex justify-content-center" style="margin-top: 30px">
-                                                <button id="addContentsBtn" class="main-btn btn-hover" type="button">등록</button>
+
+<!--                                            <div class="single-form mb-30">-->
+<!--                                                <label for="contentsDistrict" class="mb-1">지역2</label>-->
+<!--                                                <select name="contentsDistrict" id="contentsDistrict" class="px-3 py-2 border rounded w-100">-->
+<!--                                                    <option value="none">지역 소분류</option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                            <div class="single-form mb-30">-->
+<!--                                                <label for="contentsDetailAddress" class="mb-1">상세주소</label>-->
+<!--                                                <input type="text" id="contentsDetailAddress" placeholder="" class="px-3 py-2 mb-0 border rounded">-->
+<!--                                                <input type="hidden" id="contentsAddress"  name="contentsAddress" />-->
+<!--                                            </div>-->
+                                            <div class="single-form mb-10">
+                                                <label for="sample4_postcode">주소</label><br>
+                                                <input type="text" id="sample4_postcode" placeholder="우편번호" class="px-3 py-2 mb-0 border rounded" style="width: 50%">
+                                                <input type="button" id="postBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="px-3 py-2 mb-0 border rounded" style="width: 20%; margin-left: 9px"><br>
                                             </div>
+                                            <div class="single-form mb-10">
+                                                <input type="text" id="sample4_roadAddress" placeholder="도로명주소" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-10">
+                                                <input type="text" id="sample4_jibunAddress" placeholder="지번주소" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                            <div class="single-form mb-10">
+                                                <span id="guide" style="color:#999;display:none"></span>
+                                            </div>
+                                            <div class="single-form mb-10">
+                                                <input type="text" id="sample4_detailAddress" placeholder="상세주소" class="px-3 py-2 mb-0 border rounded">
+                                            </div>
+                                        </div>
+
+                                        <div class="single-form mb-40">
+                                            <label for="areaNotApplicable">지역 해당없음</label>
+                                            <input type="checkbox" id="areaNotApplicable" name="areaNotApplicable" class="w-auto"/>
+                                        </div>
+
+                                        <div class="single-form mb-30">
+                                            <label for="contentsDuration" class="mb-1">이용시간(분)</label>
+                                            <input type="number" id="contentsDuration" name="contentsDuration" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+
+                                        <div class="single-form mb-40">
+                                            <label for="durationNotApplicable">이용시간 해당 없음</label>
+                                            <input type="checkbox" id="durationNotApplicable" name="durationNotApplicable" class="w-auto"/>
+                                        </div>
+
+                                        <div class="single-form mb-30">
+                                            <label for="contentsPg" class="mb-1">연령제한</label>
+                                            <input type="number" id="contentsPg" name="contentsPg" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+
+                                        <div class="single-form mb-40">
+                                            <label for="pgNotApplicable">연령제한 해당 없음</label>
+                                            <input type="checkbox" id="pgNotApplicable" name="pgNotApplicable" class="w-auto"/>
+                                        </div>
+
+                                        <div class="single-form mb-30">
+                                            <label for="contentsReleaseDT" class="mb-1">컨텐츠 시작 시간</label>
+                                            <input type="datetime-local" id="contentsReleaseDT" name="contentsReleaseDT" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+
+                                        <div class="single-form mb-40">
+                                            <label for="releaseNotApplicable">컨텐츠 시작 시간 해당 없음</label>
+                                            <input type="checkbox" id="releaseNotApplicable" name="releaseNotApplicable" class="w-auto"/>
+                                        </div>
+
+                                        <div class="single-form mb-30">
+                                            <label for="amountContentRegistered" class="mb-1">재고</label>
+                                            <input type="number" id="amountContentRegistered" name="amountContentRegistered" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="storeCategoryCode" class="mb-1">카테고리 대분류</label>
+                                            <select name="storeCategoryCode" id="storeCategoryCode" class="px-3 py-2 border rounded w-100">
+                                                <option value="none">카테고리 대분류</option>
+                                                <option th:each="sc: ${storeCategory}" th:value="${sc.storeCategoryCode}" th:text="${sc.storeCategoryName}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsCategoryCode" class="mb-1">카테고리 소분류</label>
+                                            <select name="contentsCategoryCode" id="contentsCategoryCode" class="px-3 py-2 border rounded w-100">
+                                                <option value="none">카테고리 소분류</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="single-form mb-30" id="contentsDetailDiv">
+                                            <label for="contentsDetail" class="mb-1">컨텐츠 내용</label>
+                                            <textarea id="contentsDetail" name="contentsDetail"></textarea>
+                                        </div>
+
+
+                                        <div  class="d-flex justify-content-center" style="margin-top: 30px">
+                                            <button id="addContentsBtn" class="main-btn btn-hover" type="button">등록</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <th:block layout:fragment="customJsCode">
-        <script th:src="@{/js/jquery-3.7.1.js}"></script>
         <script>
+
+            jQuery(document).ready(function(){
+                $('#contentsDetail').summernote({
+                    placeholder: '내용을 입력하세요',
+                    lang: 'ko-KR',
+                    tabsize: 2,
+                    height: 300
+
+                });
+
+            });
+
             $(function () {
+
+                //컨텐츠 대분류 소분류 ajax 시작
+                const $storeCategoryCode = document.querySelector('#storeCategoryCode');
+                const $contentsCategoryCode = document.querySelector('#contentsCategoryCode');
+
+                // Ajax를 호출할 URL과 Query 스트링
+                let contentsCategoryListUrl = '/user/contents/ajaxContentsCategoryList?storeCategoryCode=';
+
+                $storeCategoryCode.addEventListener('change', function () {
+                    if($contentsCategoryCode.childElementCount >= 1) {
+                        $contentsCategoryCode.replaceChildren();
+                    }
+                    const storeCategoryCodeValue = $storeCategoryCode.value;
+                    const requestContentsCategoryList = contentsCategoryListUrl + storeCategoryCodeValue;
+                    getContentsCategoryList(requestContentsCategoryList);
+                })
+
+                function getContentsCategoryList(requestContentsCategoryList) {
+                    fetch(requestContentsCategoryList)
+                        .then(response => response.json())
+                        .then(json => json.forEach((data) => {
+                            let contentsCategoryOption = document.createElement("option");
+                            contentsCategoryOption.value = `${data.contentsCategoryCode}`;
+                            contentsCategoryOption.text = `${data.contentsCategoryName}`;
+
+                            console.log(contentsCategoryOption.value);
+
+                            $contentsCategoryCode.appendChild(contentsCategoryOption);
+                        }))
+                }
+                //컨텐츠 대분류 소분류 ajax 끝
+
+
                 function validationCheck(data) {
                     let isValid = true;
                     if (typeof data == "object") {
                         $.each(data, function () {
                             let checkValue = $(this).val();
+                            console.log('this: ', $(this));
                             if (checkValue == null || checkValue == '' || typeof checkValue == 'undefined' || checkValue == 'none') {
                                 isValid = false;
                                 let eleId = $(this).attr('id');
                                 let cate = $(`label[for="${eleId}"]`).text();
 
-                                if(eleId == 'contentsUpload') {
-                                    cate = $(this).closest('div').closest('div').prev().text();
-                                }
-
                                 alert(`${cate}을(를) 입력하세요.`);
-
                                 $(this).focus();
 
                                 return isValid;
@@ -171,47 +256,180 @@
                             isValid = false;
                         }
                     }
+                    if(isValid == true) {
+                        if ($('#contentsDetail').summernote('isEmpty')) {
+                            isValid = false;
+                            alert('컨텐츠 내용을(를) 입력하세요');
+                        }
+                    }
                     return isValid;
                 }
+
+
                 $('#sellEndNotApplicable').click(function () {
                     let sellEndDateInput = $('#contentsSellEndDate');
                     let endDateInputDiv = sellEndDateInput.closest('div');
+                    console.log(endDateInputDiv, '3333333')
                     sellEndDateInput.val('');
                     endDateInputDiv.toggle('fast');
                 })
-                $('#fileNotApplicable').click(function () {
-                    let fileInput = $('#contentsUpload');
-                    // fileInput.closet('div').closet('div')는 상위요소의 상위요소가 반환 안됨
-                    let fileInputDiv = fileInput.parent().parent();
 
-                    fileInput.val(null);
-                    fileInputDiv.toggle('fast');
+                $('#durationNotApplicable').click(function () {
+                    let contentsDurationInput = $('#contentsDuration');
+                    let contentsDurationDiv = contentsDurationInput.closest('div');
+                    contentsDurationInput.val('');
+                    contentsDurationDiv.toggle('fast');
                 })
+
+                $('#pgNotApplicable').click(function () {
+                    let contentsPgInput = $('#contentsPg');
+                    let contentsPgDiv = contentsPgInput.closest('div');
+                    contentsPgInput.val('');
+                    contentsPgDiv.toggle('fast');
+                })
+
+                $('#releaseNotApplicable').click(function () {
+                    let contentsReleaseDTInput = $('#contentsReleaseDT');
+                    let contentsReleaseDTDiv = contentsReleaseDTInput.closest('div');
+                    contentsReleaseDTInput.val('');
+                    contentsReleaseDTDiv.toggle('fast');
+                })
+
+                $('#areaNotApplicable').click(function () {
+                    let contentsAreaDiv = $('#contentsAreaDiv');
+                    let sample4_postcode = $('#sample4_postcode');
+                    let sample4_roadAddress = $('#sample4_roadAddress');
+                    let sample4_jibunAddress = $('#sample4_jibunAddress');
+                    let sample4_detailAddress = $('#sample4_detailAddress');
+
+                    sample4_postcode.val('');
+                    sample4_roadAddress.val('');
+                    sample4_jibunAddress.val('');
+                    sample4_detailAddress.val('');
+
+                    contentsAreaDiv.toggle('fast');
+                })
+
+
 
                 $('#addContentsBtn').click(function () {
 
-                    console.log($('#storeId').val());
+                    let formEles = $('#addContentsForm input, #addContentsForm select, #contentsAreaDiv select, #contentsAreaDiv input')
+                        .not('[type="hidden"]')
+                        .not('[type="checkbox"]')
+                        .not('#contentsDetailDiv input, contentsDetailDiv select')
+                        .not('#sample4_detailAddress')
+                        .not('#postBtn');
 
-                    let formEles = $('#addContentsForm input, #addContentsForm select').
-                    not('#sellEndNotApplicable').
-                    not('#fileNotApplicable').
-                    not('#storeId').
-                    not('#storeIds');
+                    if($('#storeId') != null) {
+                        formEles.not('#storeId');
+                    }
 
+                    //선택하지 않음 체크박스 체크 하면 유효성 검사하지 않음
                     if($('#sellEndNotApplicable').prop('checked')) {
                         formEles = formEles.not('#contentsSellEndDate');
                     }
-                    if($('#fileNotApplicable').prop('checked')) {
-                        formEles = formEles.not('#contentsUpload')
+                    if($('#areaNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#sample4_postcode');
+                        formEles = formEles.not('#sample4_roadAddress');
+                        formEles = formEles.not('#sample4_jibunAddress');
                     }
+
+                    if($('#durationNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsDuration');
+                    }
+                    if($('#pgNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsPg');
+                    }
+                    if($('#releaseNotApplicable').prop('checked')) {
+                        formEles = formEles.not('#contentsReleaseDT');
+                    }
+
+                    let contentsRegion = $('#contentsRegion :selected').text();
+                    let contentsDistrict = $('#contentsDistrict :selected').text();
+                    let contentsDetailAddress = $('#contentsDetailAddress').val();
+
+                    let contentRegionValue = $('#contentsRegion').val();
+                    let contentsDistrictValue = $('#contentsDistrict').val();
+
+                    let contentsAddress = `${contentsRegion} ${contentsDistrict} ${contentsDetailAddress}`;
+
+                    // 지역을 선택하지 않을 시 데이터를 기본값으로 보내줌
+                    if(contentRegionValue == '' ||
+                        contentRegionValue == 'none' ||
+                        typeof contentRegionValue == 'undefined' ||
+                        contentRegionValue == null ||
+                        contentsDistrictValue == '' ||
+                        contentsDistrictValue == 'none' ||
+                        typeof contentsDistrictValue == null) {
+
+                        contentsAddress = 'alreadyInputOnJoin';
+                    }
+
+                    $('#contentsAddress').val(contentsAddress);
 
                     let isValid = validationCheck(formEles);
 
-                    console.log('isValid: ', isValid);
-
                     if (isValid) $('#addContentsForm').submit();
                 })
+
+
+
             })
+
+            //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+            function sample4_execDaumPostcode() {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                        var roadAddr = data.roadAddress; // 도로명 주소 변수
+                        var extraRoadAddr = ''; // 참고 항목 변수
+
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraRoadAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if(extraRoadAddr !== ''){
+                            extraRoadAddr = ' (' + extraRoadAddr + ')';
+                        }
+
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById('sample4_postcode').value = data.zonecode;
+                        document.getElementById("sample4_roadAddress").value = roadAddr;
+                        document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+
+                        var guideTextBox = document.getElementById("guide");
+                        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                        if(data.autoRoadAddress) {
+                            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                            guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                            guideTextBox.style.display = 'block';
+
+                        } else if(data.autoJibunAddress) {
+                            var expJibunAddr = data.autoJibunAddress;
+                            guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                            guideTextBox.style.display = 'block';
+                        } else {
+                            guideTextBox.innerHTML = '';
+                            guideTextBox.style.display = 'none';
+                        }
+                    }
+                }).open({
+                    popupKey: 'popup1', //팝업창 Key값 설정 (영문+숫자 추천)
+                    popupTitle: '우편번호 검색 팝업' //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
+                });
+
+
+            }
         </script>
     </th:block>
 </th:block>
