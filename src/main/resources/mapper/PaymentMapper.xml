@@ -60,8 +60,7 @@
             PAYMENT_QUANTITY,
             PAYMENT_AMOUNT,
             PAYMENT_STATUS,
-            PAYMENT_DT,
-            IS_REFUND
+            PAYMENT_DT
             )
         VALUES
             (#{paymentCode},
@@ -72,7 +71,7 @@
             #{paymentQuantity},
             #{paymentAmount},
             '완료',
-            CURDATE(),
+            CURDATE()
             )
     </insert>
 
@@ -93,6 +92,47 @@
         COUNT(p.PAYMENT_CODE)
         FROM
         PAYMENT AS p
+    </select>
+
+    <!--아이디별 결제 내역 조회-->
+    <select id="getPaymentListById" resultMap="paymentTotalResultMap" parameterType="String">
+        <!--결제 내역 조회-->
+        SELECT
+            p.PAYMENT_CODE,
+            p.USER_ID,
+            p.CONTENTS_ID,
+            c.CONTENTS_NAME,
+            c.CONTENTS_CAT_NAME,
+            c.CONTENT_ADDRESS,
+            p.MUNHWACARD_NUM,
+            p.RESERVATION_CODE,
+            p.DELIVERY_COSTS,
+            p.CONTENTS_PRICE,
+            p.PAYMENT_QUANTITY,
+            p.PAYMENT_AMOUNT,
+            p.PAYMENT_STATUS,
+            p.PAYMENT_DT,
+            p.IS_REFUND,
+            p.IS_CLOSING,
+            p.CLOSING_CODE
+        FROM
+            PAYMENT AS p
+            INNER JOIN
+            USER_INFO AS u
+            ON
+            u.USER_ID = p.USER_ID
+
+            INNER JOIN
+            MUNHWACARD AS m
+            ON
+            m.MUNHWACARD_NUM = p.MUNHWACARD_NUM
+
+            INNER JOIN
+            CONTENTS AS c
+            ON
+            c.CONTENTS_ID = p.CONTENTS_ID
+        WHERE
+            u.USER_ID = #{userId}
     </select>
 
     <!--결제 내역 조회-->

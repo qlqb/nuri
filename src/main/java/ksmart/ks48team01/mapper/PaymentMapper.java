@@ -21,6 +21,9 @@ public interface PaymentMapper {
     //결제 횟수 조회
     public int getPaymentCount();
 
+    //아이디별 결제 내역 조회
+    public List<Payment> getPaymentListById(String userId);
+
     //결제 내역 조회
     public List<Payment> getPaymentList();
 }

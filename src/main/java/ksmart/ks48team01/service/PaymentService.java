@@ -70,10 +70,15 @@ public class PaymentService {
 
         return paymentCnt;
     }
+    //아이디별 결제 내역 조회
+    public List<Payment> paymentListById(String userId){
+        List<Payment> paymentListById = paymentMapper.getPaymentListById(userId);
+
+        return paymentListById;
+    }
 
     //결제 내역 조회
     public List<Payment> getPaymentList(){
-
         List<Payment> paymentList = paymentMapper.getPaymentList();
 
         return paymentList;
