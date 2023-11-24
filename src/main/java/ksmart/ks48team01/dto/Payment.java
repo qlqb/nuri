@@ -168,11 +168,13 @@ public class Payment {
         this.munhwacardInfo = munhwacardInfo;
     }
 
+
+
     public String getMunhwaCardNum() {
         return munhwaCardNum;
     }
 
-    public void setMunhwacardNum(String munhwaCardNum) {
+    public void setMunhwaCardNum(String munhwaCardNum) {
         this.munhwaCardNum = munhwaCardNum;
     }
 

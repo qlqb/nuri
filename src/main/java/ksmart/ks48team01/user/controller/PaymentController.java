@@ -36,9 +36,16 @@ public class PaymentController {
 	}
 
 	//결제 등록 처리
-	@PostMapping("/user/mypage/myOrder")
-	public String paymentRegist(Payment payment){
+	@PostMapping("/paymentRegist")
+	public String paymentRegist(HttpSession session,
+								Payment payment){
+		//세션 가져오기
+		String userId = (String) session.getAttribute("SID");
+		//강제주입
+		//payment.setMunhwacardNum("5430845161929843");
 
+		log.info("payment: {}", payment);
+		System.out.println(payment + "<- payment paymentRegist PaymentController");
 		paymentService.paymentRegist(payment);
 
 		return "redirect:/user/mypage/myOrder";
