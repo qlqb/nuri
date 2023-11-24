@@ -8,12 +8,14 @@ import java.util.List;
 @Mapper
 public interface OfficerMapper {
 
-    public List<Officer> getOfficerInfoList();
+    List<Officer> getOfficerInfoList();
 
-    public List<Officer> officerSearchList(String searchKey, String searchValue);
+    List<Officer> officerSearchList(String searchKey, String searchValue);
 
-    public int officerRegister(Officer officer);
+    int officerRegister(Officer officer);
 
-    public Officer getOfficerUpdate(String officerId);
+    Officer getSpecificOfficerList (String officerId);
+
+    int getOfficerUpdate(Officer officer);
 
 }

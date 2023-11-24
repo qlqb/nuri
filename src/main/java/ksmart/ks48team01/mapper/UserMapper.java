@@ -9,47 +9,52 @@ import java.util.List;
 public interface UserMapper {
 
     // 관리자 페이지 전체 회원 조회
-    public List<User> getUserList();
+    List<User> getUserList();
 
     // 회원의 로그인
-    public Boolean getUserIdCheck(String userId);
+    Boolean getUserIdCheck(String userId);
 
     // 회원의 아이디 찾기
-    public String findMyId(String userName, String userEmail);
+    String findMyId(String userName, String userEmail);
 
     // 회원의 비밀번호 초기화를 위한 회원확인
-    public int findMyPw(String userId, String userContact);
+    int findMyPw(String userId, String userContact);
 
     // 등록하는 비밀번호의 중복검사
-    public int isExistingPw (String userId, String userPw);
+    int isExistingPw (String userId, String resetPw);
 
     // 회원의 비밀번호 초기화
-    public User reserMyPw(String userPw);
+    void resetMyPw(String userId, String resetPw);
 
     // 관리자 페이지 특정 회원 상세 조회
-    public User getSpecificUserList(String userId);
+    User getSpecificUserList(String userId);
     
     // 관리자 등록
-    public void adminRegister(User user);
+    void adminRegister(User user);
     
     // 관리자의 회원정보 수정
-    public void updateUserByAdmin(User user);
+    void updateUserByAdmin(User user);
     
     // 사용자 등록
-    public int memberRegister(User user);
-    public int officerUserRegister(User user);
-    public int storeUserRegister(User user);
+    int memberRegister(User user);
 
-    public List<User> userSearchList(String searchKey, String searchValue);
+    // 공무원 등록
+    int officerUserRegister(User user);
+
+    // 가맹점 등록
+    int storeUserRegister(User user);
+
+    // 유저 검색
+    List<User> userSearchList(String searchKey, String searchValue);
     
     
     // 사용자 문화누리카드 등록정보 삭제
-    public void userCardInfoDelete(String deleteTarget);
+    void userCardInfoDelete(String deleteTarget);
     // 회원의 등록한 이미지 파일 삭제
-    public void userFileDelete(String deleteTarget);
+    void userFileDelete(String deleteTarget);
     // 게시한 글 정보 삭제
-    public void userBoardDelete(String deleteTarget);
+    void userBoardDelete(String deleteTarget);
     // 회원의 결제정보 삭제
-    public void userPaymentInfoDelete(String deleteTarget);
+    void userPaymentInfoDelete(String deleteTarget);
     
 }

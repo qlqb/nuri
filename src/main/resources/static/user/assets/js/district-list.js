@@ -5,12 +5,11 @@ const $districtCode = document.querySelector('#districtCode');
 let districtListUrl = '/user/register/districtList?regionCode=';
 
 $regionCode.addEventListener('change', function () {
-    if($districtCode.childElementCount > 0) {
+    if($districtCode.childElementCount >= 2) {
         $districtCode.replaceChildren();
     }
     const regionValue = $regionCode.value;
     const requestDistrictList = districtListUrl + regionValue;
-    console.log(requestDistrictList);
     getDistrictList(requestDistrictList);
 })
 

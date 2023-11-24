@@ -83,5 +83,4 @@
             DD.REGION_CODE = #{regionCode}
     </select>
 
-
 </mapper>

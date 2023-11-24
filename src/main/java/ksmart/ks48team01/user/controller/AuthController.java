@@ -1,9 +1,11 @@
 package ksmart.ks48team01.user.controller;
 
+import com.google.gson.Gson;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpSession;
 import ksmart.ks48team01.service.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -103,6 +105,24 @@ public class AuthController {
     public String resetMyPw() {
 
         return "user/auth/resetMyPw";
+    }
+
+    @ResponseBody
+    @PostMapping("/isExistingPw")
+    public int isExistingPw (@RequestBody Map<String, Object> existCheck) {
+        String userId = (String) existCheck.get("userId");
+        String resetPw = (String) existCheck.get("resetPw");
+
+        int existResult = userService.isExistingPw(userId, resetPw);
+
+        return existResult;
+    }
+
+    @PostMapping("/resetMyPw")
+    public String resetMyPw(@RequestParam String userId, String resetPw) {
+        userService.resetMyPw(userId, resetPw);
+
+        return "redirect:/user/auth/login";
     }
 
     @GetMapping("/logout")
