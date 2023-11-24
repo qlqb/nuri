@@ -35,12 +35,14 @@ public interface StoreMapper {
 
 
     /**
+     * ???
      * 검색어의 입력이 없거나, GET 방식으로 메소드 호출시에 조회된 전체 목록을 출력
      * @return List 타입으로 반환하여 가맹점의 간략한 정보를 출력
      */
     List<Store> getStoreKeywordAll();
 
     /**
+     * ???
      * 해당 키워드(가맹점 카테고리)를 검색시에 해당되는 가맹점을 출력
      * 사용되는 페이지 
      * @param storeKeyword 해당 카테고리 키워드
@@ -48,7 +50,8 @@ public interface StoreMapper {
      */
     List<Store> getStoreKeyword(String storeKeyword);
 
-    
+    List<Store> storeOfContentInfo();
+
     void storeInfoUpdate(Store store);
 
 

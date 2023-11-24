@@ -85,4 +85,10 @@ public class StoreService {
         return keywordList;
     }
 
+    public List<Store> storeOfContentInfo() {
+        List<Store> storeOfContentList = storeMapper.storeOfContentInfo();
+
+        return storeOfContentList;
+    }
+
 }
