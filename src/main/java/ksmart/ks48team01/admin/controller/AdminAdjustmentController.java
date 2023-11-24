@@ -191,11 +191,16 @@ public class AdminAdjustmentController {
 		return adjustmentService.monthAdjCheck(adjDate);
 	}
 
+	/**
+	 * 월 정산 등록
+	 * @param adjDate
+	 * @return
+	 */
 	@PostMapping("/monthAdjRegist")
 	public String monthAdjRegist(@RequestParam(name="adjDate") String adjDate){
 		log.info("adjDate : {}", adjDate);
 		adjustmentService.monthAdjRegist(adjDate);
-		return "redirect:/admin/purchase/adjDayInfo";
+		return "redirect:/admin/purchase/adjMonthInfo";
 	}
 
 }
