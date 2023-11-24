@@ -162,7 +162,7 @@ public class AdminAdjustmentController {
 	 */
 	@PostMapping("/dayAdjCheck")
 	@ResponseBody
-	public boolean dayAdjCheck(Model model, @RequestParam(name="adjDate") String adjDate){
+	public boolean dayAdjCheck(@RequestParam(name="adjDate") String adjDate){
 		log.info("adjDate : {}", adjDate);
 		return adjustmentService.dayAdjCheck(adjDate);
 	}
@@ -176,6 +176,25 @@ public class AdminAdjustmentController {
 	public String dayAdjRegist(@RequestParam(name="adjDate") String adjDate){
 		log.info("adjDate : {}", adjDate);
 		adjustmentService.dajAdjRegist(adjDate);
+		return "redirect:/admin/purchase/adjDayInfo";
+	}
+
+	/**
+	 * 월 정산 중복 체크
+	 * @param adjDate
+	 * @return
+	 */
+	@PostMapping("/monthAdjCheck")
+	@ResponseBody
+	public boolean monthAdjCheck(@RequestParam(name="adjDate") String adjDate){
+		log.info("adjDate : {}", adjDate);
+		return adjustmentService.monthAdjCheck(adjDate);
+	}
+
+	@PostMapping("/monthAdjRegist")
+	public String monthAdjRegist(@RequestParam(name="adjDate") String adjDate){
+		log.info("adjDate : {}", adjDate);
+		adjustmentService.monthAdjRegist(adjDate);
 		return "redirect:/admin/purchase/adjDayInfo";
 	}
 

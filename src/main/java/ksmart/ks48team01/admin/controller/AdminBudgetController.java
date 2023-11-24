@@ -191,6 +191,7 @@ public class AdminBudgetController {
 	 */
 	@PostMapping("budgetUpdate")
 	public String updateBudgetTotal(Budget budget){
+		log.info("budget : {}", budget);
 		budgetService.updateBudgetTotal(budget);
 		return "redirect:/admin/budget/budgetInfo";
 	}
@@ -200,8 +201,10 @@ public class AdminBudgetController {
 	 */
 	@PostMapping("budgetUpdateRegion")
 	public String updateBudgetRegion(BudgetRegion budgetRegion){
+
 		log.info("budgetRegion : {}", budgetRegion);
 		budgetService.updateBudgetRegion(budgetRegion);
+
 		return "redirect:/admin/budget/budgetInfoRegion";
 	}
 

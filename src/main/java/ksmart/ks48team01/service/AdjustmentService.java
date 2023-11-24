@@ -1,5 +1,6 @@
 package ksmart.ks48team01.service;
 
+import com.mysql.cj.exceptions.StreamingNotifiable;
 import ksmart.ks48team01.dto.DayAdjustment;
 import ksmart.ks48team01.dto.MonthAdjustment;
 import ksmart.ks48team01.mapper.AdjustmentMapper;
@@ -70,9 +71,17 @@ public class AdjustmentService {
         return adjustmentMapper.getMonthAdjListByStoreName(map);
     }
 
+    // 일 정산 중복 체크
     public boolean dayAdjCheck(String adjDate) { return adjustmentMapper.dayAdjCheck(adjDate);}
 
+    // 일 정산 등록
     public void dajAdjRegist(String adjDate){
         adjustmentMapper.dajAdjRegist(adjDate);
     }
+
+    // 월 정산 중복 체크
+    public boolean monthAdjCheck(String adjDate) {return adjustmentMapper.monthAdjCheck(adjDate);}
+
+    //월 정산 등록
+    public void monthAdjRegist(String adjDate) { adjustmentMapper.monthAdjRegist(adjDate);}
 }
