@@ -24,6 +24,8 @@
             font-weight: bolder;
         }
     </style>
+    <!--====== Selectr CSS ======-->
+    <link rel="stylesheet" href="/user/assets/css/selectr.css">
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -33,7 +35,34 @@
 
 <!-- 사용자별 스크립트 작성 -->
 <th:block layout:fragment="customJsCode">
+    <script>
+        //======== select js
+        new Selectr('#sort', {
+            searchable: false,
+            width: 300
+        });
 
+        var snapSlider = document.getElementById('slider-snap');
+
+        noUiSlider.create(snapSlider, {
+            start: [199, 789],
+            // snap: true,
+            connect: true,
+            range: {
+                'min': 99,
+                'max': 999
+            }
+        });
+
+        var snapValues = [
+            document.getElementById('slider-snap-value-lower'),
+            document.getElementById('slider-snap-value-upper')
+        ];
+
+        snapSlider.noUiSlider.on('update', function (values, handle) {
+            snapValues[handle].innerHTML = values[handle]
+        });
+    </script>
 </th:block>
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
@@ -69,11 +98,11 @@
                     <div class="col-md-6">
                         <div class="left-wrapper">
                             <div class="sorting">
-                                <label for="sort">Show items</label>
+                                <label for="sort">표시</label>
                                 <select name="sort" id="sort">
-                                    <option value="0">Popular Items</option>
-                                    <option value="1">By Default</option>
-                                    <option value="2">Newest Items</option>
+                                    <option value="0">가장 인기 많은 순</option>
+                                    <option value="1">가장 최근 순</option>
+                                    <option value="2">가장 오래된 순</option>
                                 </select>
                             </div>
                         </div>
@@ -81,17 +110,6 @@
 
                     <div class="col-md-6">
                         <div class="right-wrapper">
-
-                            <ul class="nav product-view-btns" id="myTab" role="tablist">
-                                <li class="product-view-item" role="presentation">
-                                    <a class="product-view-btn" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
-                                       aria-selected="true"><i class="lni lni-list"></i></a>
-                                </li>
-                                <li class="product-view-item" role="presentation">
-                                    <a class="product-view-btn active" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
-                                       aria-selected="false"><i class="lni lni-grid-alt"></i></a>
-                                </li>
-                            </ul>
 
                             <form action="#">
                                 <input type="text" name="search" id="search" placeholder="Search">
@@ -106,6 +124,75 @@
             <!-- category wrapper -->
             <div class="category-wrapper">
                 <div class="row">
+
+
+                    <div class="col-8">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+
+                                        <div class="text-wrapper">
+                                            <div class="mb-20 meta-top">
+                                                <a href="javascript:void(0)" class="mr-3 date"><i class="mr-2 lni lni-calendar"></i>등록일 2023-09-10</a>
+                                                <a href="javascript:void(0)" class="address"><i class="mr-2 lni lni-map-marker"></i>서울특별시 강남구</a>
+                                            </div>
+                                            <h3 class="title mb-25">음악의 정원</h3>
+                                            <p class="description mb-30" th:each="list : ${storeOfContentList}"></p>
+                                            <div class="meta-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <i class="lni lni-folder"></i> <span>카테고:</span> <a href="javascript:void(0)">공연</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-link"></i> <span>주소: </span> <a href="javascript:void(0)">서울시 강남구 역삼동 123-456</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>대표자: </span> <a href="javascript:void(0)">김경석</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>연락처: </span> <a href="javascript:void(0)">063-222-1002</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>영업일: </span> <a href="javascript:void(0)">월~금</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- sidebar wrapper  -->
+                    <div class="col-4">
+                        <div class="sidebar-wrapper">
+
+                            <!-- sidebar category  -->
+                            <div class="box-style sidebar-category">
+                                <h3 class="mb-30">가맹점 카테고리</h3>
+                                <ul>
+                                    <li th:each="cate : ${categoryList}">
+                                        <a th:href="|javascript:searchByStoreCategory('${cate.storeCategoryCode}')|">
+                                            <span th:text="${cate.storeCategoryName}"></span>
+                                            <span class="right" th:text="${cate.storeCount}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <!-- left-wrapper  -->
                     <div class="col-8">
@@ -163,80 +250,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- sidebar wrapper  -->
-                    <div class="col-4">
-                        <div class="sidebar-wrapper">
-
-                            <!-- sidebar category  -->
-                            <div class="box-style sidebar-category">
-                                <h3 class="mb-30">가맹점 카테고리</h3>
-                                <ul>
-                                    <li th:each="cate : ${categoryList}">
-                                        <a th:href="|javascript:searchByStoreCategory('${cate.storeCategoryCode}')|">
-                                            <span th:text="${cate.storeCategoryName}"></span>
-                                            <span class="right" th:text="${cate.storeCount}"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-8">
-                        <div class="left-wrapper">
-                            <div class="product-details-wrapper box-style">
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
-
-                                        <div class="text-wrapper">
-                                            <div class="mb-20 meta-top">
-                                                <a href="javascript:void(0)" class="mr-3 date"><i class="mr-2 lni lni-calendar"></i> 20 June, 2023</a>
-                                                <a href="javascript:void(0)" class="address"><i class="mr-2 lni lni-map-marker"></i> New York</a>
-                                            </div>
-                                            <h3 class="title mb-25">iMac Pro 2018 with 256 SSD and 8GB RAM</h3>
-                                            <p class="description mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                                                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                                                elitr.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                                                dolore magna aliquyam erat.</p>
-
-                                            <h5 class="subtitle">Specification:</h5>
-                                            <div class="specification">
-                                                <ul>
-                                                    <li><i class="lni lni-checkmark-circle"></i>256GB PCIe flash storage</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>Turbo Boost up to 3.1GHz Intel</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>10 hour battery life</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>13.3" Retina Display</li>
-                                                </ul>
-                                                <ul>
-                                                    <li><i class="lni lni-checkmark-circle"></i>2.7 GHz dual-core Intel Core i5</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>Iris Graphics 6100 8GB memory</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>8GB memory</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>1 Year international warranty</li>
-                                                </ul>
-                                            </div>
-                                            <div class="meta-bottom">
-                                                <ul>
-                                                    <li>
-                                                        <i class="lni lni-folder"></i> <span>Categories: </span> <a href="javascript:void(0)">Electronics</a>
-                                                    </li>
-                                                    <li>
-                                                        <i class="lni lni-link"></i> <span>Categories: </span> <a href="javascript:void(0)">Electronics</a>
-                                                    </li>
-                                                    <li>
-                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
