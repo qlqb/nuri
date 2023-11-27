@@ -113,9 +113,12 @@
             CONTENTS AS CT
         ON
             SI.STORE_ID = CT.STORE_ID
-        WHERE
-            SI.STORE_ID = 'STO2210130001';
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC
+        LIMIT 1;
     </select>
+
+
 
 
 
@@ -165,10 +168,8 @@
             CONTENTS AS CT
         ON
             SI.STORE_ID = CT.STORE_ID
-        GROUP BY
-            SI.STORE_ID
         ORDER BY
-            SI.STORE_ID
+            CT.CONTENTS_REG_DATE DESC
         LIMIT 1;
     </select>
 
@@ -219,7 +220,9 @@
         ON
             SI.STORE_ID = CT.STORE_ID
         GROUP BY
-            SI.STORE_ID;
+            SI.STORE_ID
+        ORDER BY
+            SI.STORE_REG_DATE DESC;
     </select>
 
 
