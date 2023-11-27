@@ -124,50 +124,43 @@
             <!-- category wrapper -->
             <div class="category-wrapper">
                 <div class="row">
-
-
                     <div class="col-8">
                         <div class="left-wrapper">
                             <div class="product-details-wrapper box-style">
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                                <div class="tab-content" id="stores">
+                                    <div class="tab-pane fade show active" id="storeWrapper" role="tabpanel" aria-labelledby="grid-tab">
 
                                         <div class="text-wrapper">
                                             <div class="mb-20 meta-top">
-                                                <a href="javascript:void(0)" class="mr-3 date"><i class="mr-2 lni lni-calendar"></i>등록일 2023-09-10</a>
-                                                <a href="javascript:void(0)" class="address"><i class="mr-2 lni lni-map-marker"></i>서울특별시 강남구</a>
+                                                <span class="mr-3 date" th:text="|등록일: ${specificStoreList.storeRegDate}|"></span>
+                                                <span class="address" th:text="|지역: ${specificStoreList.region.regionName} ${specificStoreList.district.districtName}|"></span>
                                             </div>
-                                            <h3 class="title mb-25">음악의 정원</h3>
-                                            <p class="description mb-30" th:each="list : ${storeOfContentList}"></p>
+                                            <h3 class="title mb-25" th:text="${specificStoreList.storeName}"></h3>
+                                            <p class="description mb-30" ></p>
+                                                <div class="welcome-img">
+                                                    <img class="image img-radius10 img-shadow mb-25" src="/user/assets/images/about/garden.jpg" alt="">
+                                                </div>
                                             <div class="meta-bottom">
                                                 <ul>
                                                     <li>
-                                                        <i class="lni lni-folder"></i> <span>카테고:</span> <a href="javascript:void(0)">공연</a>
+                                                        <span>카테고리: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeCategoryName}"></a>
                                                     </li>
                                                     <li>
-                                                        <i class="lni lni-link"></i> <span>주소: </span> <a href="javascript:void(0)">서울시 강남구 역삼동 123-456</a>
+                                                        <span>주소: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeAddress}"></a>
                                                     </li>
                                                     <li>
-                                                        <i class="lni lni-apple"></i> <span>대표자: </span> <a href="javascript:void(0)">김경석</a>
+                                                        <span>대표자: </span> <a href="javascript:void(0)" th:text="${specificStoreList.user.userName}"></a>
                                                     </li>
                                                     <li>
-                                                        <i class="lni lni-apple"></i> <span>연락처: </span> <a href="javascript:void(0)">063-222-1002</a>
+                                                        <span >연락처: </span> <a href="javascript:void(0)" th:text="${specificStoreList.storeContact}">063-222-1002</a>
                                                     </li>
                                                     <li>
-                                                        <i class="lni lni-apple"></i> <span>영업일: </span> <a href="javascript:void(0)">월~금</a>
-                                                    </li>
-                                                    <li>
-                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
-                                                    </li>
-                                                    <li>
-                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
-                                                    </li>
-                                                    <li>
-                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
+                                                        <span>영업일: </span> <a href="javascript:void(0)" th:text="${specificStoreList.openingTime}">월~금</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +193,59 @@
                             <div class="product-details-wrapper box-style">
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                                        <h3 class="title mb-30" th:text="|${specificStoreList.storeName}의 컨텐츠|"></h3>
+                                        <div class="text-wrapper" style="height: auto">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>
+                                                            분류
+                                                        </th>
+                                                        <th>
+                                                            컨텐츠 타이틀
+                                                        </th>
+                                                        <th>
+                                                            컨텐츠 업로드 일자
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="conts : ${contentsListByStore.contentsList}" class="text-center">
+                                                        <td>
+                                                            <p th:text="${contentsListByStore.contentsList}"></p>
+                                                        </td>
+                                                        <td>
+                                                            <p></p>
+                                                        </td>
+                                                        <td>
+                                                            <p></p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <nav class="d-flex justify-content-center mt-30" aria-label="Page navigation example">
+                                                <ul class="pagination">
+                                                    <li class="page-item"><a class="page-link" href="#">처음으로</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">끝으로</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- left-wrapper  -->
+                    <div class="col-8">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                                        <h3 class="title mb-25">가맹점 조회</h3>
                                         <div class="text-wrapper" style="height: auto">
                                             <table class="table">
                                                 <thead>
@@ -245,6 +290,15 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <nav class="d-flex justify-content-center mt-30" aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item"><a class="page-link" href="#">처음으로</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">끝으로</a></li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>

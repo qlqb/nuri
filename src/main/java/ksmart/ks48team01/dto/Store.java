@@ -33,24 +33,17 @@ public class Store {
 	private User user;
 	private Contents contents;
 	private StoreCategory storeCategory;
+	private List<Contents> contentsList;
 
 	// 가맹점 수 합계
 	private int storeCount;
 
-	public int getStoreCount() {
-		return storeCount;
+	public List<Contents> getContentsList() {
+		return contentsList;
 	}
 
-	public void setStoreCount(int storeCount) {
-		this.storeCount = storeCount;
-	}
-
-	public StoreCategory getStoreCategory() {
-		return storeCategory;
-	}
-
-	public void setStoreCategory(StoreCategory storeCategory) {
-		this.storeCategory = storeCategory;
+	public void setContentsList(List<Contents> contentsList) {
+		this.contentsList = contentsList;
 	}
 
 	public String getStoreId() {
@@ -213,6 +206,22 @@ public class Store {
 		this.contents = contents;
 	}
 
+	public StoreCategory getStoreCategory() {
+		return storeCategory;
+	}
+
+	public void setStoreCategory(StoreCategory storeCategory) {
+		this.storeCategory = storeCategory;
+	}
+
+	public int getStoreCount() {
+		return storeCount;
+	}
+
+	public void setStoreCount(int storeCount) {
+		this.storeCount = storeCount;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("Store{");
@@ -237,6 +246,7 @@ public class Store {
 		sb.append(", user=").append(user);
 		sb.append(", contents=").append(contents);
 		sb.append(", storeCategory=").append(storeCategory);
+		sb.append(", contentsList=").append(contentsList);
 		sb.append(", storeCount=").append(storeCount);
 		sb.append('}');
 		return sb.toString();

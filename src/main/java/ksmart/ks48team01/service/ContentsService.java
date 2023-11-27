@@ -616,4 +616,5 @@ public class ContentsService {
     public List<Contents> getAdminContentsList() {
         return contentsMapper.getAdminContentsList();
     }
+
 }

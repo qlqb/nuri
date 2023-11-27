@@ -58,7 +58,9 @@ public interface StoreMapper {
 
     List<Store> storeCategoryList();
 
+    Store specificStoreInfo();
+
     void storeInfoUpdate(Store store);
 
-
+    Store contentsListByStore();
 }

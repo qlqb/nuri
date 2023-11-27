@@ -2,6 +2,7 @@ package ksmart.ks48team01.user.controller;
 
 import com.google.gson.Gson;
 import ksmart.ks48team01.dto.Store;
+import ksmart.ks48team01.service.ContentsService;
 import ksmart.ks48team01.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,11 @@ import java.util.List;
 public class StoreController {
 
     private final StoreService storeService;
+    private final ContentsService contentsService;
 
-    public StoreController(StoreService storeService) {
+    public StoreController(StoreService storeService, ContentsService contentsService) {
         this.storeService = storeService;
+        this.contentsService = contentsService;
     }
 
 
@@ -24,8 +27,12 @@ public class StoreController {
     public String nuriStoreList(Model model) {
         List<Store> storeOfContentList = storeService.storeOfContentInfo();
         List<Store> categoryList = storeService.storeCategoryList();
+        Store specificStoreList = storeService.specificStoreInfo();
+        Store contentsListByStore = storeService.contentsListByStore();
         model.addAttribute("storeOfContentList", storeOfContentList);
         model.addAttribute("categoryList", categoryList);
+        model.addAttribute("specificStoreList", specificStoreList);
+        model.addAttribute("contentsListByStore", contentsListByStore);
 
         return "user/store/nuriStore";
     }

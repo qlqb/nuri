@@ -91,10 +91,18 @@ public class StoreService {
         return storeOfContentList;
     }
 
+    public Store specificStoreInfo() {
+        return storeMapper.specificStoreInfo();
+    }
+
     public List<Store> storeCategoryList() {
         List<Store> categoryList = storeMapper.storeCategoryList();
 
         return categoryList;
     }
 
+    public Store contentsListByStore() {
+        Store contentsListStore = storeMapper.contentsListByStore();
+        return  contentsListStore;
+    }
 }
