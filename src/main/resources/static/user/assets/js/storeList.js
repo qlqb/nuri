@@ -1,4 +1,4 @@
-    //======== select js
+//======== select js
     new Selectr('#sort', {
     searchable: false,
     width: 300
@@ -25,11 +25,22 @@
     snapValues[handle].innerHTML = values[handle]
 });
 
-function searchByStoreCategory(value) {
-    console.log(value);
+
+const $storeSort = document.querySelector('#sort');
+const $storeSearch = document.querySelector('#search');
+
+console.log($storeSort.value);
+
+function searchByStoreCategory(storeCategoryValue) {
+    fetch("/user/store/storeSearch", {
+        method : "POST",
+        headers : {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        body : JSON.stringify({
+            "storeCategoryValue" : storeCategoryValue,
+        })
+    }).then((resp) => resp.json())
+        .then(result => console.log(result));
 }
 
-
-function showMoreStore() {
-
-}

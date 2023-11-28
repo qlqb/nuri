@@ -57,18 +57,14 @@ public class StoreController {
     }
 
     @ResponseBody
-    @PostMapping("/storeCategorySearch")
-    public String storeCategorySearch(@RequestBody Map<String, Object> storeSearchMap) {
-        String storeSearchKey = (String) storeSearchMap.get("storeSearchKey");
-        String storeSearchValue = (String) storeSearchMap.get("storeSearchValue");
-        String storeSortValue = (String) storeSearchMap.get("storeSortValue");
+    @PostMapping("/storeSearch")
+    public String storeSearch(@RequestBody Map<String, Object> storeSearchMap) {
+        Gson gson = new Gson();
 
-        return null;
+        List<Store> storeOfContentList = storeService.storeOfContentInfo(storeSearchMap);
+
+        return gson.toJson(storeOfContentList);
     }
-
-    @ResponseBody
-    @PostMapping("/store")
-
 
     /**
      * 가맹점의 회원가입 페이지

@@ -4,6 +4,7 @@ import ksmart.ks48team01.dto.Store;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StoreMapper {
@@ -39,6 +40,8 @@ public interface StoreMapper {
     Store specificStoreInfo(String storeId);
 
     List<Store> storeOfContentInfo();
+
+    List<Store> storeOfContentInfo(Map<String, Object> storeSearchMap);
 
     // 가맹점의 등록일 순으로 특정 가맹점의 컨텐츠 목록을 출력하는 상세정보 메소드
     Store contentsListByStore();

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -64,9 +65,11 @@ public class StoreService {
     }
 
     public List<Store> storeOfContentInfo() {
-        List<Store> storeOfContentList = storeMapper.storeOfContentInfo();
+        return storeMapper.storeOfContentInfo();
+    }
 
-        return storeOfContentList;
+    public List<Store> storeOfContentInfo(Map<String, Object> storeSearchMap) {
+        return storeMapper.storeOfContentInfo(storeSearchMap);
     }
 
     public Store storeInfo() {
