@@ -92,12 +92,33 @@
         </collection>
     </resultMap>
 
+    <select id="contentsListBySpecificStore" resultMap="contentsListByStoreMap" parameterType="String">
+        SELECT
+            SI.STORE_ID,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        WHERE
+            SI.STORE_ID = #{storeId}
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC;
+    </select>
+
     <select id="contentsListByStore" resultMap="contentsListByStoreMap">
         SELECT
             SI.STORE_ID,
-            SI.STORE_NAME,
-            SI.STORE_CATEGORY_CODE,
-            SI.STORE_CATEGORY_NAME,
             CT.CONTENTS_ID,
             CT.CONTENTS_CAT_CODE,
             CT.CONTENTS_CAT_NAME,
@@ -115,14 +136,62 @@
             SI.STORE_ID = CT.STORE_ID
         ORDER BY
             CT.CONTENTS_REG_DATE DESC
-        LIMIT 1;
+        LIMIT 5;
     </select>
 
-
-
-
-
     <select id="specificStoreInfo" resultMap="storeContentsResultMap">
+        SELECT
+            SI.STORE_ID,
+            SI.USER_ID,
+            UI.USER_NAME,
+            UI.LEVEL_ID,
+            UI.USER_LEVEL_NAME,
+            UI.USER_CONTACT,
+            SI.STORE_CATEGORY_CODE,
+            SI.STORE_CATEGORY_NAME,
+            SI.STORE_NAME,
+            SI.STORE_CONTACT,
+            SI.STORE_ADDRESS,
+            SI.OPENING_TIME,
+            SI.STORE_REG_DATE,
+            RG.REGION_CODE,
+            RG.REGION_NAME,
+            DT.DISTRICT_CODE,
+            DT.DISTRICT_NAME,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        INNER JOIN
+            DISTRICT AS DT
+        ON
+            SI.DISTRICT_CODE = DT.DISTRICT_CODE
+        INNER JOIN
+            REGION AS RG
+        ON
+            DT.REGION_CODE = RG.REGION_CODE
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        WHERE
+            SI.STORE_ID = #{storeId}
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC;
+    </select>
+
+    <select id="storeInfo" resultMap="storeContentsResultMap">
         SELECT
             SI.STORE_ID,
             SI.USER_ID,
@@ -222,7 +291,8 @@
         GROUP BY
             SI.STORE_ID
         ORDER BY
-            SI.STORE_REG_DATE DESC;
+            SI.STORE_REG_DATE DESC
+        LIMIT 5;
     </select>
 
 

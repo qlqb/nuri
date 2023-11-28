@@ -107,68 +107,36 @@
                             <div class="single-accordion">
                                 <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
                                         aria-expanded="true" aria-controls="collapseOne">
-                                    1번째 약관
+                                    이용약관 동의
                                 </button>
 
-                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                <div id="collapseOne" class="collapse" data-parent="#accordionExample">
                                     <div class="accordion-content">
-                                        1번째 약관입니다.
+                                        <div th:replace="~{/user/fragments/terms :: terms1}"></div>
                                     </div>
                                     <div class="content d-flex justify-content-center">
                                         <label for="term1">
-                                            <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term1">
-                                            위 약관을 읽고 동의하였습니다.</label>
+                                            <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term1">위 약관을 읽고 동의하였습니다.
+                                        </label>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="accordion" id="accordionExample2">
                             <div class="single-accordion">
-                                <button class="text-left accordion-btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="true" aria-controls="collapseTwo">
-                                    2번째 약관
+                                <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                    개인정보 수집 및 이용 동의
                                 </button>
 
-                                <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                <div id="collapseTwo" class="collapse" data-parent="#accordionExample2">
                                     <div class="accordion-content">
-                                        2번째 약관입니다.
+                                        <div th:replace="~{/user/fragments/terms :: terms2}"></div>
                                     </div>
                                     <div class="content d-flex justify-content-center">
-                                        <label for="term2">
-                                            <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term2">
-                                            위 약관을 읽고 동의하였습니다.</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-accordion">
-                                <button class="text-left accordion-btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="true" aria-controls="collapseThree">
-                                    3번째 약관
-                                </button>
-
-                                <div id="collapseThree" class="collapse" data-parent="#accordionExample">
-                                    <div class="accordion-content">
-                                        3번째 약관입니다.
-                                    </div>
-                                    <div class="content d-flex justify-content-center">
-                                        <label for="term3">
-                                            <input class="p-0 form-check-input" type="checkbox" name="flexRadioDefault" id="term3">
-                                            위 약관을 읽고 동의하였습니다.</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-accordion">
-                                <button class="text-left accordion-btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseFour"
-                                        aria-expanded="true" aria-controls="collapseFour">
-                                    4번째 약관
-                                </button>
-
-                                <div id="collapseFour" class="collapse" data-parent="#accordionExample">
-                                    <div class="accordion-content">
-                                        4번째 약관입니다.
-                                    </div>
-                                    <div class="content d-flex justify-content-center">
-                                        <label for="term4">
-                                            <input class="p-0 form-check-input" type="checkbox" name="flexRadioDefault" id="term4">
-                                            위 약관을 읽고 동의하였습니다.</label>
+                                        <label for="term1">
+                                            <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term2">위 약관을 읽고 동의하였습니다.
+                                        </label>
                                     </div>
                                 </div>
                             </div>

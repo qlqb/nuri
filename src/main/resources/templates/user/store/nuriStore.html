@@ -35,34 +35,7 @@
 
 <!-- 사용자별 스크립트 작성 -->
 <th:block layout:fragment="customJsCode">
-    <script>
-        //======== select js
-        new Selectr('#sort', {
-            searchable: false,
-            width: 300
-        });
 
-        var snapSlider = document.getElementById('slider-snap');
-
-        noUiSlider.create(snapSlider, {
-            start: [199, 789],
-            // snap: true,
-            connect: true,
-            range: {
-                'min': 99,
-                'max': 999
-            }
-        });
-
-        var snapValues = [
-            document.getElementById('slider-snap-value-lower'),
-            document.getElementById('slider-snap-value-upper')
-        ];
-
-        snapSlider.noUiSlider.on('update', function (values, handle) {
-            snapValues[handle].innerHTML = values[handle]
-        });
-    </script>
 </th:block>
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
@@ -124,118 +97,6 @@
             <!-- category wrapper -->
             <div class="category-wrapper">
                 <div class="row">
-                    <div class="col-9">
-                        <div class="left-wrapper">
-                            <div class="product-details-wrapper box-style">
-                                <div class="tab-content" id="storeInfo">
-                                    <div class="tab-pane fade show active" id="storeInfoGrid" role="tabpanel" aria-labelledby="grid-tab">
-
-                                        <div class="text-wrapper">
-                                            <div class="mb-20 meta-top">
-                                                <span class="mr-3 date" th:text="|등록일: ${specificStoreList.storeRegDate}|"></span>
-                                                <span class="address" th:text="|지역: ${specificStoreList.region.regionName} ${specificStoreList.district.districtName}|"></span>
-                                            </div>
-                                            <h3 class="title mb-25" th:text="${specificStoreList.storeName}"></h3>
-                                            <p class="description mb-30" ></p>
-                                                <div class="welcome-img">
-                                                    <img class="image img-radius10 img-shadow mb-25" src="/user/assets/images/about/garden.jpg" alt="">
-                                                </div>
-                                            <div class="meta-bottom">
-                                                <ul>
-                                                    <li>
-                                                        <span>카테고리: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeCategoryName}"></a>
-                                                    </li>
-                                                    <li>
-                                                        <span>주소: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeAddress}"></a>
-                                                    </li>
-                                                    <li>
-                                                        <span>대표자: </span> <a href="javascript:void(0)" th:text="${specificStoreList.user.userName}"></a>
-                                                    </li>
-                                                    <li>
-                                                        <span >연락처: </span> <a href="javascript:void(0)" th:text="${specificStoreList.storeContact}">063-222-1002</a>
-                                                    </li>
-                                                    <li>
-                                                        <span>영업일: </span> <a href="javascript:void(0)" th:text="${specificStoreList.openingTime}">월~금</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- sidebar wrapper  -->
-                    <div class="col-3">
-                        <div class="sidebar-wrapper">
-
-                            <!-- sidebar category  -->
-                            <div class="box-style sidebar-category">
-                                <h3 class="mb-30">가맹점 카테고리</h3>
-                                <ul>
-                                    <li th:each="cate : ${categoryList}">
-                                        <a th:href="|javascript:searchByStoreCategory('${cate.storeCategoryCode}')|">
-                                            <span th:text="${cate.storeCategoryName}"></span>
-                                            <span class="right" th:text="${cate.storeCount}"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- left-wrapper  -->
-                    <div class="col-9">
-                        <div class="left-wrapper">
-                            <div class="product-details-wrapper box-style">
-                                <div class="tab-content" id="storeContents">
-                                    <div class="tab-pane fade show active" id="storeContentsGrid" role="tabpanel" aria-labelledby="grid-tab">
-                                        <h3 class="title mb-30" th:text="|${specificStoreList.storeName}의 컨텐츠|"></h3>
-                                        <div class="text-wrapper" style="height: auto">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th>
-                                                            분류
-                                                        </th>
-                                                        <th>
-                                                            컨텐츠 코드
-                                                        </th>
-                                                        <th>
-                                                            컨텐츠 타이틀
-                                                        </th>
-                                                        <th>
-                                                            컨텐츠 업로드 일자
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr th:each="conts : ${contentsListByStore.contentsList}" class="text-center">
-                                                        <td>
-                                                            <p th:text="${conts.contentsCategoryName}"></p>
-                                                        </td>
-                                                        <td>
-                                                            <a th:href="@{/user/contents/contentsDetail(contentsId=${conts.contentsId})}" th:text="${conts.contentsCategoryCode}"></a>
-                                                        </td>
-                                                        <td>
-                                                            <p th:text="${conts.contentsName}"></p>
-                                                        </td>
-                                                        <td>
-                                                            <p th:text="${conts.contentsRegDate}"></p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <a class="d-flex justify-content-center mt-30" href="javascript:showMoreContents()">더보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- left-wrapper  -->
                     <div class="col-9">
@@ -272,7 +133,7 @@
                                                         <p th:text="${store.contents.contentsCategoryName}"></p>
                                                     </td>
                                                     <td>
-                                                        <p class="title-text" th:text="${store.storeName}"></p>
+                                                        <a class="title-text" th:href="@{/user/store/nuriStore(storeId=${store.storeId})}" th:text="${store.storeName}"></a>
                                                         <p th:text="|${store.region.regionName} ${store.district.districtName}|"></p>
                                                     </td>
                                                     <td>
@@ -288,12 +149,144 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <a class="d-flex justify-content-center mt-30" href="javascript:showMoreStore()">더보기</a>
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center mt-30">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                                </li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- sidebar wrapper  -->
+                    <div class="col-3">
+                        <div class="sidebar-wrapper">
+
+                            <!-- sidebar category  -->
+                            <div class="box-style sidebar-category">
+                                <h3 class="mb-30">가맹점 카테고리</h3>
+                                <ul>
+                                    <li th:each="cate : ${categoryList}">
+                                        <a th:href="|javascript:searchByStoreCategory('${cate.storeCategoryCode}')|">
+                                            <span th:text="${cate.storeCategoryName}"></span>
+                                            <span class="right" th:text="${cate.storeCount}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-9">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="storeInfo">
+                                    <div class="tab-pane fade show active" id="storeInfoGrid" role="tabpanel" aria-labelledby="grid-tab">
+
+                                        <div class="text-wrapper">
+                                            <div class="mb-20 meta-top">
+                                                <span class="mr-3 date" th:text="|등록일: ${specificStoreList.storeRegDate}|"></span>
+                                                <span class="address" th:text="|지역: ${specificStoreList.region.regionName} ${specificStoreList.district.districtName}|"></span>
+                                            </div>
+                                            <h3 class="title mb-25" th:text="${specificStoreList.storeName}"></h3>
+                                            <p class="description mb-30" ></p>
+                                            <div class="welcome-img">
+                                                <img class="image img-radius10 img-shadow mb-25" src="/user/assets/images/about/garden.jpg" alt="">
+                                            </div>
+                                            <div class="meta-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <span>카테고리: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeCategoryName}"></a>
+                                                    </li>
+                                                    <li>
+                                                        <span>주소: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeAddress}"></a>
+                                                    </li>
+                                                    <li>
+                                                        <span>대표자: </span> <a href="javascript:void(0)" th:text="${specificStoreList.user.userName}"></a>
+                                                    </li>
+                                                    <li>
+                                                        <span >연락처: </span> <a href="javascript:void(0)" th:text="${specificStoreList.storeContact}">063-222-1002</a>
+                                                    </li>
+                                                    <li>
+                                                        <span>영업일: </span> <a href="javascript:void(0)" th:text="${specificStoreList.openingTime}">월~금</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- left-wrapper  -->
+                    <div class="col-9">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="storeContents">
+                                    <div class="tab-pane fade show active" id="storeContentsGrid" role="tabpanel" aria-labelledby="grid-tab">
+                                        <h3 class="title mb-30" th:text="|${specificStoreList.storeName}의 컨텐츠|"></h3>
+                                        <div class="text-wrapper" style="height: auto">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>
+                                                            분류
+                                                        </th>
+                                                        <th>
+                                                            컨텐츠 타이틀
+                                                        </th>
+                                                        <th>
+                                                            컨텐츠 업로드 일자
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="conts : ${contentsListByStore.contentsList}" class="text-center">
+                                                        <td>
+                                                            <p th:text="${conts.contentsCategoryName}"></p>
+                                                        </td>
+                                                        <td>
+                                                            <a th:href="@{/user/contents/contentsDetail(contentsId=${conts.contentsId})}" th:text="${conts.contentsName}"></a>
+                                                        </td>
+                                                        <td>
+                                                            <p th:text="${conts.contentsRegDate}"></p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center mt-30">
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
