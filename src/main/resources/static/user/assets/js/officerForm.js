@@ -7,11 +7,11 @@ $officerRegion.addEventListener('input', () => {
         $department.replaceChildren();
     }
     const regionQuery = `/user/register/departmentList?regionCode=${$officerRegion.value}`;
-    getDepartmentList(regionQueryURL);
+    getDepartmentList(regionQuery);
 })
 
-function getDepartmentList(regionQueryURL) {
-    fetch(regionQueryURL)
+function getDepartmentList(regionQuery) {
+    fetch(regionQuery)
         .then((response) => response.json())
         .then(departmentList => departmentList.forEach((department) => {
             let departmentOption = document.createElement("option");

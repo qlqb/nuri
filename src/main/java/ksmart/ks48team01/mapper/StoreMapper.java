@@ -17,21 +17,19 @@ public interface StoreMapper {
      */
     List<Store> getStoreListForAdmin();
 
+    // 가맹점의 정보 목록을 검색
     List<Store> storeSearchList(String searchKey, String searchValue);
 
-    /**
-     * 관리자 특정 가맹점 정보 수정 및 가맹점 사용자의 가맹점 정보 수정 시에 사용
-     */
+    // 관리자 페이지에서 특정 가맹점 정보를 조회, 수정시에 사용
     Store getSpecificStoreInfo(String storeId);
 
-    /**
-     * 가맹점 회원가입 입력 Form
-     * @param store 가맹점 회원가입 입력 Form
-     */
+    // 가맹점 회원가입
     int storeRegister(Store store);
 
+    // 가맹점 정보 업데이트
     void storeInfoUpdate(Store store);
 
+    // 검색을 가맹점의 카테고리에 해당되는 목록 출력
     List<Store> storeCategoryList();
 
     // 가맹점의 등록일 순으로 출력되는 가맹점의 상세정보 메소드

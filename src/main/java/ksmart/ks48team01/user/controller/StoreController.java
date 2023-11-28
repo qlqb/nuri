@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("storeController")
 @RequestMapping("/user/store")
@@ -54,6 +55,19 @@ public class StoreController {
 
         return "user/store/nuriStore";
     }
+
+    @ResponseBody
+    @PostMapping("/storeCategorySearch")
+    public String storeCategorySearch(@RequestBody Map<String, Object> storeSearchMap) {
+        String storeSearchKey = (String) storeSearchMap.get("storeSearchKey");
+        String storeSearchValue = (String) storeSearchMap.get("storeSearchValue");
+        String storeSortValue = (String) storeSearchMap.get("storeSortValue");
+
+        return null;
+    }
+
+    @ResponseBody
+    @PostMapping("/store")
 
 
     /**

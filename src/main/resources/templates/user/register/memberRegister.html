@@ -9,13 +9,6 @@
 
     <!-- 필수 입력 및 input 태그 설명을 색을 이용하여 강조-->
     <style>
-        .terms-description {
-            width: auto;
-            height: 300px;
-            overflow: scroll;
-            resize: none;
-        }
-
         .input-specific {
             color: #FF6B6B;
         }
@@ -27,6 +20,10 @@
         .notice-hide {
             display: none;
         }
+
+        .like-button {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -35,6 +32,7 @@
     <script src="/user/assets/js/district-list.js"></script>
     <script src="/user/assets/js/userValidate.js"></script>
     <script src="/user/assets/js/memberForm.js"></script>
+    <script src="/user/assets/js/formControl.js"></script>
 </th:block>
 
 <!--/* layout:decorate 이부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입  */-->
@@ -63,95 +61,58 @@
     </section>
     <!--====== BANNER PART END ======-->
 
-    <!--====== 입력 단계 정보 시작 ======-->
-    <section class="service-area pt-60">
-        <div class="container">
-            <div class="row justify-content-center">
-
-                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
-                    <div class="single-service">
-                        <div class="icon">
-                            <strong>1</strong>
-                        </div>
-                        <div class="service-content">
-                            <h3>약관동의</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
-                    <div class="single-service">
-                        <div class="icon">
-                            <strong>2</strong>
-                        </div>
-                        <div class="service-content">
-                            <h3>회원정보 작성</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-8 col-11">
-                    <div class="single-service">
-                        <div class="icon">
-                            <strong>3</strong>
-                        </div>
-                        <div class="service-content">
-                            <h3>문화누리카드 정보입력</h3>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!--====== 입력 단계 정보 끝 ======-->
-
-
-
     <!--====== 약관 동의 설명 시작 ======-->
-    <section class="accordions-area pt-60 pb-90">
+    <section class="accordions-area pt-60 pb-90" id="agreement">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="accordion-wrapper">
-                        <h1 class="text-center mb-50">가입약관</h1>
-                        <div class="accordion" id="accordionExample">
-                            <div class="single-accordion">
-                                <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne">
-                                    이용약관 동의
-                                </button>
+            <div class="row">
+                <div class="login-wrapper box-style">
+                    <div class="col-12">
+                        <div class="accordion-wrapper">
+                            <h1 class="text-center">가입약관</h1>
+                            <p class="text-center mb-30">누리컬쳐의 이용약관에 동의해주세요</p>
+                            <div class="accordion" id="accordionExample1">
+                                <div class="single-accordion">
+                                    <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                        이용약관 동의
+                                    </button>
 
-                                <div id="collapseOne" class="collapse" data-parent="#accordionExample">
-                                    <div class="accordion-content">
-                                        <div th:replace="~{/user/fragments/terms :: terms1}"></div>
+                                    <div id="collapseOne" class="collapse" data-parent="#accordionExample1">
+                                        <div class="accordion-content">
+                                            <div th:replace="~{/user/fragments/terms :: terms1}"></div>
+                                        </div>
+                                        <div class="content d-flex justify-content-center mb-10">
+                                            <label for="term1">
+                                                <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term1">위 약관을 읽고 동의하였습니다.
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="content d-flex justify-content-center">
-                                        <label for="term1">
-                                            <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term1">위 약관을 읽고 동의하였습니다.
-                                        </label>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionExample2">
+                                <div class="single-accordion">
+                                    <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                        개인정보 수집 및 이용 동의
+                                    </button>
+
+                                    <div id="collapseTwo" class="collapse" data-parent="#accordionExample2">
+                                        <div class="accordion-content">
+                                            <div th:replace="~{/user/fragments/terms :: terms2}"></div>
+                                        </div>
+                                        <div class="content d-flex justify-content-center mb-10">
+                                            <label for="term2">
+                                                <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term2">위 약관을 읽고 동의하였습니다.
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion" id="accordionExample2">
-                            <div class="single-accordion">
-                                <button class="text-left accordion-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="true" aria-controls="collapseOne">
-                                    개인정보 수집 및 이용 동의
-                                </button>
-
-                                <div id="collapseTwo" class="collapse" data-parent="#accordionExample2">
-                                    <div class="accordion-content">
-                                        <div th:replace="~{/user/fragments/terms :: terms2}"></div>
-                                    </div>
-                                    <div class="content d-flex justify-content-center">
-                                        <label for="term1">
-                                            <input class="p-0 form-check-input mr-1" type="checkbox" name="flexRadioDefault" id="term2">위 약관을 읽고 동의하였습니다.
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="single-form mb-30">
+                            <button id="agreement-btn" class="main-btn btn-hover py-2 px-5 rounded">다음</button>
                         </div>
                     </div>
                 </div>
