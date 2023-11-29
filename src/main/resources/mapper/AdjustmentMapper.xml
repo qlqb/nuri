@@ -73,6 +73,7 @@
             STORE_CATEGORY AS sc
             ON
             adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        ORDER BY DATE_ADJUSTMENT_NUM;
     </select>
 
     <select id="getDayAdjListByRegion" parameterType="hashmap" resultMap="dayAdjResultMap">
@@ -113,7 +114,8 @@
         WHERE
             adj.REGION_CODE = #{regionCode}
             AND adj.DISTRICT_CODE=#{districtCode}
-            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate};
+            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate}
+        ORDER BY DATE_ADJUSTMENT_NUM;
     </select>
 
     <select id="getDayAdjListByCate" parameterType="hashmap" resultMap="dayAdjResultMap">
@@ -153,7 +155,8 @@
             adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
         WHERE
             adj.STORE_CATEGORY_CODE=#{storeCategoryCode}
-            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate};
+            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate}
+        ORDER BY DATE_ADJUSTMENT_NUM;
     </select>
 
     <select id="getDayAdjListByRegionCate" parameterType="hashmap" resultMap="dayAdjResultMap">
@@ -195,7 +198,8 @@
             adj.REGION_CODE = #{regionCode}
             AND adj.DISTRICT_CODE=#{districtCode}
             AND adj.STORE_CATEGORY_CODE=#{storeCategoryCode}
-            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate};
+            AND adj.AMOUNT_DATE BETWEEN #{startDate} AND #{endDate}
+        ORDER BY DATE_ADJUSTMENT_NUM;
     </select>
 
 
@@ -235,7 +239,8 @@
             ON
             adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
         WHERE
-            s.STORE_NAME = #{storeName};
+            s.STORE_NAME = #{storeName}
+        ORDER BY DATE_ADJUSTMENT_NUM;
     </select>
 
     <select id="getMonthAdjustmentList" resultMap="monthAdjResultMap">
@@ -273,6 +278,7 @@
             STORE_CATEGORY AS sc
             ON
             adj.STORE_CATEGORY_CODE = sc.STORE_CATEGORY_CODE
+        ORDER BY MONTH_ADJUSTMENT_NUM;
     </select>
 
     <select id="getMonthAdjListByRegion" parameterType="hashmap" resultMap="monthAdjResultMap">
@@ -313,6 +319,7 @@
         WHERE
             adj.REGION_CODE = #{regionCode} AND adj.DISTRICT_CODE= #{districtCode} AND
             SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+        ORDER BY MONTH_ADJUSTMENT_NUM;
     </select>
 
     <select id="getMonthAdjListByCate" parameterType="hashmap" resultMap="monthAdjResultMap">
@@ -353,6 +360,7 @@
         WHERE
             adj.STORE_CATEGORY_CODE = #{storeCategoryCode} AND
             SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+        ORDER BY MONTH_ADJUSTMENT_NUM;
     </select>
 
     <select id="getMonthAdjListByRegionCate" parameterType="hashmap" resultMap="monthAdjResultMap">
@@ -395,6 +403,7 @@
             adj.DISTRICT_CODE=#{districtCode} AND
             adj.STORE_CATEGORY_CODE=#{storeCategoryCode} AND
             SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+        ORDER BY MONTH_ADJUSTMENT_NUM;
     </select>
 
     <select id="getMonthAdjListByStoreName" parameterType="hashmap" resultMap="monthAdjResultMap">
@@ -435,5 +444,36 @@
         WHERE
             s.STORE_NAME = #{storeName} AND
             SUBSTRING(adj.MONTH_CLOSING_CODE, 5,6) BETWEEN #{startDate} AND #{endDate}
+        ORDER BY MONTH_ADJUSTMENT_NUM;
     </select>
+
+    <select id="dayAdjCheck" parameterType="String" resultType="boolean">
+        /* 정산 등록된 일자 중복 조회 */
+        SELECT
+            COUNT(DATE_ADJUSTMENT_NUM) > 0
+        FROM
+            DAY_ADJUSTMENT
+        WHERE
+            AMOUNT_DATE = #{adjDate}
+    </select>
+    
+    <update id="dajAdjRegist" parameterType="String" statementType="CALLABLE">
+        /* 프로시저 실행 : 일 정산 테이블에 insert */
+        CALL AddDayAdj(#{adjDate});
+    </update>
+
+    <select id="monthAdjCheck" parameterType="String" resultType="boolean">
+        /* 정산 등록된 월 중복 조회 */
+        SELECT
+            COUNT(MONTH_ADJUSTMENT_NUM) > 0
+        FROM
+            MONTH_ADJUSTMENT
+        WHERE
+            ADJUSTMENT_YEAR = YEAR(#{adjDate}) AND ADJUSTMENT_MONTH = MONTH(#{adjDate})
+    </select>
+
+    <update id="monthAdjRegist" parameterType="String" statementType="CALLABLE">
+        /* 프로시저 실행 : 월 정산 테이블에 insert */
+        CALL AddMonthAdj(#{adjDate});
+    </update>
 </mapper>

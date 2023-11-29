@@ -152,7 +152,62 @@
 					$("#adjSearchForm").submit();
 				}
 
-				//2.
+			})
+
+			//가맹점별 일 정산 등록
+
+			let date = new Date();
+			//현재 날짜 받아오기
+			let curYear = date.getFullYear();
+			let curMonth = date.getMonth()+1;
+			let curDate = date.getDate();
+			let curDay = curYear+'-'+curMonth+'-'+curDate;
+
+			//1)날짜 입력 내용이 바뀔 때마다 ajax를 이용한 중복체크
+			$("#adjDate").change(function (){
+				let inputDate = $("#adjDate").val();
+
+				//날짜가 유효한 범위 내인지 확인
+				if(inputDate <2014 || inputDate > curDay ){
+					$("#isDuplicate").css("color", "red")
+									 .text("2014년부터 등록일 기준 1일 전의 날짜만 입력 가능합니다.");
+					$("#adjRegist").prop("disabled", true);
+					return;
+				}
+
+				//DB에 입력되어있는 연도 정보 받아오기
+				const request = $.ajax({
+					url : '/admin/purchase/dayAdjCheck',
+					method : 'POST',
+					data : {'adjDate': inputDate},
+					dataType : 'json'
+				});
+
+				request.done(function(data){
+					//사용자가 입력한 값과 DB의 값이 일치하는지 확인, p태그 안에 결과 입력
+					if(data){
+						$("#isDuplicate").css("color", "red");
+						$("#isDuplicate").text("이미 해당 날짜의 정산이 등록되어있습니다.");
+						$("#adjRegist").prop("disabled", true);
+					}else{
+						$("#isDuplicate").css("color", "blue");
+						$("#isDuplicate").text("등록 가능한 날짜입니다.");
+						//입력 버튼 활성화
+						$("#adjRegist").prop("disabled", false);
+					}
+				});
+				request.fail(function(jqXHR, textStatus){
+					console.log(`Request failed: ${textStatus}`);
+				});
+			});
+
+			$("#adjRegist").click(function () {
+				let inputDate = $("#adjDate").val();
+				if(confirm(`정산을 등록하시겠습니까? ${inputDate}의 결제 내역이 정산됩니다.`)){
+					$("#adjRegistForm").submit();
+				}else{
+					alert("정산이 취소되었습니다.")
+				}
 
 			})
 
@@ -170,7 +225,35 @@
 			<div class="clearfix"></div>
   
    			<div class="col-md-12 col-sm-12 col-xs-12">
-     			<div class="x_panel">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>일별 정산 등록</h2>
+						<a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<br />
+						<form id="adjRegistForm" th:action="@{/admin/purchase/dayAdjRegist}"
+							  method="POST" data-parsley-validate class="form-horizontal form-label-left">
+							<div class="col-md-6" style="display: inline-block">
+								<h6><b>주의사항 안내</b></h6><br>
+								<b>- 정산 등록 버튼을 누르면 지정된 날짜의 정산이 등록됩니다.</b><br>
+								<b>- 이미 등록되어 있는 날짜는 정산 등록이 불가능합니다.</b><br><br><br>
+							</div>
+							<div class="form-group col-md-6" style="display: inline-block">
+								<label for="adjDate" class="control-label col-md-3 col-sm-3 col-xs-12">정산 날짜</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="date" id="adjDate" name="adjDate" class="form-control col-md-7 col-xs-12" style="display: inline-block">
+									<span id="isDuplicate"></span><br>
+									<button type="button" class="btn btn-success" id="adjRegist"
+											style="display: inline-block" disabled="disabled">정산 등록</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="x_panel">
        				<div class="x_title">
          				<h2>검색 조건</h2>
 	                      <a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
@@ -244,8 +327,8 @@
 	                      <div class="ln_solid"></div>
 	                      <div class="form-group">
 	                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
-	                          <button type="reset" class="btn btn-primary" id="resetBtn">초기화</button>
-	                          <button type="button" class="btn btn-success" id="searchBtn">검색</button>
+								<button type="reset" class="btn btn-primary" id="resetBtn">초기화</button>
+							  	<button type="button" class="btn btn-success" id="searchBtn">검색</button>
 	                        </div>
 	                      </div>
                     	</form>
