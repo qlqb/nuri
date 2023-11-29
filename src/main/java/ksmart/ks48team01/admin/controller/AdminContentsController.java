@@ -72,7 +72,7 @@ public class AdminContentsController {
 								   @RequestParam(name="contentsName", required = false, defaultValue = "") String contentsName,
 								   @RequestParam(name="storeCategory", required = false, defaultValue = "") String storeCategory,
 								   @RequestParam(name="storeName", required = false, defaultValue = "") String storeName,
-								   @RequestParam(name="contentsPg", required = false) int contentsPg,
+								   @RequestParam(name="contentsPg", required = false, defaultValue = "") String contentsPg,
 								   @RequestParam(name="startDate", required = false, defaultValue = "") String startDate,
 								   @RequestParam(name="endDate", required = false, defaultValue = "") String endDate) {
 
