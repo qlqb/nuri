@@ -66,4 +66,6 @@ public interface ContentsMapper {
      * @return
      */
     public List<Contents> getAdminContentsList();
+
+
 }

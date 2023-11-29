@@ -24,6 +24,8 @@
             font-weight: bolder;
         }
     </style>
+    <!--====== Selectr CSS ======-->
+    <link rel="stylesheet" href="/user/assets/css/selectr.css">
 </head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
@@ -69,11 +71,10 @@
                     <div class="col-md-6">
                         <div class="left-wrapper">
                             <div class="sorting">
-                                <label for="sort">Show items</label>
+                                <label for="sort">표시</label>
                                 <select name="sort" id="sort">
-                                    <option value="0">Popular Items</option>
-                                    <option value="1">By Default</option>
-                                    <option value="2">Newest Items</option>
+                                    <option value="oldest">가장 최근 순</option>
+                                    <option value="latest">가장 오래된 순</option>
                                 </select>
                             </div>
                         </div>
@@ -81,17 +82,6 @@
 
                     <div class="col-md-6">
                         <div class="right-wrapper">
-
-                            <ul class="nav product-view-btns" id="myTab" role="tablist">
-                                <li class="product-view-item" role="presentation">
-                                    <a class="product-view-btn" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
-                                       aria-selected="true"><i class="lni lni-list"></i></a>
-                                </li>
-                                <li class="product-view-item" role="presentation">
-                                    <a class="product-view-btn active" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
-                                       aria-selected="false"><i class="lni lni-grid-alt"></i></a>
-                                </li>
-                            </ul>
 
                             <form action="#">
                                 <input type="text" name="search" id="search" placeholder="Search">
@@ -108,12 +98,12 @@
                 <div class="row">
 
                     <!-- left-wrapper  -->
-                    <div class="col-8">
+                    <div class="col-9">
                         <div class="left-wrapper">
                             <div class="product-details-wrapper box-style">
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
-
+                                <div class="tab-content" id="storeList">
+                                    <div class="tab-pane fade show active" id="listGrid" role="tabpanel" aria-labelledby="grid-tab">
+                                        <h3 class="title mb-25">가맹점 조회</h3>
                                         <div class="text-wrapper" style="height: auto">
                                             <table class="table">
                                                 <thead>
@@ -138,22 +128,16 @@
                                                 <tbody>
                                                 <tr th:each="store : ${storeOfContentList}" class="text-center">
                                                     <td>
-                                                        <p class="category-text" th:text="${store.storeCategoryName}"></p>
-                                                        <p th:text="${store.contents.contentsCategoryName}"></p>
+                                                        <span class="category-text" th:text="${store.storeCategoryName}"></span><br>
+                                                        <span th:text="${store.contents.contentsCategoryName}"></span>
                                                     </td>
                                                     <td>
-                                                        <p class="title-text" th:text="${store.storeName}"></p>
-                                                        <p th:text="|${store.region.regionName} ${store.district.districtName}|"></p>
+                                                        <a class="title-text" th:href="@{/user/store/nuriStore(storeId=${store.storeId})}" th:text="${store.storeName}"></a><br>
+                                                        <span th:text="|${store.region.regionName} ${store.district.districtName}|"></span>
                                                     </td>
-                                                    <td>
-                                                        <p th:text="${store.storeContact}"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p th:text="${store.openingTime}"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p th:text="${store.storeRegDate}"></p>
-                                                    </td>
+                                                    <td th:text="${store.storeContact}"></td>
+                                                    <td th:text="${store.openingTime}"></td>
+                                                    <td th:text="${store.storeRegDate}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -165,7 +149,7 @@
                     </div>
 
                     <!-- sidebar wrapper  -->
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="sidebar-wrapper">
 
                             <!-- sidebar category  -->
@@ -184,62 +168,90 @@
                         </div>
                     </div>
 
-                    <div class="col-8">
+                    <div class="col-9">
                         <div class="left-wrapper">
                             <div class="product-details-wrapper box-style">
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                                <div class="tab-content" id="storeInfo">
+                                    <div class="tab-pane fade show active" id="storeInfoGrid" role="tabpanel" aria-labelledby="grid-tab">
 
                                         <div class="text-wrapper">
                                             <div class="mb-20 meta-top">
-                                                <a href="javascript:void(0)" class="mr-3 date"><i class="mr-2 lni lni-calendar"></i> 20 June, 2023</a>
-                                                <a href="javascript:void(0)" class="address"><i class="mr-2 lni lni-map-marker"></i> New York</a>
+                                                <span class="mr-3 date" th:text="|등록일: ${specificStoreList.storeRegDate}|"></span>
+                                                <span class="address" th:text="|지역: ${specificStoreList.region.regionName} ${specificStoreList.district.districtName}|"></span>
                                             </div>
-                                            <h3 class="title mb-25">iMac Pro 2018 with 256 SSD and 8GB RAM</h3>
-                                            <p class="description mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                                                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                                                elitr.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                                                dolore magna aliquyam erat.</p>
-
-                                            <h5 class="subtitle">Specification:</h5>
-                                            <div class="specification">
-                                                <ul>
-                                                    <li><i class="lni lni-checkmark-circle"></i>256GB PCIe flash storage</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>Turbo Boost up to 3.1GHz Intel</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>10 hour battery life</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>13.3" Retina Display</li>
-                                                </ul>
-                                                <ul>
-                                                    <li><i class="lni lni-checkmark-circle"></i>2.7 GHz dual-core Intel Core i5</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>Iris Graphics 6100 8GB memory</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>8GB memory</li>
-                                                    <li><i class="lni lni-checkmark-circle"></i>1 Year international warranty</li>
-                                                </ul>
+                                            <h3 class="title mb-25" th:text="${specificStoreList.storeName}"></h3>
+                                            <p class="description mb-30" ></p>
+                                            <div class="welcome-img">
+                                                <img class="image img-radius10 img-shadow mb-25" src="/user/assets/images/about/garden.jpg" alt="">
                                             </div>
                                             <div class="meta-bottom">
                                                 <ul>
                                                     <li>
-                                                        <i class="lni lni-folder"></i> <span>Categories: </span> <a href="javascript:void(0)">Electronics</a>
+                                                        <span>카테고리: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeCategoryName}"></a>
                                                     </li>
                                                     <li>
-                                                        <i class="lni lni-link"></i> <span>Categories: </span> <a href="javascript:void(0)">Electronics</a>
+                                                        <span>주소: </span> <a href="javascript:void(0)"  th:text="${specificStoreList.storeAddress}"></a>
                                                     </li>
                                                     <li>
-                                                        <i class="lni lni-apple"></i> <span>Brand: </span> <a href="javascript:void(0)">Apple</a>
+                                                        <span>대표자: </span> <a href="javascript:void(0)" th:text="${specificStoreList.user.userName}"></a>
+                                                    </li>
+                                                    <li>
+                                                        <span >연락처: </span> <a href="javascript:void(0)" th:text="${specificStoreList.storeContact}">063-222-1002</a>
+                                                    </li>
+                                                    <li>
+                                                        <span>영업일: </span> <a href="javascript:void(0)" th:text="${specificStoreList.openingTime}">월~금</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- left-wrapper  -->
+                    <div class="col-9">
+                        <div class="left-wrapper">
+                            <div class="product-details-wrapper box-style">
+                                <div class="tab-content" id="storeContents">
+                                    <div class="tab-pane fade show active" id="storeContentsGrid" role="tabpanel" aria-labelledby="grid-tab">
+                                        <h3 class="title mb-30" th:text="|${specificStoreList.storeName}의 컨텐츠|"></h3>
+                                        <div class="text-wrapper" style="height: auto">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>
+                                                            분류
+                                                        </th>
+                                                        <th>
+                                                            컨텐츠 타이틀
+                                                        </th>
+                                                        <th>
+                                                            컨텐츠 업로드 일자
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="conts : ${contentsListByStore.contentsList}" class="text-center">
+                                                        <td th:text="${conts.contentsCategoryName}">
+                                                        </td>
+                                                        <td>
+                                                            <a th:href="@{/user/contents/contentsDetail(contentsId=${conts.contentsId})}" th:text="${conts.contentsName}"></a>
+                                                        </td>
+                                                        <td th:text="${conts.contentsRegDate}"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </section>
     <!--====== TESTIMONIAL PART ENDS ======-->

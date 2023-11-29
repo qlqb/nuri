@@ -70,7 +70,76 @@
         </association>
     </resultMap>
 
-    <select id="storeOfContentInfo" resultMap="storeContentsResultMap">
+    <resultMap id="contentsListByStoreMap" type="Store">
+        <id property="storeId" column="STORE_ID"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeContact" column="STORE_CONTACT"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="openingTime" column="OPENING_TIME"/>
+        <result property="storeRegDate" column="STORE_REG_DATE"/>
+        <collection property="contentsList" ofType="Contents" javaType="List">
+            <id property="contentsId" column="CONTENTS_ID"/>
+            <result property="contentsCategoryCode" column="CONTENTS_CAT_CODE"/>
+            <result property="contentsCategoryName" column="CONTENTS_CAT_NAME"/>
+            <result property="contentsName" column="CONTENTS_NAME"/>
+            <result property="contentsAddress" column="CONTENT_ADDRESS"/>
+            <result property="contentsDuration" column="CONTENTS_DURATION"/>
+            <result property="contentsPg" column="CONTENTS_PG"/>
+            <result property="contentsPrice" column="CONTENTS_PRICE"/>
+            <result property="contentsRegDate" column="CONTENTS_REG_DATE"/>
+        </collection>
+    </resultMap>
+
+    <select id="contentsListBySpecificStore" resultMap="contentsListByStoreMap" parameterType="String">
+        SELECT
+            SI.STORE_ID,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        WHERE
+            SI.STORE_ID = #{storeId}
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC;
+    </select>
+
+    <select id="contentsListByStore" resultMap="contentsListByStoreMap">
+        SELECT
+            SI.STORE_ID,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC
+        LIMIT 5;
+    </select>
+
+    <select id="specificStoreInfo" resultMap="storeContentsResultMap">
         SELECT
             SI.STORE_ID,
             SI.USER_ID,
@@ -116,8 +185,161 @@
             CONTENTS AS CT
         ON
             SI.STORE_ID = CT.STORE_ID
+        WHERE
+            SI.STORE_ID = #{storeId}
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC;
+    </select>
+
+    <select id="storeInfo" resultMap="storeContentsResultMap">
+        SELECT
+            SI.STORE_ID,
+            SI.USER_ID,
+            UI.USER_NAME,
+            UI.LEVEL_ID,
+            UI.USER_LEVEL_NAME,
+            UI.USER_CONTACT,
+            SI.STORE_CATEGORY_CODE,
+            SI.STORE_CATEGORY_NAME,
+            SI.STORE_NAME,
+            SI.STORE_CONTACT,
+            SI.STORE_ADDRESS,
+            SI.OPENING_TIME,
+            SI.STORE_REG_DATE,
+            RG.REGION_CODE,
+            RG.REGION_NAME,
+            DT.DISTRICT_CODE,
+            DT.DISTRICT_NAME,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        INNER JOIN
+            DISTRICT AS DT
+        ON
+            SI.DISTRICT_CODE = DT.DISTRICT_CODE
+        INNER JOIN
+            REGION AS RG
+        ON
+            DT.REGION_CODE = RG.REGION_CODE
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        ORDER BY
+            CT.CONTENTS_REG_DATE DESC
+        LIMIT 1;
+    </select>
+
+<!--    SELECT-->
+<!--    SI.STORE_ID,-->
+<!--    SI.USER_ID,-->
+<!--    UI.USER_NAME,-->
+<!--    UI.LEVEL_ID,-->
+<!--    UI.USER_LEVEL_NAME,-->
+<!--    UI.USER_CONTACT,-->
+<!--    SI.STORE_CATEGORY_CODE,-->
+<!--    SI.STORE_CATEGORY_NAME,-->
+<!--    SI.STORE_NAME,-->
+<!--    SI.STORE_CONTACT,-->
+<!--    SI.STORE_ADDRESS,-->
+<!--    SI.OPENING_TIME,-->
+<!--    SI.STORE_REG_DATE,-->
+<!--    RG.REGION_CODE,-->
+<!--    RG.REGION_NAME,-->
+<!--    DT.DISTRICT_CODE,-->
+<!--    DT.DISTRICT_NAME-->
+<!--    FROM-->
+<!--    STORE_INFO AS SI-->
+<!--    INNER JOIN-->
+<!--    USER_INFO AS UI-->
+<!--    ON-->
+<!--    SI.USER_ID = UI.USER_ID-->
+<!--    INNER JOIN-->
+<!--    DISTRICT AS DT-->
+<!--    ON-->
+<!--    SI.DISTRICT_CODE = DT.DISTRICT_CODE-->
+<!--    INNER JOIN-->
+<!--    REGION AS RG-->
+<!--    ON-->
+<!--    DT.REGION_CODE = RG.REGION_CODE-->
+<!--    GROUP BY-->
+<!--    SI.STORE_ID-->
+
+
+    <select id="storeOfContentInfo" resultMap="storeContentsResultMap" parameterType="Map">
+        SELECT
+            SI.STORE_ID,
+            SI.USER_ID,
+            UI.USER_NAME,
+            UI.LEVEL_ID,
+            UI.USER_LEVEL_NAME,
+            UI.USER_CONTACT,
+            SI.STORE_CATEGORY_CODE,
+            SI.STORE_CATEGORY_NAME,
+            SI.STORE_NAME,
+            SI.STORE_CONTACT,
+            SI.STORE_ADDRESS,
+            SI.OPENING_TIME,
+            SI.STORE_REG_DATE,
+            RG.REGION_CODE,
+            RG.REGION_NAME,
+            DT.DISTRICT_CODE,
+            DT.DISTRICT_NAME,
+            CT.CONTENTS_ID,
+            CT.CONTENTS_CAT_CODE,
+            CT.CONTENTS_CAT_NAME,
+            CT.CONTENTS_NAME,
+            CT.CONTENT_ADDRESS,
+            CT.CONTENTS_DURATION,
+            CT.CONTENTS_PG,
+            CT.CONTENTS_PRICE,
+            CT.CONTENTS_REG_DATE
+        FROM
+            STORE_INFO AS SI
+        INNER JOIN
+            USER_INFO AS UI
+        ON
+            SI.USER_ID = UI.USER_ID
+        INNER JOIN
+            DISTRICT AS DT
+        ON
+            SI.DISTRICT_CODE = DT.DISTRICT_CODE
+        INNER JOIN
+            REGION AS RG
+        ON
+            DT.REGION_CODE = RG.REGION_CODE
+        INNER JOIN
+            CONTENTS AS CT
+        ON
+            SI.STORE_ID = CT.STORE_ID
+        <where>
+            <if test="storeCategoryValue != null and storeCategoryValue != ''">
+                AND SI.STORE_CATEGORY_CODE = #{storeCategoryValue}
+            </if>
+            <if test="storeSearchValue != null and storeSearchValue != ''">
+                AND SI.STORE_NAME = #{storeSearchValue}
+            </if>
+        </where>
         GROUP BY
-            SI.STORE_ID;
+            SI.STORE_ID
+        ORDER BY
+        <choose>
+            <when test="storeSortValue == 'oldest'">SI.STORE_REG_DATE ASC</when>
+            <when test="storeSortValue == 'latest'">SI.STORE_REG_DATE DESC</when>
+            <otherwise>SI.STORE_REG_DATE DESC;</otherwise>
+        </choose>
     </select>
 
 
