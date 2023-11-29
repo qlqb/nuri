@@ -96,10 +96,6 @@ function search (key, value) {
             const tdUserStat = document.createElement('td');
             tdUserStat.appendChild(document.createTextNode(`${element.userStat}`));
 
-            tableRow.appendChild(checkBoxTd);
-            checkBoxTd.appendChild(checkBoxDiv);
-            checkBoxDiv.appendChild(checkBoxInput);
-            checkBoxDiv.appendChild(checkBoxIns);
             tableRow.appendChild(tdUserLevelName);
             tableRow.appendChild(tdUserId);
             tableRow.appendChild(tdUserName);

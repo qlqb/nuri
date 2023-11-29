@@ -59,7 +59,6 @@ function search (key, value) {
             tdOfficerId.appendChild(anchorOfficerUpdate);
             checkBoxTd.appendChild(checkBoxDiv);
             checkBoxDiv.appendChild(checkBoxInput);
-            tableRow.appendChild(checkBoxTd);
             tableRow.append(tdOfficerId,
                 tdOfficerUserName,
                 tdDistrictDepName,
