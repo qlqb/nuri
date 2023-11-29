@@ -12,12 +12,12 @@ public class Contents {
     private String contentsDuration = "0";
     private String contentsPg = "0";
     private int contentsPrice;
-    private String contentsReleaseDT = "1000-01-01 00:00:00";
+    private String contentsReleaseDT = "1000-01-01T00:00:00";
     private String contentsRegDate;
     private String contentsSellStartDate = "1000-01-01";
     private String contentsSellEndDate = "9999-12-31";
-    private int amountContentRegistered;
-    private int amountContentRemaining;
+    private int amountContentRegistered = -10000;
+    private int amountContentRemaining = -10000;
     private String contentsDetail;
     private Store storeInfo;
 

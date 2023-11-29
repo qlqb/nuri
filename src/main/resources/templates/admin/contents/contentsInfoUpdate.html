@@ -3,15 +3,216 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layout/default}">
 
-<th:block layout:fragment="customJs">
-    <script th:src="@{/js/jquery-3.7.1.js}"></script>
+<head>
+    <!-- bootstrap-wysiwyg -->
+    <link th:href="@{/admin/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+</head>
+
+<th:block layout:fragment="customJsFile">
+    <!-- bootstrap-wysiwyg -->
+    <script th:src="@{/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js}"></script>
+    <script th:src="@{/admin/vendors/jquery.hotkeys/jquery.hotkeys.js}"></script>
+    <script th:src="@{/admin/vendors/google-code-prettify/src/prettify.js}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+</th:block>
+
+<th:block layout:fragment="customJsCode">
+
+    <script>
+        jQuery(document).ready(function(){
+            $('#contentsDetail').summernote({
+                placeholder: '내용을 입력하세요',
+                lang: 'ko-KR',
+                tabsize: 2,
+                height: 300
+
+            });
+
+        });
+
+        //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+        function sample4_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var roadAddr = data.roadAddress; // 도로명 주소 변수
+                    var extraRoadAddr = ''; // 참고 항목 변수
+
+                    let address = data.address;
+                    let buildingName = data.buildingName;
+
+                    let contentsAddress = `${address} ${buildingName}`;
+
+                    $('#contentsAddress').val(contentsAddress);
+
+                    console.log('value: ', $('#contentsAddress').val());
+
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraRoadAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraRoadAddr !== ''){
+                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('sample4_postcode').value = data.zonecode;
+                    document.getElementById("sample4_roadAddress").value = roadAddr;
+                    document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+
+                    var guideTextBox = document.getElementById("guide");
+                    // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                    if(data.autoRoadAddress) {
+                        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                        guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                        guideTextBox.style.display = 'block';
+
+                    } else if(data.autoJibunAddress) {
+                        var expJibunAddr = data.autoJibunAddress;
+                        guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                        guideTextBox.style.display = 'block';
+                    } else {
+                        guideTextBox.innerHTML = '';
+                        guideTextBox.style.display = 'none';
+                    }
+                }
+            }).open({
+                popupKey: 'popup1', //팝업창 Key값 설정 (영문+숫자 추천)
+                popupTitle: '우편번호 검색 팝업' //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
+            });
+        }
+        /*<![CDATA[*/
+        $(function() {
+            //컨텐츠 대분류 소분류 ajax 시작
+            const $storeCategoryCode = document.querySelector('#storeCategoryCode');
+            const $contentsCategoryCode = document.querySelector('#contentsCategoryCode');
+
+            // Ajax를 호출할 URL과 Query 스트링
+            let contentsCategoryListUrl = '/user/contents/ajaxContentsCategoryList?storeCategoryCode=';
+
+            $storeCategoryCode.addEventListener('change', function () {
+                if ($contentsCategoryCode.childElementCount >= 1) {
+                    $contentsCategoryCode.replaceChildren();
+                }
+                const storeCategoryCodeValue = $storeCategoryCode.value;
+                const requestContentsCategoryList = contentsCategoryListUrl + storeCategoryCodeValue;
+                getContentsCategoryList(requestContentsCategoryList);
+            })
+
+            function getContentsCategoryList(requestContentsCategoryList) {
+                fetch(requestContentsCategoryList)
+                    .then(response => response.json())
+                    .then(json => json.forEach((data) => {
+                        let contentsCategoryOption = document.createElement("option");
+                        contentsCategoryOption.value = `${data.contentsCategoryCode}`;
+                        contentsCategoryOption.text = `${data.contentsCategoryName}`;
+
+                        console.log(contentsCategoryOption.value);
+
+                        $contentsCategoryCode.appendChild(contentsCategoryOption);
+                    }))
+            }
+
+            //컨텐츠 대분류 소분류 ajax 끝
+
+            let sellEndDateInput = $('#contentsSellEndDate');
+            let sellEndNone = $('#sellEndNotApplicable');
+            let endDateInputDiv = sellEndDateInput.closest('.form-group');
+
+            if(sellEndDateInput.val() == "9999-12-31") {
+                sellEndNone.prop('checked', true);
+                sellEndDateInput.val('');
+            }
+            if(sellEndNone.prop('checked')) {
+                endDateInputDiv.toggle('fast');
+            }
+            sellEndNone.change(function () {
+                if(sellEndDateInput.val()) {
+                    sellEndDateInput.val('');
+                }
+                endDateInputDiv.toggle('fast');
+            })
+
+            // 유효성 검증 함수
+            function validationCheck(data) {
+                let isValid = true;
+                if (typeof data == "object") {
+                    $.each(data, function () {
+                        let checkValue = $(this).val();
+                        console.log('this: ', $(this));
+                        if (checkValue == null || checkValue == '' || typeof checkValue == 'undefined' || checkValue == 'none') {
+                            isValid = false;
+                            let eleId = $(this).attr('id');
+                            let cate = $(`label[for="${eleId}"]`).text();
+
+                            console.log('cate: ', cate);
+
+                            alert(`${cate}을(를) 입력하세요.`);
+                            $(this).focus();
+
+                            return isValid;
+                        }
+                        return isValid;
+                    });
+                } else {
+                    if (data == null || data == '' || typeof data == 'undefined' || checkValue == 'none') {
+                        isValid = false;
+                    }
+                }
+                if (isValid == true) {
+                    if ($('#contentsDetail').summernote('isEmpty')) {
+                        isValid = false;
+                        alert('컨텐츠 내용을(를) 입력하세요');
+                    }
+                }
+                return isValid;
+            }
+
+            $('#modifyBtn').click(function () {
+
+                let formEles = $('#demo-form2 input, #demo-form2 select')
+                    .not('#contentsDetailDiv input, contentsDetailDiv select');
+
+                if($('#sellEndNotApplicable').prop('checked')) {
+                    formEles = formEles.not('#contentsSellEndDate');
+                }
+
+                let isValid = validationCheck(formEles);
+
+                if (isValid) $('#addContentsForm').submit();
+            })
+        })
+        /*]]>*/
+    </script>
 </th:block>
 
 <body id="page-top">
 
 <!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
 <th:block layout:fragment="customContents">
-
     <div class="page-title">
         <div class="title_left">
             <h3>컨텐츠 수정</h3>
@@ -26,61 +227,104 @@
                 </div>
                 <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" th:object="${contentsDetailInfo}">
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠명</label>
+                            <label for="contentsName" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠명</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                                <input id="contentsName" name="contentsName" class="form-control col-md-7 col-xs-12" type="text" th:value="*{contentsName}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
+                            <label for="storeCategoryCode" class="control-label col-md-3 col-sm-3 col-xs-12">카테고리 대분류</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select id="heard" class="form-control">
-                                    <option>===선택하세요===</option>
-                                    <option>도서</option>
-                                    <option>전시</option>
-                                    <option>영화</option>
-                                    <option>관광</option>
-                                    <option>체육</option>
-                                    <option>디지털 컨텐츠</option>
+                                <select name="storeCategoryCode" id="storeCategoryCode" class="form-control">
+                                    <option value="none">카테고리 대분류</option>
+                                    <option th:each="sc: ${storeCategory}" th:value="${sc.storeCategoryCode}" th:text="${sc.storeCategoryName}"></option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 장소</label>
+                            <label for="contentsCategoryCode" class="control-label col-md-3 col-sm-3 col-xs-12">카테고리 소분류</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                                <select name="contentsCategoryCode" id="contentsCategoryCode" class="form-control">
+                                    <option value="none">카테고리 소분류</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 기간</label>
+                            <label for="sample4_postcode" class="control-label col-md-3 col-sm-3 col-xs-12">우편번호</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="date" name="middle-name" style="margin-bottom: 9px;">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="date" name="middle-name">
+                                <input class="form-control col-md-7 col-xs-12" type="text" id="sample4_postcode">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 가격</label>
+                            <label for="sample4_postcode" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="number" name="middle-name">
+                                <input class="form-control col-md-7 col-xs-12" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 수정일</label>
+                            <label for="sample4_roadAddress" class="control-label col-md-3 col-sm-3 col-xs-12">도로명주소</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="date" name="middle-name">
+                                <input class="form-control col-md-7 col-xs-12" type="text" id="sample4_roadAddress">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 내용</label>
+                            <label for="sample4_jibunAddress" class="control-label col-md-3 col-sm-3 col-xs-12">지번주소</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <label>
-                                    <textarea rows="10" cols="300" class="form-control col-md-7 col-xs-12"></textarea>
-                                </label>
+                                <input class="form-control col-md-7 col-xs-12" type="text" id="sample4_jibunAddress">
+                            </div>
+                            <span id="guide" style="color:#999;display:none"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="sample4_detailAddress" class="control-label col-md-3 col-sm-3 col-xs-12">상세주소</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input class="form-control col-md-7 col-xs-12" type="text" id="sample4_detailAddress">
+                            </div>
+                        </div>
+                        <input type="hidden" name="contentsAddress" id="contentsAddress">
+
+                        <div class="form-group">
+                            <label for="areaNotApplicable" class="control-label col-md-3 col-sm-3 col-xs-12">지역 해당없음</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="checkbox" id="areaNotApplicable" name="areaNotApplicable" class="w-auto"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contentsSellStartDate" class="control-label col-md-3 col-sm-3 col-xs-12">판매 시작일자</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="contentsSellStartDate" name="contentsSellStartDate" class="form-control col-md-7 col-xs-12" type="date" style="margin-bottom: 9px;" th:value="*{contentsSellStartDate}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contentsSellEndDate" class="control-label col-md-3 col-sm-3 col-xs-12">판매 종료일자</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="contentsSellEndDate" name="contentsSellEndDate" class="form-control col-md-7 col-xs-12" type="date" th:value="*{contentsSellEndDate}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sellEndNotApplicable" class="control-label col-md-3 col-sm-3 col-xs-12">종료일자 해당없음</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input style="padding: 6px 10px" type="checkbox" id="sellEndNotApplicable" name="sellEndNotApplicable"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contentsPrice" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 가격</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="contentsPrice" class="form-control col-md-7 col-xs-12" type="number" name="contentsPrice" th:value="*{contentsPrice}">
+                            </div>
+                        </div>
+                        <div class="form-group" id="contentsDetailDiv">
+                            <label for="contentsDetail" class="control-label col-md-3 col-sm-3 col-xs-12">컨텐츠 내용</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="contentsDetail" class="form-control col-md-7 col-xs-12" name="contentsDetail"></textarea>
                             </div>
                         </div>
 
@@ -89,7 +333,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <button class="btn btn-primary" type="button" style="margin-left: 392px;">취소</button>
                                 <button class="btn btn-primary" type="reset">초기화</button>
-                                <button type="submit" class="btn btn-success">수정</button>
+                                <button id="modifyBtn" type="button" class="btn btn-success">수정</button>
                             </div>
                         </div>
                     </form>
@@ -97,14 +341,6 @@
             </div>
         </div>
     </div>
-
-    <!-- List 형태의 경우, button을 사용해서 보여질 List를 표시할 수 있다. -->
-    <!-- UserList의 검색창을 통해서 회원의 지역, 생년월일, 아이디, 전화번호를 알 수 있다.-->
-    <!-- Ajax 통신을 통해 오른쪽에 검색할 조건을 선택할 수 있는 지역 select 옵션으로 지정
-    특정할 수 있는 정보인 이름, 전화번호, 가입일을 검색할 수 있게한다.-->
-
-
-
 </th:block>
 
 </body>

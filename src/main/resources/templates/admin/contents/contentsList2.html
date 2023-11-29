@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/default}">
+
+<head>
+  <!-- Datatables -->
+  <link th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+
+  <style>
+    .data-area  {
+      display: flex; gap: 10px;
+
+    }
+    .demo-form2{
+      padding: 20px 0;
+    }
+    .form-control {
+      width: 300px;
+    }
+  </style>
+</head>
+
+
+
+<!-- /* layout:decorate 이 부분의 파일에서 사용자 정의로 선언한 조각에 작성한 html코드를 삽입 */ -->
+<th:block layout:fragment="customContents">
+  <div class="clearfix"></div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>검색 조건</h2>
+        <a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+        <form id="demo-form2" data-parsley-validate="" style="text-align: center;" class="form-horizontal form-label-left">
+
+
+          <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
+            <label style="width: 80px; margin-top: 9px;"> 컨텐츠명 </label>
+            <input type="text"  name="" class="form-control" style="width: 300px;">
+          </div>
+
+          <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; display: flex;  justify-content: center; gap: 10px">
+            <label style="width: 80px; margin-top: 9px;"> 컨텐츠 장르 </label>
+            <select  name="" class="form-control">
+              <option>=== 장르를 선택하세요 ===</option>
+              <option>도서</option>
+              <option>전시</option>
+              <option>영화</option>
+              <option>관광</option>
+              <option>체육</option>
+              <option>디지털 컨텐츠</option>
+            </select>
+          </div>
+
+          <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
+            <label style="width: 80px; margin-top: 9px;"> 가맹점명 </label>
+            <input type="text" name="" class="form-control" style="width: 300px;">
+          </div>
+
+          <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
+            <label style="width: 80px; margin-top: 9px;"> 연령제한 </label>
+            <input type="text" name="" class="form-control" style="width: 300px;">
+          </div>
+
+          <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
+            <label style="width: 80px; margin-top: 9px;"> 검색기간 </label>
+            <input type="date" name="" class="form-control" style="width: 140px;"> <span style="margin-top: 9px">~</span>
+            <input type="date" name="" class="form-control" style="width: 140px;">
+          </div>
+
+          <div class="ln_solid"></div>
+          <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <button type="button" class="btn btn-primary">초기화</button>
+              <button type="submit" class="btn btn-success">검색</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>컨텐츠 목록 조회</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div id="datatable-checkbox_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+          <div class="row">
+            <!--  -->
+            <div class="col-sm-12">
+              <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action dataTable no-footer"
+                     role="grid" aria-describedby="datatable-checkbox_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+										 " style="width: 11.2px;">
+                  </th>
+                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-sort="ascending"
+                      aria-label=": activate to sort column descending" style="width: 46.2px;">
+                    <div class="icheckbox_flat-green" style="position: relative;">
+                      <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
+                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%;
+											  	display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255);
+											  	border: 0px; opacity: 0;"></ins>
+                    </div>
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending"
+                      style="width: 168.2px;">
+                    컨텐츠코드
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                      style="width: 277.2px;">
+                    컨텐츠명
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"
+                      style="width: 126.2px;">
+                    카테고리
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
+                      style="width: 65.2px;">
+                    컨텐츠 기간
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"
+                      style="width: 124.2px;">
+                    가맹점명
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending"
+                      style="width: 96px;">
+                    컨텐츠 시간
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending"
+                      style="width: 96px;">
+                    연령제한
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="datatable-checkbox"
+                      rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending"
+                      style="width: 96px;">
+                    컨텐츠 가격
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cl: ${contentsList}"> <!-- class="odd" or class="even" -->
+                  <td>
+                  </td>
+                  <th class="sorting_1">
+                    <div class="icheckbox_flat-green" style="position: relative;">
+                      <input type="checkbox" id="check" class="flat" style="position: absolute; opacity: 0;">
+                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px;
+											  	padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                    </div>
+                  </th>
+                  <td><a th:text="${cl.contentsId}" th:href="@{/admin/contents/contentsInfoUpdate(contentsId=${cl.contentsId})}"></a></td>
+                  <td th:text="${cl.contentsName}"></td>
+                  <td th:text="${cl.storeInfo.storeCategoryName}"></td>
+                  <td><th:block th:text="${cl.contentsSellStartDate}"></th:block>~<th:block th:text="${cl.contentsSellEndDate}"></th:block></td>
+                  <td th:text="${cl.contentsAddress}"></td>
+                  <td >-</td>
+                  <td th:text="${cl.contentsPg}"></td>
+                  <td th:text="${cl.contentsPrice}"></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+<th:block layout:fragment="customJsFile">
+  <!-- <script th:src="@{/js/jquery-3.7.1.js}"></script> -->
+  <!-- Datatables -->
+  <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+  <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+  <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+  <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+  <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+</th:block>
+
+
+</html>
