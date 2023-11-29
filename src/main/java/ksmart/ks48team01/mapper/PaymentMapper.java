@@ -16,10 +16,10 @@ public interface PaymentMapper {
     public List<Payment> getSearchPaymentList(List<Map<String, Object>> searchList);
 
     //결제 금액 조회
-    public int getPaymentAmount();
+    public String getPaymentAmount(String userId);
 
     //결제 횟수 조회
-    public int getPaymentCount();
+    public String getPaymentCount(String userId);
 
     //아이디별 결제 내역 조회
     public List<Payment> getPaymentListById(String userId);

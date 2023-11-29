@@ -35,12 +35,12 @@ public class AdminStatisticController {
 	public String storeStt(Model model, @RequestParam(name="searchKey",required = false) String searchKey,
 						   				@RequestParam(name="searchValue", required = false, defaultValue = "") String searchValue) {
 		List<Statistic> storeSttList = statisticService.getStoreSttList();
-		String storeTotalAmount = statisticService.storeTotalAmount();
+
 
 		log.info("StoreSttList:{}",storeSttList);
 		model.addAttribute("title", "가맹점 통계 조회");
 		model.addAttribute("storeSttList", storeSttList);
-		model.addAttribute("storeTotalAmount", storeTotalAmount);
+
 
 		return "/admin/statistic/storeStt";
 	}

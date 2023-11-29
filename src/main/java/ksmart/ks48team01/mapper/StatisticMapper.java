@@ -9,8 +9,6 @@ import java.util.Map;
 @Mapper
 public interface StatisticMapper {
 
-    //가맹점 누적 금액 조회
-    public String getStoreTotalAmount();
 
     //가맹점 통계 조회 검색
     public List<Statistic> getStoreSearchList(List<Map<String, Object>> searchList);

@@ -98,33 +98,6 @@
         <result property="month12" column="MONTH_12"/>
     </resultMap>
 
-    <!--가맹점 누적 사용액-->
-    <select id="getStoreTotalAmount" resultType="String">
-    SELECT
-        sstt.STORE_STT,
-        s.STORE_NAME,
-        sstt.ADJUSTMENT_YEAR,
-        sum(sstt.MONTH_1+
-        sstt.MONTH_2+
-        sstt.MONTH_3+
-        sstt.MONTH_4+
-        sstt.MONTH_5+
-        sstt.MONTH_6+
-        sstt.MONTH_7+
-        sstt.MONTH_8+
-        sstt.MONTH_9+
-        sstt.MONTH_10+
-        sstt.MONTH_11+
-        sstt.MONTH_12) AS totalAmount
-    FROM
-        STORE_MONTH_STT AS sstt
-        INNER JOIN
-        STORE_INFO AS s
-        ON
-        s.STORE_ID = sstt.STORE_ID
-    WHERE
-        sstt.STORE_ID = #{storeId} OR s.STORE_NAME = #{storeName}
-    </select>
 
     <!--storeSearchList-->
     <select id="getStoreSearchList" parameterType="list" resultMap="storeSttResultMap">
