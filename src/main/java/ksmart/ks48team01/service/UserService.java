@@ -104,11 +104,15 @@ public class UserService {
      * @param userPw 입력된 회원의 비밀번호
      * @return 조회 후 중복여부를 int로 반환
      */
-    public int isExistingPw (String userId ,String userPw) {
+    public int isExistingPw (String userId ,String resetPw) {
 
-        return userMapper.isExistingPw(userId, userPw);
+        return userMapper.isExistingPw(userId, resetPw);
     }
 
+
+    public void resetMyPw (String userId, String resetPw) {
+        userMapper.resetMyPw(userId, resetPw);
+    }
 
 
     /**

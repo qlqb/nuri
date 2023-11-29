@@ -1,17 +1,46 @@
 package ksmart.ks48team01.admin.controller;
 
+import ksmart.ks48team01.dto.Statistic;
+import ksmart.ks48team01.service.StatisticService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller("AdminStatisticController")
 @RequestMapping("/admin/statistic")
 public class AdminStatisticController {
 
+	private static final Logger log = LoggerFactory.getLogger(AdminStatisticController.class);
+	private final StatisticService statisticService;
+
+	public AdminStatisticController(StatisticService statisticService) {
+		this.statisticService = statisticService;
+	}
+
+
+	@PostMapping("/searchStoreStt")
+	@ResponseBody
+	public List<Statistic> storeSttInfo(@RequestBody List<Map<String, Object>> searchList){
+		log.info("searchList:{}", searchList);
+		List<Statistic> storeSttList = statisticService.getStoreSttList(searchList);
+		return storeSttList;
+	}
 
 	@GetMapping("storeStt")
-	public String storeStt(Model model) {
+	public String storeStt(Model model, @RequestParam(name="searchKey",required = false) String searchKey,
+						   				@RequestParam(name="searchValue", required = false, defaultValue = "") String searchValue) {
+		List<Statistic> storeSttList = statisticService.getStoreSttList();
+		String storeTotalAmount = statisticService.storeTotalAmount();
+
+		log.info("StoreSttList:{}",storeSttList);
+		model.addAttribute("title", "가맹점 통계 조회");
+		model.addAttribute("storeSttList", storeSttList);
+		model.addAttribute("storeTotalAmount", storeTotalAmount);
 
 		return "/admin/statistic/storeStt";
 	}

@@ -540,4 +540,5 @@ public class ContentsService {
         log.info("remain: {}", contents.getAmountContentRemaining());
         contentsMapper.modifyContents(contents);
     }
+
 }

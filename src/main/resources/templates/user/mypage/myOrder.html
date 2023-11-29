@@ -120,10 +120,10 @@
                                 </thead>
                                 <tbody>
 
-                                <tr th:if="${paymentList == null}">
+                                <tr th:if="${paymentListById == null}">
                                     <td colspan="7">게시글이 없습니다</td>
                                 </tr>
-                                <tr th:unless="${paymentList == null}" th:each="l : ${paymentList}">
+                                <tr th:unless="${paymentListById == null}" th:each="l : ${paymentListById}">
                                     <th>
                                         <div class="image">
                                             <div class="form-check check-style">

@@ -39,4 +39,16 @@ public interface AdjustmentMapper {
 
     //가맹점 월 정산 목록 조회 - 4)가맹점 검색
     public List<MonthAdjustment> getMonthAdjListByStoreName(HashMap<String, Object> map);
+
+    //가맹점별 일 정산 등록 - 중복 체크
+    public boolean dayAdjCheck(String adjDate);
+
+    //가맹점별 일 정산 등록
+    public int dajAdjRegist(String adjDate);
+
+    //가맹점별 월 정산 등록 - 중복 체크
+    public boolean monthAdjCheck(String adjDate);
+
+    //가맹점별 월 정산 등록
+    public int monthAdjRegist(String adjDate);
 }
