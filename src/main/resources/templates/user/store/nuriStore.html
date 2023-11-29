@@ -128,39 +128,20 @@
                                                 <tbody>
                                                 <tr th:each="store : ${storeOfContentList}" class="text-center">
                                                     <td>
-                                                        <p class="category-text" th:text="${store.storeCategoryName}"></p>
-                                                        <p th:text="${store.contents.contentsCategoryName}"></p>
+                                                        <span class="category-text" th:text="${store.storeCategoryName}"></span><br>
+                                                        <span th:text="${store.contents.contentsCategoryName}"></span>
                                                     </td>
                                                     <td>
-                                                        <a class="title-text" th:href="@{/user/store/nuriStore(storeId=${store.storeId})}" th:text="${store.storeName}"></a>
-                                                        <p th:text="|${store.region.regionName} ${store.district.districtName}|"></p>
+                                                        <a class="title-text" th:href="@{/user/store/nuriStore(storeId=${store.storeId})}" th:text="${store.storeName}"></a><br>
+                                                        <span th:text="|${store.region.regionName} ${store.district.districtName}|"></span>
                                                     </td>
-                                                    <td>
-                                                        <p th:text="${store.storeContact}"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p th:text="${store.openingTime}"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p th:text="${store.storeRegDate}"></p>
-                                                    </td>
+                                                    <td th:text="${store.storeContact}"></td>
+                                                    <td th:text="${store.openingTime}"></td>
+                                                    <td th:text="${store.storeRegDate}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center mt-30">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">Next</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -254,41 +235,23 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="conts : ${contentsListByStore.contentsList}" class="text-center">
-                                                        <td>
-                                                            <p th:text="${conts.contentsCategoryName}"></p>
+                                                        <td th:text="${conts.contentsCategoryName}">
                                                         </td>
                                                         <td>
                                                             <a th:href="@{/user/contents/contentsDetail(contentsId=${conts.contentsId})}" th:text="${conts.contentsName}"></a>
                                                         </td>
-                                                        <td>
-                                                            <p th:text="${conts.contentsRegDate}"></p>
-                                                        </td>
+                                                        <td th:text="${conts.contentsRegDate}"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination justify-content-center mt-30">
-                                                    <li class="page-item disabled">
-                                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">Next</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </section>
     <!--====== TESTIMONIAL PART ENDS ======-->

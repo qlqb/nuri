@@ -39,8 +39,10 @@ public interface StoreMapper {
     // 사용자가 선택한 특정 가맹점의 상세정보를 출력하는 메소드
     Store specificStoreInfo(String storeId);
 
+    // 가맹점 등록일 순으로 출력되는 가맹점 리스트
     List<Store> storeOfContentInfo();
 
+    // 가맹점 특정 기준으로 정렬 및 검색어, 카테고리 순으로 정렬되는 리스트
     List<Store> storeOfContentInfo(Map<String, Object> storeSearchMap);
 
     // 가맹점의 등록일 순으로 특정 가맹점의 컨텐츠 목록을 출력하는 상세정보 메소드
