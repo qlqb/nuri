@@ -11,9 +11,11 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.config.annotation.RedirectViewControllerRegistration;
 
 import javax.management.modelmbean.RequiredModelMBean;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,97 +27,186 @@ public class ContentsController {
 	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
 
 	private final ContentsService contentsService;
-	private final AreaService areaService;
 
-	public ContentsController(ContentsService contentsService, AreaService areaService) {
+	public ContentsController(ContentsService contentsService) {
 		this.contentsService = contentsService;
-		this.areaService = areaService;
 	}
 
-	//컨텐츠 검색
-	@GetMapping(value = {"/contentsInfoSpecific"})
-	public String contentsSpecificPage(Model model) {
-		model.addAttribute("title", "컨텐츠 검색");
-		return "user/contents/contentsInfoSpecific";
-	}
-	
-	//컨텐츠 수정
-	@GetMapping(value = {"/contentsInfoUpdate"})
-	public String modifyContentsPage(Model model,
-									 @RequestParam(name="contentsId") String contentsId,
-									 HttpSession session) {
-
-		String userId = (String) session.getAttribute("SID");
-
-		List<StoreCategory> storeCategory = contentsService.getStoreCategory();
-		List<Region> regionList = areaService.getRegionList();
-
-		if(userId != null) {
-			int intUserLevel = Integer.parseInt((String) session.getAttribute("SLEVEL")) ;
-			Store storeInfo = contentsService.getSessionStoreInfo(userId);
-			model.addAttribute("storeInfo", storeInfo);
-		} else {
-			return "redirect:/user";
-		}
-
-		model.addAttribute("title", "컨텐츠 수정");
-
-		Contents contentsInfo = contentsService.getContentsInfoByContentsId(contentsId);
-
-		model.addAttribute("contentsInfo", contentsInfo);
-		model.addAttribute("title", "컨텐츠 수정");
-		model.addAttribute("storeCategory", storeCategory);
-		model.addAttribute("regionList", regionList);
-
-		return "user/contents/contentsForm/bookInfoUpdate";
-	}
-	
-	//컨텐츠 등록
-	@GetMapping(value = {"/contentsInfoRegist"})
-	public String contentsRegPage(Model model) {
-		model.addAttribute("title", "컨텐츠 등록");
-		return "user/contents/contentsInfoRegist";
-	}
-
-	@GetMapping(value = {"/bookInfoRegist"})
+	@GetMapping("/bookInfoRegist")
 	public String bookRegPage(Model model,
 							  HttpSession session){
-
 		String userId = (String) session.getAttribute("SID");
-		List<StoreCategory> storeCategory = contentsService.getStoreCategory();
-		List<Region> regionList = areaService.getRegionList();
-
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A04");
 		if(userId != null) {
-			int intUserLevel = Integer.parseInt((String) session.getAttribute("SLEVEL")) ;
 			Store storeInfo = contentsService.getSessionStoreInfo(userId);
 			model.addAttribute("storeInfo", storeInfo);
 		} else {
 			return "redirect:/user";
 		}
-
 		model.addAttribute("title", "책 컨텐츠 등록");
-		model.addAttribute("storeCategory", storeCategory);
-		model.addAttribute("regionList", regionList);
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
 
 		return "/user/contents/contentsForm/bookInfoRegist";
 	}
 
-	@PostMapping(value = {"/bookInfoRegist"})
-	public String bookRegPage(Contents contents) {
+	@PostMapping("/contentsInfoRegist")
+	public String bookRegPage(Contents contents,
+							  @RequestParam(name="sido", required = false, defaultValue = "alreadyInputOnJoin") String sido,
+							  MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
 
-		contentsService.addBookContents(contents);
-		return "redirect:/user";
+		contentsService.addContents(contents, sido, multipartHttpServletRequest);
+		return "redirect:/user/mypage/myContentsList";
 	}
 
-	@ResponseBody
-	@GetMapping("/ajaxContentsCategoryList")
-	public List<ContentsCategory> ajaxContentsSubCategoryList(@RequestParam(name="storeCategoryCode") String storeCategoryCode) {
-		return contentsService.getAjaxContentsCategory(storeCategoryCode);
+	// 책 컨텐츠 수정
+	@GetMapping("/bookInfoUpdate")
+	public String modifyBookContentsPage(Model model,
+									 @RequestParam(name="contentsId") String contentsId) {
+
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A04");
+		Contents contentsInfo = contentsService.getContentsInfoByContentsId(contentsId);
+
+		model.addAttribute("title", "책 컨텐츠 수정");
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+		model.addAttribute("contentsInfo", contentsInfo);
+		log.info("contentsId: {}", contentsInfo.getContentsId());
+
+		return "user/contents/contentsForm/bookInfoUpdate";
+	}
+	@PostMapping("/contentsInfoUpdate")
+	public String modifyBookContents(Contents contents) {
+
+		log.info("contents: {}", contents);
+		contentsService.modifyContents(contents);
+
+		return "redirect:/user/mypage/myContentsList";
 	}
 
+
+
+	@GetMapping("/performRegist")
+	public String performRegPage(Model model,
+							  HttpSession session) {
+		String userId = (String) session.getAttribute("SID");
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A01");
+		if (userId != null) {
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+		model.addAttribute("title", "공연 컨텐츠 등록");
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+
+		return "/user/contents/contentsForm/performRegist";
+	}
+	@GetMapping("/performUpdate")
+	public String modifyPerformContentsPage(Model model,
+									 @RequestParam(name="contentsId") String contentsId,
+									 HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A01");
+		Contents contentsInfo = contentsService.getContentsInfoByContentsId(contentsId);
+
+		if(userId != null) {
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+
+		model.addAttribute("title", "공연 컨텐츠 수정");
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+
+		model.addAttribute("contentsInfo", contentsInfo);
+
+		return "user/contents/contentsForm/performUpdate";
+	}
+
+	@GetMapping("/exhibitionRegist")
+	public String exhibitionRegPage(Model model,
+								 HttpSession session){
+		String userId = (String) session.getAttribute("SID");
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A02");
+		if(userId != null) {
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+		model.addAttribute("title", "전시 컨텐츠 등록");
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+
+		return "/user/contents/contentsForm/exhibitionRegist";
+	}
+
+	@GetMapping("/exhibitionUpdate")
+	public String modifyExhibitionContentsPage(Model model,
+											@RequestParam(name="contentsId") String contentsId,
+											HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+		Contents contentsInfo = contentsService.getContentsInfoByContentsId(contentsId);
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A02");
+
+		if(userId != null) {
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+
+		model.addAttribute("title", "전시 컨텐츠 수정");
+		model.addAttribute("contentsInfo", contentsInfo);
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+
+		return "user/contents/contentsForm/exhibitionUpdate";
+	}
+
+	@GetMapping("/movieRegist")
+	public String movieRegPage(Model model,
+									HttpSession session){
+		String userId = (String) session.getAttribute("SID");
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A03");
+		if(userId != null) {
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+		model.addAttribute("title", "영화 컨텐츠 등록");
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+
+		return "/user/contents/contentsForm/movieRegist";
+	}
+
+	@GetMapping("/movieUpdate")
+	public String modifyMovieContentsPage(Model model,
+											   @RequestParam(name="contentsId") String contentsId,
+											   HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+		List<ContentsCategory> contentsCategoryList = contentsService.getContentsCategoryOnReg("A03");
+		Contents contentsInfo = contentsService.getContentsInfoByContentsId(contentsId);
+
+		if(userId != null) {
+			Store storeInfo = contentsService.getSessionStoreInfo(userId);
+			model.addAttribute("storeInfo", storeInfo);
+		} else {
+			return "redirect:/user";
+		}
+
+		model.addAttribute("title", "영화 컨텐츠 수정");
+
+		model.addAttribute("contentsCategoryList", contentsCategoryList);
+		model.addAttribute("contentsInfo", contentsInfo);
+
+		return "user/contents/contentsForm/movieUpdate";
+	}
 	
-	//컨텐츠 상세설명 -> view에서 클릭하면 들어가는 경로로
-	@GetMapping(value={"/contentsDetail"})
+	//컨텐츠 상세 설명 -> view 에서 클릭 하면 들어 가는 경로로
+	@GetMapping("/contentsDetail")
 	public String contentsDetail(Model model,
 								 @RequestParam(name="contentsId") String contentsId) {
 		Map<String, Object> contentsDetailInfo = contentsService.getContentsDetailInfo(contentsId);
@@ -186,9 +277,4 @@ public class ContentsController {
 			return "user/contents/contentsInfoList";
 		}
 
-		@GetMapping(value = {"reservation"})
-		public String reservation(Model model) {
-			model.addAttribute("title", "예약 화면");
-			return "user/contents/reservation";
-		}
 }
