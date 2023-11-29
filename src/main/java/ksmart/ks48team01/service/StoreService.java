@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -63,32 +64,20 @@ public class StoreService {
         storeMapper.storeInfoUpdate(store);
     }
 
-    /**
-     * GET 방식으로 유저 가맹점 설명 페이지에서 호출 및 입력 값이 없을 경우
-     * 출력되는 전체 결과
-     * @return keywordList 반환될 간략한 유저 쿼리 결과
-     */
-    public List<Store> getStoreKeyword() {
-        List<Store> keywordList = storeMapper.getStoreKeywordAll();
-
-        return keywordList;
-    }
-
-    /**
-     * 특정 키워드를 클릭 시에 Query로 특정 카테고리의 결과를 출력
-     * @param storeKeyword 입력받을 특정 키워드
-     * @return keywordList 특정 키워드 조회 후 쿼리 결과
-     */
-    public List<Store> getStoreKeyword(String storeKeyword) {
-        List<Store> keywordList = storeMapper.getStoreKeyword(storeKeyword);
-
-        return keywordList;
-    }
-
     public List<Store> storeOfContentInfo() {
-        List<Store> storeOfContentList = storeMapper.storeOfContentInfo();
+        return storeMapper.storeOfContentInfo();
+    }
 
-        return storeOfContentList;
+    public List<Store> storeOfContentInfo(Map<String, Object> storeSearchMap) {
+        return storeMapper.storeOfContentInfo(storeSearchMap);
+    }
+
+    public Store storeInfo() {
+        return storeMapper.storeInfo();
+    }
+
+    public Store specificStoreInfo(String storeId) {
+        return storeMapper.specificStoreInfo(storeId);
     }
 
     public List<Store> storeCategoryList() {
@@ -97,4 +86,13 @@ public class StoreService {
         return categoryList;
     }
 
+    public Store contentsListByStore() {
+        Store contentsListStore = storeMapper.contentsListByStore();
+        return  contentsListStore;
+    }
+
+    public Store contentsListByStore(String storeId) {
+        Store contentsListStore = storeMapper.contentsListBySpecificStore(storeId);
+        return  contentsListStore;
+    }
 }

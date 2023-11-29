@@ -112,9 +112,8 @@ function nameCheck (value) {
 }
 
 const $dateCheck = document.querySelector('#dateCheck');
-
+const refDate = getToday(7);
 $userBirth.addEventListener('focusout', () => {
-    const refDate = getToday(7);
     if(birthDateCheck($userBirth.value ,refDate)) {
         $dateCheck.classList.add('notice-hide')
     } else {
@@ -175,35 +174,18 @@ const $regionAlert = document.querySelector('#region-alert');
 const $districtAlert = document.querySelector('#district-alert');
 const $addrAlert = document.querySelector('#address1Alert');
 
-$regionInput.addEventListener('focusout', () => {
-    blankCheck($regionInput, $regionAlert);
-})
-
-$districtInput.addEventListener('focusout', () => {
-    blankCheck($districtInput, $districtAlert);
-})
-
-$address1.addEventListener('focusout', () => {
-    blankCheck($address1, $addrAlert);
-})
-
-function blankCheck (query, alert) {
-    if(query.value == null || query.value === "" || query.value === undefined) {
-        alert.classList.add('notice-hide')
-        alert.query.classList.remove('notice-hide')
-    } else {
-        alert.query.classList.add('notice-hide')
-    }
-}
-
 $additionalBtn.addEventListener('click', (e) => {
-    if(idRegexpCheck($userId.value) &&
-        pwRegexpCheck($userPwCheck) &&
+    if(idRegexpCheck() &&
+        pwRegexpCheck() &&
         pwMatching($userPw.value, $userPwCheck.value) &&
         nameCheck($userName.value) &&
+        birthDateCheck($userBirth.value, refDate) &&
+        contactCheck($userContact.value) &&
         mailCheck($userEmail.value)) {
-        console.log('다음으로')
+        $userForm.classList.toggle('notice-hide');
+        $specificForm.classList.toggle('notice-hide');
     } else {
         e.preventDefault();
+        console.log('안됨');
     }
 })
