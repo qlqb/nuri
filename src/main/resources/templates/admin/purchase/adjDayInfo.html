@@ -244,7 +244,9 @@
 								<label for="adjDate" class="control-label col-md-3 col-sm-3 col-xs-12">정산 날짜</label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<input type="date" id="adjDate" name="adjDate" class="form-control col-md-7 col-xs-12" style="display: inline-block">
-									<span id="isDuplicate"></span><br>
+									<span id="isDuplicate"></span><br><br>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
 									<button type="button" class="btn btn-success" id="adjRegist"
 											style="display: inline-block" disabled="disabled">정산 등록</button>
 								</div>
@@ -317,10 +319,14 @@
 	                      <div class="form-group">
 	                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">검색 기간</label>
 	                        <div class="data-area col-md-6 col-sm-6 col-xs-12" style="justify-content: center; display: flex;">
-								<label type="hidden" for="startDate">시작 날짜</label>
-								<input type="date" name="startDate" id="startDate" class="form-control" style="width: 250px;"> ~
-								<label type="hidden" for="endDate">종료 날짜</label>
-								<input type="date" name="endDate" id="endDate" class="form-control" style="width: 250px;">
+								<div class="data-area col-md-3 col-sm-3 col-xs-6">
+									<label for="startDate">시작 날짜</label>
+									<input type="date" name="startDate" id="startDate" class="form-control col-md-3 col-sm-3 col-xs-6">
+								</div>
+								<div class="data-area col-md-3 col-sm-3 col-xs-6">
+									<label  for="endDate">종료 날짜</label>
+									<input type="date" name="endDate" id="endDate" class="form-control col-md-3 col-sm-3 col-xs-6">
+								</div>
 	                        </div>
 	                      </div>
 	                      

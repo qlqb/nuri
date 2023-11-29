@@ -154,7 +154,6 @@ public class AdminAdjustmentController {
 
 		return "/admin/purchase/adjMonthInfo";
 	}
-
 	/**
 	 * 정산 등록일자 중복 체크 (ajax 요청)
 	 * @param adjDate
