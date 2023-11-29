@@ -4,7 +4,13 @@
       layout:decorate="~{user/layout/default}">
 
 <!-- 사용자별 css file 추가 부분 -->
-
+<head>
+    <style>
+        .single-service {
+            cursor: pointer;
+        }
+    </style>
+</head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
@@ -47,16 +53,118 @@
                 </div>
                 <div class="col-xl-9 col-lg-8">
                     <div class="dashboard-wrapper box-style">
-                        <div class="title">
-                            <h3>컨텐츠 등록하기</h3>
-                        </div>
+                        <section class="service-area pt-110 pb-110">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="mx-auto col-xl-6 col-lg-7 col-md-10">
+                                        <div class="text-center section-title mb-60">
+                                            <h1>컨텐츠를 선택하세요</h1>
+<!--                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore-->
+<!--                                                magna.</p>-->
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div style="margin: 50px;"></div>
+                                <div class="row justify-content-center">
 
-                        <div class="table-wrapper table-responsive">
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <a th:href="@{/user/contents/bookInfoRegist}" style="all: unset">
+                                            <div class="single-service">
+                                                <div class="icon">
+                                                    <i class="lni lni-book"></i>
+                                                </div>
+                                                <div class="service-content">
+                                                    <h3>도서 컨텐츠</h3>
+    <!--                                                <p>도서 컨텐츠</p>-->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
 
-                        </div>
 
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <a th:href="@{/user/contents/performRegist}" style="all: unset">
+                                            <div class="single-service">
+                                                <div class="icon">
+                                                    <i class="lni lni-bullhorn"></i>
+                                                </div>
+                                                <div class="service-content">
+                                                    <h3>공연 컨텐츠</h3>
+    <!--                                                <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>-->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <a th:href="@{/user/contents/exhibitionRegist}" style="all: unset">
+                                            <div class="single-service">
+                                                <div class="icon">
+                                                    <i class="lni lni-pallet"></i>
+                                                </div>
+                                                <div class="service-content">
+                                                    <h3>전시 컨텐츠</h3>
+    <!--                                                <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>-->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <a th:href="@{/user/contents/movieRegist}" style="all: unset">
+                                            <div class="single-service">
+                                                <div class="icon">
+                                                    <i class="lni lni-blackboard"></i>
+                                                </div>
+                                                <div class="service-content">
+                                                    <h3>영화 컨텐츠</h3>
+    <!--                                                <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>-->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <a href="#" style="all: unset">
+                                            <div class="single-service">
+                                                <div class="icon">
+                                                    <i class="lni lni-travel"></i>
+                                                </div>
+                                                <div class="service-content">
+                                                    <h3>관광 컨텐츠</h3>
+    <!--                                                <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>-->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <div class="single-service">
+                                            <div class="icon">
+                                                <i class="lni lni-basketball"></i>
+                                            </div>
+                                            <div class="service-content">
+                                                <h3>체육 컨텐츠</h3>
+<!--                                                <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+                                        <div class="single-service">
+                                            <div class="icon">
+                                                <i class="lni lni-display"></i>
+                                            </div>
+                                            <div class="service-content">
+                                                <h3>디지털 컨텐츠</h3>
+                                                <!--                                                <p>Buy and sell everything from used cars to mobile phones and computer or search for property.</p>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
 

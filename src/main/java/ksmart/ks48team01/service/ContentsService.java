@@ -1,5 +1,6 @@
 package ksmart.ks48team01.service;
 
+import ksmart.ks48team01.common.FileUtils;
 import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.mapper.ContentsMapper;
 import ksmart.ks48team01.user.controller.ContentsController;
@@ -7,7 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,9 +22,11 @@ import java.util.stream.Collectors;
 public class ContentsService {
     private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
     private final ContentsMapper contentsMapper;
+    private final FileUtils fileUtils;
 
-    public ContentsService(ContentsMapper contentsMapper) {
+    public ContentsService(ContentsMapper contentsMapper, FileUtils fileUtils) {
         this.contentsMapper = contentsMapper;
+        this.fileUtils = fileUtils;
     }
 
     public Map<String, Object> getContentsInfoList(int currentPage, String tabValue) {
@@ -130,9 +139,6 @@ public class ContentsService {
 
         return resultMap;
     }
-
-
-
 
     public List<StoreCategory> getStoreCategory() {
         return contentsMapper.getStoreCategory();
@@ -367,190 +373,64 @@ public class ContentsService {
 
     /**
      * 사용자가 선택한 카테고리 코드 파싱해서 Name값 DB에 삽입
+     * 지역값 파싱 후 DB에 삽입
      * @param contents
      */
-    public void addBookContents(Contents contents) {
-        String contentsCategoryCode = contents.getContentsCategoryCode();
-        String contentsAddress = contents.getContentsAddress();
+    public void addContents(Contents contents, String sido,
+                            MultipartHttpServletRequest multipartHttpServletRequest) throws  Exception {
 
-        switch (contentsCategoryCode) {
-            case "A0101":
-                contents.setContentsCategoryName("연주회");
+        switch (sido) {
+            case "서울" :
+                contents.setRegionCode((byte) 11);
                 break;
-            case "A0102":
-                    contents.setContentsCategoryName("리사이틀");
-                    break;
-            case "A0103":
-                    contents.setContentsCategoryName("희곡");
-                    break;
-            case "A0104":
-                    contents.setContentsCategoryName("오페라");
-                    break;
-            case "A0105":
-                    contents.setContentsCategoryName("발레");
-                    break;
-            case "A0106":
-                    contents.setContentsCategoryName("댄스");
-                    break;
-            case "A0107":
-                    contents.setContentsCategoryName("뮤지컬");
-                    break;
-            case "A0108":
-                    contents.setContentsCategoryName("서커스");
-                    break;
-            case "A0109":
-                    contents.setContentsCategoryName("마술");
-                    break;
-            case "A0110":
-                    contents.setContentsCategoryName("인형극");
-                    break;
-            case "A0111":
-                    contents.setContentsCategoryName("행위예술");
-                    break;
-            case "A0201":
-                    contents.setContentsCategoryName("사진");
-                    break;
-            case "A0202":
-                    contents.setContentsCategoryName("공예");
-                    break;
-            case "A0301":
-                    contents.setContentsCategoryName("액션");
-                    break;
-            case "A0302":
-                    contents.setContentsCategoryName("드라마");
-                    break;
-            case "A0303":
-                    contents.setContentsCategoryName("스릴러");
-                    break;
-            case "A0304":
-                    contents.setContentsCategoryName("로맨스");
-                    break;
-            case "A0305":
-                    contents.setContentsCategoryName("코미디");
-                    break;
-            case "A0306":
-                    contents.setContentsCategoryName("SF");
-                    break;
-            case "A0307":
-                    contents.setContentsCategoryName("판타지");
-                    break;
-            case "A0308":
-                    contents.setContentsCategoryName("느와르");
-                    break;
-            case "A0309":
-                    contents.setContentsCategoryName("미스터리");
-                    break;
-            case "A0310":
-                    contents.setContentsCategoryName("공포");
-                    break;
-            case "A0311":
-                    contents.setContentsCategoryName("다큐멘터리");
-                    break;
-            case "A0312":
-                    contents.setContentsCategoryName("뮤지컬");
-                    break;
-            case "A0401":
-                    contents.setContentsCategoryName("총류");
-                    break;
-            case "A0402":
-                    contents.setContentsCategoryName("철학");
-                    break;
-            case "A0403":
-                    contents.setContentsCategoryName("종교");
-                    break;
-            case "A0404":
-                    contents.setContentsCategoryName("사회과학");
-                    break;
-            case "A0405":
-                    contents.setContentsCategoryName("자연과학");
-                    break;
-            case "A0406":
-                    contents.setContentsCategoryName("기술과학");
-                    break;
-            case "A0407":
-                    contents.setContentsCategoryName("예술");
-                    break;
-            case "A0408":
-                    contents.setContentsCategoryName("언어");
-                    break;
-            case "A0409":
-                    contents.setContentsCategoryName("문학");
-                    break;
-            case "A0410":
-                    contents.setContentsCategoryName("역사");
-                    break;
-            case "B0101":
-                    contents.setContentsCategoryName("숙박");
-                    break;
-             case "B0102":
-                    contents.setContentsCategoryName("여행");
-                    break;
-             case "B0103":
-                    contents.setContentsCategoryName("명소");
-                    break;
-             case "B0104":
-                    contents.setContentsCategoryName("휴양");
-                    break;
-             case "B0105":
-                    contents.setContentsCategoryName("캠핑");
-                    break;
-             case "B0106":
-                    contents.setContentsCategoryName("동물원");
-                    break;
-            case "C0101":
-                    contents.setContentsCategoryName("체육용품");
-                    break;
-            case "C0102":
-                    contents.setContentsCategoryName("체육시설");
-                    break;
-            case "C0201":
-                    contents.setContentsCategoryName("배드민턴");
-                    break;
-            case "C0202":
-                    contents.setContentsCategoryName("배구");
-                    break;
-            case "C0203":
-                    contents.setContentsCategoryName("농구");
-                    break;
-            case "C0204":
-                    contents.setContentsCategoryName("게이트볼");
-                    break;
-            case "C0205":
-                    contents.setContentsCategoryName("탁구");
-                    break;
-            case "C0206":
-                    contents.setContentsCategoryName("테니스");
-                    break;
-            case "C0207":
-                    contents.setContentsCategoryName("족구");
-                    break;
-            case "C0208":
-                    contents.setContentsCategoryName("육상");
-                    break;
-            case "C0209":
-                    contents.setContentsCategoryName("야구");
-                    break;
-            case "C0210":
-                    contents.setContentsCategoryName("수영");
-                    break;
-            case "C0211":
-                    contents.setContentsCategoryName("핸드볼");
-                    break;
-            case "C0212":
-                    contents.setContentsCategoryName("기타");
-                    break;
-            case "D0101":
-                    contents.setContentsCategoryName("전자책");
-                    break;
-            case "D0102":
-                    contents.setContentsCategoryName("인터넷 강의");
-                    break;
-            case "D0103":
-                    contents.setContentsCategoryName("엔터테인먼트");
-                    break;
-            case "D0104":
-                    contents.setContentsCategoryName("OTT");
-                    break;
+            case "경기" :
+                contents.setRegionCode((byte) 31);
+                break;
+            case "부산" :
+                contents.setRegionCode((byte) 21);
+                break;
+            case "대구" :
+                contents.setRegionCode((byte) 22);
+                break;
+            case "인천" :
+                contents.setRegionCode((byte) 23);
+                break;
+            case "광주" :
+                contents.setRegionCode((byte) 24);
+                break;
+            case "대전" :
+                contents.setRegionCode((byte) 25);
+                break;
+            case "울산" :
+                contents.setRegionCode((byte) 26);
+                break;
+            case "세종특별자치시" :
+                contents.setRegionCode((byte) 29);
+                break;
+            case "강원특별자치도" :
+                contents.setRegionCode((byte) 32);
+                break;
+            case "충북" :
+                contents.setRegionCode((byte) 33);
+                break;
+            case "충남" :
+                contents.setRegionCode((byte) 34);
+                break;
+            case "전북" :
+                contents.setRegionCode((byte) 35);
+                break;
+            case "전남" :
+                contents.setRegionCode((byte) 36);
+                break;
+            case "경북" :
+                contents.setRegionCode((byte) 37);
+                break;
+            case "경남" :
+                contents.setRegionCode((byte) 38);
+                break;
+            case "제주특별자치도" :
+                contents.setRegionCode((byte) 39);
+                break;
         }
 
         contents.setAmountContentRemaining(contents.getAmountContentRegistered());
@@ -567,7 +447,31 @@ public class ContentsService {
             contents.setContentsReleaseDT("1000-01-01 00:00:00");
         }
 
-        contentsMapper.addBookContents(contents);
+        //contentsMapper.addContents(contents);
+        if(ObjectUtils.isEmpty(multipartHttpServletRequest) == false) {
+            Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+            String name;
+            while(iterator.hasNext()) {
+                name = iterator.next();
+                log.info("file tag name : {}", name);
+                List<MultipartFile> list = multipartHttpServletRequest.getFiles(name);
+                for(MultipartFile multipartFile : list) {
+                    log.info("start file information");
+                    log.info("file name : {}", multipartFile.getOriginalFilename());
+                    log.info("file size : {}", multipartFile.getSize());
+                    log.info("file content type : {}", multipartFile.getContentType());
+                    log.info("end file information.\n");
+                }
+
+            }
+        }
+
+        contentsMapper.addContents(contents);
+        List<ContentsFile> list = fileUtils.parseFileInfo(contents.getContentsId(),
+                multipartHttpServletRequest);
+        if(CollectionUtils.isEmpty(list) == false) {
+            contentsMapper.addContentsFileList(list);
+        }
     }
 
     public Map<String, Object> getContentsDetailInfo(String contentsId) {
@@ -596,7 +500,6 @@ public class ContentsService {
     }
 
     public Contents getContentsInfoByContentsId(String contentsId) {
-        contentsMapper.getContentsInfoByContentsId(contentsId);
         return contentsMapper.getContentsInfoByContentsId(contentsId);
     }
 
@@ -616,5 +519,25 @@ public class ContentsService {
     public List<Contents> getAdminContentsList() {
         List<Contents> contentsList = contentsMapper.getAdminContentsList();
         return contentsList;
+    }
+
+    public List<ContentsCategory> getContentsCategoryOnReg(String storeCategoryCode) {
+        return contentsMapper.getContentsCategoryOnReg(storeCategoryCode);
+    }
+
+    public void modifyContents(Contents contents) {
+        String contentsPg = contents.getContentsPg();
+        String contentsReleaseDt = contents.getContentsReleaseDT();
+        if(contentsPg.isEmpty()) {
+            contents.setContentsPg("0");
+        }
+        // html datetime local의 문자열 T를 제거함
+        LocalDateTime dateTime = LocalDateTime.parse(contentsReleaseDt);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatterDateTime = dateTime.format(formatter);
+        contents.setContentsReleaseDT(formatterDateTime);
+
+        log.info("remain: {}", contents.getAmountContentRemaining());
+        contentsMapper.modifyContents(contents);
     }
 }

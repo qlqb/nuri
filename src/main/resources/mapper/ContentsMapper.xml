@@ -38,6 +38,12 @@
         </association>
      </resultMap>
 
+    <resultMap id="contentsCategoryResultMap" type="ContentsCategory">
+        <id property="contentsCategoryCode" column="CONTENTS_CAT_CODE"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="contentsCategoryName" column="CONTENTS_CAT_NAME"/>
+    </resultMap>
+
     <select id="getContentsInfoList" resultType="map" parameterType="int">
         /* 컨텐츠 정보 */
         SELECT
@@ -175,7 +181,19 @@
             NOT cc.CONTENTS_CAT_NAME='공연';
     </select>
 
-    <insert id="addBookContents" parameterType="Contents">
+    <select id="getContentsCategoryOnReg" parameterType="String" resultMap="contentsCategoryResultMap">
+        SELECT
+            cc.CONTENTS_CAT_NAME,
+            cc.CONTENTS_CAT_CODE,
+            cc.STORE_CATEGORY_CODE
+        FROM
+            CONTENT_CATEGORY AS cc
+        WHERE
+            cc.STORE_CATEGORY_CODE = #{storeCategoryCode} AND
+            NOT cc.CONTENTS_CAT_CODE LIKE '___00'
+    </select>
+
+    <insert id="addContents" parameterType="Contents">
 
         <selectKey keyProperty="contentsId" order="BEFORE" resultType="String">
             /* 컨텐츠아이디 자동증가 */
@@ -208,10 +226,12 @@
     <select id="getContentsDetailInfo" resultType="map" parameterType="String">
         /* 컨텐츠 상세정보 */
         SELECT
-            c.CONTENTS_ID as contentsId,
+            c.CONTENTS_ID AS contentsId,
             c.CONTENTS_NAME AS contentsName,
             c.CONTENTS_RELEASE_DT AS contentsReleaseDT,
             IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_SELL_END_DATE), 0) AS contentsSellDuration,
+            c.CONTENTS_SELL_START_DATE AS contentsSellStartDate,
+            c.CONTENTS_SELL_END_DATE AS contentsSellEndDate,
             c.CONTENT_ADDRESS AS contentsAddress,
             CONCAT(c.CONTENTS_DURATION, '분') AS contentsDuration,
             c.CONTENTS_PG AS contentsPg,
@@ -245,6 +265,7 @@
 
     <select id="getContentsInfoByContentsId" resultMap="contentsResultMap" parameterType="String">
         SELECT
+            c.CONTENTS_ID,
             c.CONTENTS_CAT_CODE,
             c.REGION_CODE,
             c.STORE_ID,
@@ -274,12 +295,14 @@
         /* 가맹점별 컨텐츠 정보 */
         SELECT
             c.CONTENTS_ID,
+            c.CONTENTS_NAME,
             c.CONTENTS_CAT_CODE,
             c.CONTENTS_CAT_NAME,
             c.CONTENTS_PRICE,
             c.CONTENTS_SELL_START_DATE,
             c.CONTENTS_SELL_END_DATE,
-            c.CONTENTS_NAME
+            cc_new.CONTENTS_CAT_NAME AS STORE_CATEGORY_NAME,
+            c.AMOUNT_CONTENT_REMAINING
         FROM
             USER_INFO AS ui
             INNER JOIN
@@ -290,6 +313,14 @@
             CONTENTS AS c
             ON
             c.STORE_ID = si.STORE_ID
+            INNER JOIN
+            CONTENT_CATEGORY AS cc
+            ON
+            cc.CONTENTS_CAT_CODE = c.CONTENTS_CAT_CODE
+            LEFT JOIN
+            CONTENT_CATEGORY AS cc_new
+            ON
+            cc_new.CONTENTS_CAT_CODE = CONCAT(SUBSTRING(cc.CONTENTS_CAT_CODE, 1, 3), '00')
         WHERE
             ui.USER_ID = #{userId};
     </select>
@@ -334,5 +365,55 @@
             c.STORE_ID = si.STORE_ID
     </select>
 
-
+    <update id="modifyContents" parameterType="Contents">
+        UPDATE CONTENTS
+        <set>
+            <if test="contentsCategoryCode != null and contentsCategoryCode != ''">
+                CONTENTS_CAT_CODE = #{contentsCategoryCode},
+            </if>
+            <if test="regionCode != null and regionCode != ''">
+                REGION_CODE = #{regionCode},
+            </if>
+            <if test="contentsCategoryName != null and contentsCategoryName != ''">
+                CONTENTS_CAT_NAME = #{contentsCategoryName},
+            </if>
+            <if test="contentsName != null and contentsName != ''">
+                CONTENTS_NAME = #{contentsName},
+            </if>
+            <if test="contentsAddress != null and contentsAddress != ''">
+                CONTENT_ADDRESS = #{contentsAddress},
+            </if>
+            <if test="contentsDuration != null and contentsDuration != ''">
+                CONTENTS_DURATION = #{contentsDuration},
+            </if>
+            <if test="contentsPg != null and contentsPg != ''">
+                CONTENTS_PG = #{contentsPg},
+            </if>
+            <if test="contentsPrice != null and contentsPrice != ''">
+                CONTENTS_PRICE = #{contentsPrice},
+            </if>
+            <if test="contentsReleaseDT != null and contentsReleaseDT != ''">
+                CONTENTS_RELEASE_DT = #{contentsReleaseDT},
+            </if>
+            <if test="contentsRegDate != null and contentsRegDate != ''">
+                CONTENTS_REG_DATE = CURDATE(),
+            </if>
+            <if test="contentsSellStartDate != null and contentsSellStartDate != ''">
+                CONTENTS_SELL_START_DATE = #{contentsSellStartDate},
+            </if>
+            <if test="contentsSellEndDate != null and contentsSellEndDate != ''">
+                CONTENTS_SELL_END_DATE = #{contentsSellEndDate},
+            </if>
+            <if test="amountContentRegistered != null and amountContentRegistered != ''">
+                AMOUNT_CONTENT_REGISTERED = #{amountContentRegistered},
+            </if>
+            <if test="amountContentRemaining > -10000">
+                AMOUNT_CONTENT_REMAINING = #{amountContentRemaining},
+            </if>
+            <if test="contentsDetail != null and contentsDetail != ''">
+                CONTENTS_DETAIL = #{contentsDetail}
+            </if>
+        </set>
+        WHERE CONTENTS_ID = #{contentsId};
+    </update>
 </mapper>

@@ -37,6 +37,7 @@ public class MyPageController {
 		String userId = (String) session.getAttribute("SID");
 		if(userId != null) {
 			List<Contents> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
+			log.info("contentsName: {}", contentsInfoList.get(0).getContentsName());
 			model.addAttribute("contentsInfoList", contentsInfoList);
 		}
 		return "user/mypage/myContentsList";

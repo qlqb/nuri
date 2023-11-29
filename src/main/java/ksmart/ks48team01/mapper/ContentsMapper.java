@@ -1,9 +1,6 @@
 package ksmart.ks48team01.mapper;
 
-import ksmart.ks48team01.dto.Contents;
-import ksmart.ks48team01.dto.ContentsCategory;
-import ksmart.ks48team01.dto.Store;
-import ksmart.ks48team01.dto.StoreCategory;
+import ksmart.ks48team01.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -37,7 +34,7 @@ public interface ContentsMapper {
 
     public List<Map<String, Object>> getContentsInfoListByTabValueAndSearch(int startContentsNum, int contentsPerPage, String tabValue, String performanceGenre, String area, String startDate, String endDate, String searchValue);
 
-    public void addBookContents(Contents contents);
+    public void addContents(Contents contents);
 
 
     public Map<String, Object> getContentsDetailInfo(String contentsId);
@@ -66,4 +63,19 @@ public interface ContentsMapper {
      * @return
      */
     public List<Contents> getAdminContentsList();
+
+    /**
+     * 컨텐츠 등록할 때 그 컨텐츠에 해당하는 소분류를 가져옴
+     * @param storeCategoryCode
+     * @return
+     */
+    public List<ContentsCategory> getContentsCategoryOnReg(String storeCategoryCode);
+
+    /**
+     * 컨텐츠 수정 데이터 전송
+     * @param contents
+     */
+    public void modifyContents(Contents contents);
+
+    public void addContentsFileList(List<ContentsFile> list) throws Exception;
 }
