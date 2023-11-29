@@ -8,17 +8,6 @@
 
 <th:block layout:fragment="customJs">
   <script th:src="@{/js/jquery-3.7.1.js}"></script>
-
-  <script>
-    $("#resetBtn1").click(function(){
-      $("#inputBugetForm > div > div > input").val('');
-    });
-
-    $("#resetBtn2").click(function(){
-      $("#inputBugetByRegionForm > div > div > input").val('');
-      $("#inputBugetByRegionForm > div > div > select").val('');
-    });
-  </script>
 </th:block>
 
 <!-- 사용자별 css file 추가 부분 -->
@@ -67,17 +56,9 @@
         </div>
 
         <div class="row tile_count" style="text-align: center">
-          <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-            <span class="count_top"> ${}가맹점 ${}월 사용액</span>
-            <div class="count">${}억</div>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-            <span class="count_top"> ${}가맹점 누적 사용액</span>
-            <div class="count green">${}억</div>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-4 tile_stats_count">
-            <span class="count_top"> 퍼센트 </span>
-            <div class="count"> ${}%</div>
+          <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+            <span class="count_top" id="searchStoreName">해당 가맹점 누적사용량</span>
+            <div class="count green" id="totalAmount">원</div>
           </div>
 
         <div class="col-md-12 col-sm-12 ">
@@ -85,161 +66,113 @@
             <div class="x_title">
               <h2>검색 정보</h2>
 
-        <div class="clearfix"></div>
-            </div>
-      <div class="x_content" >
-        <form id="inputBudgetForm" class="form-horizontal form-label-left">
+               <div class="clearfix"></div>
 
-          <!-- tab 창-->
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">분야 선택</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div id="a" class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="" value=""> &nbsp; 가맹점별 &nbsp;
-                  </label>
-                  <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="" value=""> &nbsp; 업종별 &nbsp;
-                  </label>
-                  <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="" value=""> &nbsp; 도별 &nbsp;
-                  </label>
-                  <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="" value=""> &nbsp; 시군별 &nbsp;
-                  </label>
-                  <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="" value=""> &nbsp; 도별/업종별 &nbsp;
-                  </label>
-                </div>
-              </div>
-            </div>
+            <div class="x_content">
 
-            <div class="x_content" >
-              <form id="inputStoreByRegionForm" class="form-horizontal form-label-left">
-                <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">년도/월</label>
-                  <div class="col-md-3 col-sm-3 col-xs-3">
-                    <input id="inputYear" type="number" class="form-control" placeholder="연도를 입력하세요 예)2023">
-                  </div>
-                  <div class="col-md-3 col-sm-3 col-xs-3">
-                    <input id="inputMonth" type="number" class="form-control" placeholder="월을 입력하세요 예)2023">
-                  </div>
+              <form id="searchStoreStt" data-parsley-validate="" style="text-align: center;" class="form-horizontal form-label-left">
+
+                <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
+                  <label style="width: 80px; margin-top: 9px;"> 통계년도 </label>
+                  <input type="text" id="adjustmentYear" name="" class="form-control">
                 </div>
-                <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">지역</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <select id="inputRegion" class="form-control">
-                      <option value="">=====지역을 선택하세요=====</option>
-                      <option value="11">서울특별시</option>
-                      <option value="21">부산광역시</option>
-                      <option value="24">광주광역시</option>
-                    </select>
-                  </div>
+
+                <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
+                  <label style="width: 80px; margin-top: 9px;"> 가맹점 아이디 </label>
+                  <input type="text" id="storeId" name="" class="form-control">
                 </div>
-                <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">가맹점 코드 입력</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputStoreId" type="text" class="form-control" placeholder="가맹점 코드를 입력하세요">
-                  </div>
+
+                <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; margin-bottom: 20px; display: flex;  justify-content: center; gap: 10px">
+                  <label style="width: 80px; margin-top: 9px;"> 가맹점 명 </label>
+                  <input type="text" id="storeName" name="" class="form-control">
                 </div>
-                <div class="form-group row">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">업종 입력</label>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input id="inputStoreCate" type="text" class="form-control" placeholder="해당 가맹점의 업종을 입력하세요">
+
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <button type="button" id="reset" class="btn btn-primary">초기화</button>
+                    <button type="button" id="searchBtn" class="btn btn-success">검색</button>
                   </div>
                 </div>
               </form>
             </div>
-
-                <div class="ln_solid"></div>
-
-                <div class="form-group row">
-                  <div class="col-md-9 offset-md-3">
-                    <button id="resetBtn2" type="button" class="btn btn-primary">초기화</button>
-                    <button type="submit" class="btn btn-success">등록</button>
-                  </div>
-                </div>
-
-          </form>
-        </form>
+          </div>
+        </div>
       </div>
     </div>
 
         <div class="x_content">
-          <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-            <thead>
-            <tr>
-              <th><input type="checkbox" id="check-all1" class="flat"></th>
-              <th>가맹점명</th>
-              <th>1월</th>
-              <th>2월</th>
-              <th>3월</th>
-              <th>4월</th>
-              <th>5월</th>
-              <th>6월</th>
-              <th>7월</th>
-              <th>8월</th>
-              <th>9월</th>
-              <th>10월</th>
-              <th>11월</th>
-              <th>12월</th>
-            </tr>
-            </thead>
+          <div class = "row">
+            <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+              <thead>
+              <tr>
+                <th>가맹점명</th>
+                <th>년도</th>
+                <th>1월</th>
+                <th>2월</th>
+                <th>3월</th>
+                <th>4월</th>
+                <th>5월</th>
+                <th>6월</th>
+                <th>7월</th>
+                <th>8월</th>
+                <th>9월</th>
+                <th>10월</th>
+                <th>11월</th>
+                <th>12월</th>
+              </tr>
+              </thead>
 
-            <tbody>
-            <tr>
-              <td><input type="checkbox" id="check-all2" class="flat"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" id="check-all3" class="flat"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" id="check-all4" class="flat"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="pull-right">
-            <h5>총 매출액 : ${}원</h5>
+              <tbody id="searchRow">
+              <tr th:if="${storeSttList == null}">
+                <td colspan="14">게시글이 없습니다</td>
+              </tr>
+              <tr th:unless="${storeSttList == null}" th:each="l : ${storeSttList}">
+                <td>
+                  <span th:text="${l.storeName}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.adjustmentYear}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month1}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month2}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month3}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month4}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month5}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month6}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month7}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month8}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month9}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month10}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month11}"></span>
+                </td>
+                <td>
+                  <span th:text="${l.month12}"></span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
        </div>
@@ -254,6 +187,160 @@
 <!-- 사용자별 스크립트 작성 -->
 <th:block layout:fragment="customJsCode">
   <script>
+    $(function(){
+      //초기화 버튼
+      $("#reset").click(function(){
+        $("searchStoreStt input").val('');
+        $("searchStoreStt select").val('');
+      })
+    /* $('#datatable-checkbox').dataTable();*/
+    });
+
+    //검색
+    const $searchBtn = document.querySelector('#searchBtn');
+    const $searchKey = document.querySelector('#searchKey');
+    const $searchValue = document.querySelector('#searchValue');
+
+    let key = '';
+    let value = '';
+
+    $searchBtn.addEventListener('click', function(){
+      const search = {
+        'adjustmentYear' : $("#adjustmentYear").val(),
+        'storeId' : $("#storeId").val(),
+        'storeName' : $("#storeName").val(),
+      }
+      console.log(search);
+      const $formData = document.querySelectorAll('#searchStoreStt input, #searchStoreStt select');
+      const searchStoreStt = [...$formData].reduce((acc, item) => {
+                                  const paramObj = {}
+                                  let data = '';
+                                  if(item.value) data = item.value;
+                                  paramObj['searchKey'] = item.id;
+                                  paramObj['searchValue'] = data;
+                                  acc.push(paramObj);
+                                  return acc;
+                                },[]);
+      fetch("/admin/statistic/searchStoreStt" ,{
+        headers: {
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(searchStoreStt),
+      })
+      .then((response) => response.json())
+      .then((result) => {
+            let searchRow = '';
+            let searchStoreName = '';
+            let totalAmount = 0;
+            result.forEach((item, idx) => {
+              console.log(item)
+              searchRow += `
+              <tr>
+                  <td>${item.storeName}</td>
+                  <td>${item.adjustmentYear}</td>
+                  <td>${item.month1}</td>
+                  <td>${item.month2}</td>
+                  <td>${item.month3}</td>
+                  <td>${item.month4}</td>
+                  <td>${item.month5}</td>
+                  <td>${item.month6}</td>
+                  <td>${item.month7}</td>
+                  <td>${item.month8}</td>
+                  <td>${item.month9}</td>
+                  <td>${item.month10}</td>
+                  <td>${item.month11}</td>
+                  <td>${item.month12}</td>
+              </tr>`;
+              totalAmount += item.totalAmount;
+              searchStoreName += item.storeName;
+            });
+            console.log(searchRow);
+            const $searchRow = document.querySelector('#searchRow');
+            $searchRow.innerHTML = searchRow;
+
+        if(search == null || search == '' || typeof search == 'undefined'){
+          document.querySelector('#searchStoreName').textContent = '';
+          document.querySelector('#totalAmount').textContent = '';
+        }else{
+          document.querySelector('#searchStoreName').textContent = searchStoreName;
+          document.querySelector('#totalAmount').textContent = totalAmount;
+        }
+
+      });
+    })
+
+    $searchBtn.addEventListener('click', function(){
+      const search = {
+        'adjustmentYear' : $("#adjustmentYear").val(),
+        'storeId' : $("#storeId").val(),
+        'storeName' : $("#storeName").val(),
+      }
+      console.log(search);
+      const $formData = document.querySelectorAll('#searchStoreStt input, #searchStoreStt select');
+      const searchStoreStt = [...$formData].reduce((acc, item) => {
+        const paramObj = {}
+        let data = '';
+        if(item.value) data = item.value;
+        paramObj['searchKey'] = item.id;
+        paramObj['searchValue'] = data;
+        acc.push(paramObj);
+        return acc;
+      },[]);
+      fetch("/admin/statistic/searchStoreStt" ,{
+        headers: {
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(searchStoreStt),
+      })
+              .then((response) => response.json())
+              .then((result) => {
+                result.forEach((item, idx) => {
+                  const ctx = document.getElementById('storeChart').getContext('2d');
+                  const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                      labels: ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12'],
+                      datasets: [{
+                        label: '# of Votes',
+                        data: [item.month1, item.month2, item.month3, item.month4, item.month5, item.month6, item.month7, item.month8, item.month9, item.month10, item.month11, item.month12],
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  })
+                })
+              })
+            })
+
+
+
+
     // chart js 호출부 작성하시오
     const ctx = document.getElementById('storeChart').getContext('2d');
     const myChart = new Chart(ctx, {
@@ -261,8 +348,8 @@
       data: {
         labels: ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: '해당 월 사용액',
+          data: [],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

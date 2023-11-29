@@ -3,43 +3,202 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.ks48team01.mapper.StatisticMapper">
-    <resultMap type="MonthAdjustment" id="monthAdjResultMap">
-        <id property="monthAdjustmentNum" column="MONTH_ADJUSTMENT_NUM"/>
+    <resultMap type="Statistic" id="storeSttResultMap">
+        <id property="storeStt" column="STORE_STT"/>
         <result property="storeId" column="STORE_ID"/>
         <result property="storeName" column="STORE_NAME"/>
+        <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
+        <result property="month1" column="MONTH_1"/>
+        <result property="month2" column="MONTH_2"/>
+        <result property="month3" column="MONTH_3"/>
+        <result property="month4" column="MONTH_4"/>
+        <result property="month5" column="MONTH_5"/>
+        <result property="month6" column="MONTH_6"/>
+        <result property="month7" column="MONTH_7"/>
+        <result property="month8" column="MONTH_8"/>
+        <result property="month9" column="MONTH_9"/>
+        <result property="month10" column="MONTH_10"/>
+        <result property="month11" column="MONTH_11"/>
+        <result property="month12" column="MONTH_12"/>
+        <result property="totalAmount" column="totalAmount"/>
+    </resultMap>
+    <resultMap type="Statistic" id="categorySttResultMap">
+        <id property="categoryStt" column="CATEGORY_STT"/>
         <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
         <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
+        <result property="month1" column="MONTH_1"/>
+        <result property="month2" column="MONTH_2"/>
+        <result property="month3" column="MONTH_3"/>
+        <result property="month4" column="MONTH_4"/>
+        <result property="month5" column="MONTH_5"/>
+        <result property="month6" column="MONTH_6"/>
+        <result property="month7" column="MONTH_7"/>
+        <result property="month8" column="MONTH_8"/>
+        <result property="month9" column="MONTH_9"/>
+        <result property="month10" column="MONTH_10"/>
+        <result property="month11" column="MONTH_11"/>
+        <result property="month12" column="MONTH_12"/>
+    </resultMap>
+    <resultMap type="Statistic" id="regionSttResultMap">
+        <id property="regionStt" column="REGION_STT"/>
         <result property="regionCode" column="REGION_CODE"/>
         <result property="regionName" column="REGION_NAME"/>
-        <result property="districtCode" column="DISTRICT_CODE"/>
-        <result property="districtName" column="DISTRICT_NAME"/>
-        <result property="monthTotalSales" column="MONTH_TOTAL_SALES"/>
-        <result property="monthClosingCode" column="MONTH_CLOSING_CODE"/>
-        <result property="adjustmentMonth" column="ADJUSTMENT_MONTH"/>
         <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
-        <result property="resistDT" column="RESIST_DATE"/>
+        <result property="month1" column="MONTH_1"/>
+        <result property="month2" column="MONTH_2"/>
+        <result property="month3" column="MONTH_3"/>
+        <result property="month4" column="MONTH_4"/>
+        <result property="month5" column="MONTH_5"/>
+        <result property="month6" column="MONTH_6"/>
+        <result property="month7" column="MONTH_7"/>
+        <result property="month8" column="MONTH_8"/>
+        <result property="month9" column="MONTH_9"/>
+        <result property="month10" column="MONTH_10"/>
+        <result property="month11" column="MONTH_11"/>
+        <result property="month12" column="MONTH_12"/>
+    </resultMap>
+    <resultMap type="Statistic" id="regionCateSttResultMap">
+        <id property="regionCateStt" column="REGION_CATE_STT"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="regionName" column="REGION_NAME"/>
+        <result property="storeCategoryCode" column="STORE_CATEGORY_CODE"/>
+        <result property="storeCategoryName" column="STORE_CATEGORY_NAME"/>
+        <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
+        <result property="month1" column="MONTH_1"/>
+        <result property="month2" column="MONTH_2"/>
+        <result property="month3" column="MONTH_3"/>
+        <result property="month4" column="MONTH_4"/>
+        <result property="month5" column="MONTH_5"/>
+        <result property="month6" column="MONTH_6"/>
+        <result property="month7" column="MONTH_7"/>
+        <result property="month8" column="MONTH_8"/>
+        <result property="month9" column="MONTH_9"/>
+        <result property="month10" column="MONTH_10"/>
+        <result property="month11" column="MONTH_11"/>
+        <result property="month12" column="MONTH_12"/>
+    </resultMap>
+    <resultMap type="Statistic" id="budgetSttResultMap">
+        <id property="budgetStt" column="BUDGET_STT"/>
+        <result property="regionCode" column="REGION_CODE"/>
+        <result property="regionName" column="REGION_NAME"/>
+        <result property="budgetRegionAmount" column="BUDGET_REGION_AMOUNT"/>
+        <result property="adjustmentYear" column="ADJUSTMENT_YEAR"/>
+        <result property="month1" column="MONTH_1"/>
+        <result property="month2" column="MONTH_2"/>
+        <result property="month3" column="MONTH_3"/>
+        <result property="month4" column="MONTH_4"/>
+        <result property="month5" column="MONTH_5"/>
+        <result property="month6" column="MONTH_6"/>
+        <result property="month7" column="MONTH_7"/>
+        <result property="month8" column="MONTH_8"/>
+        <result property="month9" column="MONTH_9"/>
+        <result property="month10" column="MONTH_10"/>
+        <result property="month11" column="MONTH_11"/>
+        <result property="month12" column="MONTH_12"/>
     </resultMap>
 
-    <!--<resultMap id="statistic" type="statisticResultMap">
-
-    </resultMap>-->
-
-  <!--  <select id="getStoreStt" resultMap="dayAdjResultMap">
-        SELECT
-            madj.STORE_ID,
-            s.STORE_NAME,
-            madj.MONTH_TOTAL_SALES,
-            madj.ADJUSTMENT_MONTH,
-            madj.ADJUSTMENT_YEAR
-            FROM
-            MONTH_ADJUSTMENT AS madj
+    <!--가맹점 누적 사용액-->
+    <select id="getStoreTotalAmount" resultType="String">
+    SELECT
+        sstt.STORE_STT,
+        s.STORE_NAME,
+        sstt.ADJUSTMENT_YEAR,
+        sum(sstt.MONTH_1+
+        sstt.MONTH_2+
+        sstt.MONTH_3+
+        sstt.MONTH_4+
+        sstt.MONTH_5+
+        sstt.MONTH_6+
+        sstt.MONTH_7+
+        sstt.MONTH_8+
+        sstt.MONTH_9+
+        sstt.MONTH_10+
+        sstt.MONTH_11+
+        sstt.MONTH_12) AS totalAmount
+    FROM
+        STORE_MONTH_STT AS sstt
         INNER JOIN
         STORE_INFO AS s
         ON
-            s.STORE_ID = madj.STORE_ID
-        WHERE
-            madj.ADJUSTMENT_YEAR = #{adjustmentYear}
+        s.STORE_ID = sstt.STORE_ID
+    WHERE
+        sstt.STORE_ID = #{storeId} OR s.STORE_NAME = #{storeName}
     </select>
--->
+
+    <!--storeSearchList-->
+    <select id="getStoreSearchList" parameterType="list" resultMap="storeSttResultMap">
+        SELECT
+            sstt.STORE_STT,
+            s.STORE_ID,
+            s.STORE_NAME,
+            sstt.ADJUSTMENT_YEAR,
+            sstt.MONTH_1,
+            sstt.MONTH_2,
+            sstt.MONTH_3,
+            sstt.MONTH_4,
+            sstt.MONTH_5,
+            sstt.MONTH_6,
+            sstt.MONTH_7,
+            sstt.MONTH_8,
+            sstt.MONTH_9,
+            sstt.MONTH_10,
+            sstt.MONTH_11,
+            sstt.MONTH_12,
+            (sstt.MONTH_1+
+            sstt.MONTH_2+
+            sstt.MONTH_3+
+            sstt.MONTH_4+
+            sstt.MONTH_5+
+            sstt.MONTH_6+
+            sstt.MONTH_7+
+            sstt.MONTH_8+
+            sstt.MONTH_9+
+            sstt.MONTH_10+
+            sstt.MONTH_11+
+            sstt.MONTH_12) AS totalAmount
+        FROM
+            STORE_MONTH_STT AS sstt
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            s.STORE_ID = sstt.STORE_ID
+        <where>
+            <foreach collection="list" item="item" separator="AND">
+                <choose>
+                    <when test="item.searchKey != null and item.searchValue != null and item.searchValue != ''">
+                        ${item.searchKey} = #{item.searchValue}
+                    </when>
+                </choose>
+            </foreach>
+        </where>
+    </select>
+
+    <!--storeSttList 조회-->
+    <select id="getStoreSttList" resultMap="storeSttResultMap">
+        SELECT
+            sstt.STORE_STT,
+            s.STORE_ID,
+            s.STORE_NAME,
+            sstt.ADJUSTMENT_YEAR,
+            sstt.MONTH_1,
+            sstt.MONTH_2,
+            sstt.MONTH_3,
+            sstt.MONTH_4,
+            sstt.MONTH_5,
+            sstt.MONTH_6,
+            sstt.MONTH_7,
+            sstt.MONTH_8,
+            sstt.MONTH_9,
+            sstt.MONTH_10,
+            sstt.MONTH_11,
+            sstt.MONTH_12
+        FROM
+            STORE_MONTH_STT AS sstt
+            INNER JOIN
+            STORE_INFO AS s
+            ON
+            s.STORE_ID = sstt.STORE_ID
+    </select>
 
 </mapper>
