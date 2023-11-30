@@ -173,13 +173,13 @@
 			//현재 날짜 받아오기
 			let curYear = date.getFullYear();
 			let curMonth = date.getMonth()+1;
-			let daseDate = curYear+'-'+curMonth+'-'+'30';
+			let lastDate = new Date(curYear, curMonth, 0).getDate();
 
 
 			//연도+월 입력받아서 중복체크
 			$("#adjDate").change(function () {
 				let inputDate = $("#adjDate").val();
-				if(inputDate < 2014 || inputDate > daseDate){
+				if(inputDate < 2014 || inputDate > lastDate){
 					$("#isDuplicate").css("color", "red").text("2014년부터 등록일 기준 전월만 입력 가능합니다.");
 					$("#adjRegist").prop("disabled", true);
 					return;
@@ -232,7 +232,7 @@
    			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>일별 정산 등록</h2>
+						<h2>월별 정산 등록</h2>
 						<a class="collapse-link navbar-right"><i class="fa fa-chevron-up"></i></a>
 						<div class="clearfix"></div>
 					</div>
