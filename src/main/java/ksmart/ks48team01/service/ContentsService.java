@@ -1,12 +1,11 @@
 package ksmart.ks48team01.service;
 
-import ksmart.ks48team01.common.FileUtils;
 import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.mapper.ContentsMapper;
 import ksmart.ks48team01.user.controller.ContentsController;
+import ksmart.ks48team01.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -22,11 +21,11 @@ import java.util.stream.Collectors;
 public class ContentsService {
     private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
     private final ContentsMapper contentsMapper;
-    private final FileUtils fileUtils;
+    private final FileUtil fileUtil;
 
-    public ContentsService(ContentsMapper contentsMapper, FileUtils fileUtils) {
+    public ContentsService(ContentsMapper contentsMapper, FileUtil fileUtil) {
         this.contentsMapper = contentsMapper;
-        this.fileUtils = fileUtils;
+        this.fileUtil = fileUtil;
     }
 
     public Map<String, Object> getContentsInfoList(int currentPage, String tabValue) {
@@ -376,8 +375,7 @@ public class ContentsService {
      * 지역값 파싱 후 DB에 삽입
      * @param contents
      */
-    public void addContents(Contents contents, String sido,
-                            MultipartHttpServletRequest multipartHttpServletRequest) throws  Exception {
+    public void addContents(Contents contents, String sido) {
 
         switch (sido) {
             case "서울" :
@@ -446,32 +444,15 @@ public class ContentsService {
         if(contents.getContentsReleaseDT().isEmpty()) {
             contents.setContentsReleaseDT("1000-01-01 00:00:00");
         }
-
-        //contentsMapper.addContents(contents);
-        if(ObjectUtils.isEmpty(multipartHttpServletRequest) == false) {
-            Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-            String name;
-            while(iterator.hasNext()) {
-                name = iterator.next();
-                log.info("file tag name : {}", name);
-                List<MultipartFile> list = multipartHttpServletRequest.getFiles(name);
-                for(MultipartFile multipartFile : list) {
-                    log.info("start file information");
-                    log.info("file name : {}", multipartFile.getOriginalFilename());
-                    log.info("file size : {}", multipartFile.getSize());
-                    log.info("file content type : {}", multipartFile.getContentType());
-                    log.info("end file information.\n");
-                }
-
-            }
-        }
-
         contentsMapper.addContents(contents);
-        List<ContentsFile> list = fileUtils.parseFileInfo(contents.getContentsId(),
-                multipartHttpServletRequest);
-        if(CollectionUtils.isEmpty(list) == false) {
-            contentsMapper.addContentsFileList(list);
-        }
+    }
+
+    public void fileUpload(MultipartFile[] contentsFile, String contentsId, String userId) {
+        List<ContentsFile> contentsFileList = fileUtil.parseFileInfo(contentsFile);
+
+        log.info("contentsFileList: {}", contentsFileList);
+        // 파일리스트 db저장
+        if(contentsFileList != null) contentsMapper.addFile(contentsFileList);
     }
 
     public Map<String, Object> getContentsDetailInfo(String contentsId) {

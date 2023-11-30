@@ -194,7 +194,6 @@
     </select>
 
     <insert id="addContents" parameterType="Contents">
-
         <selectKey keyProperty="contentsId" order="BEFORE" resultType="String">
             /* 컨텐츠아이디 자동증가 */
             SELECT
@@ -222,6 +221,10 @@
         #{contentsSellEndDate}, #{amountContentRegistered}, #{amountContentRemaining},
         #{contentsDetail})
     </insert>
+
+    <select id="">
+
+    </select>
     
     <select id="getContentsDetailInfo" resultType="map" parameterType="String">
         /* 컨텐츠 상세정보 */
@@ -416,4 +419,30 @@
         </set>
         WHERE CONTENTS_ID = #{contentsId};
     </update>
+
+    <insert id="addFile" parameterType="list">
+        INSERT INTO CONTENTS_FILE
+        (
+            FILE_CODE,
+            CONTENTS_ID,
+            USER_ID,
+            FILE_NAME,
+            FILE_SIZE,
+            FILE_EXT,
+            FILE_DATE,
+            FILE_PATH
+        )VALUES
+        <foreach collection="list" item="data" separator=",">
+            (
+                #{data.fileCode},
+                #{data.ContentsId},
+                #{data.userId},
+                #{data.fileName},
+                #{data.fileSize},
+                #{data.fileExt},
+                CURDATE(),
+                #{data.filePath}
+            )
+        </foreach>
+    </insert>
 </mapper>

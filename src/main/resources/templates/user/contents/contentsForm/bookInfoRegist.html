@@ -50,13 +50,13 @@
 
                     <div class="post-ad-form-wrapper">
 
-                        <form id="addContentsForm" th:action="@{/user/contents/contentsInfoRegist}" method="post"
-                              enctype="multipart/form-data">
+                        <form id="addContentsForm" th:action="@{/user/contents/contentsInfoRegist}" method="post">
                             <div class="row justify-content-center">
                                 <div class="col-xl-7">
                                     <div class="right-wrapper pt-50 ">
 
                                         <input type="hidden" th:value="${storeInfo.storeId}" id="storeId" name="storeId"/>
+                                        <input type="hidden" th:value="${storeInfo.userId}" id="userId" name="userId"/>
 
                                         <div class="single-form mb-30">
                                             <label for="contentsName" class="mb-1">책 제목</label>

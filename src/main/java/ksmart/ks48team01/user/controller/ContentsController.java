@@ -1,16 +1,19 @@
 package ksmart.ks48team01.user.controller;
 
 import com.sun.source.tree.MemberSelectTree;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import ksmart.ks48team01.dto.*;
 import ksmart.ks48team01.service.AreaService;
 import ksmart.ks48team01.service.ContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.config.annotation.RedirectViewControllerRegistration;
 
@@ -23,10 +26,11 @@ import java.util.stream.Collectors;
 @Controller("contentsController")
 @RequestMapping("/user/contents")
 public class ContentsController {
-
 	private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
-
 	private final ContentsService contentsService;
+
+	@Value("/home/springboot")
+	private String filePath;
 
 	public ContentsController(ContentsService contentsService) {
 		this.contentsService = contentsService;
@@ -43,18 +47,24 @@ public class ContentsController {
 		} else {
 			return "redirect:/user";
 		}
+
 		model.addAttribute("title", "책 컨텐츠 등록");
 		model.addAttribute("contentsCategoryList", contentsCategoryList);
 
-		return "/user/contents/contentsForm/bookInfoRegist";
+		return "user/contents/contentsForm/bookInfoRegist";
 	}
 
 	@PostMapping("/contentsInfoRegist")
 	public String bookRegPage(Contents contents,
-							  @RequestParam(name="sido", required = false, defaultValue = "alreadyInputOnJoin") String sido,
-							  MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+							  @RequestParam(name="sido", required = false, defaultValue = "alreadyInputOnJoin") String sido
+//							  @RequestParam MultipartFile[] contentsFile, HttpServletRequest request,
+//							  @RequestParam(name="storeId") String storeId
+							  ) {
 
-		contentsService.addContents(contents, sido, multipartHttpServletRequest);
+		contentsService.addContents(contents, sido);
+
+		//contentsService.fileUpload(contentsFile, , );
+
 		return "redirect:/user/mypage/myContentsList";
 	}
 
@@ -98,7 +108,7 @@ public class ContentsController {
 		model.addAttribute("title", "공연 컨텐츠 등록");
 		model.addAttribute("contentsCategoryList", contentsCategoryList);
 
-		return "/user/contents/contentsForm/performRegist";
+		return "user/contents/contentsForm/performRegist";
 	}
 	@GetMapping("/performUpdate")
 	public String modifyPerformContentsPage(Model model,
@@ -138,7 +148,7 @@ public class ContentsController {
 		model.addAttribute("title", "전시 컨텐츠 등록");
 		model.addAttribute("contentsCategoryList", contentsCategoryList);
 
-		return "/user/contents/contentsForm/exhibitionRegist";
+		return "user/contents/contentsForm/exhibitionRegist";
 	}
 
 	@GetMapping("/exhibitionUpdate")
@@ -178,7 +188,7 @@ public class ContentsController {
 		model.addAttribute("title", "영화 컨텐츠 등록");
 		model.addAttribute("contentsCategoryList", contentsCategoryList);
 
-		return "/user/contents/contentsForm/movieRegist";
+		return "user/contents/contentsForm/movieRegist";
 	}
 
 	@GetMapping("/movieUpdate")
