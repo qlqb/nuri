@@ -4,7 +4,9 @@
       layout:decorate="~{user/layout/default}">
 
 <!-- 사용자별 css file 추가 부분 -->
+<head>
 
+</head>
 
 <!-- 사용자 페이지별 javascript file 추가-->
 <th:block layout:fragment="customJsFile">
@@ -43,7 +45,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-3 col-lg-4">
-                    <div th:replace="~{user/fragments/aside :: mypageAside}"></div>
+                    <div class="left-sidebar-wrapper box-style">
+                        <div class="sidebar-header">
+                            <div class="info">
+                                <h3>내 정보</h3>
+                                <p class="mb-30"></p>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-menu">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a th:href="@{/user/mypage/mypageMain}" class="list-group-item">마이페이지</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myInfo}" class="active">내 정보</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myCardCharge}" class="list-group-item">카드 충전</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myOrder}" class="list-group-item">내 구매내역</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myStore}" class="list-group-item">내 가맹점</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myStoreAdj}" class="list-group-item">내 가맹점 정산</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myContentsList}" class="list-group-item">내 콘텐츠 목록</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/user/mypage/myContentsRegist}" class="list-group-item">내 컨텐츠 등록</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xl-9 col-lg-8">
                     <div class="dashboard-wrapper box-style">
