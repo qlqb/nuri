@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("contentsTabController")
-@RequestMapping("/user/contents/contentsInfoList")
+@RequestMapping(value = {"/user/contents/contentsInfoList", "/user"})
 public class ContentsTabController {
 
     private static final Logger log = LoggerFactory.getLogger(ContentsController.class);

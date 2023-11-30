@@ -36,6 +36,7 @@ public interface ContentsMapper {
 
     public void addContents(Contents contents);
 
+    public void addFile(List<ContentsFile> contentsFileList);
 
     public Map<String, Object> getContentsDetailInfo(String contentsId);
 
@@ -76,6 +77,4 @@ public interface ContentsMapper {
      * @param contents
      */
     public void modifyContents(Contents contents);
-
-    public void addContentsFileList(List<ContentsFile> list) throws Exception;
 }

@@ -4,7 +4,6 @@ public class ContentsFile {
     private String fileCode;
     private String ContentsId;
     private String userId;
-    private String fileNumber;
     private String fileName;
     private long fileSize;
     private String fileExt;
@@ -33,14 +32,6 @@ public class ContentsFile {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getFileNumber() {
-        return fileNumber;
-    }
-
-    public void setFileNumber(String fileNumber) {
-        this.fileNumber = fileNumber;
     }
 
     public String getFileName() {
@@ -89,7 +80,6 @@ public class ContentsFile {
         sb.append("fileCode='").append(fileCode).append('\'');
         sb.append(", ContentsId='").append(ContentsId).append('\'');
         sb.append(", userId='").append(userId).append('\'');
-        sb.append(", fileNumber='").append(fileNumber).append('\'');
         sb.append(", fileName='").append(fileName).append('\'');
         sb.append(", fileSize=").append(fileSize);
         sb.append(", fileExt='").append(fileExt).append('\'');

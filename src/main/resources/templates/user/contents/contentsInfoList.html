@@ -525,55 +525,56 @@
             </div>
         </div>
     </section>
-    <th:block layout:fragment="customJsCode">
-        <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
-        <script th:inline="javascript">
+</th:block>
+<th:block layout:fragment="customJsCode">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:inline="javascript">
 
-            $(function() {
+        $(function() {
 
-                $('[role="tab"]').each(function (idx, ele) {
-                    let tabValue = $(ele).text().trim();
+            $('[role="tab"]').each(function (idx, ele) {
+                let tabValue = $(ele).text().trim();
 
-                    $(ele).click(function () {
-                        $('[role="tab"]').removeClass('active');
-                        $(ele).addClass('active');
+                $(ele).click(function () {
+                    $('[role="tab"]').removeClass('active');
+                    $(ele).addClass('active');
 
-                        let activeTab = $(ele).attr('data-tab');
-                        let activeTabUrl = `tab${activeTab}`
+                    let activeTab = $(ele).attr('data-tab');
+                    let activeTabUrl = `tab${activeTab}`
 
-                        const request = $.ajax({
-                            url : `/user/contents/contentsInfoList/${activeTabUrl}`,
-                            method : 'GET',
-                            data: {'tabValue' : tabValue},
-                            dataType: 'JSON'
-                        });
+                    const request = $.ajax({
+                        url : `/user/contents/contentsInfoList/${activeTabUrl}`,
+                        method : 'GET',
+                        data: {'tabValue' : tabValue},
+                        dataType: 'JSON'
+                    });
 
-                        request.done(function(data) {
+                    request.done(function(data) {
 
-                            const utilArea = $('.area-util');
+                        const utilArea = $('.area-util');
 
-                            const pageArea = $('body > section.category-area.pb-110 > div > div > div.search-result > div.category-wrapper > div > div.justify-content-center.d-flex');
+                        const pageArea = $('body > section.category-area.pb-110 > div > div > div.search-result > div.category-wrapper > div > div.justify-content-center.d-flex');
 
-                            let startPageNum = data.startPageNum;
-                            let endPageNum = data.endPageNum;
-                            let lastPage = data.lastPage;
-                            let currentPage = data.currentPage;
-                            let contentsCategory = data.contentsCategory;
-                            let tabValue = data.tabValue;
+                        let startPageNum = data.startPageNum;
+                        let endPageNum = data.endPageNum;
+                        let lastPage = data.lastPage;
+                        let currentPage = data.currentPage;
+                        let contentsCategory = data.contentsCategory;
+                        let tabValue = data.tabValue;
 
-                            let contentsCnt = data.contentsCnt;
+                        let contentsCnt = data.contentsCnt;
 
-                            let contentsInfoList = data.contentsInfoList;
+                        let contentsInfoList = data.contentsInfoList;
 
-                            let utilAreaEle = '';
-
-
-                            const contentsArea = $('#grid > div');
-
-                            $(utilArea).children().remove();
+                        let utilAreaEle = '';
 
 
-                            utilAreaEle += `<div class="align-box"><div class="txt-total">총<strong class="total"">${contentsCnt}</strong>건
+                        const contentsArea = $('#grid > div');
+
+                        $(utilArea).children().remove();
+
+
+                        utilAreaEle += `<div class="align-box"><div class="txt-total">총<strong class="total"">${contentsCnt}</strong>건
                                             </div>
                                         </div>
                                         <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
@@ -582,13 +583,13 @@
                                                     <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
                                                         <option value="allGenre">장르 전체</option>`;
 
-                            contentsCategory.forEach(function (ele) {
-                                utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                        contentsCategory.forEach(function (ele) {
+                            utilAreaEle += `<option value="${ele.contentsCategoryCode}">
                                                 ${ele.contentsCategoryName}
                                             </option>`;
-                            });
+                        });
 
-                            utilAreaEle += `</select>
+                        utilAreaEle += `</select>
                                     </div>
                                     <div class="form-box">
                                         <select class="px-3 py-2 border rounded w-100">
@@ -636,23 +637,23 @@
                                 </div>
                             </form>`;
 
-                            utilArea.append(utilAreaEle);
+                        utilArea.append(utilAreaEle);
 
-                            $(contentsArea).children().remove();
+                        $(contentsArea).children().remove();
 
-                            contentsInfoList.forEach(function (ele) {
-                                let contentsName = ele.contentsName;
-                                let contentsSellDuration = ele.contentsSellDuration;
-                                let contentsPg = ele.contentsPg;
-                                let isBook = ele.isBook;
-                                let contentsPrice = ele.contentsPrice;
-                                let storeName = ele.storeName;
-                                let amountContentRemaining = ele.amountContentRemaining;
-                                let contentsId = ele.contentsId;
+                        contentsInfoList.forEach(function (ele) {
+                            let contentsName = ele.contentsName;
+                            let contentsSellDuration = ele.contentsSellDuration;
+                            let contentsPg = ele.contentsPg;
+                            let isBook = ele.isBook;
+                            let contentsPrice = ele.contentsPrice;
+                            let storeName = ele.storeName;
+                            let amountContentRemaining = ele.amountContentRemaining;
+                            let contentsId = ele.contentsId;
 
 
-                                let contentsEle =
-                                    `<div class="col-lg-3 col-md-3">
+                            let contentsEle =
+                                `<div class="col-lg-3 col-md-3">
                                         <div class="single-product">
                                             <div class="product-img">
                                                 <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
@@ -671,27 +672,27 @@
                                                 </a>
                                             </li>`
 
-                                contentsEle +=
-                                    `<li>
+                            contentsEle +=
+                                `<li>
                                         <a href="javascript:void(0)">
                                             <i class="lni lni-map-marker"></i>
                                             ${storeName}
                                         </a>
                                     </li>`;
 
-                                if(isBook === 1) {
-                                    contentsEle += '<li>\n' +
-                                        '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
-                                        `저자: 컬럼 없음</a>\n` +
-                                        '</li>\n'
-                                } else{
-                                    contentsEle += '<li>\n' +
-                                        `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
-                                        '</li>\n';
-                                }
+                            if(isBook === 1) {
+                                contentsEle += '<li>\n' +
+                                    '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                    `저자: 컬럼 없음</a>\n` +
+                                    '</li>\n'
+                            } else{
+                                contentsEle += '<li>\n' +
+                                    `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
+                                    '</li>\n';
+                            }
 
-                                contentsEle +=
-                                        `<li>
+                            contentsEle +=
+                                `<li>
                                             <a href="javascript:void(0)">
                                                 <i class="lni lni-coin"></i>
                                                 ${contentsPrice}
@@ -699,56 +700,55 @@
                                         </li>
                                     </ul>
                                     <div class="product-bottom">`;
-                                if(amountContentRemaining == 0) {
-                                    contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
+                            if(amountContentRemaining == 0) {
+                                contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
                                                     <a class="status-btn bg-secondary" style="cursor: unset">매진</a>`;
-                                } else {
-                                    contentsEle += `<a th:href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
-                                }
-                                contentsEle += `</div></div></div></div></div>`;
-
-                                contentsArea.append(contentsEle);
-                            })
-
-                            pageArea.children().remove();
-
-                            let pageEle = `<a href="/user/contents/contentsInfoList?tabValue=${tabValue}&">[맨처음으로]</a>`;
-
-                            if(currentPage > 1) {
-                                pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage - 1}&tabValue=${tabValue}"">[이전]</a>`;
                             } else {
-                                pageEle += `<span>[이전]</span>`;
+                                contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
                             }
+                            contentsEle += `</div></div></div></div></div>`;
 
-                            for(let i = startPageNum; i <= endPageNum; i += 1) {
-                                if(i !== currentPage) {
-                                    pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${i}&tabValue=${tabValue}">[${i}]</a>`;
-                                } else {
-                                    pageEle += `<span>[${i}]</span>`;
-                                }
-                            }
+                            contentsArea.append(contentsEle);
+                        })
 
-                            if(currentPage < lastPage) {
-                                pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage + 1}&tabValue=${tabValue}">[다음]</a>`;
+                        pageArea.children().remove();
+
+                        let pageEle = `<a href="/user/contents/contentsInfoList?tabValue=${tabValue}&">[맨처음으로]</a>`;
+
+                        if(currentPage > 1) {
+                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage - 1}&tabValue=${tabValue}"">[이전]</a>`;
+                        } else {
+                            pageEle += `<span>[이전]</span>`;
+                        }
+
+                        for(let i = startPageNum; i <= endPageNum; i += 1) {
+                            if(i !== currentPage) {
+                                pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${i}&tabValue=${tabValue}">[${i}]</a>`;
                             } else {
-                                pageEle += `<span>[다음]</span>`;
+                                pageEle += `<span>[${i}]</span>`;
                             }
+                        }
 
-                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${lastPage}&tabValue=${tabValue}">[맨마지막]</a>`
+                        if(currentPage < lastPage) {
+                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage + 1}&tabValue=${tabValue}">[다음]</a>`;
+                        } else {
+                            pageEle += `<span>[다음]</span>`;
+                        }
 
-                            console.log(tabValue);
+                        pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${lastPage}&tabValue=${tabValue}">[맨마지막]</a>`
 
-                            pageArea.append(pageEle);
-                        });
+                        console.log(tabValue);
 
-                        request.fail(function(jqXHR, textStatus) {
-                            console.log(`Request failed: ${textStatus}`);
-                        });
-                    })
+                        pageArea.append(pageEle);
+                    });
+
+                    request.fail(function(jqXHR, textStatus) {
+                        console.log(`Request failed: ${textStatus}`);
+                    });
                 })
-            });
-        </script>
-    </th:block>
+            })
+        });
+    </script>
 </th:block>
 <!--====== CATEGORY PART END ======-->
 </html>
