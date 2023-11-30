@@ -103,10 +103,12 @@ public class MyPageController {
 		//세션 가져오기
 		String userId = (String) session.getAttribute("SID");
 
-		int paymentCnt = paymentService.getPaymentCount();
-		int paymentAmount = paymentService.getPaymentAmount();
+		String paymentCnt = paymentService.getPaymentCount(userId);
+		String paymentAmount = paymentService.getPaymentAmount(userId);
 		List<Payment> paymentListById = paymentService.paymentListById(userId);
 
+		log.info("paymentAmount:{}", paymentAmount);
+		log.info("paymentCnt:{}", paymentCnt);
 		log.info("paymentListById: {}", paymentListById);
 
 		model.addAttribute("title", "나의 주문/예약 조회");

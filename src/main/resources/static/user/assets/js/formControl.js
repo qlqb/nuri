@@ -12,36 +12,26 @@ const $specificForm = document.querySelector('#specificForm')
 const $terms1Check = document.querySelector('#term1');
 const $terms2Check = document.querySelector('#term2');
 
+const $likeBtn = document.querySelectorAll('.like-button');
 
-
-function hasHideClass(variable) {
-    return variable.classList.contains();
+for (let i = 0; i < $likeBtn.length; i+=1) {
+    $likeBtn[i].addEventListener('click', function(){
+        formControl(i);
+    })
 }
 
-$proegress1.addEventListener('click', function () {
-    if(hasHideClass($userForm) && hasHideClass($specificForm)) {
-        $agreement.classList.toggle('notice-hide');
+function formControl (parameter){
+    if(parameter === 0) {
+        $specificForm.classList.add('notice-hide');
+        $userForm.classList.add('notice-hide');
+        $agreement.classList.remove('notice-hide');
+    } else if(parameter === 1) {
+        $specificForm.classList.add('notice-hide');
+        $userForm.classList.remove('notice-hide');
+        $agreement.classList.add('notice-hide');
+    } else if(parameter === 2) {
+        $specificForm.classList.remove('notice-hide');
+        $userForm.classList.add('notice-hide');
+        $agreement.classList.add('notice-hide');
     }
-    console.log('클릭');
-})
-
-$proegress2.addEventListener('click', function () {
-    if(hasHideClass($agreement) && hasHideClass($specificForm)) {
-        $userForm.classList.toggle('notice-hide');
-    }
-})
-
-$proegress3.addEventListener('click', function () {
-    if(hasHideClass($agreement) && hasHideClass($userForm)) {
-        $userForm.classList.toggle('notice-hide');
-    }
-})
-
-$agreementBtn.addEventListener('click', function (e) {
-    if($terms1Check.checked && $terms2Check.checked) {
-        $agreement.classList.toggle('notice-hide');
-        $userForm.classList.toggle('notice-hide');
-    } else {
-        e.preventDefault();
-    }
-})
+}

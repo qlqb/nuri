@@ -58,15 +58,15 @@ public class PaymentService {
     }
 
     //결제 금액 조회
-    public int getPaymentAmount(){
-        int paymentAmount = paymentMapper.getPaymentAmount();
+    public String getPaymentAmount(String userId){
+        String paymentAmount = paymentMapper.getPaymentAmount(userId);
 
         return paymentAmount;
     }
 
     //결제 횟수 조회
-    public int getPaymentCount(){
-        int paymentCnt = paymentMapper.getPaymentCount();
+    public String getPaymentCount(String userId){
+        String paymentCnt = paymentMapper.getPaymentCount(userId);
 
         return paymentCnt;
     }

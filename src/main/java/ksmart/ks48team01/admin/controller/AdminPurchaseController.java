@@ -1,5 +1,6 @@
 package ksmart.ks48team01.admin.controller;
 
+import jakarta.servlet.http.HttpSession;
 import ksmart.ks48team01.dto.Payment;
 import ksmart.ks48team01.service.PaymentService;
 import ksmart.ks48team01.user.controller.MyPageController;
@@ -41,10 +42,14 @@ public class AdminPurchaseController {
 	}
 
 	@GetMapping(value={"/purchaseInfo"})
-	public String purchaseInfo(Model model, @RequestParam(name="searchKey", required = false) String searchKey,
+	public String purchaseInfo(Model model, HttpSession session,
+							   				@RequestParam(name="searchKey", required = false) String searchKey,
 							   				@RequestParam(name="searchValue", required = false, defaultValue = "") String searchValue) {
-		int paymentCnt = paymentService.getPaymentCount();
-		int paymentAmount = paymentService.getPaymentAmount();
+
+		String userId = (String) session.getAttribute("SID");
+
+		String paymentCnt = paymentService.getPaymentCount(userId);
+		String paymentAmount = paymentService.getPaymentAmount(userId);
 		List<Payment> paymentList = paymentService.getPaymentList();
 
 		/*if(searchKey != null){

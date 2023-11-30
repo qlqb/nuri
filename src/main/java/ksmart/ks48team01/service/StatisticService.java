@@ -21,11 +21,6 @@ public class StatisticService {
         this.statisticMapper = statisticMapper;
     }
 
-    //가맹점별 총금액 조회
-    public String storeTotalAmount(){
-        String storeTotalAmount = statisticMapper.getStoreTotalAmount();
-        return storeTotalAmount;
-    }
 
     //검색어에 따른 결제 목록 조회
     public List<Statistic> getStoreSttList(List<Map<String, Object>> searchList){

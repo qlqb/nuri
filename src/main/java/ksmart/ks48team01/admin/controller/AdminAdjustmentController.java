@@ -152,9 +152,8 @@ public class AdminAdjustmentController {
 		model.addAttribute("districtList", districtList);
 		model.addAttribute("storeList", storeList);
 
-		return "/admin/purchase/adjMonthInfo";
+		return "admin/purchase/adjMonthInfo";
 	}
-
 	/**
 	 * 정산 등록일자 중복 체크 (ajax 요청)
 	 * @param adjDate

@@ -173,19 +173,3 @@ function mailCheck (value) {
 const $regionAlert = document.querySelector('#region-alert');
 const $districtAlert = document.querySelector('#district-alert');
 const $addrAlert = document.querySelector('#address1Alert');
-
-$additionalBtn.addEventListener('click', (e) => {
-    if(idRegexpCheck() &&
-        pwRegexpCheck() &&
-        pwMatching($userPw.value, $userPwCheck.value) &&
-        nameCheck($userName.value) &&
-        birthDateCheck($userBirth.value, refDate) &&
-        contactCheck($userContact.value) &&
-        mailCheck($userEmail.value)) {
-        $userForm.classList.toggle('notice-hide');
-        $specificForm.classList.toggle('notice-hide');
-    } else {
-        e.preventDefault();
-        console.log('안됨');
-    }
-})

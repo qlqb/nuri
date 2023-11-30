@@ -61,8 +61,51 @@
     </section>
     <!--====== BANNER PART END ======-->
 
+    <!--====== 입력 단계 정보 시작 ======-->
+    <section class="service-area pt-60">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11" id="progress1" data-id="0">
+                    <div class="single-service like-button">
+                        <div class="icon">
+                            <strong>1</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>약관동의</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11" id="progress2" data-id="1">
+                    <div class="single-service like-button">
+                        <div class="icon">
+                            <strong>2</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>회원정보 작성</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-8 col-11" id="progress3" data-id="2">
+                    <div class="single-service like-button">
+                        <div class="icon">
+                            <strong>3</strong>
+                        </div>
+                        <div class="service-content">
+                            <h3>사용자 정보 작성</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--====== 입력 단계 정보 끝 ======-->
+
     <!--====== 약관 동의 설명 시작 ======-->
-    <section class="accordions-area pt-60 pb-90" id="agreement">
+    <section class="accordions-area pt-60 pb-90 " id="agreement">
         <div class="container">
             <div class="row">
                 <div class="login-wrapper box-style">
@@ -79,7 +122,7 @@
 
                                     <div id="collapseOne" class="collapse" data-parent="#accordionExample1">
                                         <div class="accordion-content">
-                                            <div th:replace="~{/user/fragments/terms :: terms1}"></div>
+                                            <div th:replace="~{user/fragments/terms :: terms1}"></div>
                                         </div>
                                         <div class="content d-flex justify-content-center mb-10">
                                             <label for="term1">
@@ -98,7 +141,7 @@
 
                                     <div id="collapseTwo" class="collapse" data-parent="#accordionExample2">
                                         <div class="accordion-content">
-                                            <div th:replace="~{/user/fragments/terms :: terms2}"></div>
+                                            <div th:replace="~{user/fragments/terms :: terms2}"></div>
                                         </div>
                                         <div class="content d-flex justify-content-center mb-10">
                                             <label for="term2">
@@ -110,11 +153,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <div class="single-form mb-30">
-                            <button id="agreement-btn" class="main-btn btn-hover py-2 px-5 rounded">다음</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -122,7 +160,7 @@
     <!--====== 약관 동의 설명 시작 ======-->
 
     <!--====== 사용자 회원 가입 form 시작 ======-->
-    <section class="login-area pt-70 pb-70">
+    <section class="login-area pt-70 pb-70 notice-hide" id="userForm">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
@@ -217,11 +255,6 @@
                                 <div class="single-form mb-20">
                                     <span class="input-specific notice-hide"><small class="input-specific">*</small>는 필수 요소 항목입니다.</span>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="single-form mb-30">
-                                        <button id="additional-btn" class="main-btn btn-hover py-2 px-5 rounded">다음</button>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -235,7 +268,7 @@
 
 
     <!--====== 문화누리카드 입력 form 시작 ======-->
-    <section class="login-area pt-70 pb-70">
+    <section class="login-area pt-70 pb-70 notice-hide" id="specificForm">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">

@@ -75,10 +75,6 @@ function search (key, value) {
             storeRegDateTd.appendChild(document.createTextNode(`${element.storeRegDate}`));
             const openingTimeTd = document.createElement('td');
             openingTimeTd.appendChild(document.createTextNode(`${element.openingTime}`));
-            tableRow.appendChild(checkBoxTd);
-            checkBoxTd.appendChild(checkBoxDiv);
-            checkBoxDiv.appendChild(checkBoxInput);
-            checkBoxDiv.appendChild(checkBoxIns);
             tableRow.appendChild(storeIdTd);
             tableRow.appendChild(storeNameTd);
             tableRow.appendChild(userNameTd);

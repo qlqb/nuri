@@ -76,22 +76,35 @@
     </insert>
 
     <!--총구매 가격(아이디별로 작업 해야함)-->
-    <select id="getPaymentAmount" resultType="int">
+    <select id="getPaymentAmount" parameterType="String" resultType="String">
         /*총 구매 금액(아이디 별로 작업 아직 안됨)*/
         SELECT
         SUM(p.PAYMENT_AMOUNT)
         FROM
         PAYMENT AS p
+        INNER JOIN
+        USER_INFO AS u
+        ON
+        u.USER_ID = p.USER_ID
+        WHERE
+        u.USER_ID = #{userId}
     </select>
 
 
     <!--총구매 횟수 (아이디별로 작업 해야함)-->
-    <select id="getPaymentCount" resultType="int">
+    <select id="getPaymentCount" parameterType="String" resultType="String">
         /*총 구매 횟수 (아이디 별로 작업 아직 안됨)*/
         SELECT
         COUNT(p.PAYMENT_CODE)
         FROM
         PAYMENT AS p
+        INNER JOIN
+        USER_INFO AS u
+        ON
+        u.USER_ID = p.USER_ID
+        WHERE
+        u.USER_ID = #{userId}
+
     </select>
 
     <!--아이디별 결제 내역 조회-->
