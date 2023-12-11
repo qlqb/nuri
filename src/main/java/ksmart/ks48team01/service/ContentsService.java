@@ -146,7 +146,7 @@ public class ContentsService {
     public List<ContentsCategory> getContentsCategory() {
         List<ContentsCategory> contentsCategoryList = contentsMapper.getContentsCategory();
 
-        return contentsMapper.getContentsCategory();
+        return contentsCategoryList;
     }
 
     public Map<String, Object> getContentsInfoListByTabValue(int currentPage, String tabValue) {
@@ -210,7 +210,6 @@ public class ContentsService {
 
         for(Map<String, Object> contentsInfo : contentsInfoList) {
             log.info("contentsInfo {}", contentsInfo);
-            int idx = 0;
             /**
              * mysql date타입 컬럼에 1000-01-01이랑 9999-12-31 데이터
              * 넣으니까 String으로 안돼서 Date로 받은 후 toString
@@ -234,10 +233,6 @@ public class ContentsService {
                 contentsInfo.put("isBook", 1);
             }
 
-            /**
-             * 판매일자나 종료일자가 미정인 경우 컨텐츠의 경우에 0을 전달해
-             * 컨텐츠 리스트 화면에서 이 값이 0인지 조건 검사 후 렌더링 처리
-             */
             if(contentsSellEndDate.equals("9999-12-31")) {
                 contentsInfo.replace("contentsSellDuration", contentsSellStartDate + "~");
             }
@@ -257,7 +252,6 @@ public class ContentsService {
             if(contentsPrice.equals("0원")) {
                 contentsInfo.replace("contentsPrice", "무료");
             }
-            idx += 1;
         }
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -328,6 +322,52 @@ public class ContentsService {
         }
 
         List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoListByTabValueAndSearch(startContentsNum, contentsPerPage, tabValue, performanceGenre, area, startDate, endDate, searchValue);
+
+        for(Map<String, Object> contentsInfo : contentsInfoList) {
+            log.info("contentsInfo {}", contentsInfo);
+            /**
+             * mysql date타입 컬럼에 1000-01-01이랑 9999-12-31 데이터
+             * 넣으니까 String으로 안돼서 Date로 받은 후 toString
+             */
+            String contentsSellStartDate = contentsInfo.get("contentsSellStartDate").toString();
+            String contentsSellEndDate = contentsInfo.get("contentsSellEndDate").toString();
+            String contentsSellDuration = contentsSellStartDate + "~" + contentsSellEndDate;
+            String contentsPg = (String) contentsInfo.get("contentsPg");
+            String contentsPrice = (String) contentsInfo.get("contentsPrice");
+            String contentsCategoryName = (String) contentsInfo.get("contentsCategoryName");
+            log.info("contentsCategoryName : {}", contentsCategoryName);
+            contentsInfo.put("contentsSellDuration", contentsSellDuration);
+
+            /**
+             * 컨텐츠 카테고리가 도서면 book을 전달해서 컨텐츠 리스트 화면에
+             * 연령제한 표시가 안나오게함
+             */
+            if(!contentsCategoryName.equals("도서")) {
+                contentsInfo.put("isBook", 0);
+            } else {
+                contentsInfo.put("isBook", 1);
+            }
+
+            if(contentsSellEndDate.equals("9999-12-31")) {
+                contentsInfo.replace("contentsSellDuration", contentsSellStartDate + "~");
+            }
+
+            /**
+             * 컨텐츠 연령 제한 값 파싱 작업
+             */
+            if(!contentsPg.equals("0")) {
+                contentsInfo.replace("contentsPg", contentsPg + "세 이상");
+            } else {
+                contentsInfo.replace("contentsPg", "연령제한 없음");
+            }
+
+            /**
+             * 컨텐츠 가격값 파싱 작업
+             */
+            if(contentsPrice.equals("0원")) {
+                contentsInfo.replace("contentsPrice", "무료");
+            }
+        }
 
         log.info("contentsInfoList: {}", contentsInfoList);
         Map<String, Object> resultMap = new HashMap<>();
@@ -447,12 +487,16 @@ public class ContentsService {
         contentsMapper.addContents(contents);
     }
 
-    public void fileUpload(MultipartFile[] contentsFile, String contentsId, String userId) {
-        List<ContentsFile> contentsFileList = fileUtil.parseFileInfo(contentsFile);
+    public void fileUpload(MultipartFile contentsFile, String contentsId, String userId) {
+        ContentsFile file = fileUtil.parseFileInfo(contentsFile);
 
-        log.info("contentsFileList: {}", contentsFileList);
+        log.info("file: {}", file);
+
+        file.setContentsId(contentsId);
+        file.setUserId(userId);
+
         // 파일리스트 db저장
-        if(contentsFileList != null) contentsMapper.addFile(contentsFileList);
+        if(file != null) contentsMapper.addFile(file);
     }
 
     public Map<String, Object> getContentsDetailInfo(String contentsId) {
@@ -486,6 +530,8 @@ public class ContentsService {
 
     public List<Contents> getContentsInfoByUserId(String userId) {
         List<Contents> contentsInfoList = contentsMapper.getContentsInfoByUserId(userId);
+        log.info("path: {}", contentsInfoList.get(0).getContentsFile().getFilePath());
+        log.info("contentInfoList: {}", contentsInfoList);
         return contentsInfoList;
     }
 
@@ -520,6 +566,10 @@ public class ContentsService {
 
         log.info("remain: {}", contents.getAmountContentRemaining());
         contentsMapper.modifyContents(contents);
+    }
+
+    public String getContentsIdForFileAdd(String storeId) {
+        return contentsMapper.getContentsIdForFileAdd(storeId);
     }
 
 }

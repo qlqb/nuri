@@ -34,12 +34,19 @@ public interface ContentsMapper {
 
     public List<Map<String, Object>> getContentsInfoListByTabValueAndSearch(int startContentsNum, int contentsPerPage, String tabValue, String performanceGenre, String area, String startDate, String endDate, String searchValue);
 
+    /**
+     * 컨텐츠 추가
+     * @param contents
+     */
     public void addContents(Contents contents);
 
-    public void addFile(List<ContentsFile> contentsFileList);
+    /**
+     * 파일 추가
+     * @param contentsFile
+     */
+    public void addFile(ContentsFile contentsFile);
 
     public Map<String, Object> getContentsDetailInfo(String contentsId);
-
 
     public Store getSessionStoreInfo(String userId);
 
@@ -77,4 +84,12 @@ public interface ContentsMapper {
      * @param contents
      */
     public void modifyContents(Contents contents);
+
+    /**
+     * 컨텐츠와 파일 등록 할 때 파일 테이블에 외부키인 컨텐츠코드를 넣기 위해 해당 파일의 contentsId를 가져오기 위한 메서드
+     * @param storeId
+     * @return
+     */
+    public String getContentsIdForFileAdd(String storeId);
+
 }

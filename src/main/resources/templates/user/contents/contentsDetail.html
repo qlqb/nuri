@@ -298,7 +298,7 @@
                 <div class="tab-content" id="v-pills-tabContent">
                   <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-tab-1">
                     <div class="showcase-img">
-                      <img th:src="@{https://plus.unsplash.com/premium_photo-1684923604128-c48f46b0cb00?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8JUVBJUIzJUI1JUVDJTk3JUIwfGVufDB8fDB8fHww}" alt="" class="fill">
+                      <img th:src="@{'/' + *{filePath}}" th:alt="*{fileName}">
                     </div>
                   </div>
                   <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-tab-2">
@@ -364,18 +364,18 @@
                 </ul>
 
                 <span style="float: right; padding: 10px 0; margin-right: 9px" class="align-content-center">
-                  <select id="contentsReleaseDt" name="contentsReleaseDt">
+                  <select th:if="*{contentsReleaseDT != '1000-01-01 00:00'}" id="contentsReleaseDt" name="contentsReleaseDt">
                     <option th:value="*{contentsReleaseDT}" th:text="*{contentsReleaseDT}"></option>
                   </select>
                 </span>
-                <span style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
+                <span th:if="*{contentsReleaseDT != '1000-01-01 00:00'}" style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
                   일시
                 </span>
                 <span style="float: right; margin-right: 9px; margin-top: 8px; border: 1px solid black;">
                   <input type="number" name="paymentQuantity" id="paymentQuantity" style="all: unset; width: 50px"/>
                 </span>
                 <span style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
-                  매수
+                  수량
                 </span>
 
               </div>

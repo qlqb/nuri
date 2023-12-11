@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" th:action="@{/user/contents/form}"
+          enctype="multipart/form-data">
+        <input type="hidden" th:value="${storeInfo.storeId}" id="storeId" name="storeId"/>
+        <input type="hidden" th:value="${storeInfo.userId}" id="userId" name="userId"/>
+        <input type="file" name="contentsFile">
+        <button type="submit">파일추가</button>
+    </form>
+
+</body>
+</html>
