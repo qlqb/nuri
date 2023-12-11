@@ -175,14 +175,4 @@ public class MyPageController {
 
 		return "user/mypage/myContents";
 	}
-
-	@GetMapping("/myContentsModify")
-	public String myContentsListModify(Model model) {
-
-		model.addAttribute("title", "내 컨텐츠 수정");
-		model.addAttribute("head", mypage);
-
-		return "user/mypage/myContentsModify";
-	}
-
 }

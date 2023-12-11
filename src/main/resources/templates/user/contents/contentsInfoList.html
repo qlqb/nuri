@@ -6,6 +6,12 @@
 
 <head>
     <style>
+        
+        a:not([href]):not([class]), a:not([href]):not([class]):hover {
+            color: #FF6B6B;
+            cursor: pointer;
+        }
+
         body > section.category-area.pb-110 > div > div > div.search-result > div.section-inner > div.area-util > form > div > div input {
             margin: 0;
         }
@@ -377,9 +383,7 @@
                         <div class="area-util">
                             <div class="align-box">
                                 <div class="txt-total">
-                                    총
-                                    <strong class="total" th:text="${contentsCnt}"></strong>
-                                    건
+                                    총 <strong class="total" th:text="${contentsCnt}"></strong>건
                                 </div>
                             </div>
                             <form th:action="@{/user/contents/contentsInfoList}" method="get" style="all:unset">
@@ -424,7 +428,7 @@
                                     </div>
 
                                     <div class="form-box">
-                                        <select class="px-3 py-2 border rounded w-100">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
                                             <option value="title">제목</option>
                                             <option value="description">상세설명</option>
                                             <option value="titleAndDescription">제목+상세설명</option>
@@ -449,12 +453,12 @@
                                 <div class="left-wrapper">
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
-                                            <div class="row">
+                                            <div id="contentsArea" class="row">
                                                 <div class="col-lg-3 col-md-3" th:each="cil : ${contentsInfoList}">
                                                     <div class="single-product">
                                                         <div class="product-img">
                                                             <a th:href="@{/user/contents/contentsDetail(contentsId=${cil.contentsId})}">
-                                                                <img th:src="@{https://images.unsplash.com/photo-1524330685423-3e1966445abe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww}" alt="">
+                                                                <img th:src="@{'/' + ${cil.filePath}}" th:alt="${cil.fileName}">
                                                             </a>
                                                         </div>
 
@@ -497,27 +501,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="justify-content-center d-flex">
-                                <a th:href="@{/user/contents/contentsInfoList(tabValue=${tabValue})}">[맨처음으로]</a>
-                                <a th:if="${currentPage > 1}"
-                                   th:href="@{/user/contents/contentsInfoList(currentPage=${currentPage - 1}, tabValue=${tabValue})}">[이전]</a>
+                            <div class="justify-content-center d-flex" id="pageDiv">
+                                <a id="firstPage">[맨처음으로]</a>
+                                <a id="previousPage" th:if="${currentPage > 1}">[이전]</a>
                                 <span th:unless="${currentPage > 1}">[이전]</span>
-                                <th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}" id="pages">
-                                    <a th:if="${num != currentPage}"
-                                       th:href="@{/user/contents/contentsInfoList(currentPage=${num}, tabValue=${tabValue})}">[[${'[' + num + ']'}]]</a>
+                                <th:block th:if="${endPageNum != 0}" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}" id="pages">
+                                    <a id="pages" th:if="${num != currentPage}">[[${'[' + num + ']'}]]</a>
                                     <span th:unless="${num != currentPage}" th:text="|[${num}]|"></span>
                                 </th:block>
 
-                                <a th:if="${currentPage < lastPage}"
-                                   th:href="@{/user/contents/contentsInfoList(currentPage=${currentPage + 1}, tabValue=${tabValue})}">[다음]</a>
+                                <a id="nextPage" th:if="${currentPage < lastPage}">[다음]</a>
                                 <span th:unless="${currentPage < lastPage}">[다음]</span>
-                                <a th:href="@{/user/contents/contentsInfoList(currentPage=${lastPage}, tabValue=${tabValue})}">[맨마지막]</a>
+                                <a id="lastPage">[맨마지막]</a>
                             </div>
                         </div>
                     </div>
@@ -531,50 +531,39 @@
     <script th:inline="javascript">
 
         $(function() {
+            /*<![CDATA[*/
 
-            $('[role="tab"]').each(function (idx, ele) {
-                let tabValue = $(ele).text().trim();
+            $('#lastPage').click(function () {
+                let tabValue = [[${tabValue}]];
+                let currentPage = [[${lastPage}]];
+                let performanceGenre = [[${performanceGenre}]];
+                const request = $.ajax({
+                    url : `/user/contents/contentsInfoList/tab0`,
+                    method : 'GET',
+                    data : {'tabValue' : tabValue,
+                        'currentPage' : currentPage,
+                        'performanceGenre' : performanceGenre},
+                    dataType: 'JSON'
+                });
 
-                $(ele).click(function () {
-                    $('[role="tab"]').removeClass('active');
-                    $(ele).addClass('active');
-
-                    let activeTab = $(ele).attr('data-tab');
-                    let activeTabUrl = `tab${activeTab}`
-
-                    const request = $.ajax({
-                        url : `/user/contents/contentsInfoList/${activeTabUrl}`,
-                        method : 'GET',
-                        data: {'tabValue' : tabValue},
-                        dataType: 'JSON'
-                    });
-
-                    request.done(function(data) {
-
-                        const utilArea = $('.area-util');
-
-                        const pageArea = $('body > section.category-area.pb-110 > div > div > div.search-result > div.category-wrapper > div > div.justify-content-center.d-flex');
-
-                        let startPageNum = data.startPageNum;
-                        let endPageNum = data.endPageNum;
-                        let lastPage = data.lastPage;
-                        let currentPage = data.currentPage;
-                        let contentsCategory = data.contentsCategory;
-                        let tabValue = data.tabValue;
-
-                        let contentsCnt = data.contentsCnt;
-
-                        let contentsInfoList = data.contentsInfoList;
-
-                        let utilAreaEle = '';
+                request.done(function (data) {
+                    const utilArea = $('.area-util');
+                    const contentsArea = $('#contentsArea');
+                    const pageArea = $('#pageDiv');
+                    let startPageNum = data.startPageNum;
+                    let endPageNum = data.endPageNum;
+                    let lastPage = data.lastPage;
+                    let currentPage = data.currentPage;
+                    let contentsCategory = data.contentsCategory;
+                    let tabValue = data.tabValue;
+                    let performanceGenre = data.performanceGenre;
+                    let contentsCnt = data.contentsCnt;
+                    let contentsInfoList = data.contentsInfoList;
+                    let utilAreaEle = '';
+                    $(utilArea).children().remove();
 
 
-                        const contentsArea = $('#grid > div');
-
-                        $(utilArea).children().remove();
-
-
-                        utilAreaEle += `<div class="align-box"><div class="txt-total">총<strong class="total"">${contentsCnt}</strong>건
+                    utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
                                             </div>
                                         </div>
                                         <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
@@ -583,16 +572,16 @@
                                                     <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
                                                         <option value="allGenre">장르 전체</option>`;
 
-                        contentsCategory.forEach(function (ele) {
-                            utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                    contentsCategory.forEach(function (ele) {
+                        utilAreaEle += `<option value="${ele.contentsCategoryCode}">
                                                 ${ele.contentsCategoryName}
                                             </option>`;
-                        });
+                    });
 
-                        utilAreaEle += `</select>
+                    utilAreaEle += `</select>
                                     </div>
                                     <div class="form-box">
-                                        <select class="px-3 py-2 border rounded w-100">
+                                        <select class="px-3 py-2 border rounded w-100" name="area">
                                             <option value="none">지역 전체</option>
                                             <option value="11">서울특별시</option>
                                             <option value="21">부산광역시</option>
@@ -621,7 +610,1018 @@
                                         <input type="date" class="px-3 py-2 border rounded w-100" name="endDate"/>
                                     </div>
                                     <div class="form-box">
-                                        <select class="px-3 py-2 border rounded w-100">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
+                                            <option value="title">제목</option>
+                                            <option value="description">상세설명</option>
+                                            <option value="titleAndDescription">제목+상세설명</option>
+                                            <option value="storeName">가맹점</option>
+                                        </select>
+                                    </div>
+                                    <div class="right-wrapper">
+                                        <div class="area-input">
+                                            <input type="text" name="searchValue" id="search" placeholder="검색어를 입력해주세요">
+                                            <button type="submit"><i class="lni lni-search-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>`;
+
+                    utilArea.append(utilAreaEle);
+
+                    $(contentsArea).children().remove();
+
+                    contentsInfoList.forEach(function (ele) {
+                        let contentsName = ele.contentsName;
+                        let contentsSellDuration = ele.contentsSellDuration;
+                        let contentsPg = ele.contentsPg;
+                        let isBook = ele.isBook;
+                        let contentsPrice = ele.contentsPrice;
+                        let storeName = ele.storeName;
+                        let amountContentRemaining = ele.amountContentRemaining;
+                        let contentsId = ele.contentsId;
+                        let filePath = ele.filePath;
+                        let fileName = ele.fileName
+
+                        let contentsEle =
+                            `<div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
+                                                    <img src="/${filePath}" alt="${fileName}">
+                                                </a>
+                                            </div>
+                                        <div class="product-content">
+                                        <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                            <a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="name">${contentsName}</a>
+                                        </h3>
+                                        <ul class="address">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <i class="lni lni-calendar"></i>
+                                                    ${contentsSellDuration}
+                                                </a>
+                                            </li>`
+
+                        contentsEle +=
+                            `<li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-map-marker"></i>
+                                            ${storeName}
+                                        </a>
+                                    </li>`;
+
+                        if(isBook === 1) {
+                            contentsEle += '<li>\n' +
+                                '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                `저자: 컬럼 없음</a>\n` +
+                                '</li>\n'
+                        } else{
+                            contentsEle += '<li>\n' +
+                                `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
+                                '</li>\n';
+                        }
+
+                        contentsEle +=
+                            `<li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-coin"></i>
+                                                ${contentsPrice}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="product-bottom">`;
+                        if(amountContentRemaining == 0) {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
+                                                    <a class="status-btn bg-secondary" style="cursor: unset">매진</a>`;
+                        } else {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
+                        }
+                        contentsEle += `</div></div></div></div></div>`;
+
+                        contentsArea.append(contentsEle);
+                    })
+
+                    pageArea.children().remove();
+
+                    let pageEle = `<a>[맨처음으로]</a>`;
+
+                    if(currentPage > 1) {
+                        pageEle += `<a>[이전]</a>`;
+                    } else {
+                        pageEle += `<span>[이전]</span>`;
+                    }
+
+                    for(let i = startPageNum; i <= endPageNum; i += 1) {
+                        if(i !== currentPage) {
+                            pageEle += `<a>[${i}]</a>`;
+                        } else {
+                            pageEle += `<span>[${i}]</span>`;
+                        }
+                    }
+
+                    if(currentPage < lastPage) {
+                        pageEle += `<a>[다음]</a>`;
+                    } else {
+                        pageEle += `<span>[다음]</span>`;
+                    }
+
+                    pageEle += `<a>[맨마지막]</a>`
+
+                    pageArea.append(pageEle);
+                })
+                request.fail(function(jqXHR, textStatus) {
+                    console.log(`Request failed: ${textStatus}`);
+                });
+            })
+
+
+            $('#nextPage').click(function () {
+                let tabValue = [[${tabValue}]];
+                let currentPage = [[${currentPage}]] + 1;
+                let performanceGenre = [[${performanceGenre}]];
+                const request = $.ajax({
+                    url : `/user/contents/contentsInfoList/tab0`,
+                    method : 'GET',
+                    data : {'tabValue' : tabValue,
+                            'currentPage' : currentPage,
+                            'performanceGenre' : performanceGenre},
+                    dataType: 'JSON'
+                });
+
+                request.done(function (data) {
+                    const utilArea = $('.area-util');
+                    const contentsArea = $('#contentsArea');
+                    const pageArea = $('#pageDiv');
+                    let startPageNum = data.startPageNum;
+                    let endPageNum = data.endPageNum;
+                    let lastPage = data.lastPage;
+                    let currentPage = data.currentPage;
+                    let contentsCategory = data.contentsCategory;
+                    let tabValue = data.tabValue;
+                    let performanceGenre = data.performanceGenre;
+                    let contentsCnt = data.contentsCnt;
+                    let contentsInfoList = data.contentsInfoList;
+                    let utilAreaEle = '';
+                    $(utilArea).children().remove();
+
+
+                    utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
+                                            </div>
+                                        </div>
+                                        <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
+                                            <div class="list-search">
+                                                <div class="form-box">
+                                                    <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
+                                                        <option value="allGenre">장르 전체</option>`;
+
+                    contentsCategory.forEach(function (ele) {
+                        utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                                                ${ele.contentsCategoryName}
+                                            </option>`;
+                    });
+
+                    utilAreaEle += `</select>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="area">
+                                            <option value="none">지역 전체</option>
+                                            <option value="11">서울특별시</option>
+                                            <option value="21">부산광역시</option>
+                                            <option value="22">대구광역시</option>
+                                            <option value="23">인천광역시</option>
+                                            <option value="24">광주광역시</option>
+                                            <option value="25">대전광역시</option>
+                                            <option value="26">울산광역시</option>
+                                            <option value="29">세종특별자치시</option>
+                                            <option value="31">경기도</option>
+                                            <option value="32">강원도</option>
+                                            <option value="33">충청북도</option>
+                                            <option value="34">충청남도</option>
+                                            <option value="35">전라북도</option>
+                                            <option value="36">전라남도</option>
+                                            <option value="37">경상북도</option>
+                                            <option value="38">경상남도</option>
+                                            <option value="39">제주특별자치도</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="startDate"/>
+                                    </div>
+
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="endDate"/>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
+                                            <option value="title">제목</option>
+                                            <option value="description">상세설명</option>
+                                            <option value="titleAndDescription">제목+상세설명</option>
+                                            <option value="storeName">가맹점</option>
+                                        </select>
+                                    </div>
+                                    <div class="right-wrapper">
+                                        <div class="area-input">
+                                            <input type="text" name="searchValue" id="search" placeholder="검색어를 입력해주세요">
+                                            <button type="submit"><i class="lni lni-search-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>`;
+
+                    utilArea.append(utilAreaEle);
+
+                    $(contentsArea).children().remove();
+
+                    contentsInfoList.forEach(function (ele) {
+                        let contentsName = ele.contentsName;
+                        let contentsSellDuration = ele.contentsSellDuration;
+                        let contentsPg = ele.contentsPg;
+                        let isBook = ele.isBook;
+                        let contentsPrice = ele.contentsPrice;
+                        let storeName = ele.storeName;
+                        let amountContentRemaining = ele.amountContentRemaining;
+                        let contentsId = ele.contentsId;
+                        let filePath = ele.filePath;
+                        let fileName = ele.fileName
+
+                        let contentsEle =
+                            `<div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
+                                                    <img src="/${filePath}" alt="${fileName}">
+                                                </a>
+                                            </div>
+                                        <div class="product-content">
+                                        <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                            <a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="name">${contentsName}</a>
+                                        </h3>
+                                        <ul class="address">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <i class="lni lni-calendar"></i>
+                                                    ${contentsSellDuration}
+                                                </a>
+                                            </li>`
+
+                        contentsEle +=
+                            `<li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-map-marker"></i>
+                                            ${storeName}
+                                        </a>
+                                    </li>`;
+
+                        if(isBook === 1) {
+                            contentsEle += '<li>\n' +
+                                '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                `저자: 컬럼 없음</a>\n` +
+                                '</li>\n'
+                        } else{
+                            contentsEle += '<li>\n' +
+                                `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
+                                '</li>\n';
+                        }
+
+                        contentsEle +=
+                            `<li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-coin"></i>
+                                                ${contentsPrice}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="product-bottom">`;
+                        if(amountContentRemaining == 0) {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
+                                                    <a class="status-btn bg-secondary" style="cursor: unset">매진</a>`;
+                        } else {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
+                        }
+                        contentsEle += `</div></div></div></div></div>`;
+
+                        contentsArea.append(contentsEle);
+                    })
+
+                    pageArea.children().remove();
+
+                    let pageEle = `<a>[맨처음으로]</a>`;
+
+                    if(currentPage > 1) {
+                        pageEle += `<a>[이전]</a>`;
+                    } else {
+                        pageEle += `<span>[이전]</span>`;
+                    }
+
+                    for(let i = startPageNum; i <= endPageNum; i += 1) {
+                        if(i !== currentPage) {
+                            pageEle += `<a>[${i}]</a>`;
+                        } else {
+                            pageEle += `<span>[${i}]</span>`;
+                        }
+                    }
+
+                    if(currentPage < lastPage) {
+                        pageEle += `<a>[다음]</a>`;
+                    } else {
+                        pageEle += `<span>[다음]</span>`;
+                    }
+
+                    pageEle += `<a>[맨마지막]</a>`
+
+                    pageArea.append(pageEle);
+                })
+                request.fail(function(jqXHR, textStatus) {
+                    console.log(`Request failed: ${textStatus}`);
+                });
+            })
+
+
+            $('#pages').click(function () {
+                let tabValue = [[${tabValue}]];
+                let currentPage = [[${num}]];
+                let performanceGenre = [[${performanceGenre}]];
+                const request = $.ajax({
+                    url : `/user/contents/contentsInfoList/tab0`,
+                    method : 'GET',
+                    data : {'tabValue' : tabValue,
+                            'currentPage' : currentPage,
+                            'performanceGenre' : performanceGenre},
+                    dataType: 'JSON'
+                });
+
+                request.done(function (data) {
+                    const utilArea = $('.area-util');
+                    const contentsArea = $('#contentsArea');
+                    const pageArea = $('#pageDiv');
+                    let startPageNum = data.startPageNum;
+                    let endPageNum = data.endPageNum;
+                    let lastPage = data.lastPage;
+                    let currentPage = data.currentPage;
+                    let contentsCategory = data.contentsCategory;
+                    let tabValue = data.tabValue;
+                    let performanceGenre = data.performanceGenre;
+                    let contentsCnt = data.contentsCnt;
+                    let contentsInfoList = data.contentsInfoList;
+                    let utilAreaEle = '';
+                    $(utilArea).children().remove();
+
+
+                    utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
+                                            </div>
+                                        </div>
+                                        <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
+                                            <div class="list-search">
+                                                <div class="form-box">
+                                                    <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
+                                                        <option value="allGenre">장르 전체</option>`;
+
+                    contentsCategory.forEach(function (ele) {
+                        utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                                                ${ele.contentsCategoryName}
+                                            </option>`;
+                    });
+
+                    utilAreaEle += `</select>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="area">
+                                            <option value="none">지역 전체</option>
+                                            <option value="11">서울특별시</option>
+                                            <option value="21">부산광역시</option>
+                                            <option value="22">대구광역시</option>
+                                            <option value="23">인천광역시</option>
+                                            <option value="24">광주광역시</option>
+                                            <option value="25">대전광역시</option>
+                                            <option value="26">울산광역시</option>
+                                            <option value="29">세종특별자치시</option>
+                                            <option value="31">경기도</option>
+                                            <option value="32">강원도</option>
+                                            <option value="33">충청북도</option>
+                                            <option value="34">충청남도</option>
+                                            <option value="35">전라북도</option>
+                                            <option value="36">전라남도</option>
+                                            <option value="37">경상북도</option>
+                                            <option value="38">경상남도</option>
+                                            <option value="39">제주특별자치도</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="startDate"/>
+                                    </div>
+
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="endDate"/>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
+                                            <option value="title">제목</option>
+                                            <option value="description">상세설명</option>
+                                            <option value="titleAndDescription">제목+상세설명</option>
+                                            <option value="storeName">가맹점</option>
+                                        </select>
+                                    </div>
+                                    <div class="right-wrapper">
+                                        <div class="area-input">
+                                            <input type="text" name="searchValue" id="search" placeholder="검색어를 입력해주세요">
+                                            <button type="submit"><i class="lni lni-search-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>`;
+
+                    utilArea.append(utilAreaEle);
+
+                    $(contentsArea).children().remove();
+
+                    contentsInfoList.forEach(function (ele) {
+                        let contentsName = ele.contentsName;
+                        let contentsSellDuration = ele.contentsSellDuration;
+                        let contentsPg = ele.contentsPg;
+                        let isBook = ele.isBook;
+                        let contentsPrice = ele.contentsPrice;
+                        let storeName = ele.storeName;
+                        let amountContentRemaining = ele.amountContentRemaining;
+                        let contentsId = ele.contentsId;
+                        let filePath = ele.filePath;
+                        let fileName = ele.fileName
+
+                        let contentsEle =
+                            `<div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
+                                                    <img src="/${filePath}" alt="${fileName}">
+                                                </a>
+                                            </div>
+                                        <div class="product-content">
+                                        <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                            <a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="name">${contentsName}</a>
+                                        </h3>
+                                        <ul class="address">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <i class="lni lni-calendar"></i>
+                                                    ${contentsSellDuration}
+                                                </a>
+                                            </li>`
+
+                        contentsEle +=
+                            `<li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-map-marker"></i>
+                                            ${storeName}
+                                        </a>
+                                    </li>`;
+
+                        if(isBook === 1) {
+                            contentsEle += '<li>\n' +
+                                '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                `저자: 컬럼 없음</a>\n` +
+                                '</li>\n'
+                        } else{
+                            contentsEle += '<li>\n' +
+                                `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
+                                '</li>\n';
+                        }
+
+                        contentsEle +=
+                            `<li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-coin"></i>
+                                                ${contentsPrice}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="product-bottom">`;
+                        if(amountContentRemaining == 0) {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
+                                                    <a class="status-btn bg-secondary" style="cursor: unset">매진</a>`;
+                        } else {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
+                        }
+                        contentsEle += `</div></div></div></div></div>`;
+
+                        contentsArea.append(contentsEle);
+                    })
+
+                    pageArea.children().remove();
+
+                    let pageEle = `<a>[맨처음으로]</a>`;
+
+                    if(currentPage > 1) {
+                        pageEle += `<a>[이전]</a>`;
+                    } else {
+                        pageEle += `<span>[이전]</span>`;
+                    }
+
+                    for(let i = startPageNum; i <= endPageNum; i += 1) {
+                        if(i !== currentPage) {
+                            pageEle += `<a>[${i}]</a>`;
+                        } else {
+                            pageEle += `<span>[${i}]</span>`;
+                        }
+                    }
+
+                    if(currentPage < lastPage) {
+                        pageEle += `<a>[다음]</a>`;
+                    } else {
+                        pageEle += `<span>[다음]</span>`;
+                    }
+
+                    pageEle += `<a>[맨마지막]</a>`
+
+                    pageArea.append(pageEle);
+                })
+                request.fail(function(jqXHR, textStatus) {
+                    console.log(`Request failed: ${textStatus}`);
+                });
+            })
+
+
+            $('#previousPage').click(function () {
+                let tabValue = [[${tabValue}]];
+                let currentPage = [[${currentPage}]] - 1;
+                let performanceGenre = [[${performanceGenre}]];
+                const request = $.ajax({
+                    url : `/user/contents/contentsInfoList/tab0`,
+                    method : 'GET',
+                    data : {'tabValue' : tabValue,
+                            'currentPage' : currentPage,
+                            'performanceGenre' : performanceGenre},
+                    dataType: 'JSON'
+                });
+
+                request.done(function (data) {
+                    const utilArea = $('.area-util');
+                    const contentsArea = $('#contentsArea');
+                    const pageArea = $('#pageDiv');
+                    let startPageNum = data.startPageNum;
+                    let endPageNum = data.endPageNum;
+                    let lastPage = data.lastPage;
+                    let currentPage = data.currentPage;
+                    let contentsCategory = data.contentsCategory;
+                    let tabValue = data.tabValue;
+                    let performanceGenre = data.performanceGenre;
+                    let contentsCnt = data.contentsCnt;
+                    let contentsInfoList = data.contentsInfoList;
+                    let utilAreaEle = '';
+                    $(utilArea).children().remove();
+
+
+                    utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
+                                            </div>
+                                        </div>
+                                        <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
+                                            <div class="list-search">
+                                                <div class="form-box">
+                                                    <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
+                                                        <option value="allGenre">장르 전체</option>`;
+
+                    contentsCategory.forEach(function (ele) {
+                        utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                                                ${ele.contentsCategoryName}
+                                            </option>`;
+                    });
+
+                    utilAreaEle += `</select>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="area">
+                                            <option value="none">지역 전체</option>
+                                            <option value="11">서울특별시</option>
+                                            <option value="21">부산광역시</option>
+                                            <option value="22">대구광역시</option>
+                                            <option value="23">인천광역시</option>
+                                            <option value="24">광주광역시</option>
+                                            <option value="25">대전광역시</option>
+                                            <option value="26">울산광역시</option>
+                                            <option value="29">세종특별자치시</option>
+                                            <option value="31">경기도</option>
+                                            <option value="32">강원도</option>
+                                            <option value="33">충청북도</option>
+                                            <option value="34">충청남도</option>
+                                            <option value="35">전라북도</option>
+                                            <option value="36">전라남도</option>
+                                            <option value="37">경상북도</option>
+                                            <option value="38">경상남도</option>
+                                            <option value="39">제주특별자치도</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="startDate"/>
+                                    </div>
+
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="endDate"/>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
+                                            <option value="title">제목</option>
+                                            <option value="description">상세설명</option>
+                                            <option value="titleAndDescription">제목+상세설명</option>
+                                            <option value="storeName">가맹점</option>
+                                        </select>
+                                    </div>
+                                    <div class="right-wrapper">
+                                        <div class="area-input">
+                                            <input type="text" name="searchValue" id="search" placeholder="검색어를 입력해주세요">
+                                            <button type="submit"><i class="lni lni-search-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>`;
+
+                    utilArea.append(utilAreaEle);
+
+                    $(contentsArea).children().remove();
+
+                    contentsInfoList.forEach(function (ele) {
+                        let contentsName = ele.contentsName;
+                        let contentsSellDuration = ele.contentsSellDuration;
+                        let contentsPg = ele.contentsPg;
+                        let isBook = ele.isBook;
+                        let contentsPrice = ele.contentsPrice;
+                        let storeName = ele.storeName;
+                        let amountContentRemaining = ele.amountContentRemaining;
+                        let contentsId = ele.contentsId;
+                        let filePath = ele.filePath;
+                        let fileName = ele.fileName
+
+                        let contentsEle =
+                            `<div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
+                                                    <img src="/${filePath}" alt="${fileName}">
+                                                </a>
+                                            </div>
+                                        <div class="product-content">
+                                        <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                            <a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="name">${contentsName}</a>
+                                        </h3>
+                                        <ul class="address">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <i class="lni lni-calendar"></i>
+                                                    ${contentsSellDuration}
+                                                </a>
+                                            </li>`
+
+                        contentsEle +=
+                            `<li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-map-marker"></i>
+                                            ${storeName}
+                                        </a>
+                                    </li>`;
+
+                        if(isBook === 1) {
+                            contentsEle += '<li>\n' +
+                                '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                `저자: 컬럼 없음</a>\n` +
+                                '</li>\n'
+                        } else{
+                            contentsEle += '<li>\n' +
+                                `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
+                                '</li>\n';
+                        }
+
+                        contentsEle +=
+                            `<li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-coin"></i>
+                                                ${contentsPrice}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="product-bottom">`;
+                        if(amountContentRemaining == 0) {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
+                                                    <a class="status-btn bg-secondary" style="cursor: unset">매진</a>`;
+                        } else {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
+                        }
+                        contentsEle += `</div></div></div></div></div>`;
+
+                        contentsArea.append(contentsEle);
+                    })
+
+                    pageArea.children().remove();
+
+                    let pageEle = `<a>[맨처음으로]</a>`;
+
+                    if(currentPage > 1) {
+                        pageEle += `<a>[이전]</a>`;
+                    } else {
+                        pageEle += `<span>[이전]</span>`;
+                    }
+
+                    for(let i = startPageNum; i <= endPageNum; i += 1) {
+                        if(i !== currentPage) {
+                            pageEle += `<a>[${i}]</a>`;
+                        } else {
+                            pageEle += `<span>[${i}]</span>`;
+                        }
+                    }
+
+                    if(currentPage < lastPage) {
+                        pageEle += `<a>[다음]</a>`;
+                    } else {
+                        pageEle += `<span>[다음]</span>`;
+                    }
+
+                    pageEle += `<a>[맨마지막]</a>`
+
+                    pageArea.append(pageEle);
+                })
+                request.fail(function(jqXHR, textStatus) {
+                    console.log(`Request failed: ${textStatus}`);
+                });
+            })
+
+
+            $('#firstPage').click(function () {
+                let tabValue = [[${tabValue}]];
+                let performanceGenre = [[${performanceGenre}]];
+                const request = $.ajax({
+                    url : `/user/contents/contentsInfoList/tab0`,
+                    method : 'GET',
+                    data : {'tabValue' : tabValue,
+                            'performanceGenre' : performanceGenre},
+                    dataType: 'JSON'
+                });
+
+                request.done(function (data) {
+                    const utilArea = $('.area-util');
+                    const contentsArea = $('#contentsArea');
+                    const pageArea = $('#pageDiv');
+                    let startPageNum = data.startPageNum;
+                    let endPageNum = data.endPageNum;
+                    let lastPage = data.lastPage;
+                    let currentPage = data.currentPage;
+                    let contentsCategory = data.contentsCategory;
+                    let tabValue = data.tabValue;
+                    let performanceGenre = data.performanceGenre;
+                    let contentsCnt = data.contentsCnt;
+                    let contentsInfoList = data.contentsInfoList;
+                    let utilAreaEle = '';
+                    $(utilArea).children().remove();
+
+
+                    utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
+                                            </div>
+                                        </div>
+                                        <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
+                                            <div class="list-search">
+                                                <div class="form-box">
+                                                    <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
+                                                        <option value="allGenre">장르 전체</option>`;
+
+                    contentsCategory.forEach(function (ele) {
+                        utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                                                ${ele.contentsCategoryName}
+                                            </option>`;
+                    });
+
+                    utilAreaEle += `</select>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="area">
+                                            <option value="none">지역 전체</option>
+                                            <option value="11">서울특별시</option>
+                                            <option value="21">부산광역시</option>
+                                            <option value="22">대구광역시</option>
+                                            <option value="23">인천광역시</option>
+                                            <option value="24">광주광역시</option>
+                                            <option value="25">대전광역시</option>
+                                            <option value="26">울산광역시</option>
+                                            <option value="29">세종특별자치시</option>
+                                            <option value="31">경기도</option>
+                                            <option value="32">강원도</option>
+                                            <option value="33">충청북도</option>
+                                            <option value="34">충청남도</option>
+                                            <option value="35">전라북도</option>
+                                            <option value="36">전라남도</option>
+                                            <option value="37">경상북도</option>
+                                            <option value="38">경상남도</option>
+                                            <option value="39">제주특별자치도</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="startDate"/>
+                                    </div>
+
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="endDate"/>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
+                                            <option value="title">제목</option>
+                                            <option value="description">상세설명</option>
+                                            <option value="titleAndDescription">제목+상세설명</option>
+                                            <option value="storeName">가맹점</option>
+                                        </select>
+                                    </div>
+                                    <div class="right-wrapper">
+                                        <div class="area-input">
+                                            <input type="text" name="searchValue" id="search" placeholder="검색어를 입력해주세요">
+                                            <button type="submit"><i class="lni lni-search-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>`;
+
+                    utilArea.append(utilAreaEle);
+
+                    $(contentsArea).children().remove();
+
+                    contentsInfoList.forEach(function (ele) {
+                        let contentsName = ele.contentsName;
+                        let contentsSellDuration = ele.contentsSellDuration;
+                        let contentsPg = ele.contentsPg;
+                        let isBook = ele.isBook;
+                        let contentsPrice = ele.contentsPrice;
+                        let storeName = ele.storeName;
+                        let amountContentRemaining = ele.amountContentRemaining;
+                        let contentsId = ele.contentsId;
+                        let filePath = ele.filePath;
+                        let fileName = ele.fileName
+
+                        let contentsEle =
+                            `<div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
+                                                    <img src="/${filePath}" alt="${fileName}">
+                                                </a>
+                                            </div>
+                                        <div class="product-content">
+                                        <h3 style="width: 250px;"> <!-- 상위 요소에 너비 제한을 둡니다. -->
+                                            <a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="name">${contentsName}</a>
+                                        </h3>
+                                        <ul class="address">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <i class="lni lni-calendar"></i>
+                                                    ${contentsSellDuration}
+                                                </a>
+                                            </li>`
+
+                        contentsEle +=
+                            `<li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-map-marker"></i>
+                                            ${storeName}
+                                        </a>
+                                    </li>`;
+
+                        if(isBook === 1) {
+                            contentsEle += '<li>\n' +
+                                '<a href="javascript:void(0)"><i class="lni lni-book"></i>' +
+                                `저자: 컬럼 없음</a>\n` +
+                                '</li>\n'
+                        } else{
+                            contentsEle += '<li>\n' +
+                                `<a href="javascript:void(0)"><i class="lni lni-user"></i>${contentsPg}</a>\n` +
+                                '</li>\n';
+                        }
+
+                        contentsEle +=
+                            `<li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-coin"></i>
+                                                ${contentsPrice}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="product-bottom">`;
+                        if(amountContentRemaining == 0) {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn">자세히 보기</a>
+                                                    <a class="status-btn bg-secondary" style="cursor: unset">매진</a>`;
+                        } else {
+                            contentsEle += `<a href="/user/contents/contentsDetail?contentsId=${contentsId}" class="status-btn" style="width: 300px">자세히 보기</a>`;
+                        }
+                        contentsEle += `</div></div></div></div></div>`;
+
+                        contentsArea.append(contentsEle);
+                    })
+
+                    pageArea.children().remove();
+
+                    let pageEle = `<a>[맨처음으로]</a>`;
+
+                    if(currentPage > 1) {
+                        pageEle += `<a>[이전]</a>`;
+                    } else {
+                        pageEle += `<span>[이전]</span>`;
+                    }
+
+                    for(let i = startPageNum; i <= endPageNum; i += 1) {
+                        if(i !== currentPage) {
+                            pageEle += `<a>[${i}]</a>`;
+                        } else {
+                            pageEle += `<span>[${i}]</span>`;
+                        }
+                    }
+
+                    if(currentPage < lastPage) {
+                        pageEle += `<a>[다음]</a>`;
+                    } else {
+                        pageEle += `<span>[다음]</span>`;
+                    }
+
+                    pageEle += `<a>[맨마지막]</a>`
+
+                    pageArea.append(pageEle);
+                })
+                request.fail(function(jqXHR, textStatus) {
+                    console.log(`Request failed: ${textStatus}`);
+                });
+            })
+
+            $('[role="tab"]').each(function (idx, ele) {
+                let tabValue = $(ele).text().trim();
+
+                $(ele).click(function () {
+                    $('[role="tab"]').removeClass('active');
+                    $(ele).addClass('active');
+
+                    let activeTab = $(ele).attr('data-tab');
+                    // let activeTabUrl = `tab${activeTab}`
+
+                    const request = $.ajax({
+                        url : `/user/contents/contentsInfoList/tab0`,
+                        method : 'GET',
+                        data: {'tabValue' : tabValue},
+                        dataType: 'JSON'
+                    });
+
+                    request.done(function(data) {
+                        const utilArea = $('.area-util');
+                        const contentsArea = $('#contentsArea');
+                        const pageArea = $('#pageDiv');
+                        let startPageNum = data.startPageNum;
+                        let endPageNum = data.endPageNum;
+                        let lastPage = data.lastPage;
+                        let currentPage = data.currentPage;
+                        let contentsCategory = data.contentsCategory;
+                        let tabValue = data.tabValue;
+                        let performanceGenre = data.performanceGenre;
+                        let contentsCnt = data.contentsCnt;
+                        let contentsInfoList = data.contentsInfoList;
+                        let utilAreaEle = '';
+                        $(utilArea).children().remove();
+
+
+                        utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
+                                            </div>
+                                        </div>
+                                        <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
+                                            <div class="list-search">
+                                                <div class="form-box">
+                                                    <select class="px-3 py-2 border rounded w-100" name="performanceGenre">
+                                                        <option value="allGenre">장르 전체</option>`;
+
+                        contentsCategory.forEach(function (ele) {
+                            utilAreaEle += `<option value="${ele.contentsCategoryCode}">
+                                                ${ele.contentsCategoryName}
+                                            </option>`;
+                        });
+
+                        utilAreaEle += `</select>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="area">
+                                            <option value="none">지역 전체</option>
+                                            <option value="11">서울특별시</option>
+                                            <option value="21">부산광역시</option>
+                                            <option value="22">대구광역시</option>
+                                            <option value="23">인천광역시</option>
+                                            <option value="24">광주광역시</option>
+                                            <option value="25">대전광역시</option>
+                                            <option value="26">울산광역시</option>
+                                            <option value="29">세종특별자치시</option>
+                                            <option value="31">경기도</option>
+                                            <option value="32">강원도</option>
+                                            <option value="33">충청북도</option>
+                                            <option value="34">충청남도</option>
+                                            <option value="35">전라북도</option>
+                                            <option value="36">전라남도</option>
+                                            <option value="37">경상북도</option>
+                                            <option value="38">경상남도</option>
+                                            <option value="39">제주특별자치도</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="startDate"/>
+                                    </div>
+
+                                    <div class="form-box">
+                                        <input type="date" class="px-3 py-2 border rounded w-100" name="endDate"/>
+                                    </div>
+                                    <div class="form-box">
+                                        <select class="px-3 py-2 border rounded w-100" name="searchKey">
                                             <option value="title">제목</option>
                                             <option value="description">상세설명</option>
                                             <option value="titleAndDescription">제목+상세설명</option>
@@ -650,14 +1650,15 @@
                             let storeName = ele.storeName;
                             let amountContentRemaining = ele.amountContentRemaining;
                             let contentsId = ele.contentsId;
-
+                            let filePath = ele.filePath;
+                            let fileName = ele.fileName
 
                             let contentsEle =
                                 `<div class="col-lg-3 col-md-3">
                                         <div class="single-product">
                                             <div class="product-img">
                                                 <a href="/user/contents/contentsDetail?contentsId=${contentsId}">
-                                                    <img src="https://images.unsplash.com/photo-1524330685423-3e1966445abe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyZm9ybWFuY2V8ZW58MHwxfDB8fHww" alt="">
+                                                    <img src="/${filePath}" alt="${fileName}">
                                                 </a>
                                             </div>
                                         <div class="product-content">
@@ -713,31 +1714,29 @@
 
                         pageArea.children().remove();
 
-                        let pageEle = `<a href="/user/contents/contentsInfoList?tabValue=${tabValue}&">[맨처음으로]</a>`;
+                        let pageEle = `<a>[맨처음으로]</a>`;
 
                         if(currentPage > 1) {
-                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage - 1}&tabValue=${tabValue}"">[이전]</a>`;
+                            pageEle += `<a>[이전]</a>`;
                         } else {
                             pageEle += `<span>[이전]</span>`;
                         }
 
                         for(let i = startPageNum; i <= endPageNum; i += 1) {
                             if(i !== currentPage) {
-                                pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${i}&tabValue=${tabValue}">[${i}]</a>`;
+                                pageEle += `<a>[${i}]</a>`;
                             } else {
                                 pageEle += `<span>[${i}]</span>`;
                             }
                         }
 
                         if(currentPage < lastPage) {
-                            pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${currentPage + 1}&tabValue=${tabValue}">[다음]</a>`;
+                            pageEle += `<a>[다음]</a>`;
                         } else {
                             pageEle += `<span>[다음]</span>`;
                         }
 
-                        pageEle += `<a href="/user/contents/contentsInfoList?currentPage=${lastPage}&tabValue=${tabValue}">[맨마지막]</a>`
-
-                        console.log(tabValue);
+                        pageEle += `<a>[맨마지막]</a>`
 
                         pageArea.append(pageEle);
                     });
@@ -747,6 +1746,7 @@
                     });
                 })
             })
+            /*]]>*/
         });
     </script>
 </th:block>

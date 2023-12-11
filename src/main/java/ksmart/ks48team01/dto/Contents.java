@@ -20,6 +20,7 @@ public class Contents {
     private int amountContentRemaining = -10000;
     private String contentsDetail;
     private Store storeInfo;
+    private ContentsFile contentsFile;
 
     public String getContentsId() {
         return contentsId;
@@ -165,9 +166,17 @@ public class Contents {
         this.storeInfo = storeInfo;
     }
 
+    public ContentsFile getContentsFile() {
+        return contentsFile;
+    }
+
+    public void setContentsFile(ContentsFile contentsFile) {
+        this.contentsFile = contentsFile;
+    }
+
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Contents{");
+        final StringBuilder sb = new StringBuilder("Contents{");
         sb.append("contentsId='").append(contentsId).append('\'');
         sb.append(", contentsCategoryCode='").append(contentsCategoryCode).append('\'');
         sb.append(", regionCode=").append(regionCode);
@@ -186,6 +195,7 @@ public class Contents {
         sb.append(", amountContentRemaining=").append(amountContentRemaining);
         sb.append(", contentsDetail='").append(contentsDetail).append('\'');
         sb.append(", storeInfo=").append(storeInfo);
+        sb.append(", contentsFile=").append(contentsFile);
         sb.append('}');
         return sb.toString();
     }

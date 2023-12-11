@@ -9,7 +9,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Value("/home/springboot")
+    @Value("${files.path}")
     private String filePath;
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
