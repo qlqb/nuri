@@ -56,6 +56,8 @@ public class FileUtil {
                         originalFileExtension = ".png";
                     } else if(contentType.contains("image/gif")) {
                         originalFileExtension = ".gif";
+                    } else if(contentType.contains("webp")) {
+                        originalFileExtension = ".webp";
                     }
                     directory = "images" + File.separator;
                 } else {

@@ -248,6 +248,8 @@ public class ContentsController {
 		int endPageNum = (int) resultMap.get("endPageNum");
 		int contentsCnt = ((Double) resultMap.get("contentsCnt")).intValue();
 
+		log.info("filePath: {}", contentsInfoList.get(0).get("filePath"));
+
 		model.addAttribute("title", "컨텐츠 조회");
 		model.addAttribute("storeCategory", storeCategory);
 		model.addAttribute("contentsCategory", contentsCategory);
