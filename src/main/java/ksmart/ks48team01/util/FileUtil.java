@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class FileUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(ContentsController.class);
+    private static final Logger log = LoggerFactory.getLogger(FileUtil.class);
 
     @Value("/home/springboot/")
     private String fileRealPath;
