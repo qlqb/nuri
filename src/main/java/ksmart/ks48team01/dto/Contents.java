@@ -12,7 +12,8 @@ public class Contents {
     private String contentsDuration = "0";
     private String contentsPg = "0";
     private int contentsPrice;
-    private String contentsReleaseDT = "1000-01-01T00:00:00";
+//    private String contentsReleaseDT = "1000-01-01T00:00:00";
+    private String contentsReleaseTime = "00:00:00";
     private String contentsRegDate;
     private String contentsSellStartDate = "1000-01-01";
     private String contentsSellEndDate = "9999-12-31";
@@ -102,12 +103,12 @@ public class Contents {
         this.contentsPrice = contentsPrice;
     }
 
-    public String getContentsReleaseDT() {
-        return contentsReleaseDT;
+    public String getContentsReleaseTime() {
+        return contentsReleaseTime;
     }
 
-    public void setContentsReleaseDT(String contentsReleaseDT) {
-        this.contentsReleaseDT = contentsReleaseDT;
+    public void setContentsReleaseTime(String contentsReleaseTime) {
+        this.contentsReleaseTime = contentsReleaseTime;
     }
 
     public String getContentsRegDate() {
@@ -187,7 +188,7 @@ public class Contents {
         sb.append(", contentsDuration='").append(contentsDuration).append('\'');
         sb.append(", contentsPg='").append(contentsPg).append('\'');
         sb.append(", contentsPrice=").append(contentsPrice);
-        sb.append(", contentsReleaseDT='").append(contentsReleaseDT).append('\'');
+        sb.append(", contentsReleaseTime='").append(contentsReleaseTime).append('\'');
         sb.append(", contentsRegDate='").append(contentsRegDate).append('\'');
         sb.append(", contentsSellStartDate='").append(contentsSellStartDate).append('\'');
         sb.append(", contentsSellEndDate='").append(contentsSellEndDate).append('\'');

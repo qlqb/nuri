@@ -21,7 +21,7 @@ public interface ContentsMapper {
 
     public List<StoreCategory> getStoreCategory();
 
-    public List<ContentsCategory> getContentsCategory();
+    public List<ContentsCategory> getContentsCategory(String tabValue);
 
     /**
      * tabValue가 "all"이면 모든 컨텐츠의 정보가 반환

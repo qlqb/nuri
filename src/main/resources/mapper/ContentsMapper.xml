@@ -15,7 +15,7 @@
         <result property="contentsDuration" column="CONTENTS_DURATION"/>
         <result property="contentsPg" column="CONTENTS_PG"/>
         <result property="contentsPrice" column="CONTENTS_PRICE"/>
-        <result property="contentsReleaseDT" column="CONTENTS_RELEASE_DT"/>
+        <result property="contentsReleaseTime" column="CONTENTS_RELEASE_TIME"/>
         <result property="contentsRegDate" column="CONTENTS_REG_DATE"/>
         <result property="contentsSellStartDate" column="CONTENTS_SELL_START_DATE"/>
         <result property="contentsSellEndDate" column="CONTENTS_SELL_END_DATE"/>
@@ -204,7 +204,7 @@
             STORE_CATEGORY AS sc;
     </select>
 
-    <select id="getContentsCategory" resultType="ContentsCategory">
+    <select id="getContentsCategory" resultType="ContentsCategory" parameterType="String">
         SELECT
             cc.CONTENTS_CAT_NAME AS contentsCategoryName,
             cc.CONTENTS_CAT_CODE AS contentsCategoryCode,
@@ -212,7 +212,7 @@
         FROM
             CONTENT_CATEGORY AS cc
         WHERE
-            cc.STORE_CATEGORY_CODE='A01' AND
+            cc.STORE_CATEGORY_CODE = #{tabValue} AND
             NOT cc.CONTENTS_CAT_NAME='공연';
     </select>
 
@@ -246,13 +246,13 @@
                 c.CONTENTS_ID LIKE CONCAT('CNT', DATE_FORMAT(CURDATE(), '%Y%m%d'), '%');
         </selectKey>
         INSERT INTO CONTENTS(CONTENTS_ID, CONTENTS_CAT_CODE, REGION_CODE, STORE_ID, CONTENTS_CAT_NAME,
-        CONTENTS_NAME, CONTENT_ADDRESS, CONTENTS_DURATION, CONTENTS_PG, CONTENTS_PRICE, CONTENTS_RELEASE_DT,
+        CONTENTS_NAME, CONTENT_ADDRESS, CONTENTS_DURATION, CONTENTS_PG, CONTENTS_PRICE, CONTENTS_RELEASE_TIME,
         CONTENTS_REG_DATE, CONTENTS_SELL_START_DATE, CONTENTS_SELL_END_DATE,
         AMOUNT_CONTENT_REGISTERED, AMOUNT_CONTENT_REMAINING, CONTENTS_DETAIL)
 
         VALUES(#{contentsId}, #{contentsCategoryCode}, #{regionCode}, #{storeId}, #{contentsCategoryName},
         #{contentsName}, #{contentsAddress}, #{contentsDuration}, #{contentsPg}, #{contentsPrice},
-        #{contentsReleaseDT}, CURDATE(), #{contentsSellStartDate},
+        #{contentsReleaseTime}, CURDATE(), #{contentsSellStartDate},
         #{contentsSellEndDate}, #{amountContentRegistered}, #{amountContentRemaining},
         #{contentsDetail})
     </insert>
@@ -262,8 +262,9 @@
         SELECT
             c.CONTENTS_ID AS contentsId,
             c.CONTENTS_NAME AS contentsName,
-            c.CONTENTS_RELEASE_DT AS contentsReleaseDT,
-            IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_SELL_END_DATE), 0) AS contentsSellDuration,
+            IFNULL(c.CONTENTS_RELEASE_TIME, "0") AS contentsReleaseTime,
+            c.CONTENTS_CAT_CODE AS contentsCategoryCode,
+            IF(c.CONTENTS_SELL_END_DATE != '9999-12-31', CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_SELL_END_DATE), CONCAT(c.CONTENTS_SELL_START_DATE, '~')) AS contentsSellDuration,
             c.CONTENTS_SELL_START_DATE AS contentsSellStartDate,
             c.CONTENTS_SELL_END_DATE AS contentsSellEndDate,
             c.CONTENT_ADDRESS AS contentsAddress,
@@ -316,7 +317,7 @@
             c.CONTENTS_DURATION,
             c.CONTENTS_PG,
             c.CONTENTS_PRICE,
-            c.CONTENTS_RELEASE_DT,
+            c.CONTENTS_RELEASE_TIME,
             c.CONTENTS_REG_DATE,
             c.CONTENTS_SELL_START_DATE,
             c.CONTENTS_SELL_END_DATE,
@@ -393,14 +394,15 @@
             c.CONTENTS_DURATION,
             c.CONTENTS_PG,
             c.CONTENTS_PRICE,
-            c.CONTENTS_RELEASE_DT,
+            IFNULL(c.CONTENTS_RELEASE_TIME, "0") AS CONTENTS_RELEASE_TIME,
             c.CONTENTS_REG_DATE,
             c.CONTENTS_SELL_START_DATE,
             c.CONTENTS_SELL_END_DATE,
             c.AMOUNT_CONTENT_REGISTERED,
             c.AMOUNT_CONTENT_REMAINING,
             c.CONTENTS_DETAIL,
-            si.STORE_CATEGORY_NAME
+            si.STORE_CATEGORY_NAME,
+            si.STORE_NAME
         FROM
             CONTENTS AS c
             INNER JOIN
@@ -436,8 +438,8 @@
             <if test="contentsPrice != null and contentsPrice != ''">
                 CONTENTS_PRICE = #{contentsPrice},
             </if>
-            <if test="contentsReleaseDT != null and contentsReleaseDT != ''">
-                CONTENTS_RELEASE_DT = #{contentsReleaseDT},
+            <if test="contentsReleaseTime != null and contentsReleaseTime != ''">
+                CONTENTS_RELEASE_TIME = #{contentsReleaseTime},
             </if>
             <if test="contentsRegDate != null and contentsRegDate != ''">
                 CONTENTS_REG_DATE = CURDATE(),

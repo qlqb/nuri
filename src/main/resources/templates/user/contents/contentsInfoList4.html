@@ -12,7 +12,7 @@
             cursor: pointer;
         }
 
-        .search-form > div > div input {
+        body > section.category-area.pb-110 > div > div > div.search-result > div.section-inner > div.area-util > form > div > div input {
             margin: 0;
         }
 
@@ -85,6 +85,10 @@
             height: 682.594px;
         }
 
+        .category-top {
+            display: none;
+        }
+
         .left-wrapper {
             margin-top: 80px;
         }
@@ -97,20 +101,41 @@
             font-size: 12px;
         }
 
+        .right-wrapper form button {
+            position: absolute;
+            right: 39px;
+            top: 133px;
+            border: none;
+            background: none;
+        }
+
+        .right-wrapper form input {
+            border: 1px solid rgba(124, 134, 154, 0.25);
+            border-radius: 30px;
+            margin-bottom: 0;
+            padding: 14px 30px;
+        }
+
         .area-input {
             display: flex;
         }
 
         .area-util .list-search .form-box {
             margin-right: 9px;
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
             display: -ms-flexbox;
             display: flex;
+            /* margin-right: 12px; */
         }
 
         .area-util .list-search {
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
             display: -ms-flexbox;
             display: flex;
             margin-top: 15px;
+            /* -webkit-flex-wrap: wrap; */
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
         }
@@ -125,24 +150,36 @@
 
         .area-util .align-box {
             margin-right: 10px;
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
             display: -ms-flexbox;
             display: flex;
+            /* -webkit-box-align: center; */
+            /* -webkit-align-items: center; */
             -ms-flex-align: center;
             align-items: center;
+            /* -webkit-flex-wrap: wrap; */
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
         }
 
         .area-util {
+            /* display: -webkit-box; */
+            /* display: -webkit-flex; */
             display: -ms-flexbox;
             display: flex;
+            /* -webkit-box-align: end; */
+            /* -webkit-align-items: flex-end; */
             -ms-flex-align: end;
             align-items: flex-end;
+            /* -webkit-box-pack: justify; */
+            /* -webkit-justify-content: space-between; */
             -ms-flex-pack: justify;
             justify-content: space-between;
             padding-bottom: 16px;
             margin-top: 17px;
             border-bottom: 1px solid #ddd;
+            /* -webkit-flex-wrap: wrap; */
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
         }
@@ -192,6 +229,14 @@
 
         .search-result {
             margin-top: 52px;
+        }
+
+        .category-area .category-top .right-wrapper form {
+            max-width: 620px;
+        }
+
+        .category-area .category-top .right-wrapper {
+            justify-content: center;
         }
 
         .title-h1 .txt {
@@ -315,6 +360,18 @@
                     </div>
                 </div>
                 <!-- category top -->
+                <div class="category-top">
+                    <div class="row align-items-center">
+                        <div class="right-wrapper">
+                            <form action="#">
+                                <div class="area-input">
+                                    <!--                                    <input type="text" name="search" id="search" placeholder="검색어를 입력해주세요">-->
+                                    <button><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="search-result">
                     <div class="section-inner">
                         <div class="cards-wrapper pb-25 mb-15">
@@ -329,7 +386,7 @@
                                     총 <strong class="total" th:text="${contentsCnt}"></strong>건
                                 </div>
                             </div>
-                            <div class="search-form">
+                            <form th:action="@{/user/contents/contentsInfoList}" method="get" style="all:unset">
                                 <div class="list-search">
                                     <div class="form-box">
                                         <select class="px-3 py-2 border rounded w-100" name="area">
@@ -477,7 +534,7 @@
                 utilAreaEle += `<div class="align-box"><div class="txt-total">총 <strong class="total"">${contentsCnt}</strong>건
                                         </div>
                                     </div>
-                                    <div class="search-form">
+                                    <form action="/user/contents/contentsInfoList" method="get" style="all:unset">
                                         <div class="list-search">`;
 
                 if(tabValue !== 'all') {
@@ -539,7 +596,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>`;
+                        </form>`;
 
                 utilArea.append(utilAreaEle);
             }

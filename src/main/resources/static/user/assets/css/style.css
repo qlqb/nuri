@@ -1761,7 +1761,7 @@ textarea:focus {
 hero area css
 ============================= */
 .hero-area {
-  background-image: url("../images/hero/hero-bg.jpg");
+  background-image: url("../images/banner/DALL·E 2024-01-13 19.18.12 - A photo-realistic website banner focused solely on the stage of a modern Korean music concert. The image should capture the musicians in action with a.png");
   position: relative;
   z-index: 1;
 }
@@ -2993,7 +2993,7 @@ video css
   position: relative;
   z-index: 1;
   padding: 200px 0 130px;
-  background-image: url("../images/banner/banner-bg.jpg");
+  background-image: url("../images/banner/DALL·E 2024-01-13 19.18.12 - A photo-realistic website banner focused solely on the stage of a modern Korean music concert. The image should capture the musicians in action with a.png");
   overflow: hidden;
   clip-path: polygon(0 0, 100% 0, 100% 73%, 0% 100%);
 }

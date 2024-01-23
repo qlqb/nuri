@@ -41,7 +41,9 @@ public class ContentsTabController {
 
         List<StoreCategory> storeCategory = contentsService.getStoreCategory();
 
-        List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
+        List<ContentsCategory> contentsCategory = contentsService.getContentsCategory(tabValue);
+
+        log.info("tabValue: {}", tabValue);
 
         Map<String, Object> resultMap = contentsService.getContentsInfoListByTabValueAndSearch(currentPage, tabValue, performanceGenre, area, startDate, endDate, searchValue);
 

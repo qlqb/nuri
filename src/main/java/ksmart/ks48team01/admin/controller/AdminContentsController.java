@@ -69,8 +69,6 @@ public class AdminContentsController {
 		List<Contents> contentsList = contentsService.getAdminContentsList();
 		List<StoreCategory> storeCategoryList = contentsService.getStoreCategory();
 
-		
-
 		model.addAttribute("storeCategoryList", storeCategoryList);
 		model.addAttribute("title", "컨텐츠 목록");
 		model.addAttribute("contentsList", contentsList);

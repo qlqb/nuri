@@ -42,7 +42,7 @@ public class MainController {
 
 			List<StoreCategory> storeCategory = contentsService.getStoreCategory();
 
-			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
+			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory(tabValue);
 
 			Map<String, Object> resultMap = null;
 

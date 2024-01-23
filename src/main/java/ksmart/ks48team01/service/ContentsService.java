@@ -36,32 +36,7 @@ public class ContentsService {
         // 보여줄 행의 시작점
         int startContentsNum = (currentPage - 1) * contentsPerPage;
 
-        switch(tabValue) {
-            case "공연" :
-                tabValue = "A01";
-                break;
-            case "전시" :
-                tabValue = "A02";
-                break;
-            case "영화" :
-                tabValue = "A03";
-                break;
-            case "도서" :
-                tabValue = "A04";
-                break;
-            case "관광" :
-                tabValue = "B01";
-                break;
-            case "체육" :
-                tabValue = "C01";
-                break;
-            case "디지털 컨텐츠" :
-                tabValue = "D01";
-                break;
-            default:
-                tabValue = "all";
-                break;
-        }
+        tabValue = convertTabValue(tabValue);
 
         // 각 탭의 컨텐츠 개수
         double contentsCnt = contentsMapper.getContentsByTabCnt(tabValue);
@@ -143,9 +118,14 @@ public class ContentsService {
         return contentsMapper.getStoreCategory();
     }
 
-    public List<ContentsCategory> getContentsCategory() {
-        List<ContentsCategory> contentsCategoryList = contentsMapper.getContentsCategory();
-
+    /**
+     * 컨텐츠 화면에서 검색창에 각 탭마다 다른 카테고리를 가져옴
+     * @param tabValue
+     * @return
+     */
+    public List<ContentsCategory> getContentsCategory(String tabValue) {
+        tabValue = convertTabValue(tabValue);
+        List<ContentsCategory> contentsCategoryList = contentsMapper.getContentsCategory(tabValue);
         return contentsCategoryList;
     }
 
@@ -157,32 +137,7 @@ public class ContentsService {
         // 보여줄 행의 시작점
         int startContentsNum = (currentPage - 1) * contentsPerPage;
 
-        switch(tabValue) {
-            case "공연" :
-                tabValue = "A01";
-                break;
-            case "전시" :
-                tabValue = "A02";
-                break;
-            case "영화" :
-                tabValue = "A03";
-                break;
-            case "도서" :
-                tabValue = "A04";
-                break;
-            case "관광" :
-                tabValue = "B01";
-                break;
-            case "체육" :
-                tabValue = "C01";
-                break;
-            case "디지털 컨텐츠" :
-                tabValue = "D01";
-                break;
-            default:
-                tabValue = "all";
-                break;
-        }
+        tabValue = convertTabValue(tabValue);
 
         // 각 탭의 컨텐츠 개수
         double contentsCnt = contentsMapper.getContentsByTabCnt(tabValue);
@@ -238,7 +193,7 @@ public class ContentsService {
             }
 
             /**
-             * 컨텐츠 연령 제한 값 파싱 작업
+             * 컨텐츠 연령 제한 값 변환
              */
             if(!contentsPg.equals("0")) {
                 contentsInfo.replace("contentsPg", contentsPg + "세 이상");
@@ -247,7 +202,7 @@ public class ContentsService {
             }
 
             /**
-             * 컨텐츠 가격값 파싱 작업
+             * 컨텐츠 가격값 변환
              */
             if(contentsPrice.equals("0원")) {
                 contentsInfo.replace("contentsPrice", "무료");
@@ -271,32 +226,7 @@ public class ContentsService {
         // 보여줄 행의 시작점
         int startContentsNum = (currentPage - 1) * contentsPerPage;
 
-        switch(tabValue) {
-            case "공연" :
-                tabValue = "A01";
-                break;
-            case "전시" :
-                tabValue = "A02";
-                break;
-            case "영화" :
-                tabValue = "A03";
-                break;
-            case "도서" :
-                tabValue = "A04";
-                break;
-            case "관광" :
-                tabValue = "B01";
-                break;
-            case "체육" :
-                tabValue = "C01";
-                break;
-            case "디지털 컨텐츠" :
-                tabValue = "D01";
-                break;
-            default:
-                tabValue = "all";
-                break;
-        }
+        tabValue = convertTabValue(tabValue);
 
         // 각 탭의 컨텐츠 개수
         // 바꿔야됨
@@ -381,6 +311,11 @@ public class ContentsService {
     }
 
     public int getContentsByTabCnt(String tabValue) {
+        tabValue = convertTabValue(tabValue);
+        return contentsMapper.getContentsByTabCnt(tabValue);
+    }
+
+    public String convertTabValue(String tabValue) {
         switch(tabValue) {
             case "공연" :
                 tabValue = "A01";
@@ -407,7 +342,7 @@ public class ContentsService {
                 tabValue = "all";
                 break;
         }
-        return contentsMapper.getContentsByTabCnt(tabValue);
+        return tabValue;
     }
 
     /**
@@ -481,8 +416,9 @@ public class ContentsService {
         if(contents.getContentsPg().isEmpty()) {
             contents.setContentsPg("0");
         }
-        if(contents.getContentsReleaseDT().isEmpty()) {
-            contents.setContentsReleaseDT("1000-01-01 00:00:00");
+        if(contents.getContentsReleaseTime().isEmpty()) {
+//            contents.setContentsReleaseDT("1000-01-01 00:00:00");
+            contents.setContentsReleaseTime("00:00:00");
         }
         contentsMapper.addContents(contents);
     }
@@ -502,20 +438,25 @@ public class ContentsService {
     public Map<String, Object> getContentsDetailInfo(String contentsId) {
         Map<String, Object> contentsDetailInfo = contentsMapper.getContentsDetailInfo(contentsId);
         String contentsPg = (String) contentsDetailInfo.get("contentsPg");
-        String contentsReleaseDT = contentsDetailInfo.get("contentsReleaseDT").toString();
-
-        contentsReleaseDT = contentsReleaseDT.replace("T", " ");
-
-        contentsDetailInfo.replace("contentsReleaseDT", contentsReleaseDT);
-
-
         int contentsPrice = Integer.parseInt(contentsDetailInfo.get("contentsPrice").toString());
         String strContentsPrice = contentsPrice + "원";
+        String contentsAddress = contentsDetailInfo.get("contentsAddress").toString();
+
+        String contentsReleaseTime = contentsDetailInfo.get("contentsReleaseTime").toString();
+        if(!contentsReleaseTime.equals("0")) {
+            contentsReleaseTime = contentsReleaseTime.substring(0, contentsReleaseTime.length()-3);
+        }
+        contentsDetailInfo.replace("contentsReleaseTime", contentsReleaseTime);
+
         contentsDetailInfo.put("strContentsPrice", strContentsPrice);
         if(strContentsPrice.equals("0원")) {
             contentsDetailInfo.replace("strContentsPrice", "무료");
         }
-        contentsDetailInfo.replace("contentsPg", "만 " + contentsPg + "세 이상 관람가");
+        if(contentsPg.equals("0")) {
+            contentsDetailInfo.replace("contentsPg", "전체이용가");
+        } else {
+            contentsDetailInfo.replace("contentsPg", "만 " + contentsPg + "세 이상 관람가");
+        }
 
         return contentsDetailInfo;
     }
@@ -554,15 +495,15 @@ public class ContentsService {
 
     public void modifyContents(Contents contents) {
         String contentsPg = contents.getContentsPg();
-        String contentsReleaseDt = contents.getContentsReleaseDT();
+        String contentsReleaseTime = contents.getContentsReleaseTime();
         if(contentsPg.isEmpty()) {
             contents.setContentsPg("0");
         }
         // html datetime local의 문자열 T를 제거함
-        LocalDateTime dateTime = LocalDateTime.parse(contentsReleaseDt);
+        LocalDateTime dateTime = LocalDateTime.parse(contentsReleaseTime);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formatterDateTime = dateTime.format(formatter);
-        contents.setContentsReleaseDT(formatterDateTime);
+        contents.setContentsReleaseTime(formatterDateTime);
 
         log.info("remain: {}", contents.getAmountContentRemaining());
         contentsMapper.modifyContents(contents);

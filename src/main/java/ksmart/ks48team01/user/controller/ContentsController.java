@@ -4,7 +4,6 @@ import com.sun.source.tree.MemberSelectTree;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import ksmart.ks48team01.dto.*;
-import ksmart.ks48team01.service.AreaService;
 import ksmart.ks48team01.service.ContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -237,7 +236,7 @@ public class ContentsController {
 
 		List<StoreCategory> storeCategory = contentsService.getStoreCategory();
 
-		List<ContentsCategory> contentsCategory = contentsService.getContentsCategory();
+		List<ContentsCategory> contentsCategory = contentsService.getContentsCategory(tabValue);
 
 		Map<String, Object> resultMap = contentsService.getContentsInfoListByTabValueAndSearch(currentPage, tabValue, performanceGenre, area, startDate, endDate, searchValue);
 
