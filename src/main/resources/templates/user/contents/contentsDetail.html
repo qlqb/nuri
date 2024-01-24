@@ -319,7 +319,7 @@
                     <dt>일시</dt>
                     <dd th:text=" *{contentsReleaseTime}"></dd>
                   </dl>
-                  <dl class="col-lg-5 col-xl-5">
+                  <dl th:if="*{contentsAddress != 'alreadyInputOnJoin'}" class="col-lg-5 col-xl-5">
                     <dt>장소</dt>
                     <dd th:text="*{contentsAddress}"></dd>
                   </dl>
@@ -363,14 +363,16 @@
                   </li>
                 </ul>
 
-                <span style="float: right; padding: 10px 0; margin-right: 9px" class="align-content-center">
-                  <select th:if="*{contentsReleaseTime != '00:00'}" id="contentsReleaseTime" name="contentsReleaseTime">
-                    <option th:value="*{contentsReleaseTime}" th:text="*{contentsReleaseTime}"></option>
-                  </select>
-                </span>
-                <span th:if="*{contentsReleaseTime != '00:00'}" style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
-                  일시
-                </span>
+                <th:block th:unless="*{#strings.contains(contentsCategoryCode, 'A04') || #strings.contains(contentsCategoryCode, 'D0101')}">
+                  <span style="float: right; padding: 10px 0; margin-right: 9px" class="align-content-center">
+                    <select th:if="*{contentsReleaseTime != '00:00'}" id="contentsReleaseTime" name="contentsReleaseTime">
+                      <option th:value="*{contentsReleaseTime}" th:text="*{contentsReleaseTime}"></option>
+                    </select>
+                  </span>
+                  <span th:if="*{contentsReleaseTime != '00:00'}" style="float: right;padding: 10px 0; margin-right: 9px" class="align-content-center">
+                    일시
+                  </span>
+                </th:block>
 
                 <span style="float: right; margin-right: 9px; margin-top: 8px; border: 1px solid black;">
                   <input type="number" name="paymentQuantity" id="paymentQuantity" style="all: unset; width: 50px"/>

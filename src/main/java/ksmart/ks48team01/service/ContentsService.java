@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -423,8 +424,8 @@ public class ContentsService {
         contentsMapper.addContents(contents);
     }
 
-    public void fileUpload(MultipartFile contentsFile, String contentsId, String userId) {
-        ContentsFile file = fileUtil.parseFileInfo(contentsFile);
+    public void fileUpload(MultipartFile contentsFile, String contentsId, String userId, Contents contents) {
+        ContentsFile file = (ContentsFile) fileUtil.parseFileInfo(contentsFile, contents).get("contentsFile");
 
         log.info("file: {}", file);
 
@@ -433,6 +434,13 @@ public class ContentsService {
 
         // 파일리스트 db저장
         if(file != null) contentsMapper.addFile(file);
+    }
+
+    public void fileModify(MultipartFile contentsFile, Contents contents) {
+        Map<String, Object> fileMap = fileUtil.parseFileInfo(contentsFile, contents);
+        ContentsFile file = (ContentsFile) fileMap.get("contentsFile");
+        boolean isNew = (boolean) fileMap.get("isNew");
+        if(isNew) contentsMapper.addFile(file);
     }
 
     public Map<String, Object> getContentsDetailInfo(String contentsId) {
@@ -493,9 +501,10 @@ public class ContentsService {
         return contentsMapper.getContentsCategoryOnReg(storeCategoryCode);
     }
 
-    public void modifyContents(Contents contents) {
+    public void modifyContents(Contents contents, MultipartFile contentsFile) {
         String contentsPg = contents.getContentsPg();
         String contentsReleaseTime = contents.getContentsReleaseTime();
+
         if(contentsPg.isEmpty()) {
             contents.setContentsPg("0");
         }

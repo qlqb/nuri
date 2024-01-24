@@ -305,6 +305,7 @@
     </select>
 
     <select id="getContentsInfoByContentsId" resultMap="contentsResultMap" parameterType="String">
+        /* 컨텐츠 업데이트 시 컨텐츠의 기존 정보를 요청함 */
         SELECT
             c.CONTENTS_ID,
             c.CONTENTS_CAT_CODE,

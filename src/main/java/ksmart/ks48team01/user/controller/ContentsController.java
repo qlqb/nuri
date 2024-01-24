@@ -62,7 +62,17 @@ public class ContentsController {
 
 		contentsService.addContents(contents, sido);
 		String contentsId = contentsService.getContentsIdForFileAdd(contents.getStoreId());
-		contentsService.fileUpload(contentsFile, contentsId, userId);
+		contentsService.fileUpload(contentsFile, contentsId, userId, contents);
+
+		return "redirect:/user/mypage/myContentsList";
+	}
+
+	@PostMapping("/contentsInfoUpdate")
+	public String modifyContents(Contents contents,
+								 @RequestParam(name="sido", required = false, defaultValue = "alreadyInputOnJoin") String sido,
+								 @RequestParam MultipartFile contentsFile) {
+		contentsService.modifyContents(contents, contentsFile);
+		contentsService.fileModify(contentsFile, contents);
 
 		return "redirect:/user/mypage/myContentsList";
 	}
@@ -80,13 +90,6 @@ public class ContentsController {
 		model.addAttribute("contentsInfo", contentsInfo);
 
 		return "user/contents/contentsForm/bookInfoUpdate";
-	}
-	@PostMapping("/contentsInfoUpdate")
-	public String modifyContents(Contents contents) {
-
-		contentsService.modifyContents(contents);
-
-		return "redirect:/user/mypage/myContentsList";
 	}
 
 	@GetMapping("/performRegist")
@@ -278,8 +281,10 @@ public class ContentsController {
 	}
 
 	@PostMapping("/form")
-	public String addFile(@RequestParam MultipartFile contentsFile) {
-		contentsService.fileUpload(contentsFile, "CNT202311220001", "id034");
+	public String addFile(@RequestParam MultipartFile contentsFile, Contents contents) {
+		contentsService.fileUpload(contentsFile, "CNT202311220001", "id034", contents);
 		return "redirect:/user/contents/form";
 	}
+
+
 }

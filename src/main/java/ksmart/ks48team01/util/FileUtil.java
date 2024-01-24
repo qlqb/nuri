@@ -1,7 +1,9 @@
 package ksmart.ks48team01.util;
 
+import ksmart.ks48team01.dto.Contents;
 import ksmart.ks48team01.dto.ContentsFile;
 import ksmart.ks48team01.user.controller.ContentsController;
+import ognl.BooleanExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +20,9 @@ import java.sql.SQLOutput;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class FileUtil {
@@ -28,8 +32,24 @@ public class FileUtil {
     @Value("/home/springboot/")
     private String fileRealPath;
 
-    public ContentsFile parseFileInfo(MultipartFile uploadFile) {
+    public Map<String, Object> parseFileInfo(MultipartFile uploadFile, Contents contents) {
         log.info("uploadFile: {}", uploadFile);
+
+        boolean isNew = false;
+
+        if(uploadFile.getOriginalFilename().equals("")) {
+            //새 파일이 없을 때
+            contents.getContentsFile().setFileName(contents.getContentsFile().getFileName());
+            contents.getContentsFile().setFilePath(contents.getContentsFile().getFilePath());
+        } else if (uploadFile.getOriginalFilename() != null) {
+            //새 파일이 있을 때
+            isNew = true;
+            File f = new File(contents.getContentsFile().getFilePath());
+            if (f.exists()) {
+                f.delete();
+            }
+        }
+
         // 파일이 존재하지 않은 경우
         if(ObjectUtils.isEmpty(uploadFile)) {
 
@@ -127,6 +147,10 @@ public class FileUtil {
             }
         }
 
-        return contentsFile;
+        Map<String, Object> isNewFileMap = new HashMap<>();
+        isNewFileMap.put("isNew", isNew);
+        isNewFileMap.put("contentsFile", contentsFile);
+
+        return isNewFileMap;
     }
 }

@@ -26,43 +26,43 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <form id="demo-form2" data-parsley-validate="" style="text-align: center;" class="form-horizontal form-label-left">
-            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
-              <label for="contentsName" style="width: 80px; margin-top: 9px;"> 컨텐츠명 </label>
-              <input type="text" id="contentsName" name="contentsName" class="form-control" style="width: 300px;">
-            </div>
+<!--          <form id="demo-form2" data-parsley-validate="" style="text-align: center;" class="form-horizontal form-label-left">-->
+<!--            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">-->
+<!--              <label for="contentsName" style="width: 80px; margin-top: 9px;"> 컨텐츠명 </label>-->
+<!--              <input type="text" id="contentsName" name="contentsName" class="form-control" style="width: 300px;">-->
+<!--            </div>-->
 
-            <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; display: flex;  justify-content: center; gap: 10px">
-              <label for="storeCategory" style="width: 80px; margin-top: 9px;"> 컨텐츠 장르 </label>
-              <select id="storeCategory" name="storeCategory" class="form-control" style="width: 300px;">
-                <option value="">=== 장르를 선택하세요 ===</option>
-                <option th:each="sc: ${storeCategoryList}" th:text="${sc.storeCategoryName}" th:value="${sc.storeCategoryCode}"></option>
-              </select>
-            </div>
+<!--            <div class="data-area col-md-6 col-sm-6 col-xs-12" style=" width: 100%; display: flex;  justify-content: center; gap: 10px">-->
+<!--              <label for="storeCategory" style="width: 80px; margin-top: 9px;"> 컨텐츠 장르 </label>-->
+<!--              <select id="storeCategory" name="storeCategory" class="form-control" style="width: 300px;">-->
+<!--                <option value="">=== 장르를 선택하세요 ===</option>-->
+<!--                <option th:each="sc: ${storeCategoryList}" th:text="${sc.storeCategoryName}" th:value="${sc.storeCategoryCode}"></option>-->
+<!--              </select>-->
+<!--            </div>-->
 
-            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
-              <label for="storeName" style="width: 80px; margin-top: 9px;"> 가맹점명 </label>
-              <input type="text" id="storeName" name="storeName" class="form-control" style="width: 300px;">
-            </div>
+<!--            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">-->
+<!--              <label for="storeName" style="width: 80px; margin-top: 9px;"> 가맹점명 </label>-->
+<!--              <input type="text" id="storeName" name="storeName" class="form-control" style="width: 300px;">-->
+<!--            </div>-->
 
-            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
-              <label for="contentsPg" style="width: 80px; margin-top: 9px;"> 연령제한 </label>
-              <input type="number" id="contentsPg" name="contentsPg" class="form-control" style="width: 300px;">
-            </div>
+<!--            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">-->
+<!--              <label for="contentsPg" style="width: 80px; margin-top: 9px;"> 연령제한 </label>-->
+<!--              <input type="number" id="contentsPg" name="contentsPg" class="form-control" style="width: 300px;">-->
+<!--            </div>-->
 
-            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
-              <label for="startDate" style="width: 80px; margin-top: 9px;"> 검색기간 </label>
-              <input type="date" id="startDate" name="startDate" class="form-control" style="width: 140px;">
-              <label for="endDate" style="margin-top: 9px;"> ~ </label>
-              <input type="date" id="endDate" name="endDate" class="form-control" style="width: 140px;">
-            </div>
-            <div class="form-group">
-              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="button" class="btn btn-primary">초기화</button>
-                <button type="submit" class="btn btn-success">검색</button>
-              </div>
-            </div>
-          </form>
+<!--            <div class="data-area col-md-6 col-sm-6 col-xs-12" style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; margin-top: 30px;">-->
+<!--              <label for="startDate" style="width: 80px; margin-top: 9px;"> 검색기간 </label>-->
+<!--              <input type="date" id="startDate" name="startDate" class="form-control" style="width: 140px;">-->
+<!--              <label for="endDate" style="margin-top: 9px;"> ~ </label>-->
+<!--              <input type="date" id="endDate" name="endDate" class="form-control" style="width: 140px;">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">-->
+<!--                <button type="button" class="btn btn-primary">초기화</button>-->
+<!--                <button type="submit" class="btn btn-success">검색</button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </form>-->
         </div>
       </div>
     </div>
