@@ -48,7 +48,7 @@ public class MyPageController {
 		model.addAttribute("title", "마이페이지");
 		model.addAttribute("head", mypage);
 
-		return "/user/mypage/mypageMain";
+		return "user/mypage/mypageMain";
 	}	
 	
 	@GetMapping("/myInfo")
