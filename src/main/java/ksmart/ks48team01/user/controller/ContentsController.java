@@ -57,12 +57,12 @@ public class ContentsController {
 	@PostMapping("/contentsInfoRegist")
 	public String contentsInfoRegist(Contents contents,
 							  @RequestParam(name="sido", required = false, defaultValue = "alreadyInputOnJoin") String sido,
-							  @RequestParam MultipartFile contentsFile, HttpServletRequest request,
+							  @RequestParam MultipartFile contentsFile,
 							  @RequestParam(name="userId") String userId) {
 
 		contentsService.addContents(contents, sido);
 		String contentsId = contentsService.getContentsIdForFileAdd(contents.getStoreId());
-		contentsService.fileUpload(contentsFile, contentsId, userId, contents);
+		contentsService.fileUpload(contentsFile, contentsId, userId);
 
 		return "redirect:/user/mypage/myContentsList";
 	}
@@ -70,9 +70,15 @@ public class ContentsController {
 	@PostMapping("/contentsInfoUpdate")
 	public String modifyContents(Contents contents,
 								 @RequestParam(name="sido", required = false, defaultValue = "alreadyInputOnJoin") String sido,
-								 @RequestParam MultipartFile contentsFile) {
-		contentsService.modifyContents(contents, contentsFile);
-		contentsService.fileModify(contentsFile, contents);
+								 @RequestParam MultipartFile contentsFile,
+								 @RequestParam(name="contentsId") String contentsId,
+								 HttpSession session) {
+
+		String userId = (String) session.getAttribute("SID");
+
+		contentsService.modifyContents(contents);
+		log.info("modifyContents.contentsId: {}", contentsId);
+		contentsService.updateFile(contentsFile, contentsId, userId);
 
 		return "redirect:/user/mypage/myContentsList";
 	}
@@ -281,8 +287,8 @@ public class ContentsController {
 	}
 
 	@PostMapping("/form")
-	public String addFile(@RequestParam MultipartFile contentsFile, Contents contents) {
-		contentsService.fileUpload(contentsFile, "CNT202311220001", "id034", contents);
+	public String addFile(@RequestParam MultipartFile contentsFile) {
+		contentsService.fileUpload(contentsFile, "CNT202311220001", "id034");
 		return "redirect:/user/contents/form";
 	}
 

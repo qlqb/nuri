@@ -44,17 +44,10 @@ public class MainController {
 
 			List<ContentsCategory> contentsCategory = contentsService.getContentsCategory(tabValue);
 
-			Map<String, Object> resultMap = null;
+			Map<String, Object> resultMap = contentsService.getContentsInfoListByTabValueAndSearch(currentPage, tabValue, performanceGenre, area, startDate, endDate, searchValue);
 
-			if(performanceGenre.equals("allGenre")) {
-				resultMap = contentsService.getContentsInfoListByTabValue(currentPage, tabValue);
-				List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
-				model.addAttribute("contentsInfoList", contentsInfoList);
-			} else {
-				resultMap = contentsService.getContentsInfoListByTabValueAndSearch(currentPage, tabValue, performanceGenre, area, startDate, endDate, searchValue);
-				List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
-				model.addAttribute("contentsInfoList", contentsInfoList);
-			}
+			List<Map<String, Object>> contentsInfoList = (List<Map<String, Object>>) resultMap.get("contentsInfoList");
+
 
 			int lastPage = (int) resultMap.get("lastPage");
 			int startPageNum = (int) resultMap.get("startPageNum");
@@ -70,7 +63,7 @@ public class MainController {
 			model.addAttribute("title", "컨텐츠 조회");
 			model.addAttribute("tabValue", tabValue);
 			model.addAttribute("currentPage", currentPage);
-
+			model.addAttribute("contentsInfoList", contentsInfoList);
 			model.addAttribute("lastPage", lastPage);
 			model.addAttribute("startPageNum", startPageNum);
 			model.addAttribute("endPageNum", endPageNum);

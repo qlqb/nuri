@@ -7,6 +7,7 @@ import ksmart.ks48team01.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,92 +28,6 @@ public class ContentsService {
     public ContentsService(ContentsMapper contentsMapper, FileUtil fileUtil) {
         this.contentsMapper = contentsMapper;
         this.fileUtil = fileUtil;
-    }
-
-    public Map<String, Object> getContentsInfoList(int currentPage, String tabValue) {
-
-        //보여줄 컨텐츠의 개수
-        int contentsPerPage = 12;
-
-        // 보여줄 행의 시작점
-        int startContentsNum = (currentPage - 1) * contentsPerPage;
-
-        tabValue = convertTabValue(tabValue);
-
-        // 각 탭의 컨텐츠 개수
-        double contentsCnt = contentsMapper.getContentsByTabCnt(tabValue);
-
-        // 마지막페이지 (각 탭의 컨텐츠 개수/보여줄 컨텐츠의 갯수) 올림
-        int lastPage = (int)Math.ceil(contentsCnt/contentsPerPage);
-
-        // 보여줄 페이지 번호 초기값:1
-        int startPageNum = 1;
-
-        // 마지막 페이지 번호 초기값:10
-        int endPageNum = (lastPage < 10) ? lastPage : 10;
-
-        // 동적으로 페이지번호 구성
-        if(currentPage > 6 && lastPage > 9) {
-            startPageNum = currentPage - 5;
-            endPageNum = currentPage + 4;
-            if(endPageNum >= lastPage) {
-                startPageNum = lastPage - 9;
-                endPageNum = lastPage;
-            }
-        }
-
-        List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoList(startContentsNum, contentsPerPage);
-
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("contentsInfoList", contentsInfoList);
-        resultMap.put("lastPage", lastPage);
-        resultMap.put("startPageNum", startPageNum);
-        resultMap.put("endPageNum", endPageNum);
-        resultMap.put("contentsCnt", contentsCnt);
-
-        return resultMap;
-    }
-
-    public Map<String, Object> getContentsInfoList(int currentPage) {
-
-        //보여줄 컨텐츠의 개수
-        int contentsPerPage = 12;
-
-        // 보여줄 행의 시작점
-        int startContentsNum = (currentPage - 1) * contentsPerPage;
-
-        // 각 탭의 컨텐츠 개수
-        double contentsCnt = contentsMapper.getContentsByTabCnt("all");
-
-        // 마지막페이지 (각 탭의 컨텐츠 개수/보여줄 컨텐츠의 갯수) 올림
-        int lastPage = (int)Math.ceil(contentsCnt/contentsPerPage);
-
-        // 보여줄 페이지 번호 초기값:1
-        int startPageNum = 1;
-
-        // 마지막 페이지 번호 초기값:10
-        int endPageNum = (lastPage < 10) ? lastPage : 10;
-
-        // 동적으로 페이지번호 구성
-        if(currentPage > 6 && lastPage > 9) {
-            startPageNum = currentPage - 5;
-            endPageNum = currentPage + 4;
-            if(endPageNum >= lastPage) {
-                startPageNum = lastPage - 9;
-                endPageNum = lastPage;
-            }
-        }
-
-        List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoList(startContentsNum, contentsPerPage);
-
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("contentsInfoList", contentsInfoList);
-        resultMap.put("lastPage", lastPage);
-        resultMap.put("startPageNum", startPageNum);
-        resultMap.put("endPageNum", endPageNum);
-        resultMap.put("contentsCnt", contentsCnt);
-
-        return resultMap;
     }
 
     public List<StoreCategory> getStoreCategory() {
@@ -279,6 +194,9 @@ public class ContentsService {
                 contentsInfo.put("isBook", 1);
             }
 
+            /**
+             * 기간이 언제까지인지 정해지지 않고 계속 지속 될 거라고 생각 되는 경우
+             */
             if(contentsSellEndDate.equals("9999-12-31")) {
                 contentsInfo.replace("contentsSellDuration", contentsSellStartDate + "~");
             }
@@ -293,7 +211,7 @@ public class ContentsService {
             }
 
             /**
-             * 컨텐츠 가격값 파싱 작업
+             * 컨텐츠 가격 "0원"이면 "무료"로 변환
              */
             if(contentsPrice.equals("0원")) {
                 contentsInfo.replace("contentsPrice", "무료");
@@ -352,7 +270,24 @@ public class ContentsService {
      * @param contents
      */
     public void addContents(Contents contents, String sido) {
+        convertSido(contents, sido);
 
+        log.info("contentReleaeTime: {}", contents.getContentsReleaseTime());
+
+        contents.setAmountContentRemaining(contents.getAmountContentRegistered());
+        if(contents.getContentsSellEndDate().isEmpty()) {
+            contents.setContentsSellEndDate("9999-12-31");
+        }
+        if(contents.getContentsDuration().isEmpty()) {
+            contents.setContentsDuration("0");
+        }
+        if(contents.getContentsPg().isEmpty()) {
+            contents.setContentsPg("0");
+        }
+        contentsMapper.addContents(contents);
+    }
+
+    public void convertSido(Contents contents, String sido) {
         switch (sido) {
             case "서울" :
                 contents.setRegionCode((byte) 11);
@@ -406,41 +341,29 @@ public class ContentsService {
                 contents.setRegionCode((byte) 39);
                 break;
         }
-
-        contents.setAmountContentRemaining(contents.getAmountContentRegistered());
-        if(contents.getContentsSellEndDate().isEmpty()) {
-            contents.setContentsSellEndDate("9999-12-31");
-        }
-        if(contents.getContentsDuration().isEmpty()) {
-            contents.setContentsDuration("0");
-        }
-        if(contents.getContentsPg().isEmpty()) {
-            contents.setContentsPg("0");
-        }
-        if(contents.getContentsReleaseTime().isEmpty()) {
-//            contents.setContentsReleaseDT("1000-01-01 00:00:00");
-            contents.setContentsReleaseTime("00:00:00");
-        }
-        contentsMapper.addContents(contents);
     }
 
-    public void fileUpload(MultipartFile contentsFile, String contentsId, String userId, Contents contents) {
-        ContentsFile file = (ContentsFile) fileUtil.parseFileInfo(contentsFile, contents).get("contentsFile");
+    public void fileUpload(MultipartFile contentsFile, String contentsId, String userId) {
+        ContentsFile file = fileUtil.parseFileInfo(contentsFile);
 
         log.info("file: {}", file);
 
         file.setContentsId(contentsId);
         file.setUserId(userId);
 
-        // 파일리스트 db저장
+        // 파일 db저장
         if(file != null) contentsMapper.addFile(file);
     }
 
-    public void fileModify(MultipartFile contentsFile, Contents contents) {
-        Map<String, Object> fileMap = fileUtil.parseFileInfo(contentsFile, contents);
-        ContentsFile file = (ContentsFile) fileMap.get("contentsFile");
-        boolean isNew = (boolean) fileMap.get("isNew");
-        if(isNew) contentsMapper.addFile(file);
+    public void updateFile(MultipartFile contentsFile, String contentsId, String userId) {
+        ContentsFile file = fileUtil.parseFileInfo(contentsFile);
+
+        log.info("file: {}", file);
+
+        file.setContentsId(contentsId);
+        file.setUserId(userId);
+
+        if(file != null) contentsMapper.updateFile(file);
     }
 
     public Map<String, Object> getContentsDetailInfo(String contentsId) {
@@ -461,9 +384,9 @@ public class ContentsService {
             contentsDetailInfo.replace("strContentsPrice", "무료");
         }
         if(contentsPg.equals("0")) {
-            contentsDetailInfo.replace("contentsPg", "전체이용가");
+            contentsDetailInfo.replace("contentsPg", "전체");
         } else {
-            contentsDetailInfo.replace("contentsPg", "만 " + contentsPg + "세 이상 관람가");
+            contentsDetailInfo.replace("contentsPg", "만 " + contentsPg + "세 이상");
         }
 
         return contentsDetailInfo;
@@ -477,9 +400,8 @@ public class ContentsService {
         return contentsMapper.getContentsInfoByContentsId(contentsId);
     }
 
-    public List<Contents> getContentsInfoByUserId(String userId) {
-        List<Contents> contentsInfoList = contentsMapper.getContentsInfoByUserId(userId);
-        log.info("path: {}", contentsInfoList.get(0).getContentsFile().getFilePath());
+    public List<Map<String, Object>> getContentsInfoByUserId(String userId) {
+        List<Map<String, Object>> contentsInfoList = contentsMapper.getContentsInfoByUserId(userId);
         log.info("contentInfoList: {}", contentsInfoList);
         return contentsInfoList;
     }
@@ -501,21 +423,24 @@ public class ContentsService {
         return contentsMapper.getContentsCategoryOnReg(storeCategoryCode);
     }
 
-    public void modifyContents(Contents contents, MultipartFile contentsFile) {
+    public void modifyContents(Contents contents) {
         String contentsPg = contents.getContentsPg();
-        String contentsReleaseTime = contents.getContentsReleaseTime();
+//        String contentsReleaseTime = contents.getContentsReleaseTime();
 
         if(contentsPg.isEmpty()) {
             contents.setContentsPg("0");
         }
-        // html datetime local의 문자열 T를 제거함
-        LocalDateTime dateTime = LocalDateTime.parse(contentsReleaseTime);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formatterDateTime = dateTime.format(formatter);
-        contents.setContentsReleaseTime(formatterDateTime);
+
+//        contents.setContentsReleaseTime(contentsReleaseTime);
 
         log.info("remain: {}", contents.getAmountContentRemaining());
         contentsMapper.modifyContents(contents);
+    }
+
+    @Transactional
+    public void deleteContents(String contentsId) {
+        contentsMapper.deleteContentsFile(contentsId);
+        contentsMapper.deleteContents(contentsId);
     }
 
     public String getContentsIdForFileAdd(String storeId) {

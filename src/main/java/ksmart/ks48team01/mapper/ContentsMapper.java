@@ -46,6 +46,8 @@ public interface ContentsMapper {
      */
     public void addFile(ContentsFile contentsFile);
 
+    public void updateFile(ContentsFile contentsFile);
+
     public Map<String, Object> getContentsDetailInfo(String contentsId);
 
     public Store getSessionStoreInfo(String userId);
@@ -57,7 +59,7 @@ public interface ContentsMapper {
      * @param userId
      * @return
      */
-    public List<Contents> getContentsInfoByUserId(String userId);
+    public List<Map<String, Object>> getContentsInfoByUserId(String userId);
 
     /**
      * 컨텐츠 등록할 때 컨텐츠 대분류 선택 시 컨텐츠 소분류 호출하기 위해 선언 된 메서드
@@ -92,4 +94,6 @@ public interface ContentsMapper {
      */
     public String getContentsIdForFileAdd(String storeId);
 
+    public void deleteContentsFile(String contentsId);
+    public void deleteContents(String contentsId);
 }

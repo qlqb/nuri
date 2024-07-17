@@ -9,10 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("myPageController")
 @RequestMapping("/user/mypage")
@@ -36,10 +39,16 @@ public class MyPageController {
 
 		String userId = (String) session.getAttribute("SID");
 		if(userId != null) {
-			List<Contents> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
+			List<Map<String, Object>> contentsInfoList = contentsService.getContentsInfoByUserId(userId);
 			model.addAttribute("contentsInfoList", contentsInfoList);
 		}
 		return "user/mypage/myContentsList";
+	}
+
+	@GetMapping("/deleteContents")
+	public String deleteContents(@RequestParam String contentsId) {
+		contentsService.deleteContents(contentsId);
+		return "redirect:/user/mypage/myContentsList";
 	}
 
 	@GetMapping("/mypageMain")

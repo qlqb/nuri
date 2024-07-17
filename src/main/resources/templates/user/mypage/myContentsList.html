@@ -237,7 +237,6 @@
                                                 <div class="sorting">
                                                     <label for="sort">정렬</label>
                                                     <select name="sort" id="sort">
-                                                        <option value="0">인기순</option>
                                                         <option value="1">이름순</option>
                                                         <option value="2">등록일순</option>
                                                     </select>
@@ -247,18 +246,6 @@
 
                                         <div class="col-md-9">
                                             <div class="right-wrapper">
-
-                                                <ul class="nav product-view-btns" id="myTab" role="tablist">
-                                                    <li class="product-view-item" role="presentation">
-                                                        <a class="product-view-btn" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list"
-                                                           aria-selected="true"><i class="lni lni-list"></i></a>
-                                                    </li>
-                                                    <li class="product-view-item" role="presentation">
-                                                        <a class="product-view-btn active" id="grid-tab" data-toggle="tab" href="#grid" role="tab" aria-controls="grid"
-                                                           aria-selected="false"><i class="lni lni-grid-alt"></i></a>
-                                                    </li>
-                                                </ul>
-
                                                 <form action="#">
                                                     <input type="text" name="search" id="search" placeholder="검색">
                                                     <button><i class="lni lni-search-alt"></i></button>
@@ -286,15 +273,15 @@
                                                     <div class="form-check check-style">
                                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
                                                     </div>
-                                                    <img th:src="@{'/' + ${cil.contentsFile.filePath}}" th:alt="${cil.contentsFile.fileName}" width="100">
+                                                    <img th:src="@{'/' + ${cil.filePath}}" th:alt="${cil.fileName}" width="100">
                                                 </div>
                                             </td>
                                             <td>
                                                 <h6 th:text="${cil.contentsName}"></h6>
-                                                <span class="ad-id" th:text="${cil.contentsId}"></span>
+                                                <span th:text="${cil.contentsId}" class="ad-id"></span>
                                             </td>
                                             <td>
-                                                <span class="category" th:text="${cil.storeInfo.storeCategoryName}"></span>
+                                                <span class="category" th:text="${cil.storeCategoryName}"></span>
                                             </td>
                                             <td>
                                                 <th:block th:if="${cil.amountContentRemaining} != 0">
@@ -310,19 +297,19 @@
                                             <td>
                                                 <div class="action-btns">
                                                     <a th:href="@{/user/contents/contentsDetail(contentsId=${cil.contentsId})}" class="eye-btn" ><i class="lni lni-eye"></i></a>
-                                                    <th:block th:if="${cil.storeInfo.storeCategoryName == '도서'}">
+                                                    <th:block th:if="${cil.storeCategoryName == '도서'}">
                                                         <a th:href="@{/user/contents/bookInfoUpdate(contentsId=${cil.contentsId})}" class="edit-btn"><i class="lni lni-pencil"></i></a>
                                                     </th:block>
-                                                    <th:block th:if="${cil.storeInfo.storeCategoryName == '공연'}">
+                                                    <th:block th:if="${cil.storeCategoryName == '공연'}">
                                                         <a th:href="@{/user/contents/performUpdate(contentsId=${cil.contentsId})}" class="edit-btn"><i class="lni lni-pencil"></i></a>
                                                     </th:block>
-                                                    <th:block th:if="${cil.storeInfo.storeCategoryName == '전시'}">
+                                                    <th:block th:if="${cil.storeCategoryName == '전시'}">
                                                         <a th:href="@{/user/contents/exhibitionUpdate(contentsId=${cil.contentsId})}" class="edit-btn"><i class="lni lni-pencil"></i></a>
                                                     </th:block>
-                                                    <th:block th:if="${cil.storeInfo.storeCategoryName == '영화'}">
+                                                    <th:block th:if="${cil.storeCategoryName == '영화'}">
                                                         <a th:href="@{/user/contents/movieUpdate(contentsId=${cil.contentsId})}" class="edit-btn"><i class="lni lni-pencil"></i></a>
                                                     </th:block>
-                                                    <a href="javascript:void(0)" class="delete-btn"><i class="lni lni-trash"></i></a>
+                                                    <a th:href="@{/user/mypage/deleteContents(contentsId=${cil.contentsId})}" class="delete-btn"><i class="lni lni-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -330,7 +317,6 @@
                                 </table>
                             </div>
                         </section>
-
                     </div>
                 </div>
             </div>

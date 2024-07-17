@@ -33,6 +33,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Summernote JS -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </th:block>
 <!--====== PRELOADER PART START ======-->
 <th:block layout:fragment="customContents">
@@ -48,16 +49,21 @@
 
                     <div class="post-ad-form-wrapper">
 
-                        <form id="modifyPerformContentsForm" th:action="@{/user/contents/contentsInfoUpdate}" th:object="${contentsInfo}" method="post">
+                        <form id="modifyPerformContentsForm" th:action="@{/user/contents/contentsInfoUpdate}" th:object="${contentsInfo}" method="post" enctype="multipart/form-data">
                             <div class="row justify-content-center">
                                 <div class="col-xl-7">
                                     <div class="right-wrapper pt-50 ">
 
                                         <input type="hidden" th:value="${storeInfo.storeId}" id="storeId" name="storeId"/>
+                                        <input type="hidden" th:value="*{contentsId}" id="contentsId" name="contentsId"/>
 
                                         <div class="single-form mb-30">
                                             <label for="contentsName" class="mb-1">공연 제목</label>
                                             <input type="text" th:value="*{contentsName}" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsFile" class="mb-1">컨텐츠 이미지</label>
+                                            <input type="file" id="contentsFile" name="contentsFile" class="px-3 py-2 mb-0 border rounded">
                                         </div>
                                         <div class="single-form mb-30">
                                             <label for="contentsPrice" class="mb-1">티켓 가격</label>
@@ -105,13 +111,13 @@
                                         </div>
 
                                         <div class="single-form mb-40">
-                                            <label for="pgNotApplicable">전체 관람가</label>
+                                            <label for="pgNotApplicable">전체 연령</label>
                                             <input type="checkbox" id="pgNotApplicable" name="pgNotApplicable" class="w-auto"/>
                                         </div>
 
                                         <div class="single-form mb-30">
                                             <label for="contentsReleaseTime" class="mb-1">공연 시작 시간</label>
-                                            <input type="datetime-local" th:value="*{contentsReleaseTime}" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            <input type="time" th:value="*{contentsReleaseTime}" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
                                         </div>
 
                                         <div class="single-form mb-30">

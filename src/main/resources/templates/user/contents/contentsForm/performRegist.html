@@ -49,16 +49,21 @@
 
                     <div class="post-ad-form-wrapper">
 
-                        <form id="addContentsForm" th:action="@{/user/contents/contentsInfoRegist}" method="post">
+                        <form id="addContentsForm" th:action="@{/user/contents/contentsInfoRegist}" method="post" enctype="multipart/form-data">
                             <div class="row justify-content-center">
                                 <div class="col-xl-7">
                                     <div class="right-wrapper pt-50 ">
 
                                         <input type="hidden" th:value="${storeInfo.storeId}" id="storeId" name="storeId"/>
+                                        <input type="hidden" th:value="${storeInfo.userId}" id="userId" name="userId"/>
 
                                         <div class="single-form mb-30">
                                             <label for="contentsName" class="mb-1">공연 제목</label>
                                             <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsFile" class="mb-1">컨텐츠 이미지</label>
+                                            <input type="file" id="contentsFile" name="contentsFile" class="px-3 py-2 mb-0 border rounded">
                                         </div>
                                         <div class="single-form mb-30">
                                             <label for="contentsPrice" class="mb-1">티켓 가격</label>
@@ -106,13 +111,13 @@
                                         </div>
 
                                         <div class="single-form mb-40">
-                                            <label for="pgNotApplicable">전체 관람가</label>
+                                            <label for="pgNotApplicable">전체 연령</label>
                                             <input type="checkbox" id="pgNotApplicable" name="pgNotApplicable" class="w-auto"/>
                                         </div>
 
                                         <div class="single-form mb-30">
-                                            <label for="contentsReleaseTime" class="mb-1">공연 시작 시간</label>
-                                            <input type="datetime-local" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            <label for="contentsReleaseTime" class="mb-1">공연 시간</label>
+                                            <input type="time" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
                                         </div>
 
                                         <div class="single-form mb-30">

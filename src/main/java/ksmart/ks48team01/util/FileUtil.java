@@ -32,29 +32,29 @@ public class FileUtil {
     @Value("/home/springboot/")
     private String fileRealPath;
 
-    public Map<String, Object> parseFileInfo(MultipartFile uploadFile, Contents contents) {
+    public ContentsFile parseFileInfo(MultipartFile uploadFile) {
         log.info("uploadFile: {}", uploadFile);
 
-        boolean isNew = false;
+//        boolean isNew = false;
 
-        if(uploadFile.getOriginalFilename().equals("")) {
-            //새 파일이 없을 때
-            contents.getContentsFile().setFileName(contents.getContentsFile().getFileName());
-            contents.getContentsFile().setFilePath(contents.getContentsFile().getFilePath());
-        } else if (uploadFile.getOriginalFilename() != null) {
-            //새 파일이 있을 때
-            isNew = true;
-            File f = new File(contents.getContentsFile().getFilePath());
-            if (f.exists()) {
-                f.delete();
-            }
-        }
+//        if(uploadFile.getOriginalFilename().equals("")) {
+//            //새 파일이 없을 때
+//            contents.getContentsFile().setFileName(contents.getContentsFile().getFileName());
+//            contents.getContentsFile().setFilePath(contents.getContentsFile().getFilePath());
+//        } else if (uploadFile.getOriginalFilename() != null) {
+//            //새 파일이 있을 때
+//            isNew = true;
+//            File f = new File(contents.getContentsFile().getFilePath());
+//            if (f.exists()) {
+//                f.delete();
+//            }
+//        }
 
         // 파일이 존재하지 않은 경우
-        if(ObjectUtils.isEmpty(uploadFile)) {
-
-            return null;
-        }
+//        if(ObjectUtils.isEmpty(uploadFile)) {
+//
+//            return null;
+//        }
 
         // 날짜 패턴
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -147,10 +147,9 @@ public class FileUtil {
             }
         }
 
-        Map<String, Object> isNewFileMap = new HashMap<>();
-        isNewFileMap.put("isNew", isNew);
-        isNewFileMap.put("contentsFile", contentsFile);
+//        Map<String, Object> isNewFileMap = new HashMap<>();
+//        isNewFileMap.put("isNew", isNew);
 
-        return isNewFileMap;
+        return contentsFile;
     }
 }

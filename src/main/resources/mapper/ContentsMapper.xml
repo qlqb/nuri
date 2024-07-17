@@ -36,16 +36,6 @@
             <result property="openingTime" column="OPENING_TIME"/>
             <result property="storeRegDate" column="STORE_REG_DATE"/>
         </association>
-        <association property="contentsFile" javaType="ContentsFile">
-            <id property="fileCode" column="FILE_CODE"/>
-            <result property="contentsId" column="CONTENTS_ID"/>
-            <result property="userId" column="USER_ID"/>
-            <result property="fileName" column="FILE_NAME"/>
-            <result property="fileSize" column="FILE_SIZE"/>
-            <result property="fileExt" column="FILE_EXT"/>
-            <result property="filePath" column="FILE_PATH"/>
-            <result property="fileDate" column="FILE_DATE"/>
-        </association>
     </resultMap>
 
     <resultMap id="contentsCategoryResultMap" type="ContentsCategory">
@@ -73,7 +63,7 @@
             IFNULL(CONCAT(c.CONTENTS_SELL_START_DATE, '~', c.CONTENTS_SELL_END_DATE), 0) AS contentsSellDuration,
             IF(si.STORE_CATEGORY_NAME = '도서', 'book',
                 IF(si.STORE_CATEGORY_NAME = '체육', 'exercise',
-                    IF(c.CONTENTS_PG=0, '전체 관람가', CONCAT(c.CONTENTS_PG, '세 이상 관람가')))) AS contentsPg,
+                    IF(c.CONTENTS_PG=0, '전체', CONCAT(c.CONTENTS_PG, '세 이상')))) AS contentsPg,
             CONCAT(FORMAT(c.CONTENTS_PRICE, 0), '원') AS contentsPrice,
 
             si.STORE_NAME AS storeName,
@@ -161,7 +151,7 @@
                 AND c.CONTENTS_CAT_CODE = #{performanceGenre}
             </if>
         </where>
-        ORDER BY c.CONTENTS_REG_DATE
+        ORDER BY c.CONTENTS_REG_DATE DESC
         <if test="startContentsNum > -1">
             LIMIT #{startContentsNum}, #{contentsPerPage};
         </if>
@@ -293,7 +283,8 @@
     <select id="getSessionStoreInfo" resultType="Store" parameterType="String">
         SELECT
             si.STORE_ID AS storeId,
-            si.STORE_NAME AS storeName
+            si.STORE_NAME AS storeName,
+            si.USER_ID AS userId
         FROM
             USER_INFO AS u
             INNER JOIN
@@ -331,20 +322,20 @@
             c.CONTENTS_ID = #{contentsId};
     </select>
 
-    <select id="getContentsInfoByUserId" resultMap="contentsResultMap" parameterType="String">
+    <select id="getContentsInfoByUserId" resultType="Map" parameterType="String">
         /* 가맹점별 컨텐츠 정보 */
         SELECT
-            c.CONTENTS_ID,
-            c.CONTENTS_NAME,
-            c.CONTENTS_CAT_CODE,
-            c.CONTENTS_CAT_NAME,
-            c.CONTENTS_PRICE,
-            c.CONTENTS_SELL_START_DATE,
-            c.CONTENTS_SELL_END_DATE,
-            cc_new.CONTENTS_CAT_NAME AS STORE_CATEGORY_NAME,
-            c.AMOUNT_CONTENT_REMAINING,
-            cf.FILE_PATH,
-            cf.FILE_NAME
+            c.CONTENTS_ID AS contentsId,
+            c.CONTENTS_NAME AS contentsName,
+            c.CONTENTS_CAT_CODE AS contentsCategoryCode,
+            c.CONTENTS_CAT_NAME AS contentsCategoryName,
+            c.CONTENTS_PRICE AS contentsPrice,
+            c.CONTENTS_SELL_START_DATE AS contentsSellStartDate,
+            c.CONTENTS_SELL_END_DATE AS contentsSellEndDate,
+            cc_new.CONTENTS_CAT_NAME AS storeCategoryName,
+            c.AMOUNT_CONTENT_REMAINING AS amountContentRemaining,
+            cf.FILE_PATH AS filePath,
+            cf.FILE_NAME AS fileName
         FROM
             USER_INFO AS ui
             INNER JOIN
@@ -368,7 +359,8 @@
             ON
             cf.CONTENTS_ID = c.CONTENTS_ID
         WHERE
-            ui.USER_ID = #{userId};
+            ui.USER_ID = #{userId}
+        ORDER BY CONTENTS_REG_DATE DESC;
     </select>
 
     <select id="getAjaxContentsCategory" resultType="ContentsCategory" parameterType="String">
@@ -488,6 +480,28 @@
         )
     </insert>
 
+    <update id="updateFile" parameterType="ContentsFile">
+        UPDATE CONTENTS_FILE
+        <set>
+            <if test="fileName != null and fileName != ''">
+                FILE_NAME = #{fileName},
+            </if>
+            <if test="fileSize != null and fileSize != ''">
+                FILE_SIZE = #{fileSize},
+            </if>
+            <if test="fileExt != null and fileExt != ''">
+                FILE_EXT = #{fileExt},
+            </if>
+            <if test="filePath != null and filePath != ''">
+                FILE_PATH = #{filePath},
+            </if>
+            <if test="fileDate != null and fileDate != ''">
+                FILE_DATE = CURDATE(),
+            </if>
+        </set>
+        WHERE CONTENTS_ID = #{contentsId};
+    </update>
+
     <select id="getContentsIdForFileAdd" resultType="String" parameterType="String">
         /* 파일과 함께 컨텐츠가 추가 될 때 생성 된 컨텐츠 아이디를 파일 테이블에 추가하기 위해 contentsId를 가져옴 */
         SELECT
@@ -512,4 +526,12 @@
         FROM
             CONTENTS_FILE AS cf
     </select>
+
+    <delete id="deleteContentsFile" parameterType="String">
+        DELETE FROM CONTENTS_FILE WHERE CONTENTS_ID=#{contentsId};
+    </delete>
+
+    <delete id="deleteContents" parameterType="String">
+        DELETE FROM CONTENTS WHERE CONTENTS_ID=#{contentsId};
+    </delete>
 </mapper>

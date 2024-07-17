@@ -13,7 +13,7 @@ public class Contents {
     private String contentsPg = "0";
     private int contentsPrice;
 //    private String contentsReleaseDT = "1000-01-01T00:00:00";
-    private String contentsReleaseTime = "00:00:00";
+    private String contentsReleaseTime;
     private String contentsRegDate;
     private String contentsSellStartDate = "1000-01-01";
     private String contentsSellEndDate = "9999-12-31";
@@ -21,7 +21,6 @@ public class Contents {
     private int amountContentRemaining = -10000;
     private String contentsDetail;
     private Store storeInfo;
-    private ContentsFile contentsFile;
 
     public String getContentsId() {
         return contentsId;
@@ -167,14 +166,6 @@ public class Contents {
         this.storeInfo = storeInfo;
     }
 
-    public ContentsFile getContentsFile() {
-        return contentsFile;
-    }
-
-    public void setContentsFile(ContentsFile contentsFile) {
-        this.contentsFile = contentsFile;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Contents{");
@@ -196,7 +187,6 @@ public class Contents {
         sb.append(", amountContentRemaining=").append(amountContentRemaining);
         sb.append(", contentsDetail='").append(contentsDetail).append('\'');
         sb.append(", storeInfo=").append(storeInfo);
-        sb.append(", contentsFile=").append(contentsFile);
         sb.append('}');
         return sb.toString();
     }

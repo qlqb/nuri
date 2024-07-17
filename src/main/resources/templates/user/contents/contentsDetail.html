@@ -316,17 +316,13 @@
               <div class="text-wrapper col-lg-7 col-xl-7 left">
                 <div class="top_info">
                   <dl th:if="*{contentsReleaseTime != '0'}" class="col-lg-7 col-xl-7">
-                    <dt>일시</dt>
+                    <dt>시간</dt>
                     <dd th:text=" *{contentsReleaseTime}"></dd>
                   </dl>
                   <dl th:if="*{contentsAddress != 'alreadyInputOnJoin'}" class="col-lg-5 col-xl-5">
                     <dt>장소</dt>
                     <dd th:text="*{contentsAddress}"></dd>
                   </dl>
-<!--                  <dl class="col-lg-5 col-xl-5">-->
-<!--                    <dt >지역</dt>-->
-<!--                    <dd >서울</dd>-->
-<!--                  </dl>-->
                   <dl class="col-lg-7 col-xl-7">
                     <dt>판매기간</dt>
                     <dd th:text="*{contentsSellDuration}"></dd>
@@ -339,12 +335,12 @@
                     <dd th:text="*{contentsDuration}"></dd>
                   </dl>
                   <dl class="col-lg-12 col-xl-12">
-                    <dt>등급</dt>
-                    <dd th:text="*{contentsPg}">만 13세 이상 관람가</dd>
+                    <dt>연령제한</dt>
+                    <dd th:text="*{contentsPg}"></dd>
                   </dl>
                   <dl class="col-lg-12 col-xl-12">
                     <dt>문의</dt>
-                    <dd th:text="*{storeContact}">070-4792-8342</dd>
+                    <dd th:text="*{storeContact}"></dd>
                   </dl>
                   <dl class="col-lg-12 col-xl-12">
                     <dt>가격</dt>
