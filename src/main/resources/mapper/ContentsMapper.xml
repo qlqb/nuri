@@ -173,9 +173,13 @@
     <select id="getContentsByTabAndSearchCnt" resultType="int" parameterType="String">
         /* 각 탭의 서칭 결과 컨텐츠 개수 */
         SELECT
-        COUNT(1)
+            COUNT(1)
         FROM
-        CONTENTS AS c
+            CONTENTS AS c
+            INNER JOIN
+            CONTENTS_FILE AS cf
+            ON
+            c.CONTENTS_ID = cf.CONTENTS_ID
         <where>
             <if test="tabValue != 'all'">
                 c.CONTENTS_CAT_CODE LIKE CONCAT(#{tabValue}, '__');
