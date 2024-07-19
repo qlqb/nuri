@@ -19,10 +19,6 @@ import java.nio.file.Paths;
 import java.sql.SQLOutput;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class FileUtil {
@@ -35,27 +31,6 @@ public class FileUtil {
     public ContentsFile parseFileInfo(MultipartFile uploadFile) {
         log.info("uploadFile: {}", uploadFile);
 
-//        boolean isNew = false;
-
-//        if(uploadFile.getOriginalFilename().equals("")) {
-//            //새 파일이 없을 때
-//            contents.getContentsFile().setFileName(contents.getContentsFile().getFileName());
-//            contents.getContentsFile().setFilePath(contents.getContentsFile().getFilePath());
-//        } else if (uploadFile.getOriginalFilename() != null) {
-//            //새 파일이 있을 때
-//            isNew = true;
-//            File f = new File(contents.getContentsFile().getFilePath());
-//            if (f.exists()) {
-//                f.delete();
-//            }
-//        }
-
-        // 파일이 존재하지 않은 경우
-//        if(ObjectUtils.isEmpty(uploadFile)) {
-//
-//            return null;
-//        }
-
         // 날짜 패턴
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
         // 현재 날짜(디렉토리 명)
@@ -67,6 +42,7 @@ public class FileUtil {
         ContentsFile contentsFile = new ContentsFile();
         if(uploadFile.isEmpty() == false) {
             contentType = uploadFile.getContentType();
+            //contentType(String)을 null인지 길이가 0인지 공백인지 등을 검사함
             if(!ObjectUtils.isEmpty(contentType)) {
                 // 콘텐츠 이미지 파일 타입별 분류 ( 이미지, file폴더 구분
                 if(contentType.indexOf("image/") > -1) {
@@ -79,6 +55,7 @@ public class FileUtil {
                     } else if(contentType.contains("webp")) {
                         originalFileExtension = ".webp";
                     }
+                    //File.separator는 운영체제에 맞는 디렉터리 구분자를 알아서 할당해줌
                     directory = "images" + File.separator;
                 } else {
                     directory = "files" + File.separator;
@@ -111,6 +88,7 @@ public class FileUtil {
                     if(i == (fileNameSplit.length-1)) {
                         fileNameSplit[i] = "." + fileNameSplit[i];
                     } else {
+                        // 파일명 안겹치기 위해 System.nanoTime 이용
                         fileNameSplit[i] = fileNameSplit[i].replaceAll("\\s", "") + Long.toString(System.nanoTime());
                     }
                     resultFileName += fileNameSplit[i];
@@ -122,13 +100,13 @@ public class FileUtil {
 
                 try {
                     bytes = uploadFile.getBytes();
-                    //파일 업로드
+                    //실제 서버에 파일 정보를 바이트 형태로 출력함
                     Files.write(uploadPath, bytes);
                 } catch (IOException e) {
                     e.printStackTrace();
                     return null;
                 }
-                // 올려진 파일 리스트로 정리(테이블에 삽입할 내용)
+                // db 테이블에 삽입할 데이터 추려서 객체로 세팅
                 fileCode = "file_" + current.format(format) + Long.toString(System.nanoTime());
                 log.info("fileCode: {}", fileCode);
                 contentsFile.setFileCode(fileCode);
@@ -146,9 +124,6 @@ public class FileUtil {
                 contentsFile.setFileExt(fileExt);
             }
         }
-
-//        Map<String, Object> isNewFileMap = new HashMap<>();
-//        isNewFileMap.put("isNew", isNew);
 
         return contentsFile;
     }

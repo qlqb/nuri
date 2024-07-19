@@ -234,7 +234,7 @@ public class ContentsService {
         return contentsMapper.getContentsByTabCnt(tabValue);
     }
 
-    public String convertTabValue(String tabValue) {
+    private String convertTabValue(String tabValue) {
         switch(tabValue) {
             case "공연" :
                 tabValue = "A01";
