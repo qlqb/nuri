@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/default}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<th:block layout:fragment="customContents">
+    <!--====== BANNER PART START ======-->
+    <section class="banner-area bg_cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-content">
+                        <h1 class="text-white">문화정보</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/user}">메인페이지</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">문화정보</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== BANNER PART END ======-->
+    <!--====== CATEGORY PART START ======-->
+    <section class="page-404-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="text-center content-404">
+                        <div class="image mb-50">
+                            <img th:src="@{/user/assets/images/404/404-img.svg}" alt="">
+                        </div>
+                        <h1>Page Not Found</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+</html>

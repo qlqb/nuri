@@ -51,7 +51,7 @@
 
                     <div class="post-ad-form-wrapper">
 
-                        <form id="addContentsForm" th:action="@{/user/contents/contentsInfoRegist}" method="post">
+                        <form id="addContentsForm" th:action="@{/user/contents/contentsInfoRegist}" method="post" enctype="multipart/form-data">
                             <div class="row justify-content-center">
                                 <div class="col-xl-7">
                                     <div class="right-wrapper pt-50 ">
@@ -62,6 +62,10 @@
                                         <div class="single-form mb-30">
                                             <label for="contentsName" class="mb-1">영화 제목</label>
                                             <input type="text" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsFile" class="mb-1">이미지</label>
+                                            <input type="file" id="contentsFile" name="contentsFile" class="px-3 py-2 mb-0 border rounded">
                                         </div>
                                         <div class="single-form mb-30">
                                             <label for="contentsPrice" class="mb-1">티켓 가격</label>
@@ -115,7 +119,7 @@
 
                                         <div class="single-form mb-30">
                                             <label for="contentsReleaseTime" class="mb-1">영화 시작 시간</label>
-                                            <input type="datetime-local" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            <input type="time" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
                                         </div>
 
                                         <div class="single-form mb-30">

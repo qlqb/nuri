@@ -49,7 +49,7 @@
 
                     <div class="post-ad-form-wrapper">
 
-                        <form id="modifyMovieContentsForm" th:action="@{/user/contents/contentsInfoUpdate}" th:object="${contentsInfo}" method="post">
+                        <form id="modifyMovieContentsForm" th:action="@{/user/contents/contentsInfoUpdate}" th:object="${contentsInfo}" method="post" enctype="multipart/form-data">
                             <input type="hidden" th:value="${contentsInfo.contentsId}" name="contentsId" id="contentsId">
                             <div class="row justify-content-center">
                                 <div class="col-xl-7">
@@ -57,6 +57,10 @@
                                         <div class="single-form mb-30">
                                             <label for="contentsName" class="mb-1">영화 제목</label>
                                             <input type="text" th:value="*{contentsName}" id="contentsName" name="contentsName" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                        </div>
+                                        <div class="single-form mb-30">
+                                            <label for="contentsFile" class="mb-1">이미지</label>
+                                            <input type="file" id="contentsFile" name="contentsFile" class="px-3 py-2 mb-0 border rounded">
                                         </div>
                                         <div class="single-form mb-30">
                                             <label for="contentsPrice" class="mb-1">티켓 가격</label>
@@ -110,7 +114,7 @@
 
                                         <div class="single-form mb-30">
                                             <label for="contentsReleaseTime" class="mb-1">영화 시작 시간</label>
-                                            <input type="datetime-local" th:value="*{contentsReleaseTime}" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
+                                            <input type="time" th:value="*{contentsReleaseTime}" id="contentsReleaseTime" name="contentsReleaseTime" placeholder="" class="px-3 py-2 mb-0 border rounded">
                                         </div>
 
                                         <div class="single-form mb-30">
